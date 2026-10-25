@@ -300,7 +300,7 @@ reproduces the published documents exactly.
 > - relation inverses agree (strengthens and strengthened by; checks and
 >   checked by);
 > - every rule has at least one primary source unless it is listed in
->   `meta.known_exceptions` with a reason (today only C15);
+>   `meta.known_exceptions` with a reason (today only P53);
 > - every C-rule names a counterexample, and every K-rule names two or more
 >   existing rules;
 > - category membership matches each rule's category;
@@ -310,7 +310,7 @@ reproduces the published documents exactly.
 > - the generated files under `publication/` are up to date.
 >
 > The content of 1.0.0 shows the effect of such checks in its own
-> statements (for example the single listed exception for C15) but does not
+> statements (for example the single listed exception for P53) but does not
 > show when the checks were introduced; the checks above are those of this
 > repository.
 
@@ -370,7 +370,7 @@ counterexample, and the checklist has five to nine items.
 > (C). The content states that the test asks whether a rule can apply, not
 > whether a domain already practices it: "A domain without the practice has
 > an adoption gap; that is not a counterexample". Each C-rule names a
-> counterexample, and C15 (late work and added people) shows the pattern: its
+> counterexample, and P53 (late work and added people) shows the pattern: its
 > counterexample is work that can be split into independent parts without
 > communication, such as harvesting a field. The content states that the
 > classification of each rule "is the author's judgment against the test in
@@ -427,11 +427,11 @@ limit is written down.
 > archive, Hoare's lecture via worrydream.com, Edmondson via MIT, Staw and
 > Sackett via gwern.net, Campbell via a 2011 journal reprint, § 239 HGB via
 > dejure.org and Regulation (EU) No 537/2014 via charteredaccountants.ie. It
-> states that every rule has at least one primary source except C15, whose
+> states that every rule has at least one primary source except P53, whose
 > primary source (Brooks's 1975 book) is not online. The limits include paid
 > documents (ISO standards, PRINCE2, PMBOK), texts that could not be fetched
-> in full, rules with a cross-reference-only transfer (R5, U30, U44, C13, U33
-> and U37), and contested evidence (U55, contested by Deming; K8 resolves the
+> in full, rules with a cross-reference-only transfer (P15, P27, P29, P34, P72
+> and P74), and contested evidence (P21, contested by Deming; K8 resolves the
 > conflict). The content explains why Wikipedia is kept only as a secondary
 > link, quoting its own statement that it "is not a reliable source for
 > academic writing or research" [@wikipedia-academic-use]. The content does
@@ -449,11 +449,11 @@ needs two or more existing rules. Its basis column says whether a source
 decides the conflict or whether the resolution is the author's synthesis.
 
 > **Applied in this taxonomy:** The content has eight conflict rules (K1 to
-> K8). Examples: K3 resolves the tension between tolerating variation (U30)
-> and rejecting bad input (C5) by placing the boundary at the specification.
+> K8). Examples: K3 resolves the tension between tolerating variation (P27)
+> and rejecting bad input (P33) by placing the boundary at the specification.
 > K5 scales review depth by reversibility and consequence. K7 separates
 > honest errors (handled without blame) from deliberate violations (handled
-> by a fair disciplinary procedure). K1 has the Basis "sourced (see U7, U25, R1)".
+> by a fair disciplinary procedure). K1 has the Basis "sourced (see P23, P44, P45)".
 > K2, K4 and K7 read "author's synthesis; no single source", and K3, K5, K6
 > and K8 read "author's synthesis from" named sources. The content states
 > that K1 to K8 are the author's synthesis unless their Basis column names a

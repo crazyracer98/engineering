@@ -5,118 +5,118 @@
   name: Responsibility
   description: Duties toward people, the environment and the work itself.
   rules:
-  - U1
-  - U2
-  - U16
-  - U20
-  - U47
-  - U48
-  - U49
-  - U54
+  - P1
+  - P2
+  - P3
+  - P4
+  - P5
+  - P6
+  - P7
+  - P8
 - id: B
   name: Knowledge and decisions
   description: How requirements, decisions, models and evidence are recorded and trusted.
   rules:
-  - U3
-  - U21
-  - U22
-  - U31
-  - U43
-  - U45
-  - R5
-  - R8
-  - C2
-  - U50
-  - U51
-  - U52
-  - U55
+  - P9
+  - P10
+  - P11
+  - P12
+  - P13
+  - P14
+  - P15
+  - P16
+  - P17
+  - P18
+  - P19
+  - P20
+  - P21
 - id: C
   name: Design
   description: How to shape a design before it is built, so that it fails less.
   rules:
-  - U6
-  - U7
-  - U14
-  - U15
-  - U24
-  - U30
-  - U38
-  - U44
-  - U46
-  - R7
-  - C4
-  - C5
-  - C13
-  - C14
+  - P22
+  - P23
+  - P24
+  - P25
+  - P26
+  - P27
+  - P28
+  - P29
+  - P30
+  - P31
+  - P32
+  - P33
+  - P34
+  - P35
 - id: D
   name: Protection
   description: Controls that prevent harm, or contain it when it happens.
   rules:
-  - U12
-  - U26
-  - U27
-  - U28
-  - U29
-  - U34
-  - R6
-  - R9
+  - P36
+  - P37
+  - P38
+  - P39
+  - P40
+  - P41
+  - P42
+  - P43
 - id: E
   name: Capacity and continuity
   description: How the system keeps working under high load and partial failure.
   rules:
-  - U25
-  - R1
-  - R2
-  - C3
-  - C6
-  - C7
-  - C8
-  - C11
-  - U53
-  - C15
+  - P44
+  - P45
+  - P46
+  - P47
+  - P48
+  - P49
+  - P50
+  - P51
+  - P52
+  - P53
 - id: F
   name: Verification and review
   description: How to prove that the work is correct.
   rules:
-  - U4
-  - U5
-  - U8
-  - U17
-  - U40
-  - R3
-  - C1
-  - C10
-  - U56
-  - U57
+  - P54
+  - P55
+  - P56
+  - P57
+  - P58
+  - P59
+  - P60
+  - P61
+  - P62
+  - P63
 - id: G
   name: Change
   description: How to change the system safely.
   rules:
-  - U9
-  - U19
-  - U36
-  - U39
-  - R4
-  - U58
+  - P64
+  - P65
+  - P66
+  - P67
+  - P68
+  - P69
 - id: H
   name: Operation and maintenance
   description: How to run, watch and maintain the system.
   rules:
-  - U13
-  - U32
-  - U33
-  - U35
-  - U37
-  - U41
-  - U42
-  - C9
-  - C12
-  - C16
+  - P70
+  - P71
+  - P72
+  - P73
+  - P74
+  - P75
+  - P76
+  - P77
+  - P78
+  - P79
 - id: I
   name: Learning
   description: How to learn from failures and anomalies.
   rules:
-  - U10
-  - U11
-  - U18
-  - U23
+  - P80
+  - P81
+  - P82
+  - P83

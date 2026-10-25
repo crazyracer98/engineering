@@ -36,7 +36,7 @@ margin:
   not_same_as: redundancy, robustness
 robustness:
   meaning: the result changes little when inputs vary within the specification
-  not_same_as: margin; strictness (rejecting input outside the specification, C5)
+  not_same_as: margin; strictness (rejecting input outside the specification, P33)
 fatigue:
   meaning: damage from repeated loads that builds up over time
   not_same_as: overload (one load above the limit)
@@ -147,7 +147,7 @@ escalation of commitment:
   not_same_as: persistence based on new evidence
 segregation of duties:
   meaning: splitting a process so that no single person controls all its steps
-  not_same_as: two-person rule (two people at one moment of action, R6)
+  not_same_as: two-person rule (two people at one moment of action, P42)
 work in progress (WIP):
   meaning: work items that have started and are not finished
   not_same_as: backlog (work not started)

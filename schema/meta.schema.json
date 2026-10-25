@@ -149,9 +149,7 @@
       },
       "propertyNames": {
         "enum": [
-          "U",
-          "R",
-          "C",
+          "P",
           "K"
         ]
       }
@@ -304,8 +302,8 @@
         "properties": {
           "rule": {
             "type": "string",
-            "pattern": "^[URC][1-9][0-9]*$",
-            "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+            "pattern": "^P[1-9][0-9]*$",
+            "description": "Rule ID: P plus number (opaque; the class is the `class` field)."
           },
           "check": {
             "type": "string",

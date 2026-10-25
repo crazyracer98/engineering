@@ -65,24 +65,24 @@ def test_unique_ids(repo: Path, edit: Edit) -> None:
         doc[1]["id"] = doc[0]["id"]
 
     edit("data/rules.yaml", seed)
-    assert any("duplicate ID U1" in m for m in messages(repo, "unique-ids"))
+    assert any("duplicate ID P1" in m for m in messages(repo, "unique-ids"))
 
 
 def test_related_target_missing(repo: Path, edit: Edit) -> None:
     edit(
         "data/rules.yaml",
-        lambda d: rule(d, "U1")["related"]["strengthens"].append("U999"),
+        lambda d: rule(d, "P1")["related"]["strengthens"].append("P999"),
     )
     assert any(
-        "U1 strengthens U999: no such rule" in m
+        "P1 strengthens P999: no such rule" in m
         for m in messages(repo, "related-targets")
     )
 
 
 def test_id_reference_missing(repo: Path, edit: Edit) -> None:
-    edit("data/categories.yaml", lambda d: d[0]["rules"].append("U998"))
+    edit("data/categories.yaml", lambda d: d[0]["rules"].append("P998"))
     assert any(
-        "category A names unknown rule U998" in m
+        "category A names unknown rule P998" in m
         for m in messages(repo, "id-references")
     )
 
@@ -90,13 +90,13 @@ def test_id_reference_missing(repo: Path, edit: Edit) -> None:
 def test_rule_in_no_domain(repo: Path, edit: Edit) -> None:
     def seed(doc: Any) -> None:
         for d in doc["domains"]:
-            if "U1" in d["rules"]:
-                d["rules"].remove("U1")
+            if "P1" in d["rules"]:
+                d["rules"].remove("P1")
                 if not d["rules"]:
-                    d["rules"].append("U2")
+                    d["rules"].append("P2")
 
     edit("data/domains.yaml", seed)
-    assert any("U1 appears in no domain" in m for m in messages(repo, "rule-in-domain"))
+    assert any("P1 appears in no domain" in m for m in messages(repo, "rule-in-domain"))
 
 
 def test_unused_source(repo: Path, edit: Edit) -> None:
@@ -143,78 +143,80 @@ def test_escaped_pipe_is_not_a_column(repo: Path, edit: Edit) -> None:
 
 def test_relation_contradiction_conflict_vs_support(repo: Path, edit: Edit) -> None:
     def seed(doc: Any) -> None:
-        rule(doc, "U2")["related"] = {"strengthens": ["U8"]}
-        rule(doc, "U8")["related"] = {"conflicts_with": ["U2"]}
+        rule(doc, "P2")["related"] = {"strengthens": ["P56"]}
+        rule(doc, "P56")["related"] = {"conflicts_with": ["P2"]}
 
     edit("data/rules.yaml", seed)
     msgs = messages(repo, "relation-contradictions")
-    assert any("U2 and U8 conflict and also support each other" in m for m in msgs)
+    assert any("P2 and P56 conflict and also support each other" in m for m in msgs)
 
 
 def test_relation_contradiction_mutual_dependency(repo: Path, edit: Edit) -> None:
     def seed(doc: Any) -> None:
-        rule(doc, "U2")["related"] = {"depends_on": ["U8"]}
-        rule(doc, "U8")["related"] = {"depends_on": ["U2"]}
+        rule(doc, "P2")["related"] = {"depends_on": ["P56"]}
+        rule(doc, "P56")["related"] = {"depends_on": ["P2"]}
 
     edit("data/rules.yaml", seed)
     assert any(
-        "U2 and U8 depend on each other" in m
+        "P2 and P56 depend on each other" in m
         for m in messages(repo, "relation-contradictions")
     )
 
 
 def test_relation_self_reference(repo: Path, edit: Edit) -> None:
     edit(
-        "data/rules.yaml", lambda d: rule(d, "U2")["related"].update(depends_on=["U2"])
+        "data/rules.yaml", lambda d: rule(d, "P2")["related"].update(depends_on=["P2"])
     )
     assert any(
-        "U2 lists itself" in m for m in messages(repo, "relation-contradictions")
+        "P2 lists itself" in m for m in messages(repo, "relation-contradictions")
     )
 
 
 def test_missing_inverse_is_not_a_contradiction(repo: Path, edit: Edit) -> None:
     def seed(doc: Any) -> None:
-        rule(doc, "U2")["related"] = {"strengthens": ["U8"]}
-        rule(doc, "U8")["related"] = {}
+        rule(doc, "P2")["related"] = {"strengthens": ["P56"]}
+        rule(doc, "P56")["related"] = {}
 
     edit("data/rules.yaml", seed)
     assert messages(repo, "relation-contradictions") == []
 
 
 def test_missing_inverse_strengthened_by(repo: Path, edit: Edit) -> None:
-    edit("data/rules.yaml", lambda d: rule(d, "U8")["related"].pop("strengthened_by"))
+    edit("data/rules.yaml", lambda d: rule(d, "P56")["related"].pop("strengthened_by"))
     msgs = messages(repo, "inverse-complete")
-    assert "U2 strengthens U8, but U8 does not list U2 under strengthened_by" in msgs
+    assert "P2 strengthens P56, but P56 does not list P2 under strengthened_by" in msgs
 
 
 def test_missing_inverse_strengthens(repo: Path, edit: Edit) -> None:
-    edit("data/rules.yaml", lambda d: rule(d, "R2")["related"].pop("strengthens"))
+    edit("data/rules.yaml", lambda d: rule(d, "P46")["related"].pop("strengthens"))
     msgs = messages(repo, "inverse-complete")
-    assert "R1 strengthened_by R2, but R2 does not list R1 under strengthens" in msgs
+    assert (
+        "P45 strengthened_by P46, but P46 does not list P45 under strengthens" in msgs
+    )
 
 
 def test_missing_inverse_checked_by(repo: Path, edit: Edit) -> None:
-    edit("data/rules.yaml", lambda d: rule(d, "U35")["related"].pop("checked_by"))
+    edit("data/rules.yaml", lambda d: rule(d, "P73")["related"].pop("checked_by"))
     msgs = messages(repo, "inverse-complete")
-    assert "U13 checks U35, but U35 does not list U13 under checked_by" in msgs
+    assert "P70 checks P73, but P73 does not list P70 under checked_by" in msgs
 
 
 def test_conflicts_one_sided(repo: Path, edit: Edit) -> None:
-    edit("data/rules.yaml", lambda d: rule(d, "U35")["related"].pop("conflicts_with"))
+    edit("data/rules.yaml", lambda d: rule(d, "P73")["related"].pop("conflicts_with"))
     msgs = messages(repo, "conflicts-symmetric")
     assert msgs == [
-        "U23 conflicts_with U35, but U35 does not list U23 under conflicts_with"
+        "P83 conflicts_with P73, but P73 does not list P83 under conflicts_with"
     ]
 
 
 def test_related_key_order(repo: Path, edit: Edit) -> None:
     def seed(doc: Any) -> None:
-        r = rule(doc, "U23")
-        r["related"] = {"conflicts_with": ["U35"], "depends_on": ["U22"]}
+        r = rule(doc, "P83")
+        r["related"] = {"conflicts_with": ["P73"], "depends_on": ["P11"]}
 
     edit("data/rules.yaml", seed)
     assert any(
-        "U23 related keys ['conflicts_with', 'depends_on'] are not in "
+        "P83 related keys ['conflicts_with', 'depends_on'] are not in "
         "relation_types order" in m
         for m in messages(repo, "related-order")
     )
@@ -223,13 +225,13 @@ def test_related_key_order(repo: Path, edit: Edit) -> None:
 def test_related_id_order(repo: Path, edit: Edit) -> None:
     edit(
         "data/rules.yaml",
-        lambda d: rule(d, "R1")["related"].update(
-            strengthened_by=["R2", "C13", "U6", "U34"]
+        lambda d: rule(d, "P45")["related"].update(
+            strengthened_by=["P46", "P34", "P22", "P41"]
         ),
     )
     assert any(
-        "R1 strengthened_by ['R2', 'C13', 'U6', 'U34'] is not in ID order "
-        "['U6', 'U34', 'R2', 'C13']" in m
+        "P45 strengthened_by ['P46', 'P34', 'P22', 'P41'] is not in ID order "
+        "['P22', 'P34', 'P41', 'P46']" in m
         for m in messages(repo, "related-order")
     )
 
@@ -237,84 +239,84 @@ def test_related_id_order(repo: Path, edit: Edit) -> None:
 def test_override_disagrees_with_related(repo: Path, edit: Edit) -> None:
     edit(
         "data/rules.yaml",
-        lambda d: rule(d, "U47").update(
-            related_text="strengthens U10, U18, U20; conflicts with accountability"
+        lambda d: rule(d, "P5").update(
+            related_text="strengthens P80, P82, P4; conflicts with accountability"
         ),
     )
     msgs = messages(repo, "override-agreement")
-    assert any("U47 related_text names" in m and "'U57'" in m for m in msgs)
+    assert any("P5 related_text names" in m and "'P63'" in m for m in msgs)
 
 
 def test_override_ignores_non_rule_text(repo: Path, edit: Edit) -> None:
     edit(
         "data/rules.yaml",
-        lambda d: rule(d, "U49").update(
-            related_text="depends on U2; conflicts with U32, U33, C10 (see K6, K7)"
+        lambda d: rule(d, "P7").update(
+            related_text="depends on P2; conflicts with P71, P72, P61 (see K6, K7)"
         ),
     )
     assert messages(repo, "override-agreement") == []
 
 
 def test_secondary_source_before_primary(repo: Path, edit: Edit) -> None:
-    edit("data/rules.yaml", lambda d: rule(d, "U18")["sources"].reverse())
+    edit("data/rules.yaml", lambda d: rule(d, "P82")["sources"].reverse())
     assert messages(repo, "sources-primary-first") == [
-        "U18 sources lists a secondary source before a primary one"
+        "P82 sources lists a secondary source before a primary one"
     ]
 
 
 def test_management_secondary_source_before_primary(repo: Path, edit: Edit) -> None:
-    edit("data/rules.yaml", lambda d: rule(d, "R4")["management"]["sources"].reverse())
+    edit("data/rules.yaml", lambda d: rule(d, "P68")["management"]["sources"].reverse())
     assert messages(repo, "sources-primary-first") == [
-        "R4 management.sources lists a secondary source before a primary one"
+        "P68 management.sources lists a secondary source before a primary one"
     ]
 
 
 def test_primary_source_missing(repo: Path, edit: Edit) -> None:
     def seed(doc: Any) -> None:
-        rule(doc, "U1")["sources"] = ["wikipedia-andon"]
+        rule(doc, "P1")["sources"] = ["wikipedia-andon"]
 
     edit("data/rules.yaml", seed)
     assert any(
-        "U1 has no primary source" in m for m in messages(repo, "primary-source")
+        "P1 has no primary source" in m for m in messages(repo, "primary-source")
     )
 
 
 def test_known_exception_is_allowed(repo: Path, edit: Edit) -> None:
     edit("data/meta.yaml", lambda d: d["known_exceptions"].clear())
     assert any(
-        "C15 has no primary source" in m for m in messages(repo, "primary-source")
+        "P53 has no primary source" in m for m in messages(repo, "primary-source")
     )
 
 
 def test_c_rule_without_counterexample(repo: Path, edit: Edit) -> None:
     def seed(doc: Any) -> None:
-        del rule(doc, "C1")["counterexample"]
+        del rule(doc, "P60")["counterexample"]
 
     edit("data/rules.yaml", seed)
     assert any(
-        "C1 is a C-rule without a counterexample" in m
+        "P60 is a conditional (C) rule without a counterexample" in m
         for m in messages(repo, "counterexamples")
     )
 
 
 def test_k_rule_names_too_few_rules(repo: Path, edit: Edit) -> None:
-    edit("data/conflicts.yaml", lambda d: d[0].update(rules=["U7"]))
+    edit("data/conflicts.yaml", lambda d: d[0].update(rules=["P23"]))
     assert any(
         "K1 names fewer than 2 rules" in m for m in messages(repo, "conflict-rules")
     )
 
 
 def test_k_rule_names_unknown_rule(repo: Path, edit: Edit) -> None:
-    edit("data/conflicts.yaml", lambda d: d[0].update(rules=["U7", "U777"]))
+    edit("data/conflicts.yaml", lambda d: d[0].update(rules=["P23", "P777"]))
     assert any(
-        "K1 names unknown rule U777" in m for m in messages(repo, "conflict-rules")
+        "K1 names unknown rule P777" in m for m in messages(repo, "conflict-rules")
     )
 
 
 def test_category_membership_mismatch(repo: Path, edit: Edit) -> None:
-    edit("data/rules.yaml", lambda d: rule(d, "U1").update(category="B"))
+    edit("data/rules.yaml", lambda d: rule(d, "P1").update(category="B"))
     assert any(
-        "U1 is listed in category A but has category B" in m
+        "P1 is listed in category A but has category B" in m
         for m in messages(repo, "category-membership")
     )
 
@@ -331,15 +333,15 @@ def test_quick_view_count(repo: Path, edit: Edit) -> None:
 def test_id_map_target_missing(repo: Path, edit: Edit) -> None:
     edit(
         "data/history.yaml",
-        lambda d: d["id_map"].append({"old": "X1", "new": "U999", "edition": "1.0.0"}),
+        lambda d: d["id_map"].append({"old": "X1", "new": "P999", "edition": "1.0.0"}),
     )
-    assert any("X1 -> U999" in m for m in messages(repo, "id-map"))
+    assert any("X1 -> P999" in m for m in messages(repo, "id-map"))
 
 
 def test_unresolved_citation_in_data(repo: Path, edit: Edit) -> None:
     edit(
         "data/rules.yaml",
-        lambda d: rule(d, "U1").update(because="see [@no-such-source]"),
+        lambda d: rule(d, "P1").update(because="see [@no-such-source]"),
     )
     assert any(
         "[@no-such-source] does not resolve" in m for m in messages(repo, "citations")
@@ -406,7 +408,7 @@ def test_duplicate_url_across_registries(repo: Path, edit: Edit) -> None:
 
 
 def test_schema_violation(repo: Path, edit: Edit) -> None:
-    edit("data/rules.yaml", lambda d: rule(d, "U1").update(strength="MAYBE"))
+    edit("data/rules.yaml", lambda d: rule(d, "P1").update(strength="MAYBE"))
     assert any("data/rules.yaml at 0/strength" in m for m in messages(repo, "schema"))
 
 
@@ -434,12 +436,12 @@ def test_contradiction_found_when_edges_run_from_larger_to_smaller_id(
     repo: Path, edit: Edit
 ) -> None:
     def seed(doc: Any) -> None:
-        rule(doc, "U5")["related"] = {"conflicts_with": ["U2"], "strengthens": ["U2"]}
-        rule(doc, "U2")["related"] = {}
+        rule(doc, "P55")["related"] = {"conflicts_with": ["P2"], "strengthens": ["P2"]}
+        rule(doc, "P2")["related"] = {}
 
     edit("data/rules.yaml", seed)
     msgs = messages(repo, "relation-contradictions")
-    assert len([m for m in msgs if "U2 and U5 conflict" in m]) == 1
+    assert len([m for m in msgs if "P2 and P55 conflict" in m]) == 1
 
 
 def test_domain_count_without_domain_index_section(repo: Path, edit: Edit) -> None:
@@ -453,7 +455,7 @@ def test_domain_count_without_domain_index_section(repo: Path, edit: Edit) -> No
 
 
 def test_yaml_syntax_error_is_a_finding(repo: Path, edit: Edit) -> None:
-    edit("data/rules.yaml", lambda d: rule(d, "U1").update(strength="MAYBE"))
+    edit("data/rules.yaml", lambda d: rule(d, "P1").update(strength="MAYBE"))
     (repo / "data" / "glossary.yaml").write_text("a: [unclosed\n", encoding="utf-8")
     findings = run_checks(repo)
     assert findings[0].check == "load"
@@ -488,21 +490,21 @@ def test_slug_reference_typo(
 ) -> None:
     edit(
         "data/rules.yaml",
-        lambda d: rule(d, "U1")["sources"].__setitem__(0, "nspe-typo"),
+        lambda d: rule(d, "P1")["sources"].__setitem__(0, "nspe-typo"),
     )
     assert messages(repo, "slug-references") == [
-        "data/rules.yaml: U1 sources names unknown source slug 'nspe-typo'"
+        "data/rules.yaml: P1 sources names unknown source slug 'nspe-typo'"
     ]
     assert cli.main(["--root", str(repo), "build"]) == 1
     err = capsys.readouterr().err
     assert "unknown source slug 'nspe-typo'" in err
-    assert "data/rules.yaml: U1 sources" in err
+    assert "data/rules.yaml: P1 sources" in err
     assert "Traceback" not in err
 
 
 def test_schema_findings_are_per_file(repo: Path, edit: Edit) -> None:
     (repo / "schema" / "glossary.schema.json").unlink()
-    edit("data/rules.yaml", lambda d: rule(d, "U1").update(strength="MAYBE"))
+    edit("data/rules.yaml", lambda d: rule(d, "P1").update(strength="MAYBE"))
     msgs = messages(repo, "schema")
     assert any(
         "schema/glossary.schema.json (for data/glossary.yaml)" in m for m in msgs
@@ -526,10 +528,17 @@ def test_management_count_wrong_n(repo: Path, edit: Edit) -> None:
 
 
 def test_management_count_wrong_id_list(repo: Path, edit: Edit) -> None:
-    edit("data/meta.yaml", lambda d: _scope(d, "U47–U58, R9,", "U47-U57, R8,"))
+    edit(
+        "data/meta.yaml",
+        lambda d: _scope(
+            d,
+            "P35, P43,",
+            "P35, P16,",
+        ),
+    )
     assert messages(repo, "management-count") == [
-        "meta's list of rules without a management form has extra ['R8'] "
-        "and misses ['U58', 'R9']"
+        "meta's list of rules without a management form has extra ['P16'] "
+        "and misses ['P43']"
     ]
 
 

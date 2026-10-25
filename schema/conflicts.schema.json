@@ -41,12 +41,12 @@
         "type": "array",
         "items": {
           "type": "string",
-          "pattern": "^[URC][1-9][0-9]*$",
-          "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+          "pattern": "^P[1-9][0-9]*$",
+          "description": "Rule ID: P plus number (opaque; the class is the `class` field)."
         },
         "minItems": 2,
         "uniqueItems": true,
-        "description": "Rules the K-rule mentions (the conflicting sides and context rules): every U/R/C rule ID named in any cell (`if`, `then`, `because`, `example`, `basis`), in order of first mention."
+        "description": "Rules the K-rule mentions (the conflicting sides and context rules): every rule ID (P) named in any cell (`if`, `then`, `because`, `example`, `basis`), in order of first mention."
       }
     },
     "required": [

@@ -287,25 +287,25 @@ def seed_repo(repo: Path, quotes_text: str) -> None:
 
 QUOTES = """\
 - id: Q1
-  rules: [U1]
+  rules: [P1]
   source: alpha
   text: 'See "the context of creating, preserving, and realizing value"'
   locator: null
   group: master_rule
 - id: Q2
-  rules: [U1]
+  rules: [P1]
   source: beta
   text: '"never appears in the page at all"'
   locator: null
   group: master_rule
 - id: Q3
-  rules: [U1]
+  rules: [P1]
   source: gamma
   text: '"anything"'
   locator: null
   group: master_rule
 - id: Q4
-  rules: [U1]
+  rules: [P1]
   source: alpha
   text: 'no quote here'
   locator: null
@@ -468,7 +468,7 @@ def test_footnote_markers_stripped() -> None:
 
 def test_footnote_strip_leaves_identifiers_alone() -> None:
     strip = vs.strip_footnote_markers
-    for token in ("ISO 22301", "U17 applies", "B2B sales", "R4,", "ISO22301 x"):
+    for token in ("ISO 22301", "P57 applies", "B2B sales", "P68,", "ISO22301 x"):
         assert strip(token) == token
 
 
@@ -831,7 +831,7 @@ def test_blocked_result_records_no_fetch_data(repo: Path) -> None:
 
 EXTRA_QUOTE = """\
 - id: Q1
-  rules: [U1]
+  rules: [P1]
   source: alpha
   extra_sources: [gamma]
   text: 'See "the context of creating, preserving, and realizing value"'

@@ -12,6 +12,8 @@ Built with `uv_build` from `../pyproject.toml`; the console script
   `data/sources.yaml`, `paper/references-extra.yaml` and
   `docs/methodology-references.yaml` into `slug -> Source`) and
   `load_registry_files(root)`.
+- `ids.py`: rule-ID matching for any prefix in `meta.id_prefixes`
+  (`id_key`, `id_finder`, `link_ids`, which links every ID of a range).
 - `validate.py`: the integrity checks of
   [NFR-0001](../docs/nfrs/NFR-0001-dataset-integrity.md); `run_checks(root)`
   returns `Finding`s.

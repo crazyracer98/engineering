@@ -15,7 +15,7 @@ Each term has exactly one meaning in this file. No other word is used for the sa
 | consequence | the harm caused if a failure happens | likelihood |
 | uncertainty | how poorly the loads, inputs or conditions are known | consequence |
 | margin | capacity above the expected load | redundancy, robustness |
-| robustness | the result changes little when inputs vary within the specification | margin; strictness (rejecting input outside the specification, [C5](07-rules.md#c5)) |
+| robustness | the result changes little when inputs vary within the specification | margin; strictness (rejecting input outside the specification, [P33](07-rules.md#p33)) |
 | fatigue | damage from repeated loads that builds up over time | overload (one load above the limit) |
 | oscillation | a control loop switching back and forth around its target | opposite: stable control |
 | constraint (bottleneck) | the part of a system that limits its total output | any slow part |
@@ -52,7 +52,7 @@ Each term has exactly one meaning in this file. No other word is used for the sa
 | indicator | a measure that shows how a process or system behaves | target (a value someone is rewarded for reaching) |
 | stop criterion | evidence, written before a project starts, that ends the project when it occurs | a milestone (marks progress, does not decide continuation) |
 | escalation of commitment | adding resources to a failing course of action because of earlier investment | persistence based on new evidence |
-| segregation of duties | splitting a process so that no single person controls all its steps | two-person rule (two people at one moment of action, [R6](07-rules.md#r6)) |
+| segregation of duties | splitting a process so that no single person controls all its steps | two-person rule (two people at one moment of action, [P42](07-rules.md#p42)) |
 | work in progress (WIP) | work items that have started and are not finished | backlog (work not started) |
 | lead time | time from the start of a work item to its finish | effort (working hours spent on it) |
 | span of control | the number of people one person directly directs | the size of the whole unit |

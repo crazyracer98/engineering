@@ -13,6 +13,14 @@ Provenance for the taxonomy: material it was derived from.
   `data/` (exit 1 on any difference, which is expected once `data/` has
   been edited by hand). Only `--write` overwrites `data/`.
 
+- `import/id-map.yaml` maps each of the 83 edition-9 rule IDs (U1–U58,
+  R1–R9, C1–C16) to the opaque ID it has in 1.0.0 (P1–P83, numbered in
+  category order, then the order of edition 9's section 7). It is provenance
+  only: 1.0.0 is the first version, so `data/history.yaml` `id_map` stays
+  empty. `import/rekey_d4.py` is the one-off script that computed the map and
+  renamed the IDs; it refuses to run again. The importer and the two
+  inputs keep the edition-9 IDs.
+
 ## Source verification
 
 `uv run taxonomy verify-sources` fetches each quote's source and checks that

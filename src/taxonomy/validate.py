@@ -16,6 +16,7 @@ from typing import Any
 
 from jsonschema import Draft202012Validator, FormatChecker
 
+from taxonomy.ids import id_finder, id_key, id_pattern, prefix_alt
 from taxonomy.load import (
     DATA_STEMS,
     REGISTRY_FILES,
@@ -249,23 +250,13 @@ def check_domain_count(ctx: Context) -> list[str]:
     return []
 
 
-def _prefix_alt(prefixes: list[str]) -> str:
-    """A regex alternative of ``prefixes``, longest first."""
-    return "|".join(re.escape(p) for p in sorted(prefixes, key=len, reverse=True))
-
-
-def _id_pattern(prefixes: list[str]) -> str:
-    """A regex for any rule ID with one of ``prefixes``."""
-    return rf"(?:{_prefix_alt(prefixes)})[1-9][0-9]*"
-
-
 def parse_id_list(text: str, prefixes: list[str]) -> list[str]:
-    """``"U47–U58, R9, C14-C16"`` -> every ID, ranges expanded (en dash or hyphen).
+    """``"P47–P58, K9, P14-P16"`` -> every ID, ranges expanded (en dash or hyphen).
 
     Raises ``ValueError`` for an item that is not an ID or a range within one
     prefix.
     """
-    one = re.compile(rf"({_prefix_alt(prefixes)})([1-9][0-9]*)")
+    one = re.compile(rf"({prefix_alt(prefixes)})([1-9][0-9]*)")
     ids: list[str] = []
     for item in (i.strip() for i in text.split(",")):
         ends = [e.strip() for e in re.split(r"[–-]", item)]
@@ -285,7 +276,7 @@ def parse_id_list(text: str, prefixes: list[str]) -> list[str]:
 def check_management_count(ctx: Context) -> list[str]:
     """The scope sentence on section 10 matches the rules without ``management``."""
     prefixes = list(ctx.ds.meta["id_prefixes"])
-    item = rf"{_id_pattern(prefixes)}(?:\s*[–-]\s*{_id_pattern(prefixes)})?"
+    item = rf"{id_pattern(prefixes)}(?:\s*[–-]\s*{id_pattern(prefixes)})?"
     sentence = re.compile(
         r"Section 10 states (\d+) of the (\d+) rules in management form.*?"
         rf"the other (\d+) \(({item}(?:,\s*{item})*)\)"
@@ -313,8 +304,8 @@ def check_management_count(ctx: Context) -> list[str]:
     if sorted(listed) != sorted(without):
         msgs.append(
             "meta's list of rules without a management form has extra "
-            f"{sorted(set(listed) - set(without), key=_id_key)} and misses "
-            f"{sorted(set(without) - set(listed), key=_id_key)}"
+            f"{sorted(set(listed) - set(without), key=_id_key(ctx))} and misses "
+            f"{sorted(set(without) - set(listed), key=_id_key(ctx))}"
         )
     return msgs
 
@@ -478,15 +469,11 @@ INVERSES = {
     "checked_by": "checks",
 }
 
-_RULE_ID = re.compile(r"\b([URC])([1-9][0-9]*)\b")
 
-
-def _id_key(rule_id: str) -> tuple[int, int]:
-    """Sort key for rule IDs: U before R before C, then by number."""
-    match = _RULE_ID.fullmatch(rule_id)
-    if not match:
-        return (3, 0)
-    return ("URC".index(match.group(1)), int(match.group(2)))
+def _id_key(ctx: Context) -> Callable[[str], tuple[int, int]]:
+    """Sort key for IDs: prefix in ``meta.id_prefixes`` order, then number."""
+    prefixes = list(ctx.ds.meta["id_prefixes"])
+    return lambda rule_id: id_key(rule_id, prefixes)
 
 
 def check_inverse_complete(ctx: Context) -> list[str]:
@@ -519,7 +506,7 @@ def check_conflicts_symmetric(ctx: Context) -> list[str]:
 
 
 def check_related_order(ctx: Context) -> list[str]:
-    """Keys in ``meta.relation_types`` order; IDs U < R < C, then by number."""
+    """Keys in ``meta.relation_types`` order; IDs by prefix, then number."""
     order = list(ctx.ds.meta["relation_types"])
     msgs: list[str] = []
     for r in ctx.ds.rules:
@@ -530,7 +517,7 @@ def check_related_order(ctx: Context) -> list[str]:
                 f"{sorted(keys, key=order.index)}"
             )
         for rel, targets in r["related"].items():
-            want = sorted(targets, key=_id_key)
+            want = sorted(targets, key=_id_key(ctx))
             if list(targets) != want:
                 msgs.append(
                     f"{r['id']} {rel} {list(targets)} is not in ID order {want}"
@@ -544,15 +531,18 @@ def check_override_agreement(ctx: Context) -> list[str]:
     Non-rule text ("accountability", "(see K7)", qualifiers) is ignored; each
     rule ID counts as often as it occurs.
     """
+    # Only rule IDs count: "(see K7)" names a conflict rule, not a relation.
+    finder = id_finder({re.sub(r"\d+$", "", r["id"]) for r in ctx.ds.rules})
+    key = _id_key(ctx)
     msgs: list[str] = []
     for r in ctx.ds.rules:
         if "related_text" not in r:
             continue
         named = sorted(
-            (m.group(0) for m in _RULE_ID.finditer(r["related_text"])), key=_id_key
+            (m.group(0) for m in finder.finditer(r["related_text"])), key=key
         )
         structured = sorted(
-            (t for targets in r["related"].values() for t in targets), key=_id_key
+            (t for targets in r["related"].values() for t in targets), key=key
         )
         if named != structured:
             msgs.append(
@@ -597,9 +587,9 @@ def check_primary_source(ctx: Context) -> list[str]:
 
 def check_counterexamples(ctx: Context) -> list[str]:
     return [
-        f"{r['id']} is a C-rule without a counterexample"
+        f"{r['id']} is a conditional (C) rule without a counterexample"
         for r in ctx.ds.rules
-        if r["id"].startswith("C") and not r.get("counterexample", "").strip()
+        if r["class"] == "conditional" and not r.get("counterexample", "").strip()
     ]
 
 

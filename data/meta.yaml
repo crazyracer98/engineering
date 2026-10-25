@@ -26,15 +26,9 @@ master_rule:
     source: ISO 31000:2018; Amazon 2015 shareholder letter (one-way doors)
 sentence_structure: IF [condition], THEN [action], BECAUSE [reason].
 id_prefixes:
-  U:
-    name: universal
-    description: The condition is true, or the trigger occurs, in every engineered system. IF is either "always" or a trigger such as "a failure has happened". Every system applies these rules; the master rule scales how strictly.
-  R:
-    name: risk-scaled
-    description: The rule applies only above a consequence or uncertainty threshold. The rigor matrix (section 6) says where.
-  C:
-    name: conditional
-    description: The rule applies only when the system has a property that a common class of systems lacks. IF names that property. Each C-rule names a counterexample system.
+  P:
+    name: rule
+    description: An opaque, stable rule ID (P plus number), numbered in category order. The ID carries no meaning; the class (U universal, R risk-scaled, C conditional) and the category are fields shown next to it.
   K:
     name: conflict rule
     description: It decides between two rules that pull in opposite directions.
@@ -70,7 +64,7 @@ how_to_read:
   text: '**Sentence structure:** every rule reads as **IF** \[condition\], **THEN** \[action\], **BECAUSE** \[reason\].'
 - key: rule_classes
   text: |-
-    **Rule classes and ID prefixes.** The IF field does a different job in each class:
+    **Rule classes.** The IF field does a different job in each class:
       - **U = universal.** The condition is true, or the trigger occurs, in every engineered system. IF is either "always" or a trigger such as "a failure has happened". Every system applies these rules; the master rule scales how strictly.
       - **R = risk-scaled.** The rule applies only above a consequence or uncertainty threshold. The rigor matrix (section 6) says where.
       - **C = conditional.** The rule applies only when the system has a property that a common class of systems lacks. IF names that property. Each C-rule names a counterexample system.
@@ -80,7 +74,7 @@ how_to_read:
 - key: applicability
   text: '**Applicability, not adoption:** the test asks whether a rule *can* apply, not whether a domain already practices it. A domain without the practice has an adoption gap; that is not a counterexample. Rules therefore apply across domains by cross-reference, even where no source from that domain exists.'
 - key: ids
-  text: '**IDs:** each rule has a stable ID. A new rule gets the next free number in its class.'
+  text: '**IDs:** each rule has a stable, opaque ID (P1–P83, numbered in category order) that carries no meaning. Its class (U, R or C) and its category are shown next to it. A new rule gets the next free number. Conflict rules are K1–K8.'
 - key: strength_keywords
   text: |-
     **Strength keywords** follow RFC 2119:
@@ -107,9 +101,9 @@ how_to_read:
 - key: rule_names
   text: '**Rule names** are short labels for scanning. The IF / THEN / BECAUSE text is the rule itself.'
 - key: scope
-  text: '**Scope: systems and the organizations that build them.** Every engineered system is designed, built and operated by an organization. Rules whose source domain is "management" govern that organization (decisions, delegation, people, change). Section 10 states 67 of the 83 rules in management form, for teams, projects and organizations; the other 16 (U47–U58, R9, C14–C16) come from management sources.'
+  text: '**Scope: systems and the organizations that build them.** Every engineered system is designed, built and operated by an organization. Rules whose source domain is "management" govern that organization (decisions, delegation, people, change). Section 10 states 67 of the 83 rules in management form, for teams, projects and organizations; the other 16 (P5–P8, P18–P21, P35, P43, P52, P53, P62, P63, P69, P79) come from management sources.'
 known_exceptions:
-- rule: C15
+- rule: P53
   check: primary-source
   reason: secondary only; the primary source, Brooks's 1975 book, is not online
 sections:
@@ -159,7 +153,7 @@ sections:
 - key: management_forms
   number: 10
   title: Management form of each rule
-  intro: Each row states what a rule means when the "system" is an organization, a team, a project or a process. The IF / THEN / BECAUSE text in section 7 stays valid. Rules U47–U58, R9 and C14–C16 come from management sources and are already written for organizations; they are not repeated here. "Cross-reference only" in the Sources column means no management source was found; the transfer is the author's judgment (adoption gap, see section 1).
+  intro: Each row states what a rule means when the "system" is an organization, a team, a project or a process. The IF / THEN / BECAUSE text in section 7 stays valid. Rules P5–P8, P18–P21, P35, P43, P52, P53, P62, P63, P69, P79 come from management sources and are already written for organizations; they are not repeated here. "Cross-reference only" in the Sources column means no management source was found; the transfer is the author's judgment (adoption gap, see section 1).
   header_overrides:
     A:
     - ID
@@ -174,7 +168,7 @@ sections:
 - key: quotes
   number: 11
   title: Direct quotes
-  intro: Quotes were checked against the linked page on 2026-10-14. "…" marks text left out. Where the linked page is a copy, the original is named. Quotes for the engineering sources of rules U1–U46, R1–R8 and C1–C13 are given in the rule tables where they decide the evidence rating (for example U41, C13).
+  intro: Quotes were checked against the linked page on 2026-10-14. "…" marks text left out. Where the linked page is a copy, the original is named. Quotes for the engineering sources of rules P1–P4, P9–P17, P22–P34, P36–P42, P44–P51, P54–P61, P64–P68, P70–P78 and P80–P83 are given in the rule tables where they decide the evidence rating (for example P75, P34).
   groups:
   - key: master_rule
     title: Master rule

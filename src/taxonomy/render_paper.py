@@ -24,8 +24,16 @@ from typing import Any
 import pypandoc
 import typst
 
+from taxonomy.ids import link_ids
 from taxonomy.load import find_root, load_dataset, load_registry, load_yaml
-from taxonomy.model import RELATION_LABELS, Dataset, Management, Rule, Source
+from taxonomy.model import (
+    CHECKER_LEVEL_RULE,
+    RELATION_LABELS,
+    Dataset,
+    Management,
+    Rule,
+    Source,
+)
 from taxonomy.render_markdown import table
 
 #: Hand-written paper sections, in paper order, around the generated ones.
@@ -51,7 +59,6 @@ SECTION_MAP = {
 _SECTION_REF = re.compile(
     r"\b([Ss])ections?\s+(\d{1,2})((?:\s*(?:,|and)\s*\d{1,2})*)(?!\d|\.\d)"
 )
-_ID_REF = re.compile(r"(?<![\w/#-])([URCK][1-9][0-9]*)\b")
 #: A relative link or image (any target without a URL scheme such as ``https:``
 #: or ``mailto:``, and not an in-page ``#anchor``). ``method_markdown`` reduces
 #: it to its text; an image, which cannot be fetched from the repository, to
@@ -217,12 +224,9 @@ class _Paper:
 
     def link_ids(self, text: str) -> str:
         """Link rule and conflict-rule IDs in ``text`` to their cards."""
-
-        def sub(match: re.Match[str]) -> str:
-            rid = match.group(1)
-            return f"[{rid}](#{rid.lower()})" if rid in self.ids else rid
-
-        return _ID_REF.sub(sub, text)
+        return link_ids(
+            text, self.ids, self.meta["id_prefixes"], lambda rid: f"#{rid.lower()}"
+        )
 
     def evidence(self, item: Rule | Management) -> str:
         note = item.get("evidence_note")
@@ -318,7 +322,8 @@ class _Paper:
 
         def cell(cons: str, unc: str) -> str:
             r = cells[(cons, unc)]
-            return f"{', '.join(r['apply'])}. Checker level: {r['checker_level']} (U8)."
+            level = f"Checker level: {r['checker_level']} ({CHECKER_LEVEL_RULE})."
+            return f"{', '.join(r['apply'])}. {level}"
 
         rows = [
             [
@@ -348,7 +353,10 @@ class _Paper:
 
     def rule_card(self, r: Rule) -> str:
         rid = r["id"]
-        tagline = f"**{r['strength']}** · {r['class']} · evidence: {r['evidence']}"
+        tagline = (
+            f"**{r['strength']}** · {r['class']} ({r['class'][0].upper()}) · "
+            f"category {r['category']} · evidence: {r['evidence']}"
+        )
         fields = self.terms(
             [
                 ("IF", self.c(r["if"])),
