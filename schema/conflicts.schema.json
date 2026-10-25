@@ -46,7 +46,7 @@
         },
         "minItems": 2,
         "uniqueItems": true,
-        "description": "Rules the K-rule mentions (the conflicting sides and context rules): every rule ID named in `if`, in order."
+        "description": "Rules the K-rule mentions (the conflicting sides and context rules): every U/R/C rule ID named in any cell (`if`, `then`, `because`, `example`, `basis`), in order of first mention."
       }
     },
     "required": [

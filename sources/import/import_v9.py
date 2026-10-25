@@ -84,6 +84,7 @@ EDITION = "1.0.0"
 
 LINK_RE = re.compile(r"\[([^\]]+)\]\((https?://[^\s()]*(?:\([^\s()]*\)[^\s()]*)*)\)")
 SLUG_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
+RULE_ID_RE = re.compile(r"\b[URC]\d+\b")
 ID_RE = re.compile(r"\b[URCK]\d+\b")
 LEVELS = ("strong", "moderate", "weak")
 RELATIONS = {
@@ -1994,10 +1995,12 @@ def run(report: bool) -> dict[str, str]:
     conflicts = []
     for r in s8[0].rows()[1:]:
         kid, cond, then, because, example, basis = r
+        # every rule the K-rule mentions, in any cell, in order of first use
         ids = []
-        for t in ID_RE.findall(cond):
-            if t not in ids:
-                ids.append(t)
+        for cell in (cond, then, because, example, basis):
+            for t in RULE_ID_RE.findall(cell):
+                if t not in ids:
+                    ids.append(t)
         conflicts.append(
             {
                 "id": kid,
