@@ -1,0 +1,8 @@
+# Edition history and old-to-new ID map.
+# Schema: schema/history.schema.json. data/ is the single source of truth (ADR 0003);
+# seeded once by sources/import/import_v9.py from edition 9.
+editions:
+- edition: 1.0.0
+  date: '2026-10-14'
+  summary: 'First published edition of the taxonomy: 83 rules (58 universal, 9 risk-scaled, 16 conditional) and 8 conflict rules in 9 categories.'
+id_map: []

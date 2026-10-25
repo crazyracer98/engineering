@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/crazyracer98/engineering/schema/rigor_matrix.schema.json",
+  "title": "Rigor matrix",
+  "description": "data/rigor_matrix.yaml: as in edition 6. Rendered cell: `<apply joined by \", \">. Checker level: <checker_level> (U8).`; rows by consequence (low, high), columns by uncertainty (low, high).",
+  "type": "array",
+  "minItems": 4,
+  "maxItems": 4,
+  "items": {
+    "type": "object",
+    "properties": {
+      "consequence": {
+        "type": "string",
+        "enum": [
+          "low",
+          "high"
+        ]
+      },
+      "uncertainty": {
+        "type": "string",
+        "enum": [
+          "low",
+          "high"
+        ]
+      },
+      "apply": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "minItems": 1,
+        "description": "Rule IDs or group phrases (\"all U-rules\", \"C-rules whose condition is true\", \"all R-rules\")."
+      },
+      "checker_level": {
+        "type": "string",
+        "enum": [
+          "self",
+          "peer",
+          "external"
+        ]
+      }
+    },
+    "required": [
+      "consequence",
+      "uncertainty",
+      "apply",
+      "checker_level"
+    ],
+    "additionalProperties": false
+  }
+}

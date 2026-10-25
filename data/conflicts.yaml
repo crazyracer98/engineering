@@ -1,0 +1,87 @@
+# Conflict rules (K).
+# Schema: schema/conflicts.schema.json. data/ is the single source of truth (ADR 0003);
+# seeded once by sources/import/import_v9.py from edition 9.
+- id: K1
+  if: a rule that adds parts (U25, R1, R2, U29, U34, C3) conflicts with U7 (fewer parts)
+  then: add those parts only as far as the master rule and the rigor matrix require
+  because: both adding and removing parts change failure risk
+  example: multi-AZ for production, single-AZ for development
+  basis: sourced (see U7, U25, R1)
+  rules:
+  - U25
+  - R1
+  - R2
+  - U29
+  - U34
+  - C3
+  - U7
+- id: K2
+  if: a fix is needed faster than U9 (change review) and U19 (small steps) allow, because of U35 (time until harm)
+  then: use a predefined emergency change path with a shorter review, and do the full review afterwards
+  because: skipping review without a plan removes every check at the moment of highest stress
+  example: a hotfix path with one approver and a mandatory postmortem within 48 h
+  basis: author's synthesis; no single source
+  rules:
+  - U9
+  - U19
+  - U35
+- id: K3
+  if: U30 (tolerate variation) seems to conflict with C5 (reject bad input)
+  then: tolerate variation within the specification (U30); reject and report input outside the specification (C5)
+  because: both rules aim at stable behavior; they differ only in where the boundary lies
+  example: accept any valid timestamp format the schema allows; reject a timestamp field that is missing
+  basis: author's synthesis from Taguchi and RFC 9413
+  rules:
+  - U30
+  - C5
+- id: K4
+  if: preserving evidence (U23) would delay recovery beyond the time until harm (U35)
+  then: capture evidence automatically and fast; if harm is imminent, restore service first and keep whatever the automation captured
+  because: both the evidence and the service matter, and automation makes the trade-off small
+  example: crash dumps and log shipping run before every automatic restart
+  basis: author's synthesis; no single source
+  rules:
+  - U23
+  - U35
+- id: K5
+  if: U50 (decide reversible decisions fast) conflicts with U9 (change review) and U8 (independent checker)
+  then: 'scale the review depth with reversibility and consequence: reversible and low consequence → peer review or self-check; irreversible or high consequence → full review, R6 and an external checker'
+  because: both slowness and unreviewed irreversible harm are failures
+  example: 'a new dashboard: the team decides; deleting historical audit logs: two approvers and a legal review'
+  basis: author's synthesis from the Amazon 2015 letter and the master rule
+  rules:
+  - U50
+  - U9
+  - U8
+- id: K6
+  if: U49 (leave the method to the people doing the work) conflicts with U32 (checklists), U33 (critical control points) and C10 (qualified procedure)
+  then: prescribe the method only at critical control points, in qualified or regulated procedures, and where the rigor matrix requires it; everywhere else give intent and constraints
+  because: prescribed methods everywhere stop initiative; free methods at critical points remove proven protections
+  example: '"use the restore checklist" (prescribed); "improve developer onboarding" (intent only)'
+  basis: author's synthesis from ADP 6-0 and C10
+  rules:
+  - U49
+  - U32
+  - U33
+  - C10
+- id: K7
+  if: U47 (psychological safety) and U10 (blameless analysis) seem to conflict with accountability (U2, U48, R9, legal duties)
+  then: treat honest errors and system weaknesses without blame; treat deliberate violations, reckless behavior and fraud through a defined, fair disciplinary procedure
+  because: blame for honest errors hides information; no consequence for deliberate violations destroys trust and controls
+  example: a wrong command during an incident → blameless postmortem; bypassing the two-person rule on purpose → disciplinary procedure
+  basis: author's synthesis; no single source
+  rules:
+  - U47
+  - U10
+  - U2
+  - U48
+  - R9
+- id: K8
+  if: U55 (specific, challenging goals) conflicts with U51 (indicators are gamed) and with Deming's rejection of numerical goals
+  then: use goals for direction and learning; do not tie pay or ranking mechanically to one indicator; pair every target with a counter-indicator
+  because: goals raise performance, but a single rewarded number distorts the work
+  example: the team goal "halve build time" has a guard "test coverage does not drop"; bonuses are not calculated from the build time
+  basis: author's synthesis from Locke & Latham, Campbell and Deming
+  rules:
+  - U55
+  - U51

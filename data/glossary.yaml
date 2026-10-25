@@ -1,0 +1,222 @@
+# Glossary: one meaning per term.
+# Schema: schema/glossary.schema.json. data/ is the single source of truth (ADR 0003);
+# seeded once by sources/import/import_v9.py from edition 9.
+error:
+  meaning: a human action or omission that differs from the intended action
+  not_same_as: defect, failure
+defect:
+  meaning: a flaw in the product, caused by an error
+  not_same_as: error, failure
+failure:
+  meaning: the product does not perform its required function
+  not_same_as: defect (a defect can exist without causing a failure)
+anomaly:
+  meaning: behavior that differs from what was expected, with or without harm
+  not_same_as: failure (an anomaly can happen without a failure)
+requirement:
+  meaning: a measurable statement of what the product must do
+  not_same_as: a wish or goal without a measure
+verification:
+  meaning: checking that the product was built as the requirements specify ("built right")
+  not_same_as: validation
+validation:
+  meaning: checking that the product fulfills its intended purpose ("right thing built")
+  not_same_as: verification
+domain of applicability:
+  meaning: the range of conditions for which a model has been validated
+  not_same_as: the range in which a model produces an answer
+consequence:
+  meaning: the harm caused if a failure happens
+  not_same_as: likelihood
+uncertainty:
+  meaning: how poorly the loads, inputs or conditions are known
+  not_same_as: consequence
+margin:
+  meaning: capacity above the expected load
+  not_same_as: redundancy, robustness
+robustness:
+  meaning: the result changes little when inputs vary within the specification
+  not_same_as: margin; strictness (rejecting input outside the specification, C5)
+fatigue:
+  meaning: damage from repeated loads that builds up over time
+  not_same_as: overload (one load above the limit)
+oscillation:
+  meaning: a control loop switching back and forth around its target
+  not_same_as: 'opposite: stable control'
+constraint (bottleneck):
+  meaning: the part of a system that limits its total output
+  not_same_as: any slow part
+critical path:
+  meaning: the longest chain of dependent tasks
+  not_same_as: the most important tasks
+hold point:
+  meaning: a check that work cannot pass until it is approved
+  not_same_as: witness point (work continues while the check is observed)
+drift:
+  meaning: a change in real-world data that makes a model less accurate
+  not_same_as: a defect in the model
+measurement uncertainty:
+  meaning: the spread of values that could reasonably be attributed to a measured quantity
+  not_same_as: error (the difference from the true value)
+chain of custody:
+  meaning: a record of who held a piece of evidence, and when
+  not_same_as: ownership
+actionable alert:
+  meaning: an alert that requires a defined human action now
+  not_same_as: an informational message
+commissioning:
+  meaning: testing that all parts work together against the owner's requirements before handover
+  not_same_as: testing each part alone
+provenance:
+  meaning: the documented origin, batch and certificate of a part
+  not_same_as: a part's current location
+exact constraint:
+  meaning: each property is set by exactly one mechanism
+  not_same_as: 'opposite: over-constraint (several mechanisms set the same property)'
+weakest link:
+  meaning: the single part whose failure makes the whole system fail
+  not_same_as: the average part
+set-based design:
+  meaning: keeping several alternatives open and eliminating weak ones as evidence arrives
+  not_same_as: 'opposite: point-based design (choosing one option early)'
+cliff effect:
+  meaning: output stays perfect until it collapses suddenly
+  not_same_as: gradual degradation
+redundancy:
+  meaning: a second copy of a part that takes over when the first copy fails
+  not_same_as: diversity
+diversity:
+  meaning: copies that are built differently, so one cause cannot fail all of them
+  not_same_as: redundancy
+compartment:
+  meaning: an isolated part of the system that contains a failure
+  not_same_as: 'opposite: shared failure domain'
+graceful degradation:
+  meaning: losing lower-priority functions while critical functions keep running
+  not_same_as: 'opposite: cascading failure'
+safe state:
+  meaning: a predefined state that causes no harm
+  not_same_as: normal operating state
+isolation:
+  meaning: disconnecting a part from all inputs and energy, and locking that state
+  not_same_as: switching off (anyone can switch it on again)
+control:
+  meaning: a measure that reduces risk
+  not_same_as: a check (a check detects; a control reduces)
+critical control point:
+  meaning: a process step where control is essential to prevent a hazard
+  not_same_as: every process step
+critical limit:
+  meaning: a minimum or maximum value that must be kept at a critical control point
+  not_same_as: a target value
+checker:
+  meaning: a person, other than the author, who reviews work
+  not_same_as: the author
+universal rule (U):
+  meaning: a rule whose condition is true, or whose trigger occurs, in every engineered system; its intensity scales with the master rule
+  not_same_as: a rule that applies everywhere at full strength
+risk-scaled rule (R):
+  meaning: a rule that applies only above a consequence or uncertainty threshold set by the rigor matrix
+  not_same_as: conditional rule
+conditional rule (C):
+  meaning: a rule that applies only when the system has a property that a common class of systems lacks
+  not_same_as: risk-scaled rule
+trigger:
+  meaning: an event that happens in the life of every system, such as a failure, a change or a decision
+  not_same_as: scope condition (a property only some systems have)
+psychological safety:
+  meaning: a shared belief that the team is safe for interpersonal risk taking
+  not_same_as: comfort or low standards (a team can be safe and demanding)
+conflict of interest:
+  meaning: a personal interest that could influence, or appear to influence, a person's judgment
+  not_same_as: a disagreement about a decision
+commander's intent:
+  meaning: the purpose, the desired end state and the constraints of a task
+  not_same_as: a plan or a step list (the method)
+reversible decision (two-way door):
+  meaning: a decision whose effects can be undone at low cost
+  not_same_as: '**opposite:** irreversible decision (one-way door)'
+indicator:
+  meaning: a measure that shows how a process or system behaves
+  not_same_as: target (a value someone is rewarded for reaching)
+stop criterion:
+  meaning: evidence, written before a project starts, that ends the project when it occurs
+  not_same_as: a milestone (marks progress, does not decide continuation)
+escalation of commitment:
+  meaning: adding resources to a failing course of action because of earlier investment
+  not_same_as: persistence based on new evidence
+segregation of duties:
+  meaning: splitting a process so that no single person controls all its steps
+  not_same_as: two-person rule (two people at one moment of action, R6)
+work in progress (WIP):
+  meaning: work items that have started and are not finished
+  not_same_as: backlog (work not started)
+lead time:
+  meaning: time from the start of a work item to its finish
+  not_same_as: effort (working hours spent on it)
+span of control:
+  meaning: the number of people one person directly directs
+  not_same_as: the size of the whole unit
+unity of command:
+  meaning: each person reports to exactly one person for a given task
+  not_same_as: '**opposite:** dual reporting for the same task'
+engineering organization:
+  meaning: two or more people who design, build or operate a system together
+  not_same_as: a one-person business (rules on delegation, segregation and teams cannot apply to it)
+manager:
+  meaning: a person who is accountable for the work of other people
+  not_same_as: the governing body (which oversees managers)
+governing body:
+  meaning: the group that holds management accountable (board, supervisory board, steering committee)
+  not_same_as: management
+accountable:
+  meaning: answers for the result and makes the final decision; exactly one person per objective
+  not_same_as: responsible (does the work; can be several people)
+objective:
+  meaning: a measurable statement of what must be achieved, by when
+  not_same_as: a goal without a measure ("be the best")
+tolerance:
+  meaning: the permitted deviation from a plan (time, cost, scope, quality, risk) before a decision moves up one level
+  not_same_as: a target value
+exception:
+  meaning: a forecast or actual breach of a tolerance
+  not_same_as: a routine status report
+risk appetite:
+  meaning: the amount and type of risk the governing body accepts to achieve its objectives
+  not_same_as: risk capacity (the maximum risk the organization can survive)
+fair process:
+  meaning: engaging people, explaining the decision, and stating new expectations
+  not_same_as: consensus (fair process is "not decision by consensus")
+reference class:
+  meaning: a set of past, similar projects with known outcomes
+  not_same_as: the current project's own plan (inside view)
+stage gate:
+  meaning: a decision point at which an initiative is continued, changed or stopped
+  not_same_as: a status meeting (no stop decision)
+business case:
+  meaning: the documented reason to start and continue an initiative
+  not_same_as: the project plan
+verification (management):
+  meaning: checking that the deliverable meets the agreed specification ("doing things right")
+  not_same_as: validation
+validation (management):
+  meaning: checking that the deliverable creates the intended benefit ("doing the right things")
+  not_same_as: verification
+after-action review:
+  meaning: a non-punitive discussion of what happened, why, and how to improve
+  not_same_as: '**opposite:** a critique that looks for a person to blame'
+maximum tolerable period of disruption (MTPD):
+  meaning: the time after which the impact of not resuming an activity becomes unacceptable
+  not_same_as: recovery time objective
+recovery time objective (RTO):
+  meaning: the time within which an activity must resume at a minimum acceptable capacity; set inside the MTPD
+  not_same_as: MTPD
+legal hold:
+  meaning: an instruction to preserve documents and data because litigation or an investigation is reasonably anticipated
+  not_same_as: normal retention (documents may be deleted on schedule)
+key person:
+  meaning: a person whose sudden absence would stop a critical function
+  not_same_as: a senior person (seniority is not the test)
+red team:
+  meaning: an independent group that applies structured critical thinking to a plan before the decision
+  not_same_as: internal audit (checks after the fact)

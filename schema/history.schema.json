@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/crazyracer98/engineering/schema/history.schema.json",
+  "title": "History",
+  "description": "data/history.yaml: released editions (the SemVer release tag is the edition) and the old-to-new rule ID map.",
+  "type": "object",
+  "properties": {
+    "editions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "edition": {
+            "type": "string",
+            "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$"
+          },
+          "date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "edition",
+          "date",
+          "summary"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "id_map": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "old": {
+            "type": "string"
+          },
+          "new": {
+            "type": "string",
+            "pattern": "^[URC][1-9][0-9]*$",
+            "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+          },
+          "edition": {
+            "type": "string",
+            "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$"
+          }
+        },
+        "required": [
+          "old",
+          "new",
+          "edition"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "editions",
+    "id_map"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,336 @@
+# Taxonomy metadata, section prose and layout.
+# Schema: schema/meta.schema.json. data/ is the single source of truth (ADR 0003);
+# seeded once by sources/import/import_v9.py from edition 9.
+title: Engineering Best Practices — Cross-Domain Taxonomy
+edition: 1.0.0
+date: '2026-10-14'
+master_rule:
+  scale: Scale the rigor of every rule to (consequence of failure) × (uncertainty).
+  alarp: Keep reducing risk until the cost of the next reduction is grossly disproportionate to the benefit (ALARP).
+  risk_regions:
+    unacceptable: risk must be reduced, whatever the cost
+    tolerable: reduce risk while it is reasonably practicable (ALARP)
+    negligible: no further reduction is required
+  sources:
+  - primatech-alarp-principle
+  management_intro: 'In management, the same idea has three established names:'
+  management_terms:
+  - engineering: scale the rigor
+    management: '**tailoring**: adapt the method to the size, risk and context of the work'
+    source: PRINCE2 principle 7 "Tailor to suit the project"; PMBOK Guide 8th edition "Tailor for your context"
+  - engineering: boundary between the unacceptable and the tolerable region
+    management: '**risk appetite**: the amount and type of risk the governing body accepts in pursuit of its objectives'
+    source: COSO ERM 2017, principle 7 "Defines Risk Appetite"
+  - engineering: consequence
+    management: impact on people, money, legal position, reputation and objectives; **irreversibility** raises the consequence
+    source: ISO 31000:2018; Amazon 2015 shareholder letter (one-way doors)
+sentence_structure: IF [condition], THEN [action], BECAUSE [reason].
+id_prefixes:
+  U:
+    name: universal
+    description: The condition is true, or the trigger occurs, in every engineered system. IF is either "always" or a trigger such as "a failure has happened". Every system applies these rules; the master rule scales how strictly.
+  R:
+    name: risk-scaled
+    description: The rule applies only above a consequence or uncertainty threshold. The rigor matrix (section 6) says where.
+  C:
+    name: conditional
+    description: The rule applies only when the system has a property that a common class of systems lacks. IF names that property. Each C-rule names a counterexample system.
+  K:
+    name: conflict rule
+    description: It decides between two rules that pull in opposite directions.
+classification_test: '"Is there a common class of engineered systems in which this condition can never be true during the whole life cycle?" No → U (or R, if only the strength of the need varies with risk). Yes → C.'
+applicability_note: the test asks whether a rule *can* apply, not whether a domain already practices it. A domain without the practice has an adoption gap; that is not a counterexample. Rules therefore apply across domains by cross-reference, even where no source from that domain exists.
+quick_view_questions:
+  A: Who can be harmed, is the work within our competence, can people speak up without fear or a conflict of interest, and who can stop it?
+  B: Are requirements and goals measurable, decisions recorded and sized by reversibility, stop criteria set in advance, and models, data, evidence and indicators trustworthy?
+  C: How can each part fail or interact badly, and is the design as simple as the requirements allow?
+  D: Is the hazard removed at the source, and if not, which independent controls contain it, and can one person cause and hide harm alone?
+  E: How much margin is there, how much work is in progress, and what happens when the load exceeds the capacity?
+  F: Who checked the work, and was it tested the way it will be operated?
+  G: Is each change reviewed, explained to the people affected, made in small steps, and isolated from the people working on it?
+  H: Will we notice a problem before harm, and can people act on what they see?
+  I: Do we preserve evidence, investigate anomalies, and change the system afterwards?
+strength_keywords:
+  MUST: required. Not following it is a violation. A MUST rule applies whenever its IF-condition is true, in every cell of the rigor matrix.
+  SHOULD: expected. Not following it requires a written reason.
+relation_types:
+  depends_on: this rule needs the other rule to work.
+  strengthens: this rule makes the other rule more effective.
+  strengthened_by: the other rule makes this rule more effective (inverse of strengthens)
+  conflicts_with: following both rules fully pulls in opposite directions. Section 8 resolves conflicts.
+  checks: this rule provides the check for the other rule.
+  checked_by: the other rule provides the check for this rule (inverse of checks)
+  scaled_by: the other rule sets how strictly this rule is applied.
+evidence_levels:
+  strong: required by a standard, code, regulation or professional body.
+  moderate: widespread practice with published guidance.
+  weak: mostly anecdotal. No rule is rated weak; only parts of rules are (see notes).
+how_to_read:
+- key: sentence_structure
+  text: '**Sentence structure:** every rule reads as **IF** \[condition\], **THEN** \[action\], **BECAUSE** \[reason\].'
+- key: rule_classes
+  text: |-
+    **Rule classes and ID prefixes.** The IF field does a different job in each class:
+      - **U = universal.** The condition is true, or the trigger occurs, in every engineered system. IF is either "always" or a trigger such as "a failure has happened". Every system applies these rules; the master rule scales how strictly.
+      - **R = risk-scaled.** The rule applies only above a consequence or uncertainty threshold. The rigor matrix (section 6) says where.
+      - **C = conditional.** The rule applies only when the system has a property that a common class of systems lacks. IF names that property. Each C-rule names a counterexample system.
+      - **K = conflict rule.** It decides between two rules that pull in opposite directions.
+- key: classification_test
+  text: '**Classification test:** "Is there a common class of engineered systems in which this condition can never be true during the whole life cycle?" No → U (or R, if only the strength of the need varies with risk). Yes → C.'
+- key: applicability
+  text: '**Applicability, not adoption:** the test asks whether a rule *can* apply, not whether a domain already practices it. A domain without the practice has an adoption gap; that is not a counterexample. Rules therefore apply across domains by cross-reference, even where no source from that domain exists.'
+- key: ids
+  text: '**IDs:** each rule has a stable ID. A new rule gets the next free number in its class.'
+- key: strength_keywords
+  text: |-
+    **Strength keywords** follow RFC 2119:
+      - **MUST** = required. Not following it is a violation. A MUST rule applies whenever its IF-condition is true, in every cell of the rigor matrix.
+      - **SHOULD** = expected. Not following it requires a written reason.
+- key: relation_keywords
+  text: |-
+    **Relation keywords** in the RELATED column:
+      - **depends on** = this rule needs the other rule to work.
+      - **strengthens** = this rule makes the other rule more effective. **strengthened by** is the inverse.
+      - **conflicts with** = following both rules fully pulls in opposite directions. Section 8 resolves conflicts.
+      - **checks** = this rule provides the check for the other rule. **checked by** is the inverse.
+      - **scaled by** = the other rule sets how strictly this rule is applied.
+- key: source_quality
+  text: '**Source quality:** a **primary** source is a standard, a regulation, a document of a regulator or professional body, an original paper or report, or a word-for-word copy of one. A **secondary** source is an encyclopedia, a blog, a vendor or trade page, a topic aggregator or a news article. Each rule lists its primary sources first. The Evidence column marks rules that still rest on "secondary only" sources. Wikipedia itself says it "is not a reliable source for academic writing or research", so it is kept only as a secondary link.'
+- key: evidence_strength
+  text: |-
+    **Evidence strength** is the author's assessment:
+      - **strong** = required by a standard, code, regulation or professional body.
+      - **moderate** = widespread practice with published guidance.
+      - **weak** = mostly anecdotal. No rule is rated weak; only parts of rules are (see notes).
+- key: source_domain
+  text: '**Source domain** names the engineering field, or the management domain, where the rule was found. The software/infra example shows the same rule in platform engineering. Section 4 lists every domain with its rules and references.'
+- key: rule_names
+  text: '**Rule names** are short labels for scanning. The IF / THEN / BECAUSE text is the rule itself.'
+- key: scope
+  text: '**Scope: systems and the organizations that build them.** Every engineered system is designed, built and operated by an organization. Rules whose source domain is "management" govern that organization (decisions, delegation, people, change). Section 10 states every rule in management form, for teams, projects and organizations.'
+known_exceptions:
+- rule: C15
+  check: primary-source
+  reason: secondary only; the primary source, Brooks's 1975 book, is not online
+sections:
+- key: how_to_read
+  number: 1
+  title: How to read this file
+- key: master_rule
+  number: 2
+  title: Master rule
+- key: overview
+  number: 3
+  title: Taxonomy overview
+  intro: 'The categories follow the lifecycle of an engineered system: who is responsible (A), what is known and decided (B), how it is designed (C–E), how it is checked (F), changed (G) and operated (H), and how the organization learns (I).'
+  subsections:
+    rules_per_category: Rules per category
+- key: domain_index
+  number: 4
+  title: Domain index
+  contents_title: Domain index (engineering and management domains, their rules and references)
+  intro: |-
+    Each row names an engineering domain, the rules **found** in it, and the references that support those rules. A rule can appear under several domains. "Supports" in the rule list means the domain confirms an existing rule but added nothing new.
+
+    **Found is not the same as applicable.** All U-rules apply to every domain in this index, the R-rules apply wherever the rigor matrix requires them, and the C-rules apply wherever their condition is true. That holds even where the domain has no published practice yet (adoption gap).
+
+    130 domains in 20 branches (12 engineering branches, 8 management branches).
+  checked_without_row:
+    title: Checked without a separate row
+    intro: These domains produced no sourced rule. The last column shows which rules apply anyway by cross-reference, in addition to all U-rules. This column is the author's judgment, not a sourced finding.
+- key: glossary
+  number: 5
+  title: Glossary
+  intro: Each term has exactly one meaning in this file. No other word is used for the same meaning.
+- key: rigor_matrix
+  number: 6
+  title: Rigor matrix
+  intro: Find the cell that matches your system. U-rules apply in every cell; the master rule scales how strictly. C-rules apply in every cell where their condition is true. R-rules apply only in the cells listed. MUST rules apply whenever their IF-condition is true.
+- key: rules
+  number: 7
+  title: Rules by category
+  contents_title: Rules by category (A–I)
+- key: conflicts
+  number: 8
+  title: Conflict rules
+- key: sources_by_rule
+  number: 9
+  title: Sources by rule
+- key: management_forms
+  number: 10
+  title: Management form of each rule
+  intro: Each row states what a rule means when the "system" is an organization, a team, a project or a process. The IF / THEN / BECAUSE text in section 7 stays valid. Rules U47–U58, R9 and C14–C16 come from management sources and are already written for organizations; they are not repeated here. "Cross-reference only" in the Sources column means no management source was found; the transfer is the author's judgment (adoption gap, see section 1).
+  header_overrides:
+    A:
+    - ID
+    - Rule name
+    - Management name
+    - THEN (management form)
+    - Example (platform team / organization)
+    - Sources (management)
+    - Evidence
+  category_titles:
+    C: Design (organization and process design)
+- key: quotes
+  number: 11
+  title: Direct quotes
+  intro: Quotes were checked against the linked page on 2026-10-14. "…" marks text left out. Where the linked page is a copy, the original is named. Quotes for the engineering sources of rules U1–U46, R1–R8 and C1–C13 are given in the rule tables where they decide the evidence rating (for example U41, C13).
+  groups:
+  - key: master_rule
+    title: Master rule
+    header:
+    - Rule
+    - Sources
+    - Direct quote
+  - key: management_rules
+    title: Rules from management sources
+    header:
+    - Rule
+    - Sources (primary first)
+    - Direct quote
+  - key: management_other
+    title: Management sources for the other rules
+    header:
+    - Rule
+    - Sources
+    - Direct quote
+- key: method
+  number: 12
+  title: Method and limits
+quick_view:
+  title: 'Quick view: nine questions'
+  intro: A checklist works best with five to nine items, so the taxonomy can be used as one question per category. Each question leads to the rules of its category.
+analogy_map:
+  title: 'Analogy map: engineering object → management object'
+  intro: The left column is the engineering term used in this file. The right column is the thing that plays the same role in an organization.
+  rows:
+  - engineering: system
+    management: organization, team, project, process
+    role: the thing that must deliver a function
+  - engineering: load
+    management: demand, workload, number of requests
+    role: what the system must carry
+  - engineering: margin
+    management: 'reserve: schedule buffer, budget contingency, spare capacity of people'
+    role: capacity above the expected load
+  - engineering: redundancy (N-1)
+    management: deputy, successor, second supplier
+    role: survives the loss of one element
+  - engineering: fail-safe state
+    management: default decision, fallback authority
+    role: the harmless state after a failure
+  - engineering: emergency stop (andon)
+    management: speak-up channel, stop-the-line right
+    role: the person nearest to a problem can stop work
+  - engineering: checker
+    management: reviewer, internal audit, external auditor
+    role: a person other than the author checks the work
+  - engineering: alert
+    management: exception report to the next management level
+    role: a signal that needs action now
+  - engineering: alarm fatigue
+    management: report overload
+    role: too many signals → all signals are ignored
+  - engineering: commissioning
+    management: acceptance plus benefits review
+    role: checks that the whole works for the owner
+  - engineering: postmortem
+    management: after-action review
+    role: learning after an event
+  - engineering: isolation (lockout/tagout)
+    management: protected iteration (for example the Sprint Goal)
+    role: nobody changes the work while people work on it
+  - engineering: control loop oscillation
+    management: reorganization churn, priority churn
+    role: switching back and forth around a target
+  - engineering: bottleneck
+    management: constraint (theory of constraints)
+    role: the part that limits total output
+  - engineering: bullwhip effect
+    management: bullwhip effect (same term)
+    role: each stage amplifies the variation it sees
+  - engineering: provenance
+    management: supplier due diligence
+    role: knowing where a part comes from
+  - engineering: compartment
+    management: 'ring-fenced unit: separate legal entity, budget or team'
+    role: a failure that cannot spread
+  - engineering: exact constraint (one owner per property)
+    management: single point of accountability, unity of command
+    role: each property or decision has exactly one owner
+tables:
+  rules_main:
+  - ID
+  - Name
+  - Strength
+  - IF (condition)
+  - THEN (action)
+  - BECAUSE (reason)
+  - Example (software/infra)
+  rules_detail:
+  - ID
+  - Class (why)
+  - HOW TO CHECK
+  - VIOLATION (opposite of the rule)
+  - RELATED
+  - Evidence
+  - Source domain
+  sources_by_rule:
+  - Rule
+  - Sources
+  management_forms:
+  - ID
+  - Rule name
+  - Management name
+  - THEN (management form)
+  - Example
+  - Sources (management)
+  - Evidence
+  conflicts:
+  - ID
+  - IF (condition)
+  - THEN (action)
+  - BECAUSE (reason)
+  - Example (software/infra)
+  - Basis
+  domains:
+  - Domain
+  - Rules
+  - References
+  checked_without_row:
+  - Domain
+  - Reason
+  - Applicable by cross-reference (besides all U-rules)
+  glossary:
+  - Term
+  - Meaning
+  - Not the same as / opposite
+  rigor_matrix:
+  - ''
+  - '**Low uncertainty**'
+  - '**High uncertainty**'
+  master_rule_regions:
+  - Risk region
+  - Required action
+  master_rule_terms:
+  - Engineering term
+  - Management term
+  - Source
+  quick_view:
+  - Category
+  - Question
+  analogy_map:
+  - Engineering
+  - Management
+  - Same role
+layout_quirks:
+- section: 10
+  line: 921
+  block: h2
+  starts_with: '## 10. Management form of each rule'
+  blank_lines_before: 2
+- section: 10
+  line: 924
+  block: h3
+  starts_with: '### A. Responsibility'
+  blank_lines_before: 0
