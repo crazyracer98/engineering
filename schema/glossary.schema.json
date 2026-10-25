@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/crazyracer98/engineering/schema/glossary.schema.json",
+  "title": "Glossary",
+  "description": "data/glossary.yaml: term -> meaning, as in edition 6; key order is table order.",
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "meaning": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+      },
+      "not_same_as": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+      }
+    },
+    "required": [
+      "meaning",
+      "not_same_as"
+    ],
+    "additionalProperties": false
+  },
+  "minProperties": 1
+}

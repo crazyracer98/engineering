@@ -1,0 +1,2825 @@
+# The 83 rules (U, R, C), in ID order.
+# Schema: schema/rules.schema.json. data/ is the single source of truth (ADR 0003);
+# seeded once by sources/import/import_v9.py from edition 9.
+- id: U1
+  name: Public safety first
+  class: universal
+  class_note: true for every system
+  strength: MUST
+  category: A
+  if: always
+  then: put public safety above cost, schedule and convenience
+  because: failures harm people outside the project
+  example: block a release that leaks user data
+  check: every release gate contains a safety and security sign-off item
+  violation: shipping a known safety defect to meet a deadline
+  related:
+    strengthens:
+    - U26
+    - U27
+  evidence: strong
+  evidence_note: null
+  source_domain: all (professional ethics)
+  notes: null
+  sources:
+  - nspe-ethics-reference-guide
+  management:
+    name: Public safety first
+    form_name: Duty of care and ethics first
+    form: put the safety, health and legal rights of people (customers, the public, the own people) above cost, schedule and convenience
+    example: the manager stops a launch that would process personal data without a legal basis
+    sources:
+    - iso-9001-2026-launch
+    - iso-45001-2018
+    source_titles:
+      iso-9001-2026-launch: 'ISO 9001:2026 launch: "ethical behaviour"'
+      iso-45001-2018: ISO 45001:2018
+    evidence: strong
+    evidence_note: null
+- id: U2
+  name: Work within competence
+  class: universal
+  class_note: true for every system
+  strength: MUST
+  category: A
+  if: always
+  then: work only within your competence, and involve an expert outside it
+  because: error rates rise outside known areas
+  example: a security engineer reviews an IAM design
+  check: each design has a named checker with expertise in its domain
+  violation: approving work in a domain you do not know
+  related:
+    strengthens:
+    - U8
+  evidence: strong
+  evidence_note: null
+  source_domain: all (professional ethics)
+  notes: null
+  sources:
+  - nspe-ethics-reference-guide
+  management:
+    name: Work within competence
+    form_name: Competence management
+    form: give work only to people competent for it, and train them or add an expert otherwise
+    example: a team lead without labour-law knowledge asks HR before changing on-call rules
+    sources:
+    - coso-erm-integrating-strategy-performance
+    - us-army-adp-6-0
+    source_titles:
+      coso-erm-integrating-strategy-performance: COSO ERM principle 5
+      us-army-adp-6-0: 'ADP 6-0: principle "Competence"'
+    evidence: strong
+    evidence_note: null
+- id: U3
+  name: Measurable requirements
+  class: universal
+  class_note: true for every system
+  strength: MUST
+  category: B
+  if: always
+  then: write each requirement as measurable, and link it to a user need
+  because: an unmeasurable requirement cannot be verified
+  example: '"p95 latency \< 200 ms", linked to a ticket'
+  check: every requirement has an acceptance criterion and a link to a user need
+  violation: '"the system shall be fast"'
+  related:
+    strengthens:
+    - U4
+    - R3
+  evidence: moderate
+  evidence_note: null
+  source_domain: systems engineering
+  notes: null
+  sources:
+  - fdot-systems-engineering-100
+  management:
+    name: Measurable requirements
+    form_name: Measurable objectives
+    form: write each objective with a measure, a target, a deadline and one owner, and link it to a customer or stakeholder need
+    example: '"reduce median time to provision a namespace from 3 days to 1 hour by Q2", owner named'
+    sources:
+    - fema-national-incident-management-system
+    - locke-latham-building-practically-useful
+    source_titles:
+      fema-national-incident-management-system: 'NIMS: management by objectives'
+      locke-latham-building-practically-useful: Locke & Latham 2002
+    evidence: strong
+    evidence_note: null
+- id: U4
+  name: Verification and validation
+  class: universal
+  class_note: true for every system
+  strength: MUST
+  category: F
+  if: always
+  then: do verification AND validation, and before handover test that all parts work together against the owner's requirements (commissioning)
+  because: passing one does not mean passing the other, and parts that pass alone can fail together
+  example: CI tests pass = verification; user acceptance = validation; end-to-end test of a new platform with DNS, certificates, monitoring and backup
+  check: both a test result and a stakeholder acceptance exist
+  violation: declaring the work done because tests pass
+  related:
+    depends_on:
+    - U3
+  evidence: strong
+  evidence_note: null
+  source_domain: systems engineering, building services (commissioning)
+  notes: null
+  sources:
+  - arxiv-v-v-systems-systems
+  - wikipedia-building-commissioning
+  management:
+    name: Verification and validation
+    form_name: Acceptance and benefits review
+    form: check that deliverables meet the specification (verification) and that the intended benefit is reached (validation); keep the business case valid during the whole initiative
+    example: the developer portal is accepted against its spec, and six months later adoption is measured
+    sources:
+    - purple-griffon-prince2-7th-edition
+    source_titles:
+      purple-griffon-prince2-7th-edition: PRINCE2 principle 1 "Ensure continued business justification"
+    evidence: moderate
+    evidence_note: null
+- id: U5
+  name: Find defects early
+  class: universal
+  class_note: true for every system
+  strength: SHOULD
+  category: F
+  if: always
+  then: find and fix defects at the earliest possible stage
+  because: the cost of a fix rises at each later stage
+  example: lint and tests run in CI before merge
+  check: each check runs at the first stage where it can run
+  violation: finding defects only in production
+  related:
+    strengthens:
+    - U6
+    - U28
+  evidence: moderate
+  evidence_note: direction strong; the '10x per stage' factor is weak
+  source_domain: software engineering
+  notes: null
+  sources:
+  - arxiv-revisiting-cost-fix
+  management:
+    name: Find defects early
+    form_name: Early review of plans
+    form: review plans and business cases before money and people are committed
+    example: a one-page proposal is reviewed before a quarter of work is planned
+    sources:
+    - deming-14-points
+    source_titles:
+      deming-14-points: Deming point 3
+    evidence: moderate
+    evidence_note: null
+- id: U6
+  name: Failure and interaction analysis
+  class: universal
+  class_note: true for every system
+  strength: SHOULD
+  category: C
+  if: always
+  then: before you build, list how each part can fail, how parts that have not failed can interact unsafely, and how the system can cause harm while working as designed (insufficient design or foreseeable misuse)
+  because: a known failure or interaction can be designed against
+  example: '"what happens if the registry is down?" and "what if two controllers fight over the same resource?"'
+  check: a list of failure modes and unsafe interactions exists per component and is reviewed
+  violation: the first failure analysis happens after an incident
+  related:
+    strengthens:
+    - U25
+    - R1
+    - R2
+    - U26
+    - U27
+    - U34
+  evidence: moderate
+  evidence_note: method widely used; RPN scoring criticized
+  source_domain: reliability and safety (FMEA, STPA), automotive (SOTIF)
+  notes: null
+  sources:
+  - ebsco-fmea
+  - bmj-qual-saf-pmc-fmea
+  - leveson-thomas-stpa-handbook
+  - swift-navigation-what-sotif
+  management:
+    name: Failure and interaction analysis
+    form_name: Pre-mortem and portfolio risk view
+    form: before starting, assume the initiative has failed and list the reasons; also list how parallel initiatives can interfere with each other
+    example: a pre-mortem before a cluster migration finds that two teams plan the same freeze window
+    sources:
+    - klein-performing-project-premortem
+    - coso-erm-integrating-strategy-performance
+    source_titles:
+      klein-performing-project-premortem: Klein 2007 (HBR)
+      coso-erm-integrating-strategy-performance: COSO ERM principles 10 and 14
+    evidence: moderate
+    evidence_note: null
+- id: U7
+  name: Simplicity and modularity
+  class: universal
+  class_note: true for every system
+  strength: SHOULD
+  category: C
+  if: always
+  then: choose the simplest design that meets the requirements, and split it into modules
+  because: every added part adds a way to fail
+  example: one Helm chart per app, not one chart for all
+  check: each component has one stated purpose, and no part is unused
+  violation: adding features for imagined future needs
+  related:
+    conflicts_with:
+    - U25
+    - R1
+    - R2
+    - U29
+    - U34
+    - C3
+  evidence: moderate
+  evidence_note: null
+  source_domain: aerospace (Lockheed Skunk Works), software
+  notes: null
+  sources:
+  - hoare-emperors-old-clothes-turing
+  - grokipedia-kiss-principle
+  management:
+    name: Simplicity and modularity
+    form_name: Simple structures, few priorities
+    form: use the fewest layers, rules, meetings and priorities that meet the objective; stop work that is not needed
+    example: one team backlog with one ranked list, not three parallel priority lists
+    sources:
+    - principles-behind-agile-manifesto
+    source_titles:
+      principles-behind-agile-manifesto: Agile principle 10
+    evidence: moderate
+    evidence_note: null
+- id: U8
+  name: Independent checker
+  class: universal
+  class_note: true for every system
+  strength: MUST
+  category: F
+  if: always
+  then: "have a checker review the work, and raise the checker's independence with the consequence of failure: self → peer → external organization"
+  because: authors do not see their own errors, and shared assumptions hide shared errors
+  example: required PR approval; external penetration test for high-consequence systems
+  check: every change has a checker who is not the author, and the checker's independence matches the rigor matrix
+  violation: the author merges their own change
+  related:
+    depends_on:
+    - U2
+  evidence: strong
+  evidence_note: null
+  source_domain: technical drawing (checker in the title block), civil and structural (independent checking)
+  notes: null
+  sources:
+  - singapore-building-control-regulations
+  - libretexts-peer-review-design
+  - epcland-checking-design
+  - iia-three-lines-model
+  - regulation-no-537-2014-article
+  - uk-mod-red-teaming-handbook
+  management:
+    name: Independent checker
+    form_name: Independent assurance, scaled to consequence
+    form: "raise the checker's independence with consequence: peer review → independent second or third line → external audit; rotate long-serving external auditors"
+    example: a team lead's budget is checked by finance; the company's accounts by an external auditor
+    sources:
+    - iia-three-lines-model
+    - regulation-no-537-2014-article
+    - uk-mod-red-teaming-handbook
+    source_titles:
+      iia-three-lines-model: IIA principle 5
+      regulation-no-537-2014-article: EU 537/2014 Art. 17
+      uk-mod-red-teaming-handbook: UK MoD Red Teaming Handbook
+    evidence: strong
+    evidence_note: EU law for public-interest entities
+- id: U9
+  name: Versioning and change review
+  class: universal
+  class_note: true for every system
+  strength: MUST
+  category: G
+  if: always
+  then: version every artifact; before each change, review its technical basis, its safety impact and the procedures it affects, approve it, and inform the affected people before go-live
+  because: an unknown version makes failures unreproducible, and an unreviewed change brings in unknown hazards
+  example: 'GitOps: every change is a reviewed pull request; the runbook is updated in the same pull request'
+  check: every change record shows basis, impact review and approval, and the deployed state matches an approved commit
+  violation: a manual change in production (drift)
+  related:
+    strengthens:
+    - U10
+  evidence: strong
+  evidence_note: null
+  source_domain: all (configuration management), chemical process safety (management of change)
+  notes: null
+  sources:
+  - arxiv-controls-machine-protection
+  - arxiv-agentic-configuration-management
+  - osha-29-cfr-1910-119
+  management:
+    name: Versioning and change review
+    form_name: Document control and management of change
+    form: version policies, processes and organization charts; review each change for its effects before it takes effect, and inform the people affected
+    example: the on-call policy is versioned in git and changed only by reviewed pull request
+    sources:
+    - iso-iec-20000-1-2018
+    - coso-erm-integrating-strategy-performance
+    source_titles:
+      iso-iec-20000-1-2018: ISO/IEC 20000-1:2018
+      coso-erm-integrating-strategy-performance: COSO ERM principle 15 "Assesses Substantial Change"
+    evidence: strong
+    evidence_note: null
+- id: U10
+  name: Blameless root cause analysis
+  class: universal
+  class_note: trigger that occurs in the life cycle of every system
+  strength: SHOULD
+  category: I
+  if: a failure has happened
+  then: find the root cause in the system, not a person to blame
+  because: blame makes people hide information
+  example: blameless postmortem with 5 Whys
+  check: each failure above a set severity has a postmortem with system-level actions
+  violation: '"operator error" as the final root cause'
+  related:
+    depends_on:
+    - U9
+    strengthens:
+    - U11
+  evidence: moderate
+  evidence_note: null
+  source_domain: site reliability engineering
+  notes: null
+  sources:
+  - google-sre-postmortem-culture
+  management:
+    name: Blameless root cause analysis
+    form_name: After-action review
+    form: after an event, discuss without blame what happened, why, and how to improve
+    example: 'after a failed reorganization: an AAR with all affected teams'
+    sources:
+    - us-army-foundations-aar-process
+    - deming-14-points
+    source_titles:
+      us-army-foundations-aar-process: 'US Army: Foundations of the After Action Review Process (DTIC)'
+      deming-14-points: Deming point 8
+    evidence: strong
+    evidence_note: doctrine
+- id: U11
+  name: Plan-Do-Check-Act
+  class: universal
+  class_note: true for every system
+  strength: SHOULD
+  category: I
+  if: always
+  then: repeat the cycle Plan → Do → Check → Act
+  because: improvement is a cycle, not a single event
+  example: retrospective after each sprint
+  check: actions from earlier cycles are tracked until they are completed
+  violation: the same failure happens again with no process change
+  related:
+    depends_on:
+    - U10
+    - U13
+  evidence: strong
+  evidence_note: null
+  source_domain: quality management (ISO 9001)
+  notes: null
+  sources:
+  - asq-pdca-cycle
+  - iso-central-pdca
+  management:
+    name: Plan-Do-Check-Act
+    form_name: Regular reflection and adjustment
+    form: run the improvement cycle at fixed intervals and track actions to completion
+    example: a retrospective at the end of every sprint and quarter
+    sources:
+    - principles-behind-agile-manifesto
+    - iso-9001-2026-launch
+    source_titles:
+      principles-behind-agile-manifesto: Agile principle 12
+      iso-9001-2026-launch: ISO 9001:2026
+    evidence: strong
+    evidence_note: null
+- id: U12
+  name: Least privilege
+  class: universal
+  class_note: true for every system
+  strength: MUST
+  category: D
+  if: always
+  then: give each person, service and process only the minimum access its function needs
+  because: minimum access limits the damage when one part is compromised
+  example: Kubernetes RBAC scoped to one namespace
+  check: no role holds a permission that was unused for a set period
+  violation: a CI pipeline with cluster-admin rights
+  related:
+    strengthens:
+    - U27
+    - U29
+  evidence: strong
+  evidence_note: null
+  source_domain: security engineering (NIST)
+  notes: null
+  sources:
+  - nist-csrc-glossary-least-privilege
+  - jamf-nist-definition-least-privilege
+  management:
+    name: Least privilege
+    form_name: Need-to-know and limits of authority
+    form: give each person only the information, data and decision authority their role needs; set written limits of authority
+    example: spending authority of team leads limited to an amount; personal data visible only to HR
+    sources:
+    - gdpr-article-5
+    source_titles:
+      gdpr-article-5: GDPR Art. 5(1)(c) data minimisation
+    evidence: strong
+    evidence_note: law for personal data
+- id: U13
+  name: Monitoring in operation
+  class: universal
+  class_note: trigger that occurs in the life cycle of every system
+  strength: SHOULD
+  category: H
+  if: the system is in operation
+  then: measure its behavior in real use, and alert on symptoms that users feel; where the output stays perfect until a sudden collapse (cliff effect), also monitor the remaining margin
+  because: tests before release cannot cover all real conditions, and some systems show no symptom until they fail completely
+  example: alerts on latency, traffic, errors and saturation; certificate days left, disk headroom, error budget
+  check: each service has dashboards and alerts for user-facing symptoms
+  violation: learning about an outage from users
+  related:
+    strengthens:
+    - U10
+    - U11
+    - U18
+    checks:
+    - U25
+    - U35
+  evidence: moderate
+  evidence_note: null
+  source_domain: site reliability engineering, broadcast (confidence monitoring)
+  notes: null
+  sources:
+  - google-sre-monitoring-distributed-systems
+  - tv-technology-confidence-monitors
+  management:
+    name: Monitoring in operation
+    form_name: Performance monitoring and going to see
+    form: track leading and lagging indicators, and regularly go to the place where the work happens
+    example: the manager joins an on-call shift each quarter, besides reading the dashboard
+    sources:
+    - coso-erm-integrating-strategy-performance
+    - wikipedia-genchi-genbutsu
+    source_titles:
+      coso-erm-integrating-strategy-performance: COSO ERM principle 16 "Reviews Risk and Performance"
+    evidence: moderate
+    evidence_note: null
+- id: U14
+  name: Lifecycle and decommissioning
+  class: universal
+  class_note: true for every system
+  strength: SHOULD
+  category: C
+  if: always
+  then: plan operation, maintenance and decommissioning at design time
+  because: early design decisions fix most end-of-life costs
+  example: define how to delete a cluster and its data before creating it
+  check: each design document has a maintenance and a decommissioning section
+  violation: orphaned resources that nobody can safely remove
+  related:
+    strengthens:
+    - U7
+    - U16
+  evidence: moderate
+  evidence_note: null
+  source_domain: nuclear, offshore, aerospace
+  notes: null
+  sources:
+  - iaea-decommissioning-design
+  - nasa-design-maintenance
+  - jpt-engineering-decommissioning
+  management:
+    name: Lifecycle and decommissioning
+    form_name: Plan the exit at the start
+    form: 'when starting a contract, project, product, data collection or role, plan how it ends: exit clause, closure, sunset, deletion, handover'
+    example: every vendor contract has an exit and data-return clause; personal data has a deletion date
+    sources:
+    - gdpr-article-5
+    source_titles:
+      gdpr-article-5: GDPR Art. 5(1)(e) storage limitation
+    evidence: strong
+    evidence_note: law for personal data
+- id: U15
+  name: Human factors
+  class: universal
+  class_note: trigger that occurs in the life cycle of every system
+  strength: SHOULD
+  category: C
+  if: a person uses or operates the system
+  then: design the interface for the real user in the real environment, including stress, and for the full range of users, not an average user
+  because: a poor interface causes errors
+  example: a runbook that works at 3 a.m.; unambiguous CLI output
+  check: critical tasks are tested with real users or operators
+  violation: blaming users for errors that the interface invites
+  related:
+    depends_on:
+    - U10
+    strengthens:
+    - U28
+  evidence: moderate
+  evidence_note: strong in medical devices
+  source_domain: human factors, medical devices, biomechanics (anthropometry)
+  notes: null
+  sources:
+  - fda-applying-human-factors-usability
+  - md-di-human-factors-engineering
+  - egtechnology-usability-example
+  - wikipedia-anthropometry
+  management:
+    name: Human factors
+    form_name: Work designed for real people
+    form: 'design roles, processes and tools for real people under real conditions: clear roles, plans and goals, and a workload people can carry'
+    example: each team member can name their role and the team's current goal
+    sources:
+    - google-re-work-understand-team
+    source_titles:
+      google-re-work-understand-team: 'Google re:Work: "Structure and clarity"'
+    evidence: moderate
+    evidence_note: null
+- id: U16
+  name: Sustainability
+  class: universal
+  class_note: true for every system
+  strength: SHOULD
+  category: A
+  if: always
+  then: reduce environmental impact and resource use across the whole lifecycle
+  because: NSPE canon 1 includes sustainable development
+  example: scale idle environments to zero
+  check: resource use is measured and reviewed
+  violation: unused resources running all the time
+  related:
+    depends_on:
+    - U14
+  evidence: moderate
+  evidence_note: null
+  source_domain: all (professional ethics)
+  notes: null
+  sources:
+  - nspe-sustainability-pes-obligations
+  management:
+    name: Sustainability
+    form_name: Environmental and social sustainability
+    form: include environmental and social impact in decisions across the whole life cycle, including procurement
+    example: cloud cost and energy reports reviewed with the budget
+    sources:
+    - iso-14001-2015-withdrawn-replaced
+    - iso-20400-2017-sustainable-procurement
+    - pmi-pmbok-guide-8th-edition
+    source_titles:
+      iso-14001-2015-withdrawn-replaced: ISO 14001:2026 (via 2015 page)
+      iso-20400-2017-sustainable-procurement: ISO 20400:2017
+      pmi-pmbok-guide-8th-edition: 'PMBOK 8: "integrate sustainability"'
+    evidence: strong
+    evidence_note: null
+- id: U17
+  name: Test as you operate
+  class: universal
+  class_note: trigger that occurs in the life cycle of every system
+  strength: SHOULD
+  category: F
+  if: a test must show that the system is ready
+  then: run the test in the same configuration and conditions as real operation, and test again after every repair
+  because: systems that passed every test have failed in operation because operation differed from the test
+  example: staging uses the same image digest and Helm values as production
+  check: the differences between the test setup and real operation are listed, and each one is justified
+  violation: testing a different build than the one that is deployed
+  related:
+    depends_on:
+    - U4
+    strengthens:
+    - U5
+  evidence: moderate
+  evidence_note: null
+  source_domain: aerospace (Test Like You Fly)
+  notes: null
+  sources:
+  - aerospace-corp-test-like-you
+  management:
+    name: Test as you operate
+    form_name: Pilots and exercises under real conditions
+    form: test new processes, plans and organizations in real conditions before full rollout, and exercise continuity plans
+    example: a new on-call model is piloted with one team for one month; the continuity plan is exercised once a year
+    sources:
+    - iso-22301-2019
+    source_titles:
+      iso-22301-2019: ISO 22301:2019
+    sources_text: '[@iso-22301-2019] (supports)'
+    evidence: moderate
+    evidence_note: null
+- id: U18
+  name: Investigate anomalies
+  class: universal
+  class_note: trigger that occurs in the life cycle of every system
+  strength: SHOULD
+  category: I
+  if: the system behaves differently from what was expected, even if nobody was harmed
+  then: record the anomaly and investigate it before you accept it as normal
+  because: ignored warning signs come before major accidents
+  example: a flaky test, or an alert that everyone silences
+  check: 'each anomaly has a ticket with a decision: fix it, or accept it with a written reason'
+  violation: silencing an alert permanently without an investigation
+  related:
+    depends_on:
+    - U13
+    - U20
+    strengthens:
+    - U10
+  evidence: moderate
+  evidence_note: null
+  source_domain: aerospace, accident research (normalization of deviance)
+  notes: null
+  sources:
+  - wikipedia-normalization-deviance
+  - national-academies-accident-precursor-analysis
+  management:
+    name: Investigate anomalies
+    form_name: Weak signals and near misses
+    form: record and investigate deviations even when nothing went wrong, before they become normal
+    example: three projects in a row miss their deadline by two weeks → investigated as a pattern
+    sources:
+    - columbia-accident-investigation-board-report
+    source_titles:
+      columbia-accident-investigation-board-report: CAIB report summary
+    evidence: strong
+    evidence_note: null
+- id: U19
+  name: Small verified steps
+  class: universal
+  class_note: trigger that occurs in the life cycle of every system
+  strength: SHOULD
+  category: G
+  if: a change carries risk
+  then: make the change in small steps, check the result of each step before the next one, and define each check as a hold point (work stops until the check is approved) or a witness point (work continues while the check is observed)
+  because: small steps limit how much harm one wrong step can do
+  example: canary rollout at 1 % → 10 % → 100 %, with a manual approval gate (hold point) before 100 %
+  check: each risky rollout has defined steps, and each check between steps is marked as hold point or witness point
+  violation: switching all traffic at once
+  related:
+    depends_on:
+    - U13
+    strengthens:
+    - R4
+  evidence: moderate
+  evidence_note: null
+  source_domain: flight testing (build-up approach), construction management (hold points)
+  notes: null
+  sources:
+  - google-sre-workbook-canarying-releases
+  - flight-test-fact-build-up
+  - quality-engineers-guide-hold-point
+  management:
+    name: Small verified steps
+    form_name: Iterative delivery and management stages
+    form: deliver and decide in small steps, and decide at the end of each stage whether to continue
+    example: a reorganization is piloted in one department before it rolls out
+    sources:
+    - dora-working-small-batches
+    - purple-griffon-prince2-7th-edition
+    source_titles:
+      dora-working-small-batches: 'DORA: small batches'
+      purple-griffon-prince2-7th-edition: PRINCE2 principle 4 "Manage by stages"
+    evidence: strong
+    evidence_note: null
+- id: U20
+  name: Stop authority
+  class: universal
+  class_note: trigger that occurs in the life cycle of every system
+  strength: SHOULD
+  category: A
+  if: anyone finds a problem that could cause harm
+  then: let that person stop the work without needing permission and without being blamed; the stop must always be available, must override all other functions, and resetting it must not restart the system
+  because: the person nearest to a problem sees it first
+  example: a deploy freeze that overrides Argo CD auto-sync; lifting the freeze requires an explicit sync
+  check: the stop mechanism exists, works in every operating mode, does not restart on reset, and every use is reviewed without blame
+  violation: a release continues while a known problem is still being discussed
+  related:
+    depends_on:
+    - U10
+    strengthens:
+    - U1
+    - U18
+  evidence: strong
+  evidence_note: emergency stop is standardized in ISO 13850
+  source_domain: manufacturing (Toyota andon), machinery (emergency stop)
+  notes: null
+  sources:
+  - wikipedia-andon
+  - iso-13850-2015-emergency-stop
+  - directive-2019-1937
+  management:
+    name: Stop authority
+    form_name: Speak-up and stop-the-line
+    form: let every person raise a concern or stop work without permission and without retaliation; provide a confidential reporting channel and follow up every report
+    example: any engineer may pause a release; an anonymous channel exists for legal and ethical concerns
+    sources:
+    - directive-2019-1937
+    - deming-14-points
+    - toyota-production-system
+    source_titles:
+      directive-2019-1937: Directive (EU) 2019/1937, Art. 8(3) and recital 88
+      deming-14-points: Deming point 8
+      toyota-production-system: 'Toyota: jidoka'
+    evidence: strong
+    evidence_note: 'EU law: internal channels required for private entities with 50 or more workers'
+- id: U21
+  name: Decision records
+  class: universal
+  class_note: trigger that occurs in the life cycle of every system
+  strength: SHOULD
+  category: B
+  if: you make a significant design decision
+  then: record the decision, why you made it, and which alternatives you rejected
+  because: without the reason, later teams cannot judge whether the decision still holds
+  example: Architecture Decision Record (ADR) in the repository
+  check: each significant decision has a record with its reason and the rejected alternatives
+  violation: nobody knows why the system is built this way
+  related:
+    strengthens:
+    - U9
+    - U10
+  evidence: moderate
+  evidence_note: null
+  source_domain: software (ADR), civil and offshore (basis of design)
+  notes: null
+  sources:
+  - adr-github-io-architectural-decision
+  - spe-design-decommissioning
+  management:
+    name: Decision records
+    form_name: Decision log
+    form: record each significant management decision with its reason, the alternatives considered and the owner
+    example: 'a decision log entry: "move to a shared on-call rotation; rejected: per-team rotation, because…"'
+    sources:
+    - coso-erm-integrating-strategy-performance
+    - iso-30401-2018-knowledge-management
+    source_titles:
+      coso-erm-integrating-strategy-performance: COSO ERM principle 8 "Evaluates Alternative Strategies"
+      iso-30401-2018-knowledge-management: ISO 30401:2018
+    sources_text: '[@coso-erm-integrating-strategy-performance]; [@iso-30401-2018-knowledge-management] (supports)'
+    evidence: moderate
+    evidence_note: null
+- id: U22
+  name: Trustworthy evidence
+  class: universal
+  class_note: trigger that occurs in the life cycle of every system
+  strength: SHOULD
+  category: B
+  if: a record is used as evidence (test result, approval, measurement)
+  then: make it attributable, legible, recorded at the time, original and accurate; changes must keep the original entry visible and record who, when and why
+  because: evidence that can be changed silently proves nothing
+  example: signed commits, immutable audit logs, CI results stored with the commit SHA
+  check: a sample of records shows author, time and full change history
+  violation: editing a test report after the fact without a trace
+  related:
+    strengthens:
+    - U9
+    - R3
+  evidence: strong
+  evidence_note: required in regulated domains
+  source_domain: pharma and clinical trials (ALCOA)
+  notes: null
+  sources:
+  - fda-electronic-source-data-guidance
+  - hgb-239
+  management:
+    name: Trustworthy evidence
+    form_name: Proper bookkeeping and records
+    form: keep business records so that no change hides the original entry, and so that the organization can demonstrate compliance
+    example: budget changes are new entries with author and date, not overwrites
+    sources:
+    - hgb-239
+    - gdpr-article-5
+    - iso-15489-1-2016-records
+    source_titles:
+      hgb-239: § 239(3) HGB
+      gdpr-article-5: GDPR Art. 5(2)
+      iso-15489-1-2016-records: ISO 15489-1:2016
+    evidence: strong
+    evidence_note: German law for bookkeeping
+- id: U23
+  name: Preserve evidence
+  class: universal
+  class_note: trigger that occurs in the life cycle of every system
+  strength: SHOULD
+  category: I
+  if: a failure has happened
+  then: document and preserve the as-found state before you repair or restart anything, and record who handled the evidence (chain of custody)
+  because: a repair destroys the evidence needed to find the cause
+  example: capture logs, heap dump and disk snapshot before restarting a pod or rolling back
+  check: each incident record lists the evidence captured before the first repair action
+  violation: restarting the service first and finding no logs afterwards
+  related:
+    depends_on:
+    - U22
+    strengthens:
+    - U10
+    conflicts_with:
+    - U35
+  evidence: strong
+  evidence_note: required in regulated failure investigation (PHMSA protocol)
+  source_domain: forensic engineering
+  notes: null
+  sources:
+  - phmsa-metallurgical-laboratory-failure-examination
+  - wikipedia-forensic-engineering
+  management:
+    name: Preserve evidence
+    form_name: Legal hold
+    form: when litigation or an investigation is reasonably anticipated, stop routine deletion and preserve the relevant records
+    example: after a complaint about a dismissal, the related emails and chat channels are preserved
+    sources:
+    - troutman-pepper-sedona-commentary-legal
+    source_titles:
+      troutman-pepper-sedona-commentary-legal: Sedona Commentary on Legal Holds, Guideline 1 (via Troutman Pepper)
+    evidence: strong
+    evidence_note: US litigation duty
+- id: U24
+  name: Design for testability
+  class: universal
+  class_note: true for every system
+  strength: SHOULD
+  category: C
+  if: always
+  then: build ways to set and observe the internal state of each part into the design, so that it can be tested
+  because: a state you cannot set or observe cannot be tested
+  example: health and readiness endpoints, dry-run modes, feature flags for testing, debug endpoints
+  check: each component has documented test access to set and observe its key states
+  violation: a component that can only be tested in production
+  related:
+    strengthens:
+    - U4
+    - U13
+    - U17
+  evidence: moderate
+  evidence_note: null
+  source_domain: computer engineering (design for testing)
+  notes: null
+  sources:
+  - ieee-1149-1-test-access
+  - wikipedia-design-testing
+  management:
+    name: Design for testability
+    form_name: Auditable processes
+    form: design each process so that its controls leave evidence that a reviewer can sample
+    example: access approvals are stored as tickets that an auditor can sample
+    sources:
+    - iia-three-lines-model
+    source_titles:
+      iia-three-lines-model: IIA Three Lines principle 4
+    sources_text: '[@iia-three-lines-model] (supports)'
+    evidence: moderate
+    evidence_note: null
+- id: U25
+  name: Margin
+  class: universal
+  class_note: every system has uncertain loads and inputs ("all models are wrong"); the size of the margin scales with the master rule
+  strength: SHOULD
+  category: E
+  if: always
+  then: 'design capacity above the expected load (margin), state the design load as a probability per time period, keep queued resources well below 100 % utilization, and set the margin by design maturity: larger early, smaller as uncertainty falls'
+  because: real load exceeds estimated load, and delay rises sharply as utilization approaches 100 %
+  example: capacity for the 1-in-100-day traffic peak plus 30 % headroom; worker pools sized for \< 70 % average utilization
+  check: a load test shows capacity ≥ the stated design load × the chosen factor, and queue delay stays within the target at that load
+  violation: sizing exactly to the average load
+  related:
+    conflicts_with:
+    - U7
+    checked_by:
+    - U13
+  evidence: strong
+  evidence_note: the phase values of GSFC-STD-1000 come from a garbled table extraction; check the original before quoting them
+  source_domain: mechanical, civil, coastal (factor of safety, return period), operations research (queueing), space systems (margins by phase), electronics (derating)
+  notes: null
+  sources:
+  - univ-portland-fail-safe-designs
+  - wikipedia-return-period
+  - linda-green-queueing-theory-modeling
+  - nasa-gsfc-std-1000-rev
+  - wikipedia-derating
+  - wikipedia-all-models-are-wrong
+  - little-littles-law-as-viewed
+  management:
+    name: Margin
+    form_name: Reserves and slack
+    form: keep schedule buffers, budget contingency and free capacity of people; do not plan people near 100 % utilization
+    example: the team plans 70 % of its capacity and keeps 30 % for unplanned work
+    sources:
+    - little-littles-law-as-viewed
+    source_titles:
+      little-littles-law-as-viewed: Little's law
+    sources_text: '[@little-littles-law-as-viewed] (with U53)'
+    evidence: strong
+    evidence_note: null
+- id: U26
+  name: Fail-safe
+  class: universal
+  class_note: every part can fail ("everything fails all the time")
+  strength: MUST
+  category: D
+  if: always
+  then: 'define a safe state, and design failure to move there (fail-safe; opposite: fail-dangerous)'
+  because: an uncontrolled failure causes the most harm
+  example: 'admission webhook rejects requests when it errors (fail-closed; opposite: fail-open)'
+  check: failure injection shows that the system reaches the defined safe state
+  violation: undefined behavior when a dependency is lost
+  related:
+    depends_on:
+    - U6
+  evidence: strong
+  evidence_note: null
+  source_domain: nuclear, elevators, aviation
+  notes: null
+  sources:
+  - faa-ac-25-1309-1a
+  - patsnap-fail-safe-design
+  - next-web-werner-vogels-everything
+  management:
+    name: Fail-safe
+    form_name: Default decisions and fallback authority
+    form: 'define in advance what happens when a decision-maker is absent or a plan fails: deputy, default option, transfer of command'
+    example: if the change approver is absent, the default is "no change", not "change without approval"
+    sources:
+    - fema-national-incident-management-system
+    source_titles:
+      fema-national-incident-management-system: 'NIMS: "Establishment and Transfer of Command"'
+    evidence: moderate
+    evidence_note: null
+- id: U27
+  name: Hierarchy of controls
+  class: universal
+  class_note: every system has risks; the trigger occurs in every life cycle
+  strength: SHOULD
+  category: D
+  if: a risk is found
+  then: 'use the highest possible control level: 1 eliminate; 2 minimize, substitute or moderate; 3 engineering control; 4 administrative control; 5 protective equipment; and act first at the source, then along the path, then at the receiver'
+  because: higher control levels do not depend on human behavior, and a cause removed at the source cannot spread
+  example: '1 remove the port → 2 store less data / safer library / lower rate limit → 3 policy engine → 4 runbook → 5 "be careful"; noisy neighbor: limit the source → separate node pool → client timeouts'
+  check: for each risk, a record states why a higher control level, or a control closer to the source, was not possible
+  violation: a warning in the README as the only control
+  related:
+    depends_on:
+    - U14
+    strengthens:
+    - U28
+  evidence: strong
+  evidence_note: null
+  source_domain: occupational and chemical process safety (NIOSH, Kletz), acoustic engineering (source-path-receiver)
+  notes: null
+  sources:
+  - cdc-niosh-hierarchy-controls
+  - wikipedia-inherent-safety
+  - osha-technical-manual-noise
+  management:
+    name: Hierarchy of controls
+    form_name: Hierarchy of controls for management risks
+    form: eliminate the risky activity, then substitute, then use system-enforced controls, then policies and training, and personal care last
+    example: instead of a policy "do not share credentials", remove shared accounts
+    sources:
+    - presencis-iso-45001-clause-8
+    source_titles:
+      presencis-iso-45001-clause-8: ISO 45001 clause 8.1.2 (secondary text)
+    evidence: strong
+    evidence_note: required in ISO 45001
+- id: U28
+  name: Error-proofing
+  class: universal
+  class_note: every system is built, operated or maintained by people
+  strength: SHOULD
+  category: D
+  if: a person can make the same error repeatedly
+  then: make the error impossible; if that is not possible, make the error visible immediately; if that is not possible either, limit its consequence so that it is survivable
+  because: errors are certain, defects are not
+  example: branch protection and required CI checks (impossible); a dry-run diff (visible); soft delete with a restore window (survivable)
+  check: each repeated error from postmortems has a technical guard at the highest possible level
+  violation: a "please remember to..." announcement as the only fix
+  related:
+    depends_on:
+    - U10
+    strengthened_by:
+    - U27
+  evidence: moderate
+  evidence_note: null
+  source_domain: manufacturing (poka-yoke), transportation (Safe System)
+  notes: null
+  sources:
+  - usersolutions-poka-yoke
+  - fhwa-zero-deaths-safe-system
+  management:
+    name: Error-proofing
+    form_name: Build quality into the process
+    form: make the error impossible in the process (system checks, mandatory fields) instead of relying on later inspection
+    example: the purchase system refuses an order without a contract number
+    sources:
+    - deming-14-points
+    source_titles:
+      deming-14-points: Deming point 3
+    evidence: moderate
+    evidence_note: null
+- id: U29
+  name: Defense in depth
+  class: universal
+  class_note: every single control fails at some point; the number of layers scales with the master rule
+  strength: SHOULD
+  category: D
+  if: always
+  then: use several independent and verified control layers (defense in depth)
+  because: every single control fails at some point
+  example: RBAC + network policy + admission policy + runtime isolation
+  check: each critical asset has at least two independent control layers, and each layer is verified
+  violation: relying only on the perimeter firewall
+  related:
+    depends_on:
+    - U12
+    conflicts_with:
+    - U7
+  evidence: moderate
+  evidence_note: null
+  source_domain: security, oil and gas (well barriers), drinking water (multi-barrier)
+  notes: null
+  sources:
+  - sciencedirect-least-privilege-defense-depth
+  - palo-alto-networks-defense-depth
+  - jpt-robust-well-barrier-well
+  - wikipedia-multi-barrier-approach
+  management:
+    name: Defense in depth
+    form_name: Three lines
+    form: 'use independent lines: first line (management owns risk), second line (risk, compliance, security functions), third line (independent internal audit)'
+    example: the platform team owns access risk, security monitors it, internal audit tests both
+    sources:
+    - iia-three-lines-model
+    source_titles:
+      iia-three-lines-model: IIA Three Lines Model (2020)
+    evidence: strong
+    evidence_note: null
+- id: U30
+  name: Robustness
+  class: universal
+  class_note: every system meets variation in its inputs
+  strength: SHOULD
+  category: C
+  if: always
+  then: design so that the result changes little when inputs vary (robustness)
+  because: removing every cause of variation costs more than tolerating it
+  example: retries with jitter, idempotent operations, tolerance for clock drift
+  check: tests with varied inputs (latency, clock drift, message order) show stable results
+  violation: a system that works only when timing is exact
+  related:
+    depends_on:
+    - U6
+    strengthens:
+    - U25
+    conflicts_with:
+    - C5
+  evidence: moderate
+  evidence_note: null
+  source_domain: manufacturing quality (Taguchi), agricultural engineering
+  notes: null
+  sources:
+  - penn-state-taguchis-robust-design
+  - pmc-engineering-approach-sustainable-biological
+  management:
+    name: Robustness
+    form_name: Robust plans
+    form: make plans that still work when assumptions vary within a credible range
+    example: the roadmap still delivers its top objective if one engineer leaves
+    sources: []
+    sources_text: cross-reference only
+    evidence: moderate
+    evidence_note: null
+- id: U31
+  name: Model validity
+  class: universal
+  class_note: every design decision rests on a model or an estimate
+  strength: SHOULD
+  category: B
+  if: a decision depends on a model, simulation or estimate
+  then: validate the model for its intended use, use it only inside the range it was validated for (domain of applicability), and check each result against an independent rough estimate (order of magnitude)
+  because: a model is only trustworthy inside its validated range
+  example: a load test on 3 nodes does not prove behavior on 50 nodes
+  check: each model used for a decision states its validated range, and the decision lies inside that range
+  violation: extrapolating a benchmark far beyond the tested load
+  related:
+    depends_on:
+    - U4
+    strengthens:
+    - U25
+  evidence: moderate
+  evidence_note: null
+  source_domain: simulation and computational engineering, engineering physics (Fermi estimates)
+  notes: null
+  sources:
+  - osti-perspective-model-validation-validated
+  - wikipedia-v-v-computer-simulation
+  - wikipedia-fermi-problem
+  - wikipedia-all-models-are-wrong
+  - flyvbjerg-from-nobel-prize-project
+  management:
+    name: Model validity
+    form_name: Forecast validity (outside view)
+    form: check each estimate or business case against the real outcomes of a reference class of similar past projects, not only against the own plan
+    example: the migration estimate is compared with the last five migrations, which overran by 40 % on average
+    sources:
+    - flyvbjerg-from-nobel-prize-project
+    source_titles:
+      flyvbjerg-from-nobel-prize-project: Flyvbjerg 2006
+    evidence: strong
+    evidence_note: peer-reviewed
+- id: U32
+  name: Checklists
+  class: universal
+  class_note: every system has rare or critical procedures (restore, upgrade, decommissioning)
+  strength: SHOULD
+  category: H
+  if: a critical procedure is rare, complex or done under time pressure
+  then: use a short checklist, and confirm each item by pointing at it and saying its status aloud
+  because: memory fails under stress
+  example: cluster upgrade checklist, incident commander checklist; read out cluster context and namespace before each destructive command
+  check: each critical procedure has a checklist that is used and is updated after postmortems
+  violation: an upgrade done from memory
+  related:
+    strengthens:
+    - U15
+  evidence: moderate
+  evidence_note: 'mixed results: large effect in 8 pilot hospitals, no significant effect in 101 Ontario hospitals'
+  source_domain: surgery, railway (pointing and calling)
+  notes: null
+  sources:
+  - sciencedaily-who-surgical-checklist-study
+  - ices-ontario-checklist-study
+  - wikipedia-pointing-calling
+  management:
+    name: Checklists
+    form_name: Checklists for rare management procedures
+    form: 'use checklists for rare, complex or time-critical procedures: onboarding, offboarding, month-end close, the first hour of a crisis'
+    example: 'offboarding checklist: access removal, knowledge handover, equipment return'
+    sources:
+    - fema-national-incident-management-system
+    source_titles:
+      fema-national-incident-management-system: 'NIMS: incident action plans'
+    sources_text: section 9 (surgery, rail); [@fema-national-incident-management-system]
+    evidence: moderate
+    evidence_note: null
+- id: U33
+  name: Critical control points
+  class: universal
+  class_note: every system is built or operated through repeated processes
+  strength: SHOULD
+  category: H
+  if: a repeated process has a few steps where control is essential
+  then: define those critical control points, rank them by consequence rather than by how often incidents happen, and give each one a limit, monitoring, a predefined corrective action, a record and regular verification in practice
+  because: tight control at the essential steps works better than loose control at every step
+  example: image-signature admission gate; SLO limit on the payment path with automatic rollback
+  check: each critical control point has a limit, monitoring, a corrective action, records and a recent verification that it works
+  violation: monitoring everything equally, with no defined limits
+  related:
+    depends_on:
+    - U6
+    strengthens:
+    - R4
+  evidence: strong
+  evidence_note: null
+  source_domain: food safety (HACCP), mining (critical control management)
+  notes: null
+  sources:
+  - fda-haccp-principles-application-guidelines
+  - mining-weekly-icmm-critical-control
+  management:
+    name: Critical control points
+    form_name: Key controls
+    form: identify the few controls that prevent material loss or misstatement, give each a limit, an owner, monitoring and a test
+    example: access recertification for production is a key control, tested every quarter
+    sources: []
+    sources_text: cross-reference only
+    evidence: moderate
+    evidence_note: null
+- id: U34
+  name: Compartments
+  class: universal
+  class_note: every system with more than one part can spread a failure; how strict the compartments are scales with the master rule
+  strength: SHOULD
+  category: D
+  if: always
+  then: divide the system into isolated compartments, so that one damaged compartment does not take down the whole system
+  because: a failure that cannot spread stays small
+  example: separate cloud accounts per environment, namespace quotas, cell-based architecture, bulkhead pattern
+  check: a failure test in one compartment leaves all other compartments working
+  violation: one shared database for all tenants and all environments
+  related:
+    strengthens:
+    - R1
+    - U29
+    conflicts_with:
+    - U7
+  evidence: strong
+  evidence_note: null
+  source_domain: naval architecture (watertight compartments)
+  notes: null
+  sources:
+  - imo-solas-chapter-ii-1
+  - wikipedia-compartment
+  management:
+    name: Compartments
+    form_name: Ring-fencing
+    form: separate units, budgets or legal entities so that a failure in one does not spread to all
+    example: a risky new product runs with its own budget and stop criteria
+    sources:
+    - fema-national-incident-management-system
+    source_titles:
+      fema-national-incident-management-system: 'NIMS: "Modular Organization"'
+    evidence: moderate
+    evidence_note: null
+- id: U35
+  name: Response faster than harm
+  class: universal
+  class_note: every operated system has harms that develop over time (wear, filling, drift)
+  strength: SHOULD
+  category: H
+  if: harm develops over time after a fault starts
+  then: make sure the time to detect + alert + respond + recover is shorter than the time until harm, with a margin
+  because: a response that arrives after the harm is no response
+  example: an alert fires when the disk will be full in 4 h, and on-call response takes \< 30 min
+  check: for each main hazard, the measured detection-plus-response time is shorter than the time until harm
+  violation: an alert that fires only when the disk is already full
+  related:
+    depends_on:
+    - U13
+  evidence: moderate
+  evidence_note: null
+  source_domain: fire protection (ASET > RSET)
+  notes: null
+  sources:
+  - cooper-estimating-safe-available-egress
+  - fire-risk-assessment-network-aset
+  - bci-good-practice-guidelines-2018
+  management:
+    name: Response faster than harm
+    form_name: Recovery inside the tolerable disruption
+    form: set the recovery time objective of each critical activity inside its maximum tolerable period of disruption
+    example: payroll must resume within 3 days; the tolerable maximum is 5 days
+    sources:
+    - bci-good-practice-guidelines-2018
+    source_titles:
+      bci-good-practice-guidelines-2018: ISO 22301 definitions (via BCI GPG)
+    evidence: strong
+    evidence_note: null
+- id: U36
+  name: Isolation before work
+  class: universal
+  class_note: every system is maintained by people
+  strength: MUST
+  category: G
+  if: people work on a part of the system
+  then: isolate that part from all inputs and energy, and lock the isolation so that nobody can restart it unexpectedly
+  because: an unexpected restart during work injures people or destroys the work
+  example: cordon and drain the node; pause Argo CD auto-sync before manual maintenance
+  check: each maintenance procedure starts with an isolation step and ends with a release step
+  violation: auto-sync overwrites a manual fix in the middle of an incident
+  related:
+    strengthens:
+    - U28
+  evidence: strong
+  evidence_note: null
+  source_domain: industrial safety (lockout/tagout)
+  notes: null
+  sources:
+  - osha-control-hazardous-energy
+  management:
+    name: Isolation before work
+    form_name: Protected iteration
+    form: while a team works on a committed goal, protect it from unplanned changes; only the accountable owner may cancel the goal
+    example: new requests wait for the next sprint unless the Product Owner cancels the sprint
+    sources:
+    - scrum-guide
+    source_titles:
+      scrum-guide: Scrum Guide 2020
+    evidence: moderate
+    evidence_note: null
+- id: U37
+  name: Maintenance by failure pattern
+  class: universal
+  class_note: every system needs maintenance (see U14)
+  strength: SHOULD
+  category: H
+  if: you plan maintenance
+  then: 'choose the maintenance method by how each part actually fails: replace on a schedule only what wears out with age, and monitor the condition of everything else'
+  because: most failures are not linked to age, so scheduled replacement does not prevent them
+  example: rotate certificates on a schedule (age-related); alert on disk usage (condition-based); no "just in case" pod restarts
+  check: each maintenance task states which failure pattern it addresses
+  violation: scheduled restarts that hide a memory leak
+  related:
+    depends_on:
+    - U6
+    - U13
+  evidence: moderate
+  evidence_note: null
+  source_domain: aviation maintenance (RCM)
+  notes: null
+  sources:
+  - nowlan-heap-reliability-centered-maintenance
+  - wikipedia-reliability-centered-maintenance
+  management:
+    name: Maintenance by failure pattern
+    form_name: Review frequency by risk
+    form: set the frequency of audits, reviews and recertifications by how each control actually fails, not one fixed cycle for everything
+    example: high-risk access every quarter, low-risk tools once a year
+    sources: []
+    sources_text: cross-reference only
+    evidence: moderate
+    evidence_note: null
+- id: U38
+  name: Accumulated degradation
+  class: universal
+  class_note: every system that is used more than once degrades over time
+  strength: SHOULD
+  category: C
+  if: always
+  then: design for the damage that builds up over the whole design life, not only for the single largest load
+  because: repeated loads far below the maximum load cause failure, and the damage does not recover
+  example: soak tests over days, not only peak tests; disk wear; leaks that grow with uptime
+  check: an endurance (soak) test runs for a period that represents real use, and the growth of leaks, wear or fragmentation is measured
+  violation: only a short peak test, then failure after weeks of normal load
+  related:
+    depends_on:
+    - U6
+    strengthens:
+    - U37
+  evidence: moderate
+  evidence_note: null
+  source_domain: materials, mechanical, piping (fatigue, corrosion allowance)
+  notes: null
+  sources:
+  - faa-ac-25-1309-1a
+  - wikipedia-fatigue
+  - wermac-corrosion-allowance
+  - who-ilo-long-working-hours
+  - pencavel-productivity-working-hours
+  management:
+    name: Accumulated degradation
+    form_name: Sustainable pace
+    form: limit sustained overtime and track debt that builds up slowly (overtime, deferred maintenance, technical debt)
+    example: on-call load and overtime are reviewed monthly; no one works above 48 h per week as a pattern
+    sources:
+    - who-ilo-long-working-hours
+    - pencavel-productivity-working-hours
+    - principles-behind-agile-manifesto
+    source_titles:
+      who-ilo-long-working-hours: WHO/ILO 2021
+      pencavel-productivity-working-hours: Pencavel 2014
+      principles-behind-agile-manifesto: Agile principle 8
+    evidence: strong
+    evidence_note: null
+- id: U39
+  name: Critical path
+  class: universal
+  class_note: every project has tasks that depend on each other
+  strength: SHOULD
+  category: G
+  if: work consists of tasks that depend on each other
+  then: identify the longest chain of dependent tasks (critical path) and protect it first
+  because: a delay on the critical path delays everything; other tasks have slack
+  example: in a cluster migration, data sync and DNS cutover are critical; documentation has slack
+  check: each multi-step project plan marks its critical path and the slack of the other tasks
+  violation: speeding up tasks that have slack while the critical path slips
+  related:
+    strengthens:
+    - U19
+  evidence: moderate
+  evidence_note: null
+  source_domain: construction management (critical path method)
+  notes: null
+  sources:
+  - kelley-origins-cpm-personal-history
+  - wikipedia-critical-path-method
+  management:
+    name: Critical path
+    form_name: Critical path
+    form: identify the longest chain of dependent tasks and protect it first
+    example: in an office move, network installation is critical; furniture has slack
+    sources:
+    - iso-21502-2020-guidance-project
+    source_titles:
+      iso-21502-2020-guidance-project: ISO 21502:2020
+    sources_text: section 9 (critical path method); [@iso-21502-2020-guidance-project]
+    evidence: strong
+    evidence_note: null
+- id: U40
+  name: Comparable measurement
+  class: universal
+  class_note: every engineering decision uses measurements
+  strength: SHOULD
+  category: F
+  if: measurements are used to compare or decide
+  then: measure under stated, controlled reference conditions, report the uncertainty with every result, and calibrate instruments regularly against traceable references
+  because: uncontrolled conditions change results, and a result without its uncertainty is incomplete
+  example: benchmarks on the same instance type with fixed load and warm-up; report the spread over several runs
+  check: each benchmark or test report states its reference conditions and the spread or uncertainty of the result
+  violation: comparing two single benchmark runs from different machines
+  related:
+    strengthens:
+    - U31
+    - U17
+  evidence: strong
+  evidence_note: standardized in ISO 139 and the GUM
+  source_domain: textile testing (ISO 139), metrology (GUM, traceability)
+  notes: null
+  sources:
+  - iso-139-2005-textiles-standard
+  - chiuvention-why-fabric-test-results
+  - wikipedia-measurement-uncertainty
+  - wikipedia-metrological-traceability
+  management:
+    name: Comparable measurement
+    form_name: Comparable indicators
+    form: define each indicator once (formula, period, population, data source), and show its normal variation before comparing teams or periods
+    example: lead time is measured the same way for all teams before teams are compared
+    sources:
+    - iso-tc-260-people-power
+    source_titles:
+      iso-tc-260-people-power: 'ISO/TS 30433: "comparable measures" (via ISO TC 260)'
+    evidence: moderate
+    evidence_note: null
+- id: U41
+  name: Actionable alerts
+  class: universal
+  class_note: every operated system is monitored (U13), and monitoring raises alerts
+  strength: SHOULD
+  category: H
+  if: a system raises alerts to people
+  then: make every alert actionable, and remove or change alerts that nobody acts on
+  because: many non-actionable alerts make people ignore all alerts, including the important ones (alert fatigue)
+  example: page only on symptoms that need action now; review alert noise every month
+  check: each alert has an owner and a runbook action, and the share of alerts with no action is measured and kept low
+  violation: an alert channel with hundreds of messages per day that nobody reads
+  related:
+    strengthens:
+    - U13
+    - U18
+    - U35
+  evidence: strong
+  evidence_note: 'The Joint Commission: "between 85 and 99 percent of alarm signals do not require clinical intervention"'
+  source_domain: clinical engineering, rail dispatch (alarm fatigue)
+  notes: null
+  sources:
+  - joint-commission-sentinel-event-alert
+  - wikipedia-alarm-fatigue
+  management:
+    name: Actionable alerts
+    form_name: Management by exception
+    form: report to the next management level only when a tolerance is forecast to be breached; remove reports that lead to no action
+    example: weekly status shows only items outside tolerance
+    sources:
+    - purple-griffon-prince2-7th-edition
+    source_titles:
+      purple-griffon-prince2-7th-edition: PRINCE2 principle 5
+    evidence: moderate
+    evidence_note: null
+- id: U42
+  name: Sterile critical phase
+  class: universal
+  class_note: every project has critical phases (cutover, commissioning, launch)
+  strength: SHOULD
+  category: H
+  if: work is in a critical phase (cutover, deployment, incident)
+  then: allow only the activity and communication that the critical phase needs
+  because: distraction during critical phases causes errors
+  example: incident channel limited to the response; no unrelated changes during a cutover window
+  check: critical phases are defined, and their communication rules are written down and used
+  violation: side discussions and parallel deployments during an incident
+  related:
+    strengthens:
+    - U32
+    - U15
+  evidence: strong
+  evidence_note: FAA regulation since 1981
+  source_domain: aviation (sterile flight deck)
+  notes: null
+  sources:
+  - ecfr-14-cfr-121-542
+  - wikipedia-sterile-flight-deck-rule
+  management:
+    name: Sterile critical phase
+    form_name: Focus time and crisis discipline
+    form: protect blocks of uninterrupted work; during a crisis, limit communication to the response
+    example: no meetings on Tuesday and Thursday mornings; one crisis channel with one commander
+    sources:
+    - mark-gudith-klocke-cost-interrupted
+    - fema-national-incident-management-system
+    source_titles:
+      mark-gudith-klocke-cost-interrupted: Mark et al. 2008
+      fema-national-incident-management-system: 'NIMS: "Integrated Communications"'
+    evidence: moderate
+    evidence_note: null
+- id: U43
+  name: Automated reproducible results
+  class: universal
+  class_note: every engineering result must be checkable by someone else (U8)
+  strength: SHOULD
+  category: B
+  if: a result must be reproducible
+  then: produce it only through automated, recorded steps, with versions of data, code and tools
+  because: manual steps are error-prone and cannot be reproduced
+  example: infrastructure changed only through pipelines; no manual kubectl edits; pinned tool versions
+  check: each result can be regenerated from recorded inputs and versions with one command
+  violation: a report built by copying numbers by hand
+  related:
+    depends_on:
+    - U9
+    strengthens:
+    - U22
+  evidence: moderate
+  evidence_note: null
+  source_domain: bioinformatics (reproducible computational research)
+  notes: null
+  sources:
+  - sandve-et-al-ten-simple
+  management:
+    name: Automated reproducible results
+    form_name: Reproducible reporting
+    form: produce management figures (KPIs, budgets, forecasts) through automated, documented steps from named data sources
+    example: the DORA dashboard is generated from pipeline data, not from a hand-edited spreadsheet
+    sources:
+    - coso-erm-integrating-strategy-performance
+    source_titles:
+      coso-erm-integrating-strategy-performance: COSO ERM principle 18 "Leverages Information Systems"
+    evidence: moderate
+    evidence_note: null
+- id: U44
+  name: Compatibility
+  class: universal
+  class_note: every system with parts of different kinds has interactions between them
+  strength: SHOULD
+  category: C
+  if: parts of different kinds touch or interact
+  then: verify that they are compatible with each other in the real environment, and separate them where they are not
+  because: incompatible parts damage each other, even when each part is good on its own
+  example: tested compatibility matrix for Kubernetes, CNI and CSI versions; separate node pools for incompatible kernel modules
+  check: each interacting pair of components is on a tested compatibility list
+  violation: upgrading one component and breaking another that was never tested with it
+  related:
+    strengthens:
+    - C5
+    - U6
+  evidence: moderate
+  evidence_note: null
+  source_domain: materials (galvanic corrosion), biomaterials (biocompatibility)
+  notes: null
+  sources:
+  - mil-std-889d-dissimilar-metals
+  - iso-10993-1-biological-evaluation
+  - wikipedia-galvanic-corrosion
+  - wikipedia-biocompatibility
+  management:
+    name: Compatibility
+    form_name: Compatibility of teams, processes and cultures
+    form: before merging teams, organizations or processes, check that they are compatible, and plan the integration of the differences
+    example: before two platform teams merge, their on-call rules and release processes are compared
+    sources: []
+    sources_text: cross-reference only
+    evidence: moderate
+    evidence_note: null
+- id: U45
+  name: Provenance
+  class: universal
+  class_note: almost every system uses parts or software from suppliers
+  strength: SHOULD
+  category: B
+  if: parts or materials come from suppliers
+  then: trace each part to its origin, batch and certificate (provenance)
+  because: without provenance you cannot prove quality, or find all affected parts when a defect is found
+  example: signed images with build provenance and SBOM; deployment by pinned digest
+  check: for each deployed artifact, origin, build and certificate can be shown
+  violation: running an unsigned image from an unknown registry
+  related:
+    strengthens:
+    - U22
+    - C12
+  evidence: moderate
+  evidence_note: null
+  source_domain: metallurgical engineering (mill test certificates)
+  notes: null
+  sources:
+  - slsa-v1-0-provenance
+  - wikipedia-mill-test-report
+  management:
+    name: Provenance
+    form_name: Supplier due diligence
+    form: know each supplier and the risks in its own supply chain, and act on what you find
+    example: a SaaS vendor's sub-processors and their data locations are known before signing
+    sources:
+    - oecd-due-diligence-guidance-responsible
+    source_titles:
+      oecd-due-diligence-guidance-responsible: OECD Due Diligence Guidance (2018)
+    evidence: strong
+    evidence_note: OECD guidance; national supply-chain laws exist
+- id: U46
+  name: Exact constraint
+  class: universal
+  class_note: over-constraint can occur in any system with more than one control mechanism
+  strength: SHOULD
+  category: C
+  if: several mechanisms can set the same property
+  then: constrain each property exactly once, with one owner (exact constraint)
+  because: over-constraint makes parts fight each other and deform the system
+  example: either the HPA or the GitOps manifest owns the replica count, not both; one source of truth per configuration value
+  check: each managed field has exactly one owner
+  violation: Argo CD and the HPA both set the replica count and keep reverting each other
+  related:
+    strengthens:
+    - U7
+    - U9
+  evidence: moderate
+  evidence_note: null
+  source_domain: optomechanical and precision engineering (kinematic coupling)
+  notes: null
+  sources:
+  - slocum-kinematic-couplings-review-design
+  - wikipedia-kinematic-coupling
+  - fema-national-incident-management-system
+  management:
+    name: Exact constraint
+    form_name: Single point of accountability, unity of command
+    form: give each objective, decision, risk and process exactly one accountable owner; each person reports to one person for a given task
+    example: one product owner per backlog; one incident commander per incident
+    sources:
+    - fema-national-incident-management-system
+    - purple-griffon-prince2-7th-edition
+    source_titles:
+      fema-national-incident-management-system: 'NIMS: "Unity of command means that each individual only reports to one person."'
+      purple-griffon-prince2-7th-edition: PRINCE2 principle 3
+    evidence: strong
+    evidence_note: US federal doctrine
+- id: U47
+  name: Psychological safety
+  class: universal
+  class_note: every system is built or operated by people who work together
+  strength: SHOULD
+  category: A
+  if: people work together on a system
+  then: 'make it safe to report errors, ask questions and disagree: leaders ask for input, thank people for bad news, and never punish an honest report'
+  because: psychological safety enables learning behavior, which drives team performance; problems that people hide cannot be fixed
+  example: the first person to report a broken pipeline is thanked, not blamed; the team lead names their own mistake in the retrospective
+  check: a regular anonymous survey item on safety to speak up; the number of reported near misses does not fall after an incident
+  violation: punishing the person who reported a problem
+  related:
+    strengthens:
+    - U10
+    - U18
+    - U20
+  related_text: strengthens U10, U18, U20; conflicts with accountability (see K7)
+  evidence: strong
+  evidence_note: peer-reviewed field study; Google study of 180 teams
+  source_domain: management (team leadership)
+  notes: null
+  sources:
+  - edmondson-psychological-safety-learning-behavior
+  - google-re-work-understand-team
+  management: null
+- id: U48
+  name: Conflict-of-interest disclosure
+  class: universal
+  class_note: trigger that occurs in the life cycle of every system (every system has suppliers, reviewers and decision-makers)
+  strength: MUST
+  category: A
+  if: a person decides on, reviews or advises on work in which they have a personal interest
+  then: disclose the interest and step out of the decision or review
+  because: a personal interest biases judgment and destroys trust in the decision
+  example: an engineer who holds shares in a monitoring vendor leaves its evaluation
+  check: a register of declared interests exists and is checked before each vendor selection, design review and approval
+  violation: a reviewer approves a design that uses a product of a company they own
+  related:
+    strengthens:
+    - U8
+    - U2
+    - R9
+  evidence: strong
+  evidence_note: NSPE Code of Ethics II.4.a; G20/OECD Principles II.F.2
+  source_domain: professional ethics, management (corporate governance)
+  notes: null
+  sources:
+  - nspe-ethics-reference-guide
+  - g20-oecd-principles-corporate-governance
+  management: null
+- id: U49
+  name: Commander's intent
+  class: universal
+  class_note: every engineering organization delegates work
+  strength: SHOULD
+  category: A
+  if: you delegate a task
+  then: state the purpose, the desired end state and the constraints, and leave the method to the people who do the work (mission orders)
+  because: plans meet changing conditions; people who know the purpose can act correctly without new orders
+  example: an epic states "why", "done when" and "must not", not a list of kubectl steps
+  check: each delegated task or epic states purpose, end state and constraints
+  violation: a step list with no purpose; work stops when the plan no longer fits
+  related:
+    depends_on:
+    - U2
+    conflicts_with:
+    - U32
+    - U33
+    - C10
+  related_text: depends on U2; conflicts with U32, U33, C10 (see K6)
+  evidence: strong
+  evidence_note: US Army doctrine ADP 6-0
+  source_domain: management (military command and control)
+  notes: null
+  sources:
+  - us-army-adp-6-0
+  management: null
+- id: U50
+  name: Decision speed by reversibility
+  class: universal
+  class_note: trigger that occurs in the life cycle of every system
+  strength: SHOULD
+  category: B
+  if: you make a decision
+  then: classify it as reversible (two-way door) or irreversible (one-way door); make reversible decisions quickly at the lowest competent level, and irreversible decisions slowly, with consultation and review
+  because: heavy process on reversible decisions causes slowness and too little experimentation; light process on irreversible decisions causes lasting harm
+  example: 'a new linter rule: the team decides today; deleting a production database or changing the cloud provider: R6, red team, ADR'
+  check: each decision record (U21) states the class (reversible or irreversible) and the matching process
+  violation: a three-week approval for a reversible tool trial; a lock-in contract signed in one meeting
+  related:
+    strengthens:
+    - U21
+    - R5
+    - R6
+    conflicts_with:
+    - U8
+    - U9
+  related_text: strengthens U21, R5, R6; conflicts with U8, U9 (see K5)
+  evidence: moderate
+  evidence_note: "practitioner source: a CEO's shareholder letter; consistent with R5 and R6"
+  source_domain: management (decision making)
+  notes: null
+  sources:
+  - amazon-2015-letter-shareholders
+  management: null
+- id: U51
+  name: Indicators are not targets
+  class: universal
+  class_note: every system and every team whose performance is measured (U13, U40)
+  strength: SHOULD
+  category: B
+  if: a measure is used to reward, rank or punish people
+  then: 'expect it to be gamed: pair it with a counter-measure, compare it with direct observation, and change it when it drifts from the real objective'
+  because: the more a quantitative indicator is used for decisions, the more it is corrupted and the more it distorts the process it measures (Campbell's law)
+  example: deployment frequency is paired with change failure rate; MTTR is not a bonus target
+  check: each rewarded indicator has a counter-indicator and a yearly review of whether it still tracks the objective
+  violation: ticket count as the only measure of on-call quality
+  related:
+    strengthens:
+    - U40
+    - U18
+    - U13
+  evidence: strong
+  evidence_note: Campbell; the same pattern is known as Goodhart's law
+  source_domain: management (performance measurement)
+  notes: null
+  sources:
+  - campbell-assessing-impact-planned-social
+  - wikipedia-campbells-law
+  management: null
+- id: U52
+  name: Stop criteria set in advance
+  class: universal
+  class_note: trigger that occurs in the life cycle of every system (every system starts as a project)
+  strength: SHOULD
+  category: B
+  if: you start a project or prototype with an uncertain outcome
+  then: write down, before starting, the evidence and the decision points (gates) at which it stops, and let someone who did not start it make the continue-or-stop decision
+  because: people who are responsible for an earlier decision commit the most resources to it after negative results (escalation of commitment)
+  example: a service-mesh pilot stops if p99 latency rises by more than 5 ms after 4 weeks; the architecture board, not the sponsor, decides
+  check: each project and prototype has written stop criteria and gate dates, and gate decisions are made by someone other than the sponsor
+  violation: '"we have invested too much to stop now"'
+  related:
+    strengthens:
+    - R8
+    - U19
+    - U21
+    - C2
+  evidence: strong
+  evidence_note: experimental research, Staw 1976; PRINCE2 "continued business justification"
+  source_domain: management (project management, organizational psychology)
+  notes: null
+  sources:
+  - staw-knee-deep-big-muddy
+  - purple-griffon-prince2-7th-edition
+  management: null
+- id: U53
+  name: Limit work in progress
+  class: universal
+  class_note: every system that is built, changed or operated has a flow of work (changes, tickets, requests)
+  strength: SHOULD
+  category: E
+  if: a team or system handles a flow of work items
+  then: set a limit on the number of items in progress, and finish items before starting new ones
+  because: at a given throughput, average lead time is proportional to average work in progress (Little's law), so more parallel work means longer waiting for every item
+  example: at most 4 epics in progress per team; at most N concurrent rollouts per cluster
+  check: a visible WIP limit exists, and lead time and WIP are tracked
+  violation: everything is "in progress" and nothing is finished
+  related:
+    strengthens:
+    - U25
+    - C8
+    depends_on:
+    - U13
+  evidence: strong
+  evidence_note: null
+  evidence_text: strong for the relation (mathematical theorem); moderate for the practice
+  source_domain: management (operations management, queueing theory)
+  notes: null
+  sources:
+  - little-littles-law-as-viewed
+  management: null
+- id: U54
+  name: Fair process
+  class: universal
+  class_note: every engineering organization makes decisions that affect people
+  strength: SHOULD
+  category: A
+  if: a decision affects people
+  then: engage them (ask for input and challenge), explain the final decision and its reasons, and state the new expectations clearly; this is not consensus
+  because: people accept and carry out decisions they disagree with when the process was fair
+  example: before changing the on-call model, the team is asked, then told the decision, the reasons and the new rules
+  check: "for each decision that changes people's work: an input round, a written explanation and stated expectations exist"
+  violation: announcing a reorganization without reasons
+  related:
+    strengthens:
+    - U58
+    - U9
+  evidence: moderate
+  evidence_note: management research; practitioner article
+  source_domain: management (organizational justice)
+  notes: null
+  sources:
+  - kim-mauborgne-fair-process
+  management: null
+- id: U55
+  name: Specific, challenging goals with feedback
+  class: universal
+  class_note: every engineering organization sets goals
+  strength: SHOULD
+  category: B
+  if: you set goals for people or teams
+  then: set few, specific and challenging goals, give regular feedback on progress toward them, and for new or complex tasks set learning goals first
+  because: specific, difficult goals lead to higher performance than "do your best", and goals plus feedback work better than goals alone
+  example: '"cut median build time from 12 to 6 minutes this quarter", with a weekly chart; for a new technology: "run three spikes and document what we learned"'
+  check: each goal has a measure, a deadline and a progress chart; new or complex work has learning goals
+  violation: '"do your best" as the only goal; goals without progress feedback'
+  related:
+    strengthens:
+    - U3
+    conflicts_with:
+    - U51
+  related_text: strengthens U3; conflicts with U51 (see K8)
+  evidence: strong
+  evidence_note: null
+  evidence_text: strong (experimental and field research summarized in the paper); contested by Deming points 11 and 12, who rejects management by numerical goals
+  source_domain: management (goals and motivation (goal-setting theory))
+  notes: null
+  sources:
+  - locke-latham-building-practically-useful
+  - deming-14-points
+  management: null
+- id: U56
+  name: Structured selection of people
+  class: universal
+  class_note: every engineering organization selects people (trigger)
+  strength: SHOULD
+  category: F
+  if: you select a person for a job or a promotion
+  then: use structured, job-related interviews (the same questions for each candidate, answers rated on scales anchored to job requirements), and add work samples or job-knowledge tests
+  because: structured interviews predict job performance better than any other common method (mean validity .42, compared with .19 for unstructured interviews)
+  example: every platform-engineer candidate answers the same 6 questions and does the same debugging exercise; two raters score independently
+  check: interview guides with fixed questions and rating scales exist and are used; raters score independently before discussion
+  violation: '"culture fit" chat with different questions for each candidate'
+  related:
+    strengthens:
+    - U2
+    - C10
+    - U8
+  evidence: strong
+  evidence_note: meta-analysis, Journal of Applied Psychology
+  source_domain: management (personnel selection)
+  notes: null
+  sources:
+  - sackett-zhang-berry-lievens-revisiting
+  management: null
+- id: U57
+  name: Feedback on the task
+  class: universal
+  class_note: every engineering organization gives feedback
+  strength: SHOULD
+  category: F
+  if: you give feedback on a person's or a team's performance
+  then: focus the feedback on the task and on how to improve it, not on the person's character or ranking, and check afterwards whether performance improved
+  because: feedback improves performance on average, but in over one third of cases it decreased performance
+  example: '"the runbook missed the rollback step; add it and test it" instead of "you are careless"'
+  check: feedback records name a task and an improvement; the effect is checked at the next review
+  violation: feedback that compares people or judges character
+  related:
+    strengthens:
+    - U47
+    - U55
+  evidence: strong
+  evidence_note: null
+  evidence_text: strong for the finding (meta-analysis); the "focus on the task" part rests on the authors' feedback intervention theory and is the author's summary, not a quote
+  source_domain: management (performance feedback)
+  notes: null
+  sources:
+  - kluger-denisi-effects-feedback-interventions
+  management: null
+- id: U58
+  name: Guided change
+  class: universal
+  class_note: every engineering organization changes how its people work (trigger)
+  strength: SHOULD
+  category: G
+  if: you change how many people work (a reorganization, a new process, a new tool for everyone)
+  then: make the need visible, form a group that leads the change, communicate the vision far more often than seems necessary, remove obstacles, plan early visible wins, and continue until the new way is part of daily routine
+  because: '"skipping steps creates only the illusion of speed" (Kotter); changes declared finished too early fall back'
+  example: 'migration to the new CI system: reasons shared, a pilot team, weekly updates, old system switched off only when all teams use the new one'
+  check: each large change has a written reason, a named leading group, a communication plan, defined early wins and an end criterion ("the old way is switched off")
+  violation: announcing a change by email and declaring it done
+  related:
+    depends_on:
+    - U54
+    - U9
+    strengthens:
+    - U19
+  evidence: moderate
+  evidence_note: practitioner model from case experience; the eight steps have limited empirical testing
+  source_domain: management (change management)
+  notes: null
+  sources:
+  - kotter-leading-change-why-transformation
+  management: null
+- id: R1
+  name: Redundancy (N-1)
+  class: risk-scaled
+  class_note: only where the function must survive single failures; a system that may stop briefly (a development environment) does not need it
+  strength: SHOULD
+  category: E
+  if: one failure must not stop the function
+  then: add redundancy, so that the function survives the loss of any single element (N-1), and make sure each copy and the switch-over mechanism are reliable enough for the redundancy to help
+  because: one copy is a single point of failure
+  example: nodes in several availability zones
+  check: removing any single element in a test keeps the function running
+  violation: a single replica of a critical service
+  related:
+    strengthened_by:
+    - R2
+    conflicts_with:
+    - U7
+  evidence: strong
+  evidence_note: N-1 ignores how likely an outage is and how large the affected area is; use the master rule for those. Error correction helps only when component error rates are below a threshold (quantum threshold theorem)
+  source_domain: aerospace, electronics, power grids, quantum engineering, computing theory (von Neumann)
+  notes: null
+  sources:
+  - sciencedirect-fail-safe-design
+  - uspto-materials-based-failure-analysis
+  - sintef-n-1-isnt-always
+  - ucsd-lectures-von-neumanns-probabilistic
+  - wikipedia-quantum-error-correction
+  management:
+    name: Redundancy (N-1)
+    form_name: Deputies and succession
+    form: 'make every critical function survive the loss of one person: named deputy, trained successor, documented knowledge'
+    example: each on-call skill is held by at least two people
+    sources:
+    - iso-tc-260-people-power
+    source_titles:
+      iso-tc-260-people-power: ISO/TS 30433 succession metrics (via ISO TC 260)
+    evidence: moderate
+    evidence_note: null
+- id: R2
+  name: Diversity
+  class: risk-scaled
+  class_note: only where redundancy is required and a common cause is credible
+  strength: SHOULD
+  category: E
+  if: one cause can hit all copies at once
+  then: make the copies different (diversity)
+  because: identical copies fail together
+  example: two different DNS providers
+  check: the shared dependencies of redundant copies are listed, and each one is justified
+  violation: all replicas depend on the same expiring certificate
+  related:
+    depends_on:
+    - R1
+    conflicts_with:
+    - U7
+  evidence: moderate
+  evidence_note: null
+  source_domain: automotive (autonomous vehicles)
+  notes: null
+  sources:
+  - arxiv-safety-design-autonomous-vehicles
+  management:
+    name: Diversity
+    form_name: Diverse suppliers and diverse views
+    form: 'avoid a common cause hitting all copies: suppliers in different regions; decision input from people with different views'
+    example: two cloud regions from different providers for the status page; a red team from another department
+    sources:
+    - uk-mod-red-teaming-handbook
+    source_titles:
+      uk-mod-red-teaming-handbook: UK MoD Red Teaming Handbook
+    evidence: moderate
+    evidence_note: null
+- id: R3
+  name: Traceability
+  class: risk-scaled
+  class_note: required by safety standards for safety-critical or regulated systems; costly elsewhere
+  strength: MUST
+  category: F
+  if: the system is safety-critical or regulated
+  then: link every requirement in both directions to design and test
+  because: standards require proof of complete coverage
+  example: requirement ↔ code ↔ test ID in the ticket system
+  check: a traceability report shows no requirement without a test and no test without a requirement
+  violation: tests that link to no requirement
+  related:
+    depends_on:
+    - U3
+  evidence: strong
+  evidence_note: null
+  source_domain: aerospace, automotive, medical (DO-178C, ISO 26262, IEC 62304)
+  notes: null
+  sources:
+  - nasa-software-engineering-handbook-swe
+  - stell-requirements-traceability
+  management:
+    name: Traceability
+    form_name: Obligation-to-control traceability
+    form: in regulated areas, link each legal or contractual obligation to a control and to a test of that control
+    example: each GDPR obligation in the register points to an owner, a control and an audit test
+    sources:
+    - iso-37301-2021-compliance-management
+    source_titles:
+      iso-37301-2021-compliance-management: ISO 37301:2021
+    evidence: strong
+    evidence_note: regulated areas
+- id: R4
+  name: Observational method
+  class: risk-scaled
+  class_note: only where key properties stay uncertain until construction or operation
+  strength: SHOULD
+  category: G
+  if: key properties can only be measured during construction or operation
+  then: design for the most probable conditions, monitor the real values, and plan trigger levels and backup actions in advance
+  because: measuring the real values is more reliable than guessing them in advance
+  example: Argo Rollouts analysis that rolls back automatically when the error rate exceeds a trigger level
+  check: each monitored value has a trigger level and a planned backup action
+  violation: discovering at go-live that there is no rollback plan
+  related:
+    depends_on:
+    - U13
+    - U19
+  evidence: moderate
+  evidence_note: null
+  source_domain: geotechnical (observational method)
+  notes: null
+  sources:
+  - ice-observational-method
+  management:
+    name: Observational method
+    form_name: Tolerances with pre-planned responses
+    form: where outcomes stay uncertain until execution, set tolerances and planned responses in advance, monitor, and escalate when a tolerance will be breached
+    example: if the migration exceeds its time tolerance by 10 %, the steering group decides on scope
+    sources:
+    - purple-griffon-prince2-7th-edition
+    - scrum-guide
+    source_titles:
+      purple-griffon-prince2-7th-edition: PRINCE2 principle 5 "Manage by exception"
+      scrum-guide: 'Scrum: inspection and adaptation'
+    evidence: moderate
+    evidence_note: null
+- id: R5
+  name: Precaution
+  class: risk-scaled
+  class_note: only for serious or irreversible harm with incomplete evidence
+  strength: SHOULD
+  category: B
+  if: a possible harm is serious or irreversible, and the evidence is incomplete
+  then: take proportionate, cost-effective protective measures without waiting for full proof
+  because: irreversible harm cannot be undone once the proof arrives
+  example: take a snapshot and stop writes when data corruption is suspected, before the root cause is proven
+  check: for each serious or irreversible risk with incomplete evidence, a record states which protective measure was taken, or why none was
+  violation: writes continue while the team waits for proof of data corruption
+  related:
+    strengthens:
+    - U26
+    - U18
+  evidence: moderate
+  evidence_note: 'contested: critics call it vague and say strong versions block beneficial technology; this rule uses the weak, proportionate version'
+  source_domain: environmental engineering (precautionary principle)
+  notes: null
+  sources:
+  - un-rio-declaration-environment-development
+  - wikipedia-precautionary-principle
+  management:
+    name: Precaution
+    form_name: Precautionary management action
+    form: when serious or irreversible harm is credible but unproven, take a proportionate protective step now
+    example: payments to a supplier are paused while a fraud warning is checked
+    sources: []
+    sources_text: cross-reference only
+    evidence: moderate
+    evidence_note: null
+- id: R6
+  name: Two-person rule
+  class: risk-scaled
+  class_note: only for critical, irreversible actions; the cost is a second person who must be available
+  strength: SHOULD
+  category: D
+  if: an action is critical and cannot be undone
+  then: require two authorized people at the moment of action (two-person rule)
+  because: one person can make an error or act with bad intent, and nobody stops it
+  example: break-glass production access and deletion of production data need a second approver, live
+  check: the system enforces a second approval for each listed critical action
+  violation: one administrator can delete the production database alone
+  related:
+    depends_on:
+    - U12
+    strengthens:
+    - U8
+  evidence: strong
+  evidence_note: NIST SP 800-53 control AC-3(2) "Dual Authorization"
+  source_domain: nuclear, banking, aviation (two-person rule)
+  notes: null
+  sources:
+  - nist-sp-800-53-ac-3-2
+  - wikipedia-two-man-rule
+  management:
+    name: Two-person rule
+    form_name: Four-eyes principle at the moment of action
+    form: require two authorized people for critical, irreversible management actions (large payments, contract signature, dismissal)
+    example: a payment above a threshold needs two signatures
+    sources:
+    - nist-csrc-glossary-separation-duty
+    source_titles:
+      nist-csrc-glossary-separation-duty: 'NIST: separation of duty'
+    sources_text: '[@nist-csrc-glossary-separation-duty] (supports); see R9'
+    evidence: strong
+    evidence_note: null
+- id: R7
+  name: Design by selection
+  class: risk-scaled
+  class_note: only where models are too weak for analytical design
+  strength: SHOULD
+  category: C
+  if: no model is good enough to design the solution analytically
+  then: generate many variants, test them, keep the best, and repeat (design by selection)
+  because: selection by test finds good solutions without knowing exactly how they work
+  example: A/B tests, fuzzing, parameter search for autoscaler settings
+  check: each selection round has a defined test and records which variants were kept
+  violation: choosing a configuration by opinion when it could be tested
+  related:
+    depends_on:
+    - U40
+    strengthens:
+    - U11
+  evidence: moderate
+  evidence_note: directed evolution received the 2018 Nobel Prize in Chemistry
+  source_domain: molecular and biomolecular engineering (directed evolution, DBTL)
+  notes: null
+  sources:
+  - nobel-prize-chemistry-2018-press
+  - wikipedia-directed-evolution
+  - molecular-devices-design-build-test
+  management:
+    name: Design by selection
+    form_name: Controlled experiments
+    form: where you cannot predict which option works, test variants with real users, keep the best, repeat
+    example: two onboarding flows for the developer portal are A/B-tested
+    sources:
+    - kohavi-thomke-surprising-power-online
+    source_titles:
+      kohavi-thomke-surprising-power-online: Kohavi & Thomke 2017
+    evidence: strong
+    evidence_note: null
+- id: R8
+  name: Set-based design
+  class: risk-scaled
+  class_note: only where uncertainty is high early; for a repeat design, one option is enough
+  strength: SHOULD
+  category: B
+  if: uncertainty is high early in a design
+  then: 'develop several alternatives in parallel, eliminate weak ones as evidence arrives, and commit only after feasibility is shown (set-based design; opposite: point-based design)'
+  because: committing early to one option risks expensive rework when it fails
+  example: prototype two ingress controllers until load tests decide
+  check: early design records list the alternatives kept and the evidence that eliminated each other one
+  violation: choosing one design at the start and discovering at the end that it cannot meet a requirement
+  related:
+    depends_on:
+    - U40
+    strengthens:
+    - U21
+    - C2
+  evidence: moderate
+  evidence_note: null
+  source_domain: design engineering (Toyota set-based concurrent engineering)
+  notes: null
+  sources:
+  - sobek-ward-liker-toyotas-principles
+  management:
+    name: Set-based design
+    form_name: Keep strategic options open
+    form: evaluate several strategies or options in parallel and drop weak ones as evidence arrives
+    example: two vendors run a paid pilot before one contract is signed
+    sources:
+    - coso-erm-integrating-strategy-performance
+    source_titles:
+      coso-erm-integrating-strategy-performance: COSO ERM principle 8
+    evidence: moderate
+    evidence_note: null
+- id: R9
+  name: Segregation of duties
+  class: risk-scaled
+  class_note: required above the acceptable risk (master rule); in a very small team, compensating controls replace full segregation
+  strength: MUST
+  category: D
+  if: a process handles money, assets, access rights or records, and the possible loss is above the acceptable risk
+  then: split the process so that no single person can request, approve, execute and record the same transaction; where the team is too small, add a compensating control (a later independent review)
+  because: a person who controls every step can cause an error or fraud and hide it
+  example: the engineer who requests production access cannot approve it; nobody can grant themselves admin rights and also delete the audit log
+  check: a matrix of incompatible roles exists, and an access review finds nobody holding two incompatible roles
+  violation: one person can create a cloud account, grant themselves admin and delete the audit log
+  related:
+    depends_on:
+    - U12
+    strengthens:
+    - R6
+    - U8
+    - U29
+  evidence: strong
+  evidence_note: NIST SP 800-192 definition; internal control frameworks
+  source_domain: management (internal control), security engineering
+  notes: null
+  sources:
+  - nist-csrc-glossary-separation-duty
+  management: null
+- id: C1
+  name: Codes as minimum
+  class: conditional
+  class_note: 'counterexample: novel technology for which no code exists yet'
+  strength: MUST
+  category: F
+  if: a code or standard exists
+  then: meet it as the minimum, then apply the other rules
+  because: a code is a minimum, not a maximum
+  example: CIS Benchmark for Kubernetes
+  check: a compliance scan passes
+  violation: treating compliance as proof of safety
+  related:
+    depends_on:
+    - U2
+  evidence: strong
+  evidence_note: null
+  source_domain: pressure vessels (codes and standards)
+  counterexample: novel technology for which no code exists yet
+  notes: null
+  sources:
+  - univ-portland-fail-safe-designs
+  management:
+    name: Codes as minimum
+    form_name: Compliance as the floor
+    form: meet laws and standards as a minimum, then apply the other rules
+    example: working-time law is the minimum; U47 and U38 go further
+    sources:
+    - iso-37301-2021-compliance-management
+    source_titles:
+      iso-37301-2021-compliance-management: ISO 37301:2021
+    evidence: strong
+    evidence_note: null
+- id: C2
+  name: Technology maturity
+  class: conditional
+  class_note: 'counterexample: a system built only from proven technology'
+  strength: SHOULD
+  category: B
+  if: the design depends on a technology that is new to the team or the industry
+  then: assess how mature the technology is, and keep immature technology out of critical paths
+  because: immature technology carries unknown failures
+  example: CNCF sandbox project vs. graduated project for a core platform component
+  check: each technology in a critical path has a recorded maturity assessment
+  violation: adopting an untested tool for the production control plane without an assessment
+  related:
+    depends_on:
+    - U21
+    strengthens:
+    - U6
+  evidence: strong
+  evidence_note: standardized as ISO 16290:2013; NASA defines TRL 1 to 9
+  source_domain: aerospace (NASA TRL), EU, DoD
+  counterexample: a system built only from proven technology
+  notes: null
+  sources:
+  - nasa-technology-readiness-levels
+  - wikipedia-technology-readiness-level
+  management:
+    name: Technology maturity
+    form_name: Maturity of new tools, vendors and methods
+    form: assess the maturity of a new tool, vendor or management method before it carries a critical process
+    example: a start-up vendor is not chosen for the payroll process without an exit plan
+    sources:
+    - iso-56001-2024-innovation-management
+    source_titles:
+      iso-56001-2024-innovation-management: ISO 56001:2024
+    sources_text: '[@iso-56001-2024-innovation-management] (supports)'
+    evidence: moderate
+    evidence_note: null
+- id: C3
+  name: Graceful degradation
+  class: conditional
+  class_note: 'counterexample: a system with a fixed, known load (an embedded controller)'
+  strength: SHOULD
+  category: E
+  if: demand can exceed capacity
+  then: 'define in advance which lower-priority functions switch off first, so that critical functions keep running (graceful degradation; opposite: cascading failure)'
+  because: uncontrolled overload makes the whole system collapse
+  example: PriorityClasses with preemption, rate limiting, switching off recommendations to keep checkout running
+  check: an overload test shows that low-priority functions stop first and critical functions keep running
+  violation: all functions slow down together until everything fails
+  related:
+    depends_on:
+    - U25
+    conflicts_with:
+    - U7
+  evidence: moderate
+  evidence_note: null
+  source_domain: power grids (load shedding)
+  counterexample: a system with a fixed, known load (an embedded controller)
+  notes: null
+  sources:
+  - nerc-prc-006-5-automatic
+  - wikipedia-load-shedding
+  management:
+    name: Graceful degradation
+    form_name: Prioritization and triage under overload
+    form: decide in advance which work stops first when demand exceeds capacity, and which activities must resume at a minimum capacity
+    example: under overload, feature requests stop first; incident response and security patches continue
+    sources:
+    - bci-good-practice-guidelines-2018
+    source_titles:
+      bci-good-practice-guidelines-2018: ISO 22301:2019 RTO definition (via BCI GPG)
+    evidence: strong
+    evidence_note: null
+- id: C4
+  name: End-to-end
+  class: conditional
+  class_note: 'counterexample: a system without communication between end points (a passive structure)'
+  strength: SHOULD
+  category: C
+  if: a function (integrity, security, deduplication) can only be fully correct with knowledge at the end points
+  then: implement it at the end points; add it in lower layers only to improve performance
+  because: lower layers cannot guarantee the function and would burden every user
+  example: mTLS between services instead of relying only on network encryption; checksums on backups at the application level
+  check: for each end-to-end property (integrity, authentication, exactly-once), the end points verify it themselves
+  violation: trusting the network to deliver data correctly without a check in the application
+  related:
+    strengthens:
+    - U29
+  evidence: moderate
+  evidence_note: null
+  source_domain: network engineering (Saltzer, Reed, Clark 1984)
+  counterexample: a system without communication between end points (a passive structure)
+  notes: null
+  sources:
+  - saltzer-reed-clark-end-end
+  - wikipedia-end-end-principle
+  management:
+    name: End-to-end
+    form_name: End-to-end ownership of the customer outcome
+    form: let the unit closest to the customer verify that the customer outcome is reached, instead of trusting each department's local result
+    example: the platform team measures time-to-first-deploy for product teams, not only its own ticket times
+    sources:
+    - deming-14-points
+    source_titles:
+      deming-14-points: Deming point 9
+    evidence: moderate
+    evidence_note: null
+- id: C5
+  name: Strict interfaces
+  class: conditional
+  class_note: 'counterexample: a system without data interfaces (a passive structure)'
+  strength: SHOULD
+  category: C
+  if: components exchange data over an interface
+  then: send strictly according to the specification, reject and report input that violates it instead of silently accepting it, and state units, time zone and reference frames explicitly in every interface
+  because: silently tolerated defects become permanent unofficial standards and security holes, and unstated units get misread
+  example: schema validation in CI; fail on unknown fields; field names like latency_ms; timestamps in UTC with offset
+  check: every interface has a machine-checked schema, and invalid input is rejected and logged
+  violation: silently ignoring unknown or malformed fields
+  related:
+    strengthens:
+    - U28
+    - U18
+    conflicts_with:
+    - U30
+  evidence: moderate
+  evidence_note: "disputed: Postel's original principle says to accept liberally; RFC 9413 argues against it"
+  source_domain: network protocol engineering (Postel, RFC 9413), space systems (Mars Climate Orbiter units)
+  counterexample: a system without data interfaces (a passive structure)
+  notes: null
+  sources:
+  - rfc-9413-maintaining-robust-protocols
+  - nasa-mars-climate-orbiter-mishap
+  - wikipedia-robustness-principle
+  - wikipedia-mars-climate-orbiter
+  management:
+    name: Strict interfaces
+    form_name: Explicit agreements between units
+    form: state what each unit delivers to the next (contract, service level, definition of ready) and return incomplete handovers instead of silently fixing them
+    example: a request without a cost centre is returned, not guessed
+    sources:
+    - iso-iec-20000-1-2018
+    source_titles:
+      iso-iec-20000-1-2018: ISO/IEC 20000-1:2018
+    sources_text: '[@iso-iec-20000-1-2018] (supports)'
+    evidence: moderate
+    evidence_note: null
+- id: C6
+  name: Damping
+  class: conditional
+  class_note: 'counterexample: a system without automatic control loops'
+  strength: SHOULD
+  category: E
+  if: a control loop reacts automatically to measurements
+  then: 'add a deadband, delay or cooldown, so that the loop does not switch back and forth (oscillation; opposite: stable control)'
+  because: repeated on-off cycles waste resources and destabilize the system
+  example: HPA stabilization window; failover hysteresis; circuit breaker cooldown
+  check: each automatic control loop has a documented deadband, delay or cooldown, and a test shows no repeated switching
+  violation: an autoscaler that scales up and down every minute
+  related:
+    depends_on:
+    - U13
+    strengthens:
+    - C3
+  evidence: moderate
+  evidence_note: null
+  source_domain: control engineering
+  counterexample: a system without automatic control loops
+  notes: null
+  sources:
+  - astrom-murray-feedback-systems-section
+  - wikipedia-deadband
+  management:
+    name: Damping
+    form_name: Stable management cadence
+    form: change priorities, structures and plans on a fixed cadence, not on every new signal
+    example: priorities change at sprint boundaries, not daily
+    sources:
+    - scrum-guide
+    source_titles:
+      scrum-guide: 'Scrum Guide: "No changes are made that would endanger the Sprint Goal"'
+    evidence: moderate
+    evidence_note: null
+- id: C7
+  name: Induced demand
+  class: conditional
+  class_note: 'counterexample: a system without a shared, congested resource'
+  strength: SHOULD
+  category: E
+  if: you add capacity to relieve congestion
+  then: expect demand to grow into the new capacity, and also manage demand (quotas, priorities, pricing)
+  because: added capacity lowers the cost of use, which increases use
+  example: a larger cluster fills up again; faster CI leads to more CI runs
+  check: each capacity increase comes with a forecast of demand growth and a demand control (quota, priority or price)
+  violation: doubling the cluster size and being full again a month later
+  related:
+    depends_on:
+    - U13
+    strengthens:
+    - U16
+    - U25
+  evidence: moderate
+  evidence_note: null
+  source_domain: transportation (induced demand)
+  counterexample: a system without a shared, congested resource
+  notes: null
+  sources:
+  - duranton-turner-fundamental-law-road
+  - wikipedia-induced-demand
+  management:
+    name: Induced demand
+    form_name: Parkinson's law
+    form: expect work and spending to grow into added time or budget; manage demand as well as capacity
+    example: a larger budget is given with an explicit scope, not "more of the same"
+    sources:
+    - parkinson-parkinsons-law
+    source_titles:
+      parkinson-parkinsons-law: Parkinson 1955 (text copy)
+    evidence: moderate
+    evidence_note: the original is a satirical essay; the general claim is weak, the budget case is widely observed
+- id: C8
+  name: Bottleneck first
+  class: conditional
+  class_note: 'counterexample: a system without a throughput goal (a monument)'
+  strength: SHOULD
+  category: E
+  if: you want more throughput
+  then: find the constraint (bottleneck) and improve it first
+  because: improving other parts does not increase output
+  example: speeding up lint does nothing if integration tests or the review queue are the bottleneck
+  check: before an improvement for throughput, the current constraint is measured and named
+  violation: optimizing a fast step while work piles up in front of a slow step
+  related:
+    depends_on:
+    - U13
+    strengthens:
+    - U25
+  evidence: moderate
+  evidence_note: null
+  source_domain: industrial engineering (theory of constraints)
+  counterexample: a system without a throughput goal (a monument)
+  notes: null
+  sources:
+  - theory-constraints-institute-five-focusing
+  - wikipedia-theory-constraints
+  management:
+    name: Bottleneck first
+    form_name: Constraint first
+    form: find the step that limits output (often an approval, a meeting or a specialist) and improve it first
+    example: the security review queue is the constraint, so review capacity is added there first
+    sources: []
+    sources_text: section 9 (theory of constraints)
+    evidence: moderate
+    evidence_note: null
+- id: C9
+  name: Data as a dependency
+  class: conditional
+  class_note: 'counterexample: a system whose behavior does not depend on data or learned models'
+  strength: SHOULD
+  category: H
+  if: behavior depends on data or learned models
+  then: version and validate the data like code, monitor for drift, and retrain or re-evaluate when the world changes
+  because: data dependencies cost more than code dependencies, and predictions get worse over time
+  example: versioned evaluation set for code-review prompts; alerts on shifts in the input distribution
+  check: data and models have versions, inputs are validated, and drift is monitored with an alert
+  violation: a model or prompt that silently gets worse over months
+  related:
+    depends_on:
+    - U9
+    strengthens:
+    - U13
+    - U31
+  evidence: moderate
+  evidence_note: null
+  source_domain: data and ML engineering
+  counterexample: a system whose behavior does not depend on data or learned models
+  notes: null
+  sources:
+  - sculley-et-al-hidden-technical
+  - wikipedia-concept-drift
+  management:
+    name: Data as a dependency
+    form_name: Data governance for decisions
+    form: where decisions depend on data or models, version the definitions, check data quality and watch for drift
+    example: the headcount figure in the board report and in HR have the same definition
+    sources:
+    - coso-erm-integrating-strategy-performance
+    source_titles:
+      coso-erm-integrating-strategy-performance: COSO ERM principle 18
+    evidence: moderate
+    evidence_note: null
+- id: C10
+  name: Qualified procedure and person
+  class: conditional
+  class_note: 'counterexample: results that can be fully inspected afterwards (a dimension check on a simple part)'
+  strength: SHOULD
+  category: F
+  if: the quality of a result cannot be fully checked afterwards
+  then: prove the procedure by a test before using it, and qualify each person who performs it
+  because: a defect that inspection cannot find must be prevented by a proven procedure and a qualified person
+  example: a restore procedure proven by a real restore; only engineers who did a restore drill run production restores
+  check: each such procedure has a test record, and each performer has a qualification record
+  violation: a backup procedure that was never restored
+  related:
+    depends_on:
+    - U2
+    strengthens:
+    - U17
+    - U32
+  evidence: strong
+  evidence_note: required for welding by ASME Section IX
+  source_domain: welding (WPS, PQR, welder qualification)
+  counterexample: results that can be fully inspected afterwards (a dimension check on a simple part)
+  notes: null
+  sources:
+  - asme-bpvc-section-ix-welding
+  - wikipedia-welding-procedure-specification
+  management:
+    name: Qualified procedure and person
+    form_name: Qualified roles
+    form: where a result cannot be fully checked afterwards (hiring, audit, investigation, negotiation), use a proven procedure and trained people
+    example: only trained interviewers run structured interviews (U56)
+    sources:
+    - regulation-no-537-2014-article
+    source_titles:
+      regulation-no-537-2014-article: EU 537/2014 (approved statutory auditors)
+    sources_text: '[@regulation-no-537-2014-article] (supports)'
+    evidence: strong
+    evidence_note: statutory audit
+- id: C11
+  name: Shared demand signal
+  class: conditional
+  class_note: 'counterexample: a single-stage system'
+  strength: SHOULD
+  category: E
+  if: several stages pass demand signals along a chain
+  then: share the real end demand with every stage, instead of letting each stage react only to the stage below it
+  because: each stage amplifies the variation it sees, so swings grow upstream (bullwhip effect)
+  example: upstream services scale on front-end traffic, not only on their own delayed queue length
+  check: each stage in a chain can see the end demand signal
+  violation: each service autoscaler reacts only to its own queue, and the swings grow along the chain
+  related:
+    depends_on:
+    - U13
+    strengthens:
+    - C6
+    - C7
+  evidence: moderate
+  evidence_note: null
+  source_domain: supply chain engineering (bullwhip effect)
+  counterexample: a single-stage system
+  notes: null
+  sources:
+  - mit-sloan-management-review-bullwhip
+  - wikipedia-bullwhip-effect
+  - lee-padmanabhan-whang-information-distortion
+  management:
+    name: Shared demand signal
+    form_name: Share real end demand
+    form: give every stage of a chain the real end demand, not only the order of the next stage
+    example: the platform team sees product teams' roadmaps, not only tickets
+    sources:
+    - lee-padmanabhan-whang-information-distortion
+    source_titles:
+      lee-padmanabhan-whang-information-distortion: Lee, Padmanabhan, Whang 1997
+    evidence: strong
+    evidence_note: null
+- id: C12
+  name: Asset inventory
+  class: conditional
+  class_note: 'counterexample: a single, small asset'
+  strength: SHOULD
+  category: H
+  if: you operate many assets
+  then: keep a complete inventory of all assets, with owner, condition and lifecycle stage
+  because: you cannot maintain, secure or decommission what you do not know you have
+  example: inventory of clusters, accounts, certificates and images with owners; SBOM per image
+  check: an automated discovery compares the real assets with the inventory and finds no unknown assets
+  violation: a forgotten test cluster with public access
+  related:
+    strengthens:
+    - U14
+    - U37
+    - U12
+  evidence: moderate
+  evidence_note: null
+  source_domain: municipal and infrastructure engineering (asset management, ISO 55000)
+  counterexample: a single, small asset
+  notes: null
+  sources:
+  - cis-control-1-inventory-control
+  - wikipedia-asset-management
+  management:
+    name: Asset inventory
+    form_name: Registers of assets, contracts, information and records
+    form: keep complete registers with an owner, condition and life-cycle stage
+    example: a contract register with end dates and notice periods
+    sources:
+    - iso-55000-2024-asset-management
+    - iso-iec-27001-2022
+    - iso-15489-1-2016-records
+    source_titles:
+      iso-55000-2024-asset-management: ISO 55000:2024
+      iso-iec-27001-2022: ISO/IEC 27001:2022
+      iso-15489-1-2016-records: ISO 15489-1:2016
+    evidence: strong
+    evidence_note: null
+- id: C13
+  name: Weakest-link scaling
+  class: conditional
+  class_note: 'counterexample: a system of fixed, small size'
+  strength: SHOULD
+  category: C
+  if: a system grows in size or in number of parts
+  then: expect rare failures to become frequent, and design and test for the target scale
+  because: the larger the system, the more likely it contains a critical weak part (weakest link)
+  example: at 1,000 nodes, a node failure that happens once in 1,000 days per node happens every day
+  check: failure rates are estimated per component and multiplied by the planned scale
+  violation: assuming that a failure never seen in a 3-node test will not happen at 300 nodes
+  related:
+    strengthens:
+    - U31
+    - R1
+  evidence: strong
+  evidence_note: 'ASTM C1683: "The larger the specimen or component, the weaker it is likely to be"'
+  source_domain: ceramics and brittle materials (Weibull statistics, size effect)
+  counterexample: a system of fixed, small size
+  notes: null
+  sources:
+  - astm-c1683-size-scaling-tensile
+  - wikipedia-weibull-modulus
+  - wikipedia-size-effect-structural-strength
+  management:
+    name: Weakest-link scaling
+    form_name: Rare events become frequent with size
+    form: as the organization grows, expect rare events (fraud, misconduct, key-person loss) to happen regularly, and scale controls with size
+    example: at 500 people, a once-per-500-person-years event happens about every year
+    sources: []
+    sources_text: cross-reference only
+    evidence: moderate
+    evidence_note: null
+- id: C14
+  name: Structure follows the intended system
+  class: conditional
+  class_note: 'counterexample: a system built by one person, or by one small team that communicates as one unit'
+  strength: SHOULD
+  category: C
+  if: an organization designs a system with several components
+  then: design team boundaries and communication paths to match the component structure you want, and change them when the intended structure changes
+  because: organizations produce designs that copy their own communication structure (Conway's law)
+  example: one team per bounded context; the platform team owns the platform API, not parts of each product's code
+  check: each major component boundary has one owning team, and cross-team dependencies are counted
+  violation: one component maintained by four teams that never talk to each other
+  related:
+    strengthens:
+    - U7
+    - C5
+    - U46
+  evidence: moderate
+  evidence_note: widely observed; one original paper
+  source_domain: management (organization design), software engineering
+  counterexample: a system built by one person, or by one small team that communicates as one unit
+  notes: null
+  sources:
+  - conway-how-do-committees-invent
+  management: null
+- id: C15
+  name: Late work and added people
+  class: conditional
+  class_note: 'counterexample: work that can be split into independent parts without communication (for example harvesting a field)'
+  strength: SHOULD
+  category: E
+  if: work is late, and it needs coordination and learning
+  then: do not expect added people to recover the schedule soon; cut or move scope first, and add people early, only where the work can be split
+  because: new people need training and add communication paths, which at first lowers the output of the existing team (Brooks's law)
+  example: two weeks before a cluster-migration deadline, scope is cut; new engineers join the next migration from its start
+  check: before people are added to late work, a record states the expected training and coordination cost
+  violation: adding five engineers to a migration two weeks before its deadline
+  related:
+    strengthens:
+    - U39
+    conflicts_with:
+    - R1
+  related_text: strengthens U39; conflicts with R1 when people are added for redundancy (add early, not late)
+  evidence: moderate
+  evidence_note: null
+  evidence_text: moderate; **secondary only** (the book is not online; Brooks himself calls the law an outrageous oversimplification)
+  source_domain: management (software project management)
+  counterexample: work that can be split into independent parts without communication (for example harvesting a field)
+  notes: null
+  sources:
+  - reinertsen-always-bad-idea-add
+  - jargon-file-brookss-law
+  management: null
+- id: C16
+  name: Span of control
+  class: conditional
+  class_note: 'counterexample: a system operated by one person or by fully automated control'
+  strength: SHOULD
+  category: H
+  if: one person directs other people during operation (incident, cutover, commissioning)
+  then: 'keep the number of people one person directs in a manageable range (guideline: about five), and add group leads above that'
+  because: a person can coordinate only a limited number of people, and an overloaded coordinator misses actions
+  example: an incident commander with 12 responders appoints two group leads (communication, mitigation)
+  check: each incident record lists the roles and the number of people each lead directed; values above the guideline have a reason
+  violation: one incident commander directly coordinating 20 people in one channel
+  related:
+    strengthens:
+    - U42
+    - U32
+    - U46
+  evidence: strong
+  evidence_note: null
+  evidence_text: 'strong for incident management (US federal doctrine NIMS: 1:5 as guideline)'
+  source_domain: management (incident management)
+  counterexample: a system operated by one person or by fully automated control
+  notes: null
+  sources:
+  - fema-national-incident-management-system
+  management: null

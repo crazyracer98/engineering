@@ -1,0 +1,344 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/crazyracer98/engineering/schema/rules.schema.json",
+  "title": "Rules",
+  "description": "data/rules.yaml: the U, R and C rules in ID order (sections 7, 9 and 10 of edition 9).",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^[URC][1-9][0-9]*$",
+        "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+      },
+      "former_id": {
+        "type": "string",
+        "description": "Optional; unset in 1.0.0 (no earlier history). Reserved for an ID this rule had in an earlier released edition."
+      },
+      "name": {
+        "type": "string",
+        "minLength": 1
+      },
+      "class": {
+        "type": "string",
+        "enum": [
+          "universal",
+          "risk-scaled",
+          "conditional"
+        ]
+      },
+      "class_note": {
+        "type": "string",
+        "minLength": 1,
+        "description": "The \"Class (why)\" cell after `<class>: `, verbatim."
+      },
+      "strength": {
+        "type": "string",
+        "enum": [
+          "MUST",
+          "SHOULD"
+        ]
+      },
+      "category": {
+        "type": "string",
+        "pattern": "^[A-I]$"
+      },
+      "if": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+      },
+      "then": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+      },
+      "because": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+      },
+      "example": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Example (software/infra)."
+      },
+      "check": {
+        "type": "string",
+        "minLength": 1,
+        "description": "HOW TO CHECK."
+      },
+      "violation": {
+        "type": "string",
+        "minLength": 1,
+        "description": "VIOLATION (opposite of the rule)."
+      },
+      "related": {
+        "type": "object",
+        "properties": {
+          "depends_on": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[URC][1-9][0-9]*$",
+              "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+            },
+            "minItems": 1
+          },
+          "strengthens": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[URC][1-9][0-9]*$",
+              "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+            },
+            "minItems": 1
+          },
+          "strengthened_by": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[URC][1-9][0-9]*$",
+              "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+            },
+            "minItems": 1
+          },
+          "conflicts_with": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[URC][1-9][0-9]*$",
+              "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+            },
+            "minItems": 1
+          },
+          "checks": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[URC][1-9][0-9]*$",
+              "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+            },
+            "minItems": 1
+          },
+          "checked_by": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[URC][1-9][0-9]*$",
+              "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+            },
+            "minItems": 1
+          },
+          "scaled_by": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[URC][1-9][0-9]*$",
+              "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+            },
+            "minItems": 1
+          }
+        },
+        "additionalProperties": false,
+        "description": "Relations to other rules, in the order of the RELATED cell. Only the direction edition 9 states is recorded; inverses are not inferred."
+      },
+      "related_text": {
+        "type": "string",
+        "description": "Optional. Verbatim RELATED cell when it cannot be regenerated from `related` (non-rule targets, `(see Kn)` pointers, qualifiers)."
+      },
+      "evidence": {
+        "type": "string",
+        "enum": [
+          "strong",
+          "moderate",
+          "weak"
+        ],
+        "description": "Evidence level (the leading word of the Evidence cell)."
+      },
+      "evidence_note": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Text inside the parentheses when the Evidence cell is exactly `<level> (<note>)`; otherwise null."
+      },
+      "evidence_text": {
+        "type": "string",
+        "description": "Optional. The verbatim Evidence cell when it is not `<level>` or `<level> (<note>)`; renderers print it instead of evidence/evidence_note."
+      },
+      "source_domain": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+      },
+      "counterexample": {
+        "type": "string",
+        "minLength": 1,
+        "description": "C-rules only: the counterexample system (class_note after `counterexample: `)."
+      },
+      "notes": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Markdown or null."
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "Source slug (data/sources.yaml)."
+        },
+        "uniqueItems": true,
+        "minItems": 1,
+        "description": "Section 9 sources in edition-9 cell order (primary first where edition 9 orders them so)."
+      },
+      "source_titles": {
+        "type": "object",
+        "propertyNames": {
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+        },
+        "additionalProperties": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": "Per-use link-title overrides: slug -> the title this cell uses when it differs from sources.yaml `title`. Renderers use it instead of the canonical title for this use only."
+      },
+      "management": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The \"Rule name\" column of section 10, verbatim (equals the rule's name in edition 9)."
+              },
+              "form_name": {
+                "type": "string",
+                "description": "The \"Management name\" column: the name of the rule's management form."
+              },
+              "form": {
+                "type": "string",
+                "minLength": 1,
+                "description": "\"THEN (management form)\": the rule's action stated for an organization."
+              },
+              "example": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Example (platform team / organization)."
+              },
+              "sources": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                  "description": "Source slug (data/sources.yaml)."
+                },
+                "uniqueItems": true,
+                "description": "Management sources cited in the cell, in cell order (may be empty: \"cross-reference only\")."
+              },
+              "source_titles": {
+                "type": "object",
+                "propertyNames": {
+                  "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                },
+                "additionalProperties": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": "Per-use link-title overrides: slug -> the title this cell uses when it differs from sources.yaml `title`. Renderers use it instead of the canonical title for this use only."
+              },
+              "sources_text": {
+                "type": "string",
+                "description": "Optional. The Sources cell with links as `[@slug]` when it is not just the `; `-joined citations (extra words such as \"(supports)\", \"cross-reference only\", \"section 9 (...)\")."
+              },
+              "evidence": {
+                "type": "string",
+                "enum": [
+                  "strong",
+                  "moderate",
+                  "weak"
+                ],
+                "description": "Evidence level (the leading word of the Evidence cell)."
+              },
+              "evidence_note": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Text inside the parentheses when the Evidence cell is exactly `<level> (<note>)`; otherwise null."
+              },
+              "evidence_text": {
+                "type": "string",
+                "description": "Optional. The verbatim Evidence cell when it is not `<level>` or `<level> (<note>)`; renderers print it instead of evidence/evidence_note."
+              }
+            },
+            "required": [
+              "name",
+              "form_name",
+              "form",
+              "example",
+              "sources",
+              "evidence",
+              "evidence_note"
+            ],
+            "additionalProperties": false,
+            "description": "Section 10: the rule in management form. Null for rules that come from management sources (U47-U58, R9, C14-C16)."
+          }
+        ]
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "class",
+      "class_note",
+      "strength",
+      "category",
+      "if",
+      "then",
+      "because",
+      "example",
+      "check",
+      "violation",
+      "related",
+      "evidence",
+      "evidence_note",
+      "source_domain",
+      "notes",
+      "sources",
+      "management"
+    ],
+    "additionalProperties": false,
+    "allOf": [
+      {
+        "if": {
+          "properties": {
+            "class": {
+              "const": "conditional"
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "counterexample"
+          ]
+        },
+        "else": {
+          "not": {
+            "required": [
+              "counterexample"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "minItems": 1
+}

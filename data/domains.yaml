@@ -1,0 +1,1065 @@
+# Domain index.
+# Schema: schema/domains.schema.json. data/ is the single source of truth (ADR 0003);
+# seeded once by sources/import/import_v9.py from edition 9.
+domains:
+- branch: Civil
+  domain: Structural and building
+  rules:
+  - U8
+  references:
+  - epcland-checking-design
+- branch: Civil
+  domain: Geotechnical
+  rules:
+  - R4
+  references:
+  - ice-observational-method
+- branch: Civil
+  domain: Coastal and hydraulic
+  rules:
+  - U25
+  references:
+  - wikipedia-return-period
+- branch: Civil
+  domain: Offshore and decommissioning
+  rules:
+  - U14
+  - U21
+  references:
+  - jpt-engineering-decommissioning
+  - spe-design-decommissioning
+- branch: Civil
+  domain: Construction management
+  rules:
+  - U39
+  - U19
+  references:
+  - wikipedia-critical-path-method
+  - quality-engineers-guide-hold-point
+- branch: Civil
+  domain: Transportation
+  rules:
+  - C7
+  - U28
+  references:
+  - wikipedia-induced-demand
+  - fhwa-zero-deaths-safe-system
+- branch: Civil
+  domain: Environmental and water
+  rules:
+  - R5
+  - U29
+  supports:
+  - U29
+  references:
+  - wikipedia-precautionary-principle
+  - wikipedia-multi-barrier-approach
+- branch: Civil
+  domain: Railway operations
+  rules:
+  - U32
+  references:
+  - wikipedia-pointing-calling
+- branch: Civil
+  domain: Building services
+  rules:
+  - U4
+  references:
+  - wikipedia-building-commissioning
+- branch: Civil
+  domain: Municipal and infrastructure asset management
+  rules:
+  - C12
+  references:
+  - wikipedia-asset-management
+- branch: Civil
+  domain: Geological
+  rules:
+  - R4
+  supports:
+  - R4
+  references:
+  - wikipedia-geological-engineering
+- branch: Mechanical
+  domain: Machine and pressure vessel design
+  rules:
+  - U25
+  - C1
+  references:
+  - univ-portland-fail-safe-designs
+- branch: Mechanical
+  domain: Technical drawing
+  rules:
+  - U8
+  references:
+  - libretexts-peer-review-design
+- branch: Mechanical
+  domain: Aerospace design
+  rules:
+  - U7
+  - U14
+  - R1
+  - C2
+  references:
+  - grokipedia-kiss-principle
+  - nasa-design-maintenance
+  - sciencedirect-fail-safe-design
+  - wikipedia-technology-readiness-level
+- branch: Mechanical
+  domain: Aerospace testing
+  rules:
+  - U17
+  - U19
+  - U18
+  references:
+  - aerospace-corp-test-like-you
+  - flight-test-fact-build-up
+  - wikipedia-normalization-deviance
+- branch: Mechanical
+  domain: Aviation operations and maintenance
+  rules:
+  - U26
+  - U37
+  - U42
+  references:
+  - patsnap-fail-safe-design
+  - wikipedia-reliability-centered-maintenance
+  - wikipedia-sterile-flight-deck-rule
+- branch: Mechanical
+  domain: Automotive
+  rules:
+  - R2
+  - R3
+  - U6
+  references:
+  - arxiv-safety-design-autonomous-vehicles
+  - stell-requirements-traceability
+  - swift-navigation-what-sotif
+- branch: Mechanical
+  domain: Naval architecture
+  rules:
+  - U34
+  references:
+  - wikipedia-compartment
+- branch: Mechanical
+  domain: Elevators
+  rules:
+  - U26
+  references:
+  - patsnap-fail-safe-design
+- branch: Mechanical
+  domain: Control engineering and machinery
+  rules:
+  - C6
+  - U20
+  references:
+  - wikipedia-deadband
+  - iso-13850-2015-emergency-stop
+- branch: Mechanical
+  domain: Acoustic
+  rules:
+  - U27
+  - U30
+  supports:
+  - U30
+  references:
+  - osha-technical-manual-noise
+  - wikipedia-mechanical-resonance
+- branch: Mechanical
+  domain: Space systems
+  rules:
+  - U25
+  - C5
+  references:
+  - nasa-gsfc-std-1000-rev
+  - wikipedia-mars-climate-orbiter
+- branch: Mechanical
+  domain: Optomechanical and precision engineering
+  rules:
+  - U46
+  references:
+  - wikipedia-kinematic-coupling
+- branch: Mechanical
+  domain: Energy engineering
+  rules:
+  - U16
+  - C7
+  supports:
+  - U16
+  - C7
+  references:
+  - enefirst-what-energy-efficiency-first
+- branch: Materials
+  domain: Fatigue and corrosion
+  rules:
+  - U38
+  - U44
+  references:
+  - wikipedia-fatigue
+  - wermac-corrosion-allowance
+  - wikipedia-galvanic-corrosion
+- branch: Materials
+  domain: Forensic engineering
+  rules:
+  - U23
+  references:
+  - phmsa-metallurgical-laboratory-failure-examination
+  - wikipedia-forensic-engineering
+- branch: Materials
+  domain: Welding
+  rules:
+  - C10
+  references:
+  - wikipedia-welding-procedure-specification
+- branch: Materials
+  domain: Ceramics and brittle materials
+  rules:
+  - C13
+  references:
+  - wikipedia-weibull-modulus
+  - wikipedia-size-effect-structural-strength
+- branch: Materials
+  domain: Metallurgical
+  rules:
+  - U45
+  references:
+  - wikipedia-mill-test-report
+- branch: Materials
+  domain: Electronic materials
+  rules:
+  - U38
+  supports:
+  - U38
+  references:
+  - wikipedia-electromigration
+- branch: Materials
+  domain: Polymers
+  rules:
+  - U38
+  supports:
+  - U38
+  references:
+  - wikipedia-creep
+- branch: Materials
+  domain: Nanotechnology
+  rules:
+  - R5
+  supports:
+  - R5
+  references:
+  - wikipedia-regulation-nanotechnology
+- branch: Electrical
+  domain: Electronics
+  rules:
+  - R1
+  - U25
+  supports:
+  - U25
+  references:
+  - uspto-materials-based-failure-analysis
+  - wikipedia-derating
+- branch: Electrical
+  domain: Power grids
+  rules:
+  - R1
+  - C3
+  references:
+  - sintef-n-1-isnt-always
+  - wikipedia-load-shedding
+- branch: Electrical
+  domain: Telecom and network
+  rules:
+  - C4
+  - C5
+  references:
+  - wikipedia-end-end-principle
+  - wikipedia-robustness-principle
+- branch: Electrical
+  domain: Computer engineering
+  rules:
+  - U24
+  - C8
+  supports:
+  - C8
+  references:
+  - wikipedia-design-testing
+  - wikipedia-amdahls-law
+- branch: Electrical
+  domain: Broadcast
+  rules:
+  - U13
+  references:
+  - tv-technology-confidence-monitors
+- branch: Electrical
+  domain: Microwave
+  rules:
+  - C5
+  supports:
+  - C5
+  references:
+  - wikipedia-impedance-matching
+- branch: Electrical
+  domain: Optical (laser safety)
+  rules:
+  - Master
+  supports:
+  - Master
+  references:
+  - wikipedia-laser-safety
+- branch: Chemical
+  domain: Chemical process safety
+  rules:
+  - U9
+  - U27
+  references:
+  - osha-29-cfr-1910-119
+  - wikipedia-inherent-safety
+- branch: Chemical
+  domain: Oil and gas
+  rules:
+  - U29
+  references:
+  - jpt-robust-well-barrier-well
+- branch: Chemical
+  domain: Food safety
+  rules:
+  - U33
+  references:
+  - fda-haccp-principles-application-guidelines
+- branch: Chemical
+  domain: Pharma and clinical trials
+  rules:
+  - U22
+  references:
+  - fda-electronic-source-data-guidance
+- branch: Chemical
+  domain: Textile
+  rules:
+  - U40
+  references:
+  - iso-139-2005-textiles-standard
+  - chiuvention-why-fabric-test-results
+- branch: Chemical
+  domain: Electrochemical (batteries)
+  rules:
+  - U34
+  supports:
+  - U34
+  references:
+  - nasa-can-cell-cell-thermal
+- branch: Chemical
+  domain: Molecular and biomolecular engineering
+  rules:
+  - R7
+  - U11
+  supports:
+  - U11
+  references:
+  - wikipedia-directed-evolution
+  - molecular-devices-design-build-test
+- branch: Nuclear
+  domain: Nuclear
+  rules:
+  - U14
+  - U26
+  - R6
+  references:
+  - iaea-decommissioning-design
+  - patsnap-fail-safe-design
+  - wikipedia-two-man-rule
+- branch: Mining
+  domain: Mining
+  rules:
+  - U33
+  references:
+  - mining-weekly-icmm-critical-control
+- branch: Biomedical
+  domain: Medical devices and human factors
+  rules:
+  - U15
+  - R3
+  references:
+  - md-di-human-factors-engineering
+  - egtechnology-usability-example
+  - stell-requirements-traceability
+- branch: Biomedical
+  domain: Surgery
+  rules:
+  - U32
+  references:
+  - sciencedaily-who-surgical-checklist-study
+  - ices-ontario-checklist-study
+- branch: Biomedical
+  domain: Clinical engineering
+  rules:
+  - U41
+  references:
+  - wikipedia-alarm-fatigue
+- branch: Biomedical
+  domain: Bioinformatics
+  rules:
+  - U43
+  references:
+  - sandve-et-al-ten-simple
+- branch: Biomedical
+  domain: Biomaterials
+  rules:
+  - U44
+  references:
+  - wikipedia-biocompatibility
+- branch: Biomedical
+  domain: Biomechanics
+  rules:
+  - U15
+  references:
+  - wikipedia-anthropometry
+- branch: Biomedical
+  domain: Medical imaging (radiation protection)
+  rules:
+  - Master
+  supports:
+  - Master
+  references:
+  - wikipedia-alarp-alara
+- branch: Biomedical
+  domain: Neural engineering
+  rules:
+  - U33
+  supports:
+  - U33
+  references:
+  - wikipedia-shannon-criteria
+- branch: Agricultural
+  domain: Agricultural and biosystems
+  rules:
+  - U30
+  supports:
+  - U30
+  references:
+  - pmc-engineering-approach-sustainable-biological
+- branch: Industrial
+  domain: Manufacturing
+  rules:
+  - U20
+  - U28
+  references:
+  - wikipedia-andon
+  - usersolutions-poka-yoke
+- branch: Industrial
+  domain: Quality engineering
+  rules:
+  - U11
+  - U30
+  references:
+  - iso-central-pdca
+  - penn-state-taguchis-robust-design
+- branch: Industrial
+  domain: Occupational and industrial safety
+  rules:
+  - U27
+  - U36
+  references:
+  - cdc-niosh-hierarchy-controls
+  - osha-control-hazardous-energy
+- branch: Industrial
+  domain: Fire protection
+  rules:
+  - U35
+  references:
+  - fire-risk-assessment-network-aset
+- branch: Industrial
+  domain: Industrial engineering and operations research
+  rules:
+  - C8
+  - U25
+  references:
+  - wikipedia-theory-constraints
+  - linda-green-queueing-theory-modeling
+- branch: Industrial
+  domain: Supply chain engineering
+  rules:
+  - C11
+  references:
+  - wikipedia-bullwhip-effect
+  - lee-padmanabhan-whang-information-distortion
+- branch: Computing
+  domain: Software engineering
+  rules:
+  - U5
+  - U7
+  - U21
+  references:
+  - arxiv-revisiting-cost-fix
+  - grokipedia-kiss-principle
+  - adr-github-io-architectural-decision
+- branch: Computing
+  domain: Security engineering
+  rules:
+  - U12
+  - U29
+  references:
+  - jamf-nist-definition-least-privilege
+  - sciencedirect-least-privilege-defense-depth
+  - palo-alto-networks-defense-depth
+- branch: Computing
+  domain: Site reliability engineering
+  rules:
+  - U10
+  - U13
+  references:
+  - google-sre-postmortem-culture
+  - google-sre-monitoring-distributed-systems
+- branch: Computing
+  domain: Simulation and computational engineering
+  rules:
+  - U31
+  references:
+  - wikipedia-v-v-computer-simulation
+- branch: Computing
+  domain: Data and ML engineering
+  rules:
+  - C9
+  references:
+  - sculley-et-al-hidden-technical
+  - wikipedia-concept-drift
+- branch: Computing
+  domain: Quantum engineering and computing theory
+  rules:
+  - R1
+  references:
+  - wikipedia-quantum-error-correction
+  - ucsd-lectures-von-neumanns-probabilistic
+- branch: Cross-cutting
+  domain: Professional ethics
+  rules:
+  - U1
+  - U2
+  - U16
+  - U48
+  references:
+  - nspe-ethics-reference-guide
+  - nspe-sustainability-pes-obligations
+- branch: Cross-cutting
+  domain: Systems engineering
+  rules:
+  - U3
+  - U4
+  - R3
+  references:
+  - fdot-systems-engineering-100
+  - arxiv-v-v-systems-systems
+  - stell-requirements-traceability
+- branch: Cross-cutting
+  domain: Configuration management
+  rules:
+  - U9
+  references:
+  - arxiv-controls-machine-protection
+  - arxiv-agentic-configuration-management
+- branch: Cross-cutting
+  domain: Reliability and safety engineering
+  rules:
+  - U6
+  references:
+  - ebsco-fmea
+  - bmj-qual-saf-pmc-fmea
+  - leveson-thomas-stpa-handbook
+- branch: Cross-cutting
+  domain: Accident research
+  rules:
+  - U18
+  references:
+  - wikipedia-normalization-deviance
+  - national-academies-accident-precursor-analysis
+- branch: Cross-cutting
+  domain: Metrology
+  rules:
+  - U40
+  references:
+  - wikipedia-measurement-uncertainty
+  - wikipedia-metrological-traceability
+- branch: Cross-cutting
+  domain: Risk regulation (UK HSE)
+  rules:
+  - Master
+  references:
+  - primatech-alarp-principle
+- branch: Cross-cutting
+  domain: Design engineering
+  rules:
+  - R8
+  references:
+  - sobek-ward-liker-toyotas-principles
+- branch: Cross-cutting
+  domain: Engineering physics
+  rules:
+  - U31
+  references:
+  - wikipedia-fermi-problem
+- branch: 'Management: Governance and assurance'
+  domain: Corporate governance
+  rules:
+  - U48
+  - U8
+  supports:
+  - U8
+  references:
+  - g20-oecd-principles-corporate-governance
+  - iso-37000-2021-governance-organizations
+- branch: 'Management: Governance and assurance'
+  domain: Internal audit and assurance
+  rules:
+  - U29
+  - U8
+  references:
+  - iia-three-lines-model
+- branch: 'Management: Governance and assurance'
+  domain: Statutory audit
+  rules:
+  - U8
+  references:
+  - regulation-no-537-2014-article
+- branch: 'Management: Governance and assurance'
+  domain: Internal control
+  rules:
+  - R9
+  - R6
+  references:
+  - nist-csrc-glossary-separation-duty
+- branch: 'Management: Governance and assurance'
+  domain: Compliance management
+  rules:
+  - C1
+  - R3
+  references:
+  - iso-37301-2021-compliance-management
+- branch: 'Management: Governance and assurance'
+  domain: Whistleblowing and speak-up
+  rules:
+  - U20
+  references:
+  - directive-2019-1937
+- branch: 'Management: Governance and assurance'
+  domain: Anti-bribery
+  rules:
+  - U48
+  supports:
+  - U48
+  references:
+  - iso-37001-anti-bribery-management
+- branch: 'Management: Strategy and decisions'
+  domain: Enterprise risk management
+  rules:
+  - Master
+  - R8
+  - U6
+  references:
+  - coso-erm-integrating-strategy-performance
+  - iso-31000-2018-risk-management
+- branch: 'Management: Strategy and decisions'
+  domain: Decision making
+  rules:
+  - U50
+  references:
+  - amazon-2015-letter-shareholders
+- branch: 'Management: Strategy and decisions'
+  domain: Red teaming and challenge
+  rules:
+  - U8
+  - R2
+  references:
+  - uk-mod-red-teaming-handbook
+- branch: 'Management: Strategy and decisions'
+  domain: Military command and control
+  rules:
+  - U49
+  - U2
+  references:
+  - us-army-adp-6-0
+- branch: 'Management: Strategy and decisions'
+  domain: Pre-mortem risk identification
+  rules:
+  - U6
+  references:
+  - klein-performing-project-premortem
+- branch: 'Management: Portfolio, programme and project'
+  domain: Project management
+  rules:
+  - U39
+  - U19
+  - U41
+  - U52
+  - Master
+  rules_text: U39 Critical path; U19 Small verified steps; U41 Actionable alerts; U52 Stop criteria set in advance; Master rule (tailoring)
+  references:
+  - iso-21502-2020-guidance-project
+  - pmi-pmbok-guide-8th-edition
+  - purple-griffon-prince2-7th-edition
+- branch: 'Management: Portfolio, programme and project'
+  domain: Portfolio management
+  rules:
+  - U52
+  - U6
+  supports:
+  - U52
+  rules_text: U52 Stop criteria set in advance (supports); U6 (portfolio view)
+  references:
+  - iso-21504-2022-guidance-portfolio
+- branch: 'Management: Portfolio, programme and project'
+  domain: Forecasting of large projects
+  rules:
+  - U31
+  references:
+  - flyvbjerg-from-nobel-prize-project
+- branch: 'Management: Portfolio, programme and project'
+  domain: Agile and Scrum
+  rules:
+  - U36
+  - U11
+  - U7
+  - U38
+  rules_text: U36 Isolation before work; U11 Plan-Do-Check-Act; U7 Simplicity; U38 Accumulated degradation
+  references:
+  - principles-behind-agile-manifesto
+  - scrum-guide
+- branch: 'Management: Portfolio, programme and project'
+  domain: Software delivery management
+  rules:
+  - U19
+  references:
+  - dora-working-small-batches
+- branch: 'Management: Portfolio, programme and project'
+  domain: Software project staffing
+  rules:
+  - C15
+  references:
+  - jargon-file-brookss-law
+- branch: 'Management: Product and innovation'
+  domain: Experimentation
+  rules:
+  - R7
+  references:
+  - kohavi-thomke-surprising-power-online
+- branch: 'Management: Product and innovation'
+  domain: Innovation management
+  rules:
+  - C2
+  supports:
+  - C2
+  references:
+  - iso-56001-2024-innovation-management
+- branch: 'Management: Operations, quality and supply'
+  domain: Quality management
+  rules:
+  - U11
+  - U1
+  - U28
+  - U51
+  supports:
+  - U51
+  rules_text: U11 Plan-Do-Check-Act; U1 Public safety first (ethics); U28 Error-proofing; U51 Indicators are not targets (supports)
+  references:
+  - iso-9001-2026-launch
+  - deming-14-points
+- branch: 'Management: Operations, quality and supply'
+  domain: Lean production
+  rules:
+  - U20
+  references:
+  - toyota-production-system
+- branch: 'Management: Operations, quality and supply'
+  domain: Operations and queueing
+  rules:
+  - U53
+  - U25
+  references:
+  - little-littles-law-as-viewed
+  reference_titles:
+    little-littles-law-as-viewed: "Little: Little's Law as Viewed on Its 50th Anniversary (reprint)"
+- branch: 'Management: Operations, quality and supply'
+  domain: Supply chain management
+  rules:
+  - C11
+  references:
+  - lee-padmanabhan-whang-information-distortion
+- branch: 'Management: Operations, quality and supply'
+  domain: Procurement
+  rules:
+  - U48
+  - U16
+  references:
+  - oecd-recommendation-public-procurement-integrity
+  - iso-20400-2017-sustainable-procurement
+- branch: 'Management: Operations, quality and supply'
+  domain: Responsible supply chains
+  rules:
+  - U45
+  references:
+  - oecd-due-diligence-guidance-responsible
+- branch: 'Management: Operations, quality and supply'
+  domain: Asset management
+  rules:
+  - C12
+  references:
+  - iso-55000-2024-asset-management
+- branch: 'Management: Operations, quality and supply'
+  domain: IT service management
+  rules:
+  - U9
+  - C5
+  references:
+  - iso-iec-20000-1-2018
+- branch: 'Management: Risk, resilience and legal'
+  domain: Business continuity
+  rules:
+  - U35
+  - C3
+  references:
+  - bci-good-practice-guidelines-2018
+  - iso-22301-2019
+- branch: 'Management: Risk, resilience and legal'
+  domain: Incident and crisis management
+  rules:
+  - U46
+  - C16
+  - U42
+  - U26
+  rules_text: U46 Exact constraint (unity of command); C16 Span of control; U42 Sterile critical phase; U26 Fail-safe (transfer of command)
+  references:
+  - fema-national-incident-management-system
+  - iso-22361-2022-crisis-management
+- branch: 'Management: Risk, resilience and legal'
+  domain: Information security management
+  rules:
+  - U12
+  - C12
+  references:
+  - iso-iec-27001-2022
+- branch: 'Management: Risk, resilience and legal'
+  domain: Data protection
+  rules:
+  - U12
+  - U14
+  - U22
+  references:
+  - gdpr-article-5
+- branch: 'Management: Risk, resilience and legal'
+  domain: Records management and accounting
+  rules:
+  - U22
+  references:
+  - hgb-239
+  - iso-15489-1-2016-records
+- branch: 'Management: Risk, resilience and legal'
+  domain: Litigation and investigations
+  rules:
+  - U23
+  references:
+  - troutman-pepper-sedona-commentary-legal
+- branch: 'Management: Risk, resilience and legal'
+  domain: Occupational health and safety
+  rules:
+  - U27
+  references:
+  - iso-45001-2018
+  - presencis-iso-45001-clause-8
+- branch: 'Management: Risk, resilience and legal'
+  domain: Environmental management
+  rules:
+  - U16
+  references:
+  - iso-14001-2015-withdrawn-replaced
+- branch: 'Management: Risk, resilience and legal'
+  domain: Organizational accident research
+  rules:
+  - U18
+  references:
+  - columbia-accident-investigation-board-report
+- branch: 'Management: People and organization'
+  domain: Team leadership
+  rules:
+  - U47
+  - U15
+  rules_text: U47 Psychological safety; U15 Human factors (role clarity)
+  references:
+  - edmondson-psychological-safety-learning-behavior
+  - google-re-work-understand-team
+  reference_titles:
+    edmondson-psychological-safety-learning-behavior: 'Edmondson: Psychological Safety and Learning Behavior in Work Teams (ASQ 1999)'
+- branch: 'Management: People and organization'
+  domain: Personnel selection
+  rules:
+  - U56
+  references:
+  - sackett-zhang-berry-lievens-revisiting
+  reference_titles:
+    sackett-zhang-berry-lievens-revisiting: 'Sackett et al.: Revisiting meta-analytic estimates of validity in personnel selection (J. Appl. Psychol.)'
+- branch: 'Management: People and organization'
+  domain: Performance feedback
+  rules:
+  - U57
+  references:
+  - kluger-denisi-effects-feedback-interventions
+- branch: 'Management: People and organization'
+  domain: Goals and performance measurement
+  rules:
+  - U55
+  - U51
+  - U3
+  references:
+  - locke-latham-building-practically-useful
+  - wikipedia-campbells-law
+  reference_titles:
+    locke-latham-building-practically-useful: 'Locke & Latham: Building a practically useful theory of goal setting (Am. Psychol. 2002)'
+- branch: 'Management: People and organization'
+  domain: Working time and health
+  rules:
+  - U38
+  references:
+  - who-ilo-long-working-hours
+  - pencavel-productivity-working-hours
+- branch: 'Management: People and organization'
+  domain: Work design and focus
+  rules:
+  - U42
+  references:
+  - mark-gudith-klocke-cost-interrupted
+- branch: 'Management: People and organization'
+  domain: Succession and human capital
+  rules:
+  - R1
+  - U40
+  references:
+  - iso-tc-260-people-power
+- branch: 'Management: People and organization'
+  domain: Knowledge management
+  rules:
+  - R1
+  - U21
+  supports:
+  - R1
+  - U21
+  rules_text: R1 Redundancy (supports); U21 Decision records (supports)
+  references:
+  - iso-30401-2018-knowledge-management
+- branch: 'Management: People and organization'
+  domain: Change management
+  rules:
+  - U58
+  references:
+  - kotter-leading-change-why-transformation
+  reference_titles:
+    kotter-leading-change-why-transformation: 'Kotter: Leading Change — Why Transformation Efforts Fail (HBR 1995)'
+- branch: 'Management: People and organization'
+  domain: Organizational justice
+  rules:
+  - U54
+  references:
+  - kim-mauborgne-fair-process
+  reference_titles:
+    kim-mauborgne-fair-process: 'Kim & Mauborgne: Fair Process (HBR 1997)'
+- branch: 'Management: People and organization'
+  domain: Organization design
+  rules:
+  - C14
+  - C16
+  references:
+  - conway-how-do-committees-invent
+- branch: 'Management: People and organization'
+  domain: Escalation of commitment
+  rules:
+  - U52
+  references:
+  - staw-knee-deep-big-muddy
+  reference_titles:
+    staw-knee-deep-big-muddy: 'Staw: Knee-deep in the big muddy (1976)'
+- branch: 'Management: Finance'
+  domain: Accounting and bookkeeping
+  rules:
+  - U22
+  references:
+  - hgb-239
+- branch: 'Management: Finance'
+  domain: Payments and treasury
+  rules:
+  - R6
+  - R9
+  references:
+  - nist-csrc-glossary-separation-duty
+  reference_titles:
+    nist-csrc-glossary-separation-duty: 'NIST CSRC Glossary: separation of duty'
+- branch: 'Management: Finance'
+  domain: Budgeting
+  rules:
+  - C7
+  references:
+  - parkinson-parkinsons-law
+checked_without_row:
+- domain: Regenerative medicine
+  reason: no-source
+  note: searched; no source found for a distinct principle
+  applicable: R3 (regulated), R5 (irreversible harm), C2 (new technology), C10 (results that cannot be fully inspected)
+- domain: Composite materials
+  reason: blocked
+  note: the source for barely visible impact damage could not be fetched; not included
+  applicable: C10 (hidden damage that inspection cannot fully find)
+- domain: Computational materials
+  reason: covered-elsewhere
+  note: the checked source has no statement on model validation; U31 covers model validity
+  applicable: R7 (weak models), C9 (data-driven models)
+- domain: Material characterization
+  reason: covered-elsewhere
+  note: the checked source has no statement on calibration; U40 covers it
+  applicable: U-rules only; U40 is the central one
+- domain: Sports engineering
+  reason: no-source
+  note: no distinct principle found; equipment safety standards fit C1
+  applicable: C1 (equipment standards exist)
+- domain: Thermal engineering
+  reason: covered-elsewhere
+  note: the checked source states only that heat must be managed for reliability; covered by U25 (derating) and U38
+  applicable: C6 (thermal control loops)
+- domain: Surface engineering, industrial plant, power plant, project, information, facilities
+  reason: covered-elsewhere
+  note: not researched separately; they overlap covered domains (U38, U14, R1, U37, U39, C9)
+  applicable: 'plants: R1, R3, C6, C12; information: C5, C9; project: U-rules only'
+- domain: Applied engineering, electromechanics, mechatronics
+  reason: umbrella
+  note: umbrella terms that combine other branches
+  applicable: C5 (data interfaces), C6 (control loops)
+- domain: Geomatics
+  reason: no-source
+  note: only the units and reference-frame principle (C5) applies; no geomatics-specific source
+  applicable: C5 (data interfaces), C9 (data-driven results)
+- domain: Explosives and military engineering
+  reason: out-of-scope
+  note: out of scope beyond organizational practice (R6 two-person rule)
+  applicable: not assessed (out of scope)
+- domain: Sales and marketing management
+  reason: not-researched
+  note: not researched separately
+  applicable: U51 (sales quotas are gamed), R7 (experiments), C11 (share sell-through data)
+- domain: Customer service management
+  reason: not-researched
+  note: not researched separately
+  applicable: C3 (triage under overload), U41 (escalation only on exception), U53 (queue length)
+- domain: Facility management (ISO 41001), energy management (ISO 50001)
+  reason: not-researched
+  note: catalogue pages not checked
+  applicable: C12, U37, U16
+- domain: Treasury, tax, legal departments
+  reason: covered-elsewhere
+  note: covered by finance and compliance rows
+  applicable: R9, R6, C1, R3
+- domain: Public administration
+  reason: covered-elsewhere
+  note: covered by procurement, governance and records rows
+  applicable: U48, U22, C1, R3
+- domain: Non-profit management
+  reason: no-source
+  note: no distinct principle found
+  applicable: U-rules and MU-rules only
+- domain: Self-management and time management
+  reason: out-of-scope
+  note: out of scope (one person, see section 1)
+  applicable: U42 and U53 apply to one person as advice, not as organizational rules

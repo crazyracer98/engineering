@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/crazyracer98/engineering/schema/conflicts.schema.json",
+  "title": "Conflict rules",
+  "description": "data/conflicts.yaml: K-rules (section 8).",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^K[1-9][0-9]*$",
+        "description": "Conflict-rule ID."
+      },
+      "if": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+      },
+      "then": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+      },
+      "because": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+      },
+      "example": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+      },
+      "basis": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+      },
+      "rules": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "pattern": "^[URC][1-9][0-9]*$",
+          "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+        },
+        "minItems": 2,
+        "uniqueItems": true,
+        "description": "Rules the conflict decides between: the rule IDs named in `if`, in order."
+      }
+    },
+    "required": [
+      "id",
+      "if",
+      "then",
+      "because",
+      "example",
+      "basis",
+      "rules"
+    ],
+    "additionalProperties": false
+  }
+}

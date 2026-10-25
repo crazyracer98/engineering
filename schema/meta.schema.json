@@ -1,0 +1,578 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/crazyracer98/engineering/schema/meta.schema.json",
+  "title": "Metadata",
+  "description": "data/meta.yaml: title, edition, master rule, reading guide, and the section prose and layout needed to render the single-file Markdown.",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "edition": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "description": "SemVer; always equals the release tag that ships it. The header line renders `Version <edition> · <date> · <counts>`; counts come from rules.yaml, conflicts.yaml and categories.yaml."
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "master_rule": {
+      "type": "object",
+      "properties": {
+        "scale": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+        },
+        "alarp": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+        },
+        "risk_regions": {
+          "type": "object",
+          "properties": {
+            "unacceptable": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+            },
+            "tolerable": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+            },
+            "negligible": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+            }
+          },
+          "required": [
+            "unacceptable",
+            "tolerable",
+            "negligible"
+          ],
+          "additionalProperties": false
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "description": "Source slug (data/sources.yaml)."
+          },
+          "uniqueItems": true,
+          "minItems": 1,
+          "description": "Section 9 \"Master rule\" row."
+        },
+        "source_titles": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Per-use link-title overrides: slug -> the title this cell uses when it differs from sources.yaml `title`. Renderers use it instead of the canonical title for this use only."
+        },
+        "management_intro": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Added: the sentence before the management-terms table (section 2)."
+        },
+        "management_terms": {
+          "type": "array",
+          "description": "Added: section 2's engineering-to-management terms table.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "engineering": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+              },
+              "management": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+              }
+            },
+            "required": [
+              "engineering",
+              "management",
+              "source"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scale",
+        "alarp",
+        "risk_regions",
+        "sources",
+        "management_intro",
+        "management_terms"
+      ],
+      "additionalProperties": false
+    },
+    "sentence_structure": {
+      "type": "string"
+    },
+    "id_prefixes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+          }
+        },
+        "required": [
+          "name",
+          "description"
+        ],
+        "additionalProperties": false
+      },
+      "propertyNames": {
+        "enum": [
+          "U",
+          "R",
+          "C",
+          "K"
+        ]
+      }
+    },
+    "classification_test": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+    },
+    "applicability_note": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+    },
+    "quick_view_questions": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[A-I]$"
+      },
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+      },
+      "minProperties": 5,
+      "maxProperties": 9
+    },
+    "strength_keywords": {
+      "type": "object",
+      "properties": {
+        "MUST": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+        },
+        "SHOULD": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+        }
+      },
+      "required": [
+        "MUST",
+        "SHOULD"
+      ],
+      "additionalProperties": false
+    },
+    "relation_types": {
+      "type": "object",
+      "properties": {
+        "depends_on": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+        },
+        "strengthens": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+        },
+        "strengthened_by": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+        },
+        "conflicts_with": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+        },
+        "checks": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+        },
+        "checked_by": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+        },
+        "scaled_by": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+        }
+      },
+      "required": [
+        "depends_on",
+        "strengthens",
+        "strengthened_by",
+        "conflicts_with",
+        "checks",
+        "checked_by",
+        "scaled_by"
+      ],
+      "additionalProperties": false
+    },
+    "evidence_levels": {
+      "type": "object",
+      "properties": {
+        "strong": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+        },
+        "moderate": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+        },
+        "weak": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+        }
+      },
+      "required": [
+        "strong",
+        "moderate",
+        "weak"
+      ],
+      "additionalProperties": false
+    },
+    "how_to_read": {
+      "type": "array",
+      "description": "Section 1 as ordered prose blocks; each `text` is one top-level bullet (rendered as `- <text>`), sub-bullets included. The structured fields above are machine-readable views of these blocks.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+          }
+        },
+        "required": [
+          "key",
+          "text"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "known_exceptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rule": {
+            "type": "string",
+            "pattern": "^[URC][1-9][0-9]*$",
+            "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+          },
+          "check": {
+            "type": "string",
+            "enum": [
+              "primary-source"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+          }
+        },
+        "required": [
+          "rule",
+          "check",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Added: numbered sections in order (Contents list and `## N. title` headings) with their intro prose and layout overrides.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "number": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "title": {
+            "type": "string"
+          },
+          "contents_title": {
+            "type": "string",
+            "description": "Entry in the Contents list when it differs from title."
+          },
+          "intro": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Paragraphs after the heading (blank-line separated)."
+          },
+          "subsections": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Subsection key -> heading."
+          },
+          "checked_without_row": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "intro": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+              }
+            },
+            "required": [
+              "title"
+            ],
+            "additionalProperties": false
+          },
+          "header_overrides": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "description": "Table header cells, verbatim Markdown."
+            },
+            "description": "Category ID -> table header that differs from tables.management_forms."
+          },
+          "category_titles": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Category ID -> heading name used in this section when it differs from the category name."
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "header": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1,
+                  "description": "Table header cells, verbatim Markdown."
+                }
+              },
+              "required": [
+                "key",
+                "title",
+                "header"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "key",
+          "number",
+          "title"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "quick_view": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "intro": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+        }
+      },
+      "required": [
+        "title"
+      ],
+      "additionalProperties": false,
+      "description": "Added: section 3 \"Quick view\" heading and intro."
+    },
+    "analogy_map": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "intro": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "engineering": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+              },
+              "management": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+              },
+              "role": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+              }
+            },
+            "required": [
+              "engineering",
+              "management",
+              "role"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "title",
+        "intro",
+        "rows"
+      ],
+      "additionalProperties": false,
+      "description": "Added: section 3 analogy map."
+    },
+    "tables": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "minItems": 1,
+        "description": "Table header cells, verbatim Markdown."
+      },
+      "description": "Added: header row of each table type, verbatim."
+    },
+    "layout_quirks": {
+      "type": "array",
+      "description": "Added: places where edition 9 does not have exactly one blank line before a block, so a renderer can reproduce it byte for byte.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "section": {
+            "type": "integer"
+          },
+          "line": {
+            "type": "integer"
+          },
+          "block": {
+            "type": "string",
+            "enum": [
+              "h1",
+              "h2",
+              "h3",
+              "table",
+              "para"
+            ]
+          },
+          "starts_with": {
+            "type": "string"
+          },
+          "blank_lines_before": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "section",
+          "line",
+          "block",
+          "starts_with",
+          "blank_lines_before"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "title",
+    "edition",
+    "date",
+    "master_rule",
+    "sentence_structure",
+    "id_prefixes",
+    "classification_test",
+    "applicability_note",
+    "quick_view_questions",
+    "strength_keywords",
+    "relation_types",
+    "evidence_levels",
+    "how_to_read",
+    "known_exceptions",
+    "sections",
+    "quick_view",
+    "analogy_map",
+    "tables",
+    "layout_quirks"
+  ],
+  "additionalProperties": false
+}
