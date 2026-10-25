@@ -42,5 +42,9 @@ select = ["E", "F", "I", "B", "UP"]
 strict = true
 files = ["src", "tests"]
 
+[[tool.mypy.overrides]]
+module = ["pypandoc", "pypandoc.*"]
+ignore_missing_imports = true
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]

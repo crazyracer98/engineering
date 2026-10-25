@@ -17,6 +17,7 @@ from typing import Any
 from jsonschema import Draft202012Validator, FormatChecker
 
 from taxonomy.load import (
+    REGISTRY_FILES,
     load_dataset,
     load_registry_files,
     load_schema,
@@ -29,10 +30,7 @@ from taxonomy.render_markdown import (
 )
 
 #: Data file stem -> schema stem is the identity; these files use ``sources``.
-EXTRA_REGISTRIES = {
-    "paper/references-extra.yaml": "sources",
-    "docs/methodology-references.yaml": "sources",
-}
+EXTRA_REGISTRIES = dict.fromkeys(REGISTRY_FILES[1:], "sources")
 
 #: Relation pairs that must not both hold between the same two rules.
 #: Supportive relations contradict ``conflicts_with`` between the same rules.
@@ -214,7 +212,9 @@ _DOMAIN_COUNT = re.compile(
 
 def check_domain_count(ctx: Context) -> list[str]:
     """The domain-index intro states counts that must match domains.yaml."""
-    section = next(s for s in ctx.ds.meta["sections"] if s["key"] == "domain_index")
+    section: dict[str, Any] = next(
+        (s for s in ctx.ds.meta["sections"] if s["key"] == "domain_index"), {}
+    )
     match = _DOMAIN_COUNT.search(section.get("intro", ""))
     if not match:
         return ["domain_index intro has no 'N domains in B branches (...)' sentence"]
@@ -329,15 +329,18 @@ def check_relation_contradictions(ctx: Context) -> list[str]:
     for (a, b), rels in sorted(edges.items()):
         if a == b:
             msgs.append(f"{a} lists itself in related ({', '.join(sorted(rels))})")
-            continue
-        both = rels | edges.get((b, a), set())
-        if "conflicts_with" in both and both & set(SUPPORTIVE) and a < b:
+    pairs = sorted({(min(a, b), max(a, b)) for a, b in edges if a != b})
+    for lo, hi in pairs:
+        forward = edges.get((lo, hi), set())
+        backward = edges.get((hi, lo), set())
+        both = forward | backward
+        if "conflicts_with" in both and both & set(SUPPORTIVE):
             msgs.append(
-                f"{a} and {b} conflict and also support each other "
-                f"({a}: {sorted(rels)}, {b}: {sorted(edges.get((b, a), set()))})"
+                f"{lo} and {hi} conflict and also support each other "
+                f"({lo}: {sorted(forward)}, {hi}: {sorted(backward)})"
             )
-        if "depends_on" in rels and "depends_on" in edges.get((b, a), set()) and a < b:
-            msgs.append(f"{a} and {b} depend on each other")
+        if "depends_on" in forward and "depends_on" in backward:
+            msgs.append(f"{lo} and {hi} depend on each other")
     return msgs
 
 
@@ -485,12 +488,26 @@ def make_context(root: Path) -> Context:
 
 
 def run_checks(root: Path) -> list[Finding]:
-    """Run every check; a crashing check is reported as a finding, not raised."""
-    ctx = make_context(root)
+    """Run every check; nothing is raised.
+
+    A file that cannot be read or parsed becomes one ``load`` finding; a check
+    that crashes on malformed data becomes a finding of its own.
+    """
+    try:
+        ctx = make_context(root)
+    except Exception as exc:
+        return [
+            Finding("load", f"cannot load the dataset: {type(exc).__name__}: {exc}")
+        ]
     findings: list[Finding] = []
     for name, fn in CHECKS.items():
         try:
             findings.extend(Finding(name, m) for m in fn(ctx))
-        except (KeyError, TypeError, ValueError, AttributeError) as exc:
-            findings.append(Finding(name, f"check could not run on this data: {exc!r}"))
+        except Exception as exc:
+            findings.append(
+                Finding(
+                    name,
+                    f"check could not run on this data: {type(exc).__name__}: {exc}",
+                )
+            )
     return findings

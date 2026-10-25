@@ -11,6 +11,10 @@
 - `test_publication.py`: the round trip against the edition-9 Markdown (only
   the version line may differ), `publication/` freshness, chapters, the
   flattened YAML, citation resolution and the CLI.
+- `test_render_paper.py`: CSL-JSON, the assembled paper Markdown, Pandoc
+  failure on a missing citation, and one real PDF build marked `slow`
+  (registered in `conftest.py`; a few seconds, so it runs in the default
+  `pytest`; deselect it with `-m "not slow"`).
 
 ## Do
 

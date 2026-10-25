@@ -14,7 +14,13 @@ from taxonomy.validate import run_checks
 
 
 def _root(arg: str | None) -> Path:
-    return Path(arg).resolve() if arg else find_root()
+    """The repository root from ``--root`` or the cwd; raises ``FileNotFoundError``."""
+    if arg:
+        root = Path(arg).resolve()
+        if not (root / "data" / "meta.yaml").is_file():
+            raise FileNotFoundError(f"{root} has no data/meta.yaml")
+        return root
+    return find_root()
 
 
 def cmd_check(root: Path) -> int:
@@ -60,18 +66,26 @@ def main(argv: Sequence[str] | None = None) -> int:
     p.add_argument("--out", type=Path, default=Path("build/paper.pdf"))
     args = parser.parse_args(argv)
 
-    if args.command == "check":
-        return cmd_check(_root(args.root))
-    if args.command == "build":
-        return cmd_build(_root(args.root), args.check)
     try:
+        root = _root(args.root)
+    except FileNotFoundError as exc:
+        print(f"taxonomy {args.command}: {exc}", file=sys.stderr)
+        return 1
+    try:
+        if args.command == "check":
+            return cmd_check(root)
+        if args.command == "build":
+            return cmd_build(root, args.check)
         if args.command == "site":
-            render_site.build(args.out)
+            render_site.build(args.out, root)
         else:
-            render_paper.build(args.out)
+            render_paper.build(args.out, root)
     except NotImplementedError as exc:
         print(f"taxonomy {args.command}: {exc}", file=sys.stderr)
         return 2
+    except Exception as exc:
+        print(f"taxonomy {args.command}: {type(exc).__name__}: {exc}", file=sys.stderr)
+        return 1
     return 0
 
 

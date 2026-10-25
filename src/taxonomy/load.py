@@ -73,8 +73,11 @@ def plain(value: Any) -> Any:
 def load_yaml(path: Path) -> Any:
     """Read one YAML file with the round-trip loader, as plain values."""
     yaml = YAML()
-    with path.open(encoding="utf-8") as handle:
-        return plain(yaml.load(handle))
+    try:
+        with path.open(encoding="utf-8") as handle:
+            return plain(yaml.load(handle))
+    except Exception as exc:
+        raise ValueError(f"{path}: {type(exc).__name__}: {exc}") from exc
 
 
 def load_dataset(root: Path) -> Dataset:
@@ -99,8 +102,10 @@ def load_dataset(root: Path) -> Dataset:
 def load_registry_files(root: Path) -> list[tuple[str, list[Source]]]:
     """Each existing registry file (relative path) with its entries, in order."""
     out: list[tuple[str, list[Source]]] = []
-    for rel in REGISTRY_FILES:
+    for i, rel in enumerate(REGISTRY_FILES):
         path = root / rel
+        if i == 0 and not path.is_file():
+            raise FileNotFoundError(f"required registry {rel} is missing under {root}")
         if path.is_file():
             out.append((rel, cast("list[Source]", load_yaml(path) or [])))
     return out
@@ -109,20 +114,23 @@ def load_registry_files(root: Path) -> list[tuple[str, list[Source]]]:
 def load_registry(root: Path) -> dict[str, Source]:
     """Merge the three registries into ``slug -> Source``.
 
-    Raises ``ValueError`` when a slug is defined twice (``taxonomy check``
+    Raises ``FileNotFoundError`` when ``data/sources.yaml`` is missing and
+    ``ValueError`` listing every slug that is defined twice (``taxonomy check``
     reports that, and duplicate URLs, with file names).
     """
     registry: dict[str, Source] = {}
     origin: dict[str, str] = {}
+    duplicates: list[str] = []
     for rel, entries in load_registry_files(root):
         for entry in entries:
             slug = entry["slug"]
             if slug in registry:
-                raise ValueError(
-                    f"duplicate source slug {slug!r} in {rel} (also in {origin[slug]})"
-                )
+                duplicates.append(f"{slug!r} in {rel} (also in {origin[slug]})")
+                continue
             registry[slug] = entry
             origin[slug] = rel
+    if duplicates:
+        raise ValueError("duplicate source slugs: " + "; ".join(duplicates))
     return registry
 
 

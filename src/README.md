@@ -20,8 +20,11 @@ Built with `uv_build` from `../pyproject.toml`; the console script
   `render_single(ds, registry)` and `render_chapters(ds, registry)`.
 - `render_yaml.py`: `render_yaml(ds, registry)`, the flattened YAML.
 - `build.py`: `generate`, `stale` and `write` for `../publication/`.
-- `render_site.py`, `render_paper.py`: `build(out: Path) -> None`; stubs that
-  raise `NotImplementedError` until the site and paper work items land.
+- `render_paper.py`: `build(out: Path, root: Path | None = None) -> None` builds
+  the PDF paper (Pandoc with citeproc, then Typst) and `references.json` next
+  to it; `write_csl_json(root, out)`. See [`../paper/README.md`](../paper/README.md).
+- `render_site.py`: `build(out: Path, root: Path | None = None) -> None`; a stub
+  that raises `NotImplementedError` until the site work item lands.
 - `cli.py`: `taxonomy check | build [--check] | site --out DIR | paper --out FILE`.
 
 ## Do

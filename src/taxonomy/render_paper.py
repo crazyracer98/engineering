@@ -12,7 +12,6 @@ overrides used by the Markdown round trip (``source_titles``,
 
 from __future__ import annotations
 
-import importlib
 import json
 import re
 import subprocess
@@ -22,6 +21,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+import pypandoc
 import typst
 
 from taxonomy.load import find_root, load_dataset, load_registry, load_yaml
@@ -617,13 +617,6 @@ def pandoc_variables(meta: Mapping[str, Any]) -> dict[str, str]:
     }
 
 
-def _pandoc_path() -> str:
-    """Path of the Pandoc bundled with ``pypandoc-binary`` (it ships no type
-    stubs, so the module is loaded dynamically instead of suppressing mypy)."""
-    pypandoc: Any = importlib.import_module("pypandoc")
-    return str(pypandoc.get_pandoc_path())
-
-
 def run_pandoc(
     markdown: Path,
     refs: Path,
@@ -635,7 +628,7 @@ def run_pandoc(
     """Markdown to Typst with citeproc. Any Pandoc warning (for instance
     ``citeproc: citation ... not found``) or error raises ``RuntimeError``."""
     args = [
-        _pandoc_path(),
+        pypandoc.get_pandoc_path(),
         "--from=markdown-tex_math_dollars-raw_tex",
         "--to=typst",
         "--standalone",
