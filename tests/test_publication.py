@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import difflib
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -12,6 +13,7 @@ from taxonomy.load import load_dataset, load_registry
 from taxonomy.render_markdown import render_chapters, render_single, resolve_citations
 from taxonomy.render_yaml import render_yaml
 from tests.conftest import REPO
+from tests.test_checks import Edit
 
 COUNTS = (
     "83 rules (58 universal, 9 risk-scaled, 16 conditional) "
@@ -117,3 +119,50 @@ def test_resolve_citations_forms() -> None:
     assert r("`[@zz]` and [@a]", reg) == "`[@zz]` and [Alpha](https://x/a)"  # type: ignore[arg-type]
     with pytest.raises(KeyError):
         r("[@zz]", reg)  # type: ignore[arg-type]
+
+
+def test_cli_reports_load_errors_without_traceback(
+    repo: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    (repo / "data" / "glossary.yaml").write_text("a: [unclosed\n", encoding="utf-8")
+    assert cli.main(["--root", str(repo), "check"]) == 1
+    err = capsys.readouterr().err
+    assert "[load]" in err and "Traceback" not in err
+    assert cli.main(["--root", str(repo), "build"]) == 1
+    err = capsys.readouterr().err
+    assert "taxonomy build:" in err and "Traceback" not in err
+
+
+def test_cli_without_a_repository_root(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    assert cli.main(["--root", str(tmp_path), "check"]) == 1
+    assert "no data/meta.yaml" in capsys.readouterr().err
+    assert cli.main(["--root", str(tmp_path), "site"]) == 1
+
+
+def test_publication_readme_is_generated_and_dotfiles_are_ignored(repo: Path) -> None:
+    assert (repo / "publication" / "README.md").is_file()
+    (repo / "publication" / ".DS_Store").write_text("x", encoding="utf-8")
+    assert build.stale(repo) == []
+    (repo / "publication" / "README.md").unlink()
+    assert build.stale(repo) == ["README.md"]
+
+
+def test_duplicate_slugs_are_all_reported(repo: Path, edit: Edit) -> None:
+    def seed(doc: Any) -> None:
+        for i, slug in enumerate(("wikipedia-andon", "rfc-2119")):
+            doc.append(
+                {
+                    "slug": slug,
+                    "title": "D",
+                    "url": f"https://example.org/{i}",
+                    "kind": "primary",
+                    "paid": False,
+                }
+            )
+
+    edit("paper/references-extra.yaml", seed)
+    with pytest.raises(ValueError) as info:
+        load_registry(repo)
+    assert "wikipedia-andon" in str(info.value) and "rfc-2119" in str(info.value)
