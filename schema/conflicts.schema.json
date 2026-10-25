@@ -46,7 +46,7 @@
         },
         "minItems": 2,
         "uniqueItems": true,
-        "description": "Rules the conflict decides between: the rule IDs named in `if`, in order."
+        "description": "Rules the K-rule mentions (the conflicting sides and context rules): every rule ID named in `if`, in order."
       }
     },
     "required": [

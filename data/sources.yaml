@@ -297,7 +297,6 @@
   year: 2015
   via:
     title: iTeh Standards (sample)
-    url: https://cdn.standards.iteh.ai/samples/59970/06ad76004ab746ff90b82cf44a8b0752/ISO-13850-2015.pdf
   paid: true
   accessed: null
   notes: Sample pages of the standard; the full text is paid.
@@ -615,7 +614,6 @@
   year: 2005
   via:
     title: iTeh Standards (sample)
-    url: https://cdn.standards.iteh.ai/samples/35179/19d75d1dcdd147d4b630728954acc86d/ISO-139-2005.pdf
   paid: true
   accessed: null
   notes: Sample pages of the standard; the full text is paid.
@@ -879,7 +877,6 @@
   year: 1997
   via:
     title: Bilkent University
-    url: https://courses.ie.bilkent.edu.tr/ie102/wp-content/uploads/sites/12/2019/02/Lee-Padmanabhan-Whang-1997-MS.pdf
   paid: false
   accessed: '2026-10-14'
   notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the original paper."
@@ -1071,7 +1068,6 @@
   year: null
   via:
     title: flighttestsafety.org
-    url: https://www.flighttestsafety.org/images/STPA_Handbook.pdf
   paid: false
   accessed: null
   notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the handbook."
@@ -1119,7 +1115,6 @@
   year: null
   via:
     title: gapimprove.org
-    url: https://www.gapimprove.org/_files/ugd/cd8b34_2d04bd540ca04019986c3ba54ae8631e.pdf?index=true
   paid: false
   accessed: null
   notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the original paper."
@@ -1137,7 +1132,7 @@
   url: https://legalinstruments.oecd.org/public/doc/322/322.en.pdf
   kind: primary
   publisher: OECD
-  year: null
+  year: 2023
   paid: false
   accessed: '2026-10-14'
   notes: Intergovernmental body.
@@ -1164,10 +1159,9 @@
   url: https://www.charteredaccountants.ie/chariotindex/text/ec_2014_537/17.html
   kind: primary
   publisher: European Union
-  year: null
+  year: 2014
   via:
     title: charteredaccountants.ie
-    url: https://www.charteredaccountants.ie/chariotindex/text/ec_2014_537/17.html
   paid: false
   accessed: '2026-10-14'
   notes: 'Faithful copy (edition 9 section 12: Regulation (EU) No 537/2014 via charteredaccountants.ie).'
@@ -1194,7 +1188,7 @@
   url: https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32019L1937
   kind: primary
   publisher: EUR-Lex (European Union)
-  year: null
+  year: 2019
   paid: false
   accessed: '2026-10-14'
   notes: 'Law; edition 9 section 12: Article 19 could not be retrieved.'
@@ -1230,7 +1224,7 @@
   url: https://www.sec.gov/Archives/edgar/data/1018724/000119312516530910/d168744dex991.htm
   kind: primary
   publisher: US SEC (EDGAR)
-  year: null
+  year: 2015
   paid: false
   accessed: '2026-10-14'
   notes: Original filing.
@@ -1251,7 +1245,6 @@
   year: 2019
   via:
     title: Federation of American Scientists (irp.fas.org)
-    url: https://irp.fas.org/doddir/army/adp6_0.pdf
   paid: false
   accessed: '2026-10-14'
   notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the doctrine publication."
@@ -1353,7 +1346,6 @@
   year: 2017
   via:
     title: NYU Stern
-    url: https://web-docs.stern.nyu.edu/executive/The%20Surprising%20Power%20of%20Online%20Experiments.pdf
   paid: false
   accessed: '2026-10-14'
   notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the HBR article."
@@ -1401,7 +1393,6 @@
   year: 2011
   via:
     title: Project Production Institute (reprint)
-    url: https://projectproduction.org/journal/reprint-littles-law-as-viewed-on-its-50th-anniversary/
   paid: false
   accessed: '2026-10-14'
   notes: "Reprint (edition 9 title); Classification is the importer's judgment against section 1's definition: faithful copy."
@@ -1455,7 +1446,7 @@
   url: https://www.thebci.org/static/cf455e45-b2c2-4a44-b77da7c99fd6df77/BCI-GPG-2018-Edition.pdf
   kind: primary
   publisher: Business Continuity Institute
-  year: 2019
+  year: 2018
   paid: false
   accessed: '2026-10-14'
   notes: Professional body.
@@ -1503,7 +1494,6 @@
   year: null
   via:
     title: gdpr-info.eu
-    url: https://gdpr-info.eu/art-5-gdpr/
   paid: false
   accessed: '2026-10-14'
   notes: "Text copy of the GDPR; Classification is the importer's judgment against section 1's definition: faithful copy."
@@ -1515,7 +1505,6 @@
   year: null
   via:
     title: dejure.org
-    url: https://dejure.org/gesetze/HGB/239.html
   paid: false
   accessed: '2026-10-14'
   notes: 'Faithful copy (edition 9 section 12: § 239 HGB via dejure.org).'
@@ -1581,7 +1570,6 @@
   year: 1999
   via:
     title: MIT
-    url: https://web.mit.edu/curhan/www/docs/Articles/15341_Readings/Group_Performance/Edmondson%20Psychological%20safety.pdf
   paid: false
   accessed: '2026-10-14'
   notes: 'Faithful copy (edition 9 section 12: Edmondson via MIT).'
@@ -1602,7 +1590,6 @@
   year: null
   via:
     title: gwern.net
-    url: https://www.Gwern.net/doc/statistics/meta-analysis/2021-sackett.pdf
   paid: false
   accessed: '2026-10-14'
   notes: 'Faithful copy (edition 9 section 12: Sackett via gwern.net).'
@@ -1623,7 +1610,6 @@
   year: 2002
   via:
     title: University of Minnesota
-    url: https://goal-lab.psych.umn.edu/orgpsych/2020/readings/5.%20Motivation/Locke%20&%20Latham%20(2002).pdf
   paid: false
   accessed: '2026-10-14'
   notes: "Copy (edition 9 title); Classification is the importer's judgment against section 1's definition: faithful copy."
@@ -1662,7 +1648,6 @@
   year: 2008
   via:
     title: interruptions.net
-    url: https://www.interruptions.net/literature/Mark-CHI08.pdf
   paid: false
   accessed: '2026-10-14'
   notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the original paper."
@@ -1692,7 +1677,6 @@
   year: 1995
   via:
     title: UCSF
-    url: https://fcm.ucsf.edu/sites/g/files/tkssra17611/files/Kotter_WhyTransformationEffortsFail.pdf
   paid: false
   accessed: '2026-10-14'
   notes: "Copy (edition 9 title); Classification is the importer's judgment against section 1's definition: faithful copy."
@@ -1704,7 +1688,6 @@
   year: 1997
   via:
     title: ieanea.org
-    url: https://ieanea.org/wp-content/uploads/2019/05/FairProcessArticle.pdf
   paid: false
   accessed: '2026-10-14'
   notes: "Copy (edition 9 title); Classification is the importer's judgment against section 1's definition: faithful copy."
@@ -1725,7 +1708,6 @@
   year: 1976
   via:
     title: gwern.net
-    url: https://Www.Gwern.net/doc/psychology/cognitive-bias/sunk-cost/1976-staw.pdf
   paid: false
   accessed: '2026-10-14'
   notes: 'Faithful copy (edition 9 section 12: Staw via gwern.net).'
@@ -1746,7 +1728,6 @@
   year: 1981
   via:
     title: worrydream.com
-    url: https://worrydream.com/refs/Hoare_1981_-_The_Emperors_Old_Clothes.pdf
   paid: false
   accessed: null
   notes: "Faithful copy (edition 9 section 12: Hoare's lecture via worrydream.com)."
@@ -1848,7 +1829,6 @@
   year: null
   via:
     title: imorules.com
-    url: https://www.imorules.com/solas/02_chapter_II-1.html
   paid: false
   accessed: null
   notes: 'Faithful copy (edition 9 section 12: IMO SOLAS via imorules.com).'
@@ -1869,7 +1849,6 @@
   year: 1978
   via:
     title: OMDEC
-    url: https://www.omdec.com/wikifiles/nowlanHeap.pdf
   paid: false
   accessed: null
   notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the original report."
@@ -1890,7 +1869,6 @@
   year: 2013
   via:
     title: KFF
-    url: https://www.kff.org/wp-content/uploads/sites/2/2013/04/sea_50_alarms_4_5_13_final1.pdf
   paid: false
   accessed: null
   notes: 'Faithful copy (edition 9 section 12: The Joint Commission via KFF).'
@@ -1911,7 +1889,6 @@
   year: 2021
   via:
     title: corrdesa.com
-    url: https://corrdesa.com/wp-content/uploads/2024/04/MIL-STD-889D-2021-Release.pdf
   paid: false
   accessed: null
   notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the standard."
@@ -1950,7 +1927,6 @@
   year: 2011
   via:
     title: Journal of MultiDisciplinary Evaluation (2011 reprint)
-    url: https://jmde.journals.publicknowledgeproject.org/index.php/jmde_1/article/view/297
   paid: false
   accessed: null
   notes: 'Faithful copy (edition 9 section 12: Campbell via a 2011 journal reprint; the quote itself was checked on Wikipedia).'
@@ -1971,7 +1947,6 @@
   year: 1992
   via:
     title: World Bank ICSID archive
-    url: https://icsid.worldbank.org/sites/default/files/parties_publications/C8394/Respondent%27s%20documents/RL%20-%20Legal%20Authorities/RL-0150-ENG%201992-06-13.pdf
   paid: false
   accessed: null
   notes: 'Faithful copy (edition 9 section 12: the Rio Declaration via the World Bank ICSID archive).'
@@ -1983,7 +1958,6 @@
   year: null
   via:
     title: CSF Tools
-    url: https://csf.tools/reference/nist-sp-800-53/r5/ac/ac-3/ac-3-2/
   paid: false
   accessed: null
   notes: 'Faithful copy (edition 9 section 12: NIST via CSF Tools).'
@@ -1992,7 +1966,7 @@
   url: https://www.nobelprize.org/prizes/chemistry/2018/press-release/
   kind: primary
   publisher: Nobel Prize Outreach
-  year: null
+  year: 2018
   paid: false
   accessed: null
   notes: Official press release.
@@ -2049,7 +2023,6 @@
   year: null
   via:
     title: MIT course site
-    url: https://introcontrol.mit.edu/_static/fall21/extras/Feedback%20Systems%20Murray.pdf
   paid: false
   accessed: null
   notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the book."
@@ -2139,7 +2112,7 @@
   url: https://doi.org/10.1016/0149-7189(79)90048-X
   kind: primary
   publisher: null
-  year: null
+  year: 1979
   paid: false
   accessed: '2026-10-14'
   notes: DOI of the original paper; publisher not stated in edition 9.
