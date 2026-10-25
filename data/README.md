@@ -22,7 +22,7 @@ Schema in [`../schema/`](../schema/).
 ## Do
 
 - Edit the taxonomy here, then run `uv run taxonomy check` and
-  `uv run taxonomy build` (planned).
+  `uv run taxonomy build`.
 - Cite sources in prose only as Pandoc citations, `[@slug]`.
 - Add a new source to `sources.yaml` under a new slug matching
   `^[a-z0-9]+(-[a-z0-9]+)*$`.

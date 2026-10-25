@@ -98,6 +98,11 @@ Practices below are distilled from Anthropic's own Claude Code guidance
   `.claude/agents/plan-executor.md`) implement, review, merge, verify
   and release. Use the `plan-execution` skill
   (`.claude/skills/plan-execution/`) for how.
+- **Run taxonomy research rounds with the skill.** Adding a rule,
+  checking new sources or otherwise changing `data/` follows the
+  `taxonomy-research` skill (`.claude/skills/taxonomy-research/`): every
+  finding gets a decision, quotes are verbatim, and the edition is bumped
+  by SemVer.
 - **Flag devcontainer changes as needing a rebuild.** Editing anything
   under `.devcontainer/` (compose files, `stack/`, Dockerfiles) doesn't
   take effect in the running container — tell the user a rebuild is

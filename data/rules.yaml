@@ -17,6 +17,8 @@
     strengthens:
     - U26
     - U27
+    strengthened_by:
+    - U20
   evidence: strong
   evidence_note: null
   source_domain: all (professional ethics)
@@ -51,6 +53,9 @@
   related:
     strengthens:
     - U8
+    strengthened_by:
+    - U48
+    - U56
   evidence: strong
   evidence_note: null
   source_domain: all (professional ethics)
@@ -86,6 +91,8 @@
     strengthens:
     - U4
     - R3
+    strengthened_by:
+    - U55
   evidence: moderate
   evidence_note: null
   source_domain: systems engineering
@@ -120,6 +127,9 @@
   related:
     depends_on:
     - U3
+    strengthened_by:
+    - U3
+    - U24
   evidence: strong
   evidence_note: null
   source_domain: systems engineering, building services (commissioning)
@@ -154,6 +164,8 @@
     strengthens:
     - U6
     - U28
+    strengthened_by:
+    - U17
   evidence: moderate
   evidence_note: direction strong; the '10x per stage' factor is weak
   source_domain: software engineering
@@ -186,19 +198,23 @@
   related:
     strengthens:
     - U25
-    - R1
-    - R2
     - U26
     - U27
     - U34
+    - R1
+    - R2
+    strengthened_by:
+    - U5
+    - U44
+    - C2
   evidence: moderate
   evidence_note: method widely used; RPN scoring criticized
   source_domain: reliability and safety (FMEA, STPA), automotive (SOTIF)
   notes: null
   sources:
-  - ebsco-fmea
   - bmj-qual-saf-pmc-fmea
   - leveson-thomas-stpa-handbook
+  - ebsco-fmea
   - swift-navigation-what-sotif
   management:
     name: Failure and interaction analysis
@@ -226,12 +242,16 @@
   check: each component has one stated purpose, and no part is unused
   violation: adding features for imagined future needs
   related:
+    strengthened_by:
+    - U14
+    - U46
+    - C14
     conflicts_with:
     - U25
-    - R1
-    - R2
     - U29
     - U34
+    - R1
+    - R2
     - C3
   evidence: moderate
   evidence_note: null
@@ -266,17 +286,25 @@
   related:
     depends_on:
     - U2
+    strengthened_by:
+    - U2
+    - U48
+    - U56
+    - R6
+    - R9
+    conflicts_with:
+    - U50
   evidence: strong
   evidence_note: null
   source_domain: technical drawing (checker in the title block), civil and structural (independent checking)
   notes: null
   sources:
   - singapore-building-control-regulations
-  - libretexts-peer-review-design
-  - epcland-checking-design
   - iia-three-lines-model
   - regulation-no-537-2014-article
   - uk-mod-red-teaming-handbook
+  - libretexts-peer-review-design
+  - epcland-checking-design
   management:
     name: Independent checker
     form_name: Independent assurance, scaled to consequence
@@ -307,6 +335,13 @@
   related:
     strengthens:
     - U10
+    strengthened_by:
+    - U21
+    - U22
+    - U46
+    - U54
+    conflicts_with:
+    - U50
   evidence: strong
   evidence_note: null
   source_domain: all (configuration management), chemical process safety (management of change)
@@ -345,6 +380,13 @@
     - U9
     strengthens:
     - U11
+    strengthened_by:
+    - U9
+    - U13
+    - U18
+    - U21
+    - U23
+    - U47
   evidence: moderate
   evidence_note: null
   source_domain: site reliability engineering
@@ -380,6 +422,10 @@
     depends_on:
     - U10
     - U13
+    strengthened_by:
+    - U10
+    - U13
+    - R7
   evidence: strong
   evidence_note: null
   source_domain: quality management (ISO 9001)
@@ -416,6 +462,8 @@
     strengthens:
     - U27
     - U29
+    strengthened_by:
+    - C12
   evidence: strong
   evidence_note: null
   source_domain: security engineering (NIST)
@@ -451,6 +499,11 @@
     - U10
     - U11
     - U18
+    strengthened_by:
+    - U24
+    - U41
+    - U51
+    - C9
     checks:
     - U25
     - U35
@@ -489,6 +542,8 @@
     strengthens:
     - U7
     - U16
+    strengthened_by:
+    - C12
   evidence: moderate
   evidence_note: null
   source_domain: nuclear, offshore, aerospace
@@ -525,6 +580,9 @@
     - U10
     strengthens:
     - U28
+    strengthened_by:
+    - U32
+    - U42
   evidence: moderate
   evidence_note: strong in medical devices
   source_domain: human factors, medical devices, biomechanics (anthropometry)
@@ -560,6 +618,9 @@
   related:
     depends_on:
     - U14
+    strengthened_by:
+    - U14
+    - C7
   evidence: moderate
   evidence_note: null
   source_domain: all (professional ethics)
@@ -580,7 +641,7 @@
       iso-20400-2017-sustainable-procurement: ISO 20400:2017
       pmi-pmbok-guide-8th-edition: 'PMBOK 8: "integrate sustainability"'
     evidence: strong
-    evidence_note: null
+    evidence_note: standard text is paid; only the official summary was read
 - id: U17
   name: Test as you operate
   class: universal
@@ -598,6 +659,10 @@
     - U4
     strengthens:
     - U5
+    strengthened_by:
+    - U24
+    - U40
+    - C10
   evidence: moderate
   evidence_note: null
   source_domain: aerospace (Test Like You Fly)
@@ -634,13 +699,21 @@
     - U20
     strengthens:
     - U10
+    strengthened_by:
+    - U13
+    - U20
+    - U41
+    - U47
+    - U51
+    - R5
+    - C5
   evidence: moderate
   evidence_note: null
   source_domain: aerospace, accident research (normalization of deviance)
   notes: null
   sources:
-  - wikipedia-normalization-deviance
   - national-academies-accident-precursor-analysis
+  - wikipedia-normalization-deviance
   management:
     name: Investigate anomalies
     form_name: Weak signals and near misses
@@ -669,6 +742,10 @@
     - U13
     strengthens:
     - R4
+    strengthened_by:
+    - U39
+    - U52
+    - U58
   evidence: moderate
   evidence_note: null
   source_domain: flight testing (build-up approach), construction management (hold points)
@@ -708,14 +785,16 @@
     strengthens:
     - U1
     - U18
+    strengthened_by:
+    - U47
   evidence: strong
   evidence_note: emergency stop is standardized in ISO 13850
   source_domain: manufacturing (Toyota andon), machinery (emergency stop)
   notes: null
   sources:
-  - wikipedia-andon
   - iso-13850-2015-emergency-stop
   - directive-2019-1937
+  - wikipedia-andon
   management:
     name: Stop authority
     form_name: Speak-up and stop-the-line
@@ -747,13 +826,17 @@
     strengthens:
     - U9
     - U10
+    strengthened_by:
+    - U50
+    - U52
+    - R8
   evidence: moderate
   evidence_note: null
   source_domain: software (ADR), civil and offshore (basis of design)
   notes: null
   sources:
-  - adr-github-io-architectural-decision
   - spe-design-decommissioning
+  - adr-github-io-architectural-decision
   management:
     name: Decision records
     form_name: Decision log
@@ -784,6 +867,9 @@
     strengthens:
     - U9
     - R3
+    strengthened_by:
+    - U43
+    - U45
   evidence: strong
   evidence_note: required in regulated domains
   source_domain: pharma and clinical trials (ALCOA)
@@ -892,6 +978,13 @@
   check: a load test shows capacity ≥ the stated design load × the chosen factor, and queue delay stays within the target at that load
   violation: sizing exactly to the average load
   related:
+    strengthened_by:
+    - U6
+    - U30
+    - U31
+    - U53
+    - C7
+    - C8
     conflicts_with:
     - U7
     checked_by:
@@ -902,12 +995,12 @@
   notes: null
   sources:
   - univ-portland-fail-safe-designs
-  - wikipedia-return-period
   - linda-green-queueing-theory-modeling
   - nasa-gsfc-std-1000-rev
+  - little-littles-law-as-viewed
+  - wikipedia-return-period
   - wikipedia-derating
   - wikipedia-all-models-are-wrong
-  - little-littles-law-as-viewed
   management:
     name: Margin
     form_name: Reserves and slack
@@ -935,6 +1028,10 @@
   related:
     depends_on:
     - U6
+    strengthened_by:
+    - U1
+    - U6
+    - R5
   evidence: strong
   evidence_note: null
   source_domain: nuclear, elevators, aviation
@@ -971,14 +1068,18 @@
     - U14
     strengthens:
     - U28
+    strengthened_by:
+    - U1
+    - U6
+    - U12
   evidence: strong
   evidence_note: null
   source_domain: occupational and chemical process safety (NIOSH, Kletz), acoustic engineering (source-path-receiver)
   notes: null
   sources:
   - cdc-niosh-hierarchy-controls
-  - wikipedia-inherent-safety
   - osha-technical-manual-noise
+  - wikipedia-inherent-safety
   management:
     name: Hierarchy of controls
     form_name: Hierarchy of controls for management risks
@@ -1006,14 +1107,18 @@
     depends_on:
     - U10
     strengthened_by:
+    - U5
+    - U15
     - U27
+    - U36
+    - C5
   evidence: moderate
   evidence_note: null
   source_domain: manufacturing (poka-yoke), transportation (Safe System)
   notes: null
   sources:
-  - usersolutions-poka-yoke
   - fhwa-zero-deaths-safe-system
+  - usersolutions-poka-yoke
   management:
     name: Error-proofing
     form_name: Build quality into the process
@@ -1040,6 +1145,11 @@
   related:
     depends_on:
     - U12
+    strengthened_by:
+    - U12
+    - U34
+    - R9
+    - C4
     conflicts_with:
     - U7
   evidence: moderate
@@ -1047,9 +1157,9 @@
   source_domain: security, oil and gas (well barriers), drinking water (multi-barrier)
   notes: null
   sources:
+  - jpt-robust-well-barrier-well
   - sciencedirect-least-privilege-defense-depth
   - palo-alto-networks-defense-depth
-  - jpt-robust-well-barrier-well
   - wikipedia-multi-barrier-approach
   management:
     name: Defense in depth
@@ -1114,16 +1224,20 @@
     - U4
     strengthens:
     - U25
+    strengthened_by:
+    - U40
+    - C9
+    - C13
   evidence: moderate
   evidence_note: null
   source_domain: simulation and computational engineering, engineering physics (Fermi estimates)
   notes: null
   sources:
   - osti-perspective-model-validation-validated
+  - flyvbjerg-from-nobel-prize-project
   - wikipedia-v-v-computer-simulation
   - wikipedia-fermi-problem
   - wikipedia-all-models-are-wrong
-  - flyvbjerg-from-nobel-prize-project
   management:
     name: Model validity
     form_name: Forecast validity (outside view)
@@ -1150,13 +1264,19 @@
   related:
     strengthens:
     - U15
+    strengthened_by:
+    - U42
+    - C10
+    - C16
+    conflicts_with:
+    - U49
   evidence: moderate
   evidence_note: 'mixed results: large effect in 8 pilot hospitals, no significant effect in 101 Ontario hospitals'
   source_domain: surgery, railway (pointing and calling)
   notes: null
   sources:
-  - sciencedaily-who-surgical-checklist-study
   - ices-ontario-checklist-study
+  - sciencedaily-who-surgical-checklist-study
   - wikipedia-pointing-calling
   management:
     name: Checklists
@@ -1187,6 +1307,8 @@
     - U6
     strengthens:
     - R4
+    conflicts_with:
+    - U49
   evidence: strong
   evidence_note: null
   source_domain: food safety (HACCP), mining (critical control management)
@@ -1217,8 +1339,10 @@
   violation: one shared database for all tenants and all environments
   related:
     strengthens:
-    - R1
     - U29
+    - R1
+    strengthened_by:
+    - U6
     conflicts_with:
     - U7
   evidence: strong
@@ -1254,14 +1378,20 @@
   related:
     depends_on:
     - U13
+    strengthened_by:
+    - U41
+    conflicts_with:
+    - U23
+    checked_by:
+    - U13
   evidence: moderate
   evidence_note: null
   source_domain: fire protection (ASET > RSET)
   notes: null
   sources:
   - cooper-estimating-safe-available-egress
-  - fire-risk-assessment-network-aset
   - bci-good-practice-guidelines-2018
+  - fire-risk-assessment-network-aset
   management:
     name: Response faster than harm
     form_name: Recovery inside the tolerable disruption
@@ -1321,6 +1451,9 @@
     depends_on:
     - U6
     - U13
+    strengthened_by:
+    - U38
+    - C12
   evidence: moderate
   evidence_note: null
   source_domain: aviation maintenance (RCM)
@@ -1360,10 +1493,10 @@
   notes: null
   sources:
   - faa-ac-25-1309-1a
-  - wikipedia-fatigue
-  - wermac-corrosion-allowance
   - who-ilo-long-working-hours
   - pencavel-productivity-working-hours
+  - wikipedia-fatigue
+  - wermac-corrosion-allowance
   management:
     name: Accumulated degradation
     form_name: Sustainable pace
@@ -1394,6 +1527,8 @@
   related:
     strengthens:
     - U19
+    strengthened_by:
+    - C15
   evidence: moderate
   evidence_note: null
   source_domain: construction management (critical path method)
@@ -1412,7 +1547,7 @@
       iso-21502-2020-guidance-project: ISO 21502:2020
     sources_text: section 9 (critical path method); [@iso-21502-2020-guidance-project]
     evidence: strong
-    evidence_note: null
+    evidence_note: standard text is paid; only the official summary was read
 - id: U40
   name: Comparable measurement
   class: universal
@@ -1427,10 +1562,12 @@
   violation: comparing two single benchmark runs from different machines
   related:
     strengthens:
-    - U31
     - U17
+    - U31
+    strengthened_by:
+    - U51
   evidence: strong
-  evidence_note: standardized in ISO 139 and the GUM
+  evidence_note: standardized in ISO 139 and the GUM; standard text is paid; only the official summary was read
   source_domain: textile testing (ISO 139), metrology (GUM, traceability)
   notes: null
   sources:
@@ -1498,8 +1635,10 @@
   violation: side discussions and parallel deployments during an incident
   related:
     strengthens:
-    - U32
     - U15
+    - U32
+    strengthened_by:
+    - C16
   evidence: strong
   evidence_note: FAA regulation since 1981
   source_domain: aviation (sterile flight deck)
@@ -1568,8 +1707,8 @@
   violation: upgrading one component and breaking another that was never tested with it
   related:
     strengthens:
-    - C5
     - U6
+    - C5
   evidence: moderate
   evidence_note: null
   source_domain: materials (galvanic corrosion), biomaterials (biocompatibility)
@@ -1638,14 +1777,17 @@
     strengthens:
     - U7
     - U9
+    strengthened_by:
+    - C14
+    - C16
   evidence: moderate
   evidence_note: null
   source_domain: optomechanical and precision engineering (kinematic coupling)
   notes: null
   sources:
   - slocum-kinematic-couplings-review-design
-  - wikipedia-kinematic-coupling
   - fema-national-incident-management-system
+  - wikipedia-kinematic-coupling
   management:
     name: Exact constraint
     form_name: Single point of accountability, unity of command
@@ -1676,7 +1818,9 @@
     - U10
     - U18
     - U20
-  related_text: strengthens U10, U18, U20; conflicts with accountability (see K7)
+    strengthened_by:
+    - U57
+  related_text: strengthens U10, U18, U20; strengthened by U57; conflicts with accountability (see K7)
   evidence: strong
   evidence_note: peer-reviewed field study; Google study of 180 teams
   source_domain: management (team leadership)
@@ -1699,8 +1843,8 @@
   violation: a reviewer approves a design that uses a product of a company they own
   related:
     strengthens:
-    - U8
     - U2
+    - U8
     - R9
   evidence: strong
   evidence_note: NSPE Code of Ethics II.4.a; G20/OECD Principles II.F.2
@@ -1779,9 +1923,11 @@
   violation: ticket count as the only measure of on-call quality
   related:
     strengthens:
-    - U40
-    - U18
     - U13
+    - U18
+    - U40
+    conflicts_with:
+    - U55
   evidence: strong
   evidence_note: Campbell; the same pattern is known as Goodhart's law
   source_domain: management (performance measurement)
@@ -1804,9 +1950,9 @@
   violation: '"we have invested too much to stop now"'
   related:
     strengthens:
-    - R8
     - U19
     - U21
+    - R8
     - C2
   evidence: strong
   evidence_note: experimental research, Staw 1976; PRINCE2 "continued business justification"
@@ -1829,11 +1975,11 @@
   check: a visible WIP limit exists, and lead time and WIP are tracked
   violation: everything is "in progress" and nothing is finished
   related:
+    depends_on:
+    - U13
     strengthens:
     - U25
     - C8
-    depends_on:
-    - U13
   evidence: strong
   evidence_note: null
   evidence_text: strong for the relation (mathematical theorem); moderate for the practice
@@ -1856,8 +2002,8 @@
   violation: announcing a reorganization without reasons
   related:
     strengthens:
-    - U58
     - U9
+    - U58
   evidence: moderate
   evidence_note: management research; practitioner article
   source_domain: management (organizational justice)
@@ -1880,9 +2026,11 @@
   related:
     strengthens:
     - U3
+    strengthened_by:
+    - U57
     conflicts_with:
     - U51
-  related_text: strengthens U3; conflicts with U51 (see K8)
+  related_text: strengthens U3; strengthened by U57; conflicts with U51 (see K8)
   evidence: strong
   evidence_note: null
   evidence_text: strong (experimental and field research summarized in the paper); contested by Deming points 11 and 12, who rejects management by numerical goals
@@ -1907,8 +2055,8 @@
   related:
     strengthens:
     - U2
-    - C10
     - U8
+    - C10
   evidence: strong
   evidence_note: meta-analysis, Journal of Applied Psychology
   source_domain: management (personnel selection)
@@ -1954,10 +2102,12 @@
   violation: announcing a change by email and declaring it done
   related:
     depends_on:
-    - U54
     - U9
+    - U54
     strengthens:
     - U19
+    strengthened_by:
+    - U54
   evidence: moderate
   evidence_note: practitioner model from case experience; the eight steps have limited empirical testing
   source_domain: management (change management)
@@ -1979,18 +2129,23 @@
   violation: a single replica of a critical service
   related:
     strengthened_by:
+    - U6
+    - U34
     - R2
+    - C13
     conflicts_with:
     - U7
+    - C15
+  related_text: strengthened by U6, U34, R2, C13; conflicts with U7; conflicts with C15 when people are added for redundancy (add early, not late)
   evidence: strong
   evidence_note: N-1 ignores how likely an outage is and how large the affected area is; use the master rule for those. Error correction helps only when component error rates are below a threshold (quantum threshold theorem)
   source_domain: aerospace, electronics, power grids, quantum engineering, computing theory (von Neumann)
   notes: null
   sources:
-  - sciencedirect-fail-safe-design
   - uspto-materials-based-failure-analysis
-  - sintef-n-1-isnt-always
   - ucsd-lectures-von-neumanns-probabilistic
+  - sciencedirect-fail-safe-design
+  - sintef-n-1-isnt-always
   - wikipedia-quantum-error-correction
   management:
     name: Redundancy (N-1)
@@ -2018,6 +2173,10 @@
   related:
     depends_on:
     - R1
+    strengthens:
+    - R1
+    strengthened_by:
+    - U6
     conflicts_with:
     - U7
   evidence: moderate
@@ -2052,6 +2211,9 @@
   related:
     depends_on:
     - U3
+    strengthened_by:
+    - U3
+    - U22
   evidence: strong
   evidence_note: null
   source_domain: aerospace, automotive, medical (DO-178C, ISO 26262, IEC 62304)
@@ -2069,7 +2231,7 @@
     source_titles:
       iso-37301-2021-compliance-management: ISO 37301:2021
     evidence: strong
-    evidence_note: regulated areas
+    evidence_note: regulated areas; standard text is paid; only the official summary was read
 - id: R4
   name: Observational method
   class: risk-scaled
@@ -2086,6 +2248,9 @@
     depends_on:
     - U13
     - U19
+    strengthened_by:
+    - U19
+    - U33
   evidence: moderate
   evidence_note: null
   source_domain: geotechnical (observational method)
@@ -2098,8 +2263,8 @@
     form: where outcomes stay uncertain until execution, set tolerances and planned responses in advance, monitor, and escalate when a tolerance will be breached
     example: if the migration exceeds its time tolerance by 10 %, the steering group decides on scope
     sources:
-    - purple-griffon-prince2-7th-edition
     - scrum-guide
+    - purple-griffon-prince2-7th-edition
     source_titles:
       purple-griffon-prince2-7th-edition: PRINCE2 principle 5 "Manage by exception"
       scrum-guide: 'Scrum: inspection and adaptation'
@@ -2119,8 +2284,10 @@
   violation: writes continue while the team waits for proof of data corruption
   related:
     strengthens:
-    - U26
     - U18
+    - U26
+    strengthened_by:
+    - U50
   evidence: moderate
   evidence_note: 'contested: critics call it vague and say strong versions block beneficial technology; this rule uses the weak, proportionate version'
   source_domain: environmental engineering (precautionary principle)
@@ -2154,6 +2321,9 @@
     - U12
     strengthens:
     - U8
+    strengthened_by:
+    - U50
+    - R9
   evidence: strong
   evidence_note: NIST SP 800-53 control AC-3(2) "Dual Authorization"
   source_domain: nuclear, banking, aviation (two-person rule)
@@ -2227,6 +2397,8 @@
     strengthens:
     - U21
     - C2
+    strengthened_by:
+    - U52
   evidence: moderate
   evidence_note: null
   source_domain: design engineering (Toyota set-based concurrent engineering)
@@ -2260,9 +2432,11 @@
     depends_on:
     - U12
     strengthens:
-    - R6
     - U8
     - U29
+    - R6
+    strengthened_by:
+    - U48
   evidence: strong
   evidence_note: NIST SP 800-192 definition; internal control frameworks
   source_domain: management (internal control), security engineering
@@ -2302,7 +2476,7 @@
     source_titles:
       iso-37301-2021-compliance-management: ISO 37301:2021
     evidence: strong
-    evidence_note: null
+    evidence_note: standard text is paid; only the official summary was read
 - id: C2
   name: Technology maturity
   class: conditional
@@ -2320,6 +2494,9 @@
     - U21
     strengthens:
     - U6
+    strengthened_by:
+    - U52
+    - R8
   evidence: strong
   evidence_note: standardized as ISO 16290:2013; NASA defines TRL 1 to 9
   source_domain: aerospace (NASA TRL), EU, DoD
@@ -2355,6 +2532,8 @@
   related:
     depends_on:
     - U25
+    strengthened_by:
+    - C6
     conflicts_with:
     - U7
   evidence: moderate
@@ -2424,8 +2603,11 @@
   violation: silently ignoring unknown or malformed fields
   related:
     strengthens:
-    - U28
     - U18
+    - U28
+    strengthened_by:
+    - U44
+    - C14
     conflicts_with:
     - U30
   evidence: moderate
@@ -2467,6 +2649,8 @@
     - U13
     strengthens:
     - C3
+    strengthened_by:
+    - C11
   evidence: moderate
   evidence_note: null
   source_domain: control engineering
@@ -2504,6 +2688,8 @@
     strengthens:
     - U16
     - U25
+    strengthened_by:
+    - C11
   evidence: moderate
   evidence_note: null
   source_domain: transportation (induced demand)
@@ -2540,6 +2726,8 @@
     - U13
     strengthens:
     - U25
+    strengthened_by:
+    - U53
   evidence: moderate
   evidence_note: null
   source_domain: industrial engineering (theory of constraints)
@@ -2612,8 +2800,12 @@
     strengthens:
     - U17
     - U32
+    strengthened_by:
+    - U56
+    conflicts_with:
+    - U49
   evidence: strong
-  evidence_note: required for welding by ASME Section IX
+  evidence_note: required for welding by ASME Section IX; standard text is paid; only the official summary was read
   source_domain: welding (WPS, PQR, welder qualification)
   counterexample: results that can be fully inspected afterwards (a dimension check on a simple part)
   notes: null
@@ -2657,8 +2849,8 @@
   notes: null
   sources:
   - mit-sloan-management-review-bullwhip
-  - wikipedia-bullwhip-effect
   - lee-padmanabhan-whang-information-distortion
+  - wikipedia-bullwhip-effect
   management:
     name: Shared demand signal
     form_name: Share real end demand
@@ -2684,9 +2876,11 @@
   violation: a forgotten test cluster with public access
   related:
     strengthens:
+    - U12
     - U14
     - U37
-    - U12
+    strengthened_by:
+    - U45
   evidence: moderate
   evidence_note: null
   source_domain: municipal and infrastructure engineering (asset management, ISO 55000)
@@ -2709,7 +2903,7 @@
       iso-iec-27001-2022: ISO/IEC 27001:2022
       iso-15489-1-2016-records: ISO 15489-1:2016
     evidence: strong
-    evidence_note: null
+    evidence_note: standard text is paid; only the official summary was read
 - id: C13
   name: Weakest-link scaling
   class: conditional
@@ -2727,7 +2921,7 @@
     - U31
     - R1
   evidence: strong
-  evidence_note: 'ASTM C1683: "The larger the specimen or component, the weaker it is likely to be"'
+  evidence_note: 'ASTM C1683: "The larger the specimen or component, the weaker it is likely to be"; standard text is paid; only the official summary was read'
   source_domain: ceramics and brittle materials (Weibull statistics, size effect)
   counterexample: a system of fixed, small size
   notes: null
@@ -2759,8 +2953,8 @@
   related:
     strengthens:
     - U7
-    - C5
     - U46
+    - C5
   evidence: moderate
   evidence_note: widely observed; one original paper
   source_domain: management (organization design), software engineering
@@ -2811,8 +3005,8 @@
   violation: one incident commander directly coordinating 20 people in one channel
   related:
     strengthens:
-    - U42
     - U32
+    - U42
     - U46
   evidence: strong
   evidence_note: null

@@ -106,3 +106,19 @@ repos:
         pass_filenames: false
         always_run: true
         stages: [pre-commit, manual]
+
+      - id: taxonomy-check
+        name: taxonomy check (dataset integrity, NFR-0001)
+        entry: uv run --locked taxonomy check
+        language: system
+        files: ^(data|schema|src|paper|docs|publication|sources)/|^(pyproject\.toml|uv\.lock)$
+        pass_filenames: false
+        stages: [pre-commit, manual]
+
+      - id: taxonomy-generated
+        name: taxonomy build --check (publication/ is current)
+        entry: uv run --locked taxonomy build --check
+        language: system
+        files: ^(data|schema|src|paper|docs|publication|sources)/|^(pyproject\.toml|uv\.lock)$
+        pass_filenames: false
+        stages: [pre-commit, manual]

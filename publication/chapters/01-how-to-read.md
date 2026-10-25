@@ -1,0 +1,28 @@
+# 1. How to read this file
+
+- **Sentence structure:** every rule reads as **IF** \[condition\], **THEN** \[action\], **BECAUSE** \[reason\].
+- **Rule classes and ID prefixes.** The IF field does a different job in each class:
+  - **U = universal.** The condition is true, or the trigger occurs, in every engineered system. IF is either "always" or a trigger such as "a failure has happened". Every system applies these rules; the master rule scales how strictly.
+  - **R = risk-scaled.** The rule applies only above a consequence or uncertainty threshold. The rigor matrix ([section 6](06-rigor-matrix.md)) says where.
+  - **C = conditional.** The rule applies only when the system has a property that a common class of systems lacks. IF names that property. Each C-rule names a counterexample system.
+  - **K = conflict rule.** It decides between two rules that pull in opposite directions.
+- **Classification test:** "Is there a common class of engineered systems in which this condition can never be true during the whole life cycle?" No → U (or R, if only the strength of the need varies with risk). Yes → C.
+- **Applicability, not adoption:** the test asks whether a rule *can* apply, not whether a domain already practices it. A domain without the practice has an adoption gap; that is not a counterexample. Rules therefore apply across domains by cross-reference, even where no source from that domain exists.
+- **IDs:** each rule has a stable ID. A new rule gets the next free number in its class.
+- **Strength keywords** follow RFC 2119:
+  - **MUST** = required. Not following it is a violation. A MUST rule applies whenever its IF-condition is true, in every cell of the rigor matrix.
+  - **SHOULD** = expected. Not following it requires a written reason.
+- **Relation keywords** in the RELATED column:
+  - **depends on** = this rule needs the other rule to work.
+  - **strengthens** = this rule makes the other rule more effective. **strengthened by** is the inverse.
+  - **conflicts with** = following both rules fully pulls in opposite directions. [Section 8](08-conflicts.md) resolves conflicts.
+  - **checks** = this rule provides the check for the other rule. **checked by** is the inverse.
+  - **scaled by** = the other rule sets how strictly this rule is applied.
+- **Source quality:** a **primary** source is a standard, a regulation, a document of a regulator or professional body, an original paper or report, or a word-for-word copy of one. A **secondary** source is an encyclopedia, a blog, a vendor or trade page, a topic aggregator or a news article. Each rule lists its primary sources first. The Evidence column marks rules that still rest on "secondary only" sources. Wikipedia itself says it "is not a reliable source for academic writing or research", so it is kept only as a secondary link.
+- **Evidence strength** is the author's assessment:
+  - **strong** = required by a standard, code, regulation or professional body.
+  - **moderate** = widespread practice with published guidance.
+  - **weak** = mostly anecdotal. No rule is rated weak; only parts of rules are (see notes).
+- **Source domain** names the engineering field, or the management domain, where the rule was found. The software/infra example shows the same rule in platform engineering. [Section 4](04-domain-index.md) lists every domain with its rules and references.
+- **Rule names** are short labels for scanning. The IF / THEN / BECAUSE text is the rule itself.
+- **Scope: systems and the organizations that build them.** Every engineered system is designed, built and operated by an organization. Rules whose source domain is "management" govern that organization (decisions, delegation, people, change). [Section 10](10-management-forms.md) states 67 of the 83 rules in management form, for teams, projects and organizations; the other 16 ([U47](07-rules.md#u47)–[U58](07-rules.md#u58), [R9](07-rules.md#r9), [C14](07-rules.md#c14)–[C16](07-rules.md#c16)) come from management sources.
