@@ -41,6 +41,11 @@ without being listed here. `test_round_trip_only_the_edition_line_differs`
 checks that the rendered single file equals the imported edition-9 text except
 for the version line.
 
+A file that cannot be read or parsed (missing, YAML syntax error, missing schema)
+is reported as a `load` or `schema` finding with its path, and a check that
+crashes on malformed data is reported as a finding of its own. The CLI exits 1
+with that message and no traceback.
+
 ### Relation contradictions
 
 Missing inverses are allowed: 122 one-directional relations exist at 1.0.0 and
@@ -51,6 +56,8 @@ are not errors. The check fails only on a contradiction:
    supportive relation (`depends_on`, `strengthens`, `strengthened_by`,
    `checks`, `checked_by`, `scaled_by`) in either direction.
 3. Two rules depend on each other (`depends_on` both ways).
+
+Each unordered pair is examined once, with edges in either direction.
 
 ## Source
 
