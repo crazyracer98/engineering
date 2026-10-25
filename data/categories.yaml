@@ -1,0 +1,122 @@
+# Rule categories A-I in lifecycle order.
+# Schema: schema/categories.schema.json. data/ is the single source of truth (ADR 0003);
+# seeded once by sources/import/import_v9.py from edition 9.
+- id: A
+  name: Responsibility
+  description: Duties toward people, the environment and the work itself.
+  rules:
+  - U1
+  - U2
+  - U16
+  - U20
+  - U47
+  - U48
+  - U49
+  - U54
+- id: B
+  name: Knowledge and decisions
+  description: How requirements, decisions, models and evidence are recorded and trusted.
+  rules:
+  - U3
+  - U21
+  - U22
+  - U31
+  - U43
+  - U45
+  - R5
+  - R8
+  - C2
+  - U50
+  - U51
+  - U52
+  - U55
+- id: C
+  name: Design
+  description: How to shape a design before it is built, so that it fails less.
+  rules:
+  - U6
+  - U7
+  - U14
+  - U15
+  - U24
+  - U30
+  - U38
+  - U44
+  - U46
+  - R7
+  - C4
+  - C5
+  - C13
+  - C14
+- id: D
+  name: Protection
+  description: Controls that prevent harm, or contain it when it happens.
+  rules:
+  - U12
+  - U26
+  - U27
+  - U28
+  - U29
+  - U34
+  - R6
+  - R9
+- id: E
+  name: Capacity and continuity
+  description: How the system keeps working under high load and partial failure.
+  rules:
+  - U25
+  - R1
+  - R2
+  - C3
+  - C6
+  - C7
+  - C8
+  - C11
+  - U53
+  - C15
+- id: F
+  name: Verification and review
+  description: How to prove that the work is correct.
+  rules:
+  - U4
+  - U5
+  - U8
+  - U17
+  - U40
+  - R3
+  - C1
+  - C10
+  - U56
+  - U57
+- id: G
+  name: Change
+  description: How to change the system safely.
+  rules:
+  - U9
+  - U19
+  - U36
+  - U39
+  - R4
+  - U58
+- id: H
+  name: Operation and maintenance
+  description: How to run, watch and maintain the system.
+  rules:
+  - U13
+  - U32
+  - U33
+  - U35
+  - U37
+  - U41
+  - U42
+  - C9
+  - C12
+  - C16
+- id: I
+  name: Learning
+  description: How to learn from failures and anomalies.
+  rules:
+  - U10
+  - U11
+  - U18
+  - U23

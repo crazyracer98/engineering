@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/crazyracer98/engineering/schema/sources.schema.json",
+  "title": "Source registry",
+  "description": "data/sources.yaml (and paper/references-extra.yaml, docs/methodology-references.yaml): one entry per URL. Prose cites a source as `[@slug]`; renderers turn it into `[title](url)`.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "slug": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+        "description": "Source slug (data/sources.yaml)."
+      },
+      "title": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Canonical link title, verbatim from edition 9 (section 9's wording first, then 4, 12, 11, 10). Other titles used for the same URL are per-use overrides (`source_titles`/`reference_titles`)."
+      },
+      "url": {
+        "type": "string",
+        "pattern": "^https?://",
+        "description": "The linked URL, verbatim (for a copy: the copy that was read)."
+      },
+      "kind": {
+        "type": "string",
+        "enum": [
+          "primary",
+          "secondary"
+        ],
+        "description": "Edition 9 section 1: primary = standard, regulation, document of a regulator or professional body, original paper or report, or a word-for-word copy of one; secondary = encyclopedia, blog, vendor or trade page, topic aggregator, news article."
+      },
+      "publisher": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Publisher of the document (for a faithful copy: of the original, when edition 9 names it); null if unknown."
+      },
+      "year": {
+        "type": [
+          "integer",
+          "null"
+        ],
+        "description": "Year as stated in the edition-9 link title; null if the title states none."
+      },
+      "via": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Name of the site that hosts the copy."
+          },
+          "url": {
+            "type": "string",
+            "pattern": "^https?://",
+            "description": "Optional. URL of the copy that was read, only when it differs from `url` (in data/sources.yaml `url` is always the copy, so it is omitted)."
+          }
+        },
+        "required": [
+          "title"
+        ],
+        "additionalProperties": false,
+        "description": "Optional. Present when the primary text was read through a faithful copy."
+      },
+      "paid": {
+        "type": "boolean",
+        "description": "True when the document's full text is paid (the linked page may be a free catalogue page or sample)."
+      },
+      "accessed": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date",
+        "description": "ISO date (quoted string in YAML) the source was last checked, or null if not recorded. Edition 9 records 2026-10-14 for the sources of section 11's quotes."
+      },
+      "notes": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Classification remarks; judgments are labelled as such."
+      }
+    },
+    "required": [
+      "slug",
+      "title",
+      "url",
+      "kind",
+      "paid"
+    ],
+    "additionalProperties": false
+  }
+}

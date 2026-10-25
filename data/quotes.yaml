@@ -1,0 +1,607 @@
+# Direct quotes (section 11), verbatim.
+# Schema: schema/quotes.schema.json. data/ is the single source of truth (ADR 0003);
+# seeded once by sources/import/import_v9.py from edition 9.
+- id: Q1
+  rules:
+  - Master
+  source: coso-erm-integrating-strategy-performance
+  text: '"The organization defines risk appetite in the context of creating, preserving, and realizing value." (principle 7)'
+  locator: null
+  group: master_rule
+  rule_label: Master rule (risk appetite)
+  source_titles:
+    coso-erm-integrating-strategy-performance: COSO ERM Executive Summary (2017)
+- id: Q2
+  rules:
+  - Master
+  source: pmi-pmbok-guide-8th-edition
+  text: 'PMBOK 8: "Tailor for your context" — "Learn how to adapt practices, tools, and techniques to fit your team, organization, and environment." PRINCE2 principle 7: "Tailor to suit the project" (principle name)'
+  locator: null
+  group: master_rule
+  rule_label: Master rule (tailoring)
+  extra_sources:
+  - purple-griffon-prince2-7th-edition
+- id: Q3
+  rules:
+  - Master
+  source: amazon-2015-letter-shareholders
+  text: see U50
+  locator: null
+  group: master_rule
+  rule_label: Master rule (irreversibility)
+  source_titles:
+    amazon-2015-letter-shareholders: Amazon 2015 letter to shareholders
+- id: Q4
+  rules:
+  - U49
+  source: us-army-adp-6-0
+  text: "Commander's intent: \"a clear and concise expression of the purpose of the operation and the desired military end state\" (para 1-45). \"Mission orders are directives that emphasize to subordinates the results to be attained, not how they are to achieve them.\" (para 1-53). Principles: \"Competence. Mutual trust. Shared understanding. Commander's intent. Mission orders. Disciplined initiative. Risk acceptance.\" (para 1-26)"
+  locator: null
+  group: management_rules
+- id: Q5
+  rules:
+  - U47
+  source: edmondson-psychological-safety-learning-behavior
+  text: 'Edmondson: team psychological safety is "a shared belief that the team is safe for interpersonal risk taking"; "learning behavior mediates between team psychological safety and team performance." Google: five dynamics "In order of importance": "Psychological safety", "Dependability", "Structure and clarity", "Meaning", "Impact" (180 teams studied)'
+  locator: null
+  group: management_rules
+  extra_sources:
+  - google-re-work-understand-team
+  source_titles:
+    edmondson-psychological-safety-learning-behavior: Edmondson 1999, Administrative Science Quarterly (copy)
+- id: Q6
+  rules:
+  - U48
+  source: g20-oecd-principles-corporate-governance
+  text: 'OECD II.F.2: "Members of the board and key executives should be required to disclose to the board whether they, directly, indirectly" … "have a material interest in any transaction or matter directly affecting the corporation." OECD procurement risk: "Mismanagement of conflict of interest in the public service and in post-public employment"'
+  locator: null
+  group: management_rules
+  extra_sources:
+  - oecd-recommendation-public-procurement-integrity
+  - iso-37001-anti-bribery-management
+  source_titles:
+    iso-37001-anti-bribery-management: ISO 37001 (catalogue page)
+- id: Q7
+  rules:
+  - U54
+  source: kim-mauborgne-fair-process
+  text: "\"Engagement—involving individuals in decisions by inviting their input and encouraging them to challenge one another's ideas.\" \"Explanation—clarifying the thinking behind a final decision.\" \"Expectation clarity—stating the new rules of the game, including performance standards…\" \"Notice that fair process is not decision by consensus.\""
+  locator: null
+  group: management_rules
+- id: Q8
+  rules:
+  - U50
+  source: amazon-2015-letter-shareholders
+  text: '"Some decisions are consequential and irreversible or nearly irreversible – one-way doors –" "these decisions must be made methodically, carefully, slowly, with great deliberation and consultation." "Type 2 decisions can and should be made quickly by high judgment individuals or small groups." "The end result of this is slowness, unthoughtful risk aversion, failure to experiment sufficiently, and consequently diminished invention."'
+  locator: null
+  group: management_rules
+- id: Q9
+  rules:
+  - U55
+  source: locke-latham-building-practically-useful
+  text: '"We found that specific, difficult goals consistently led to higher performance than urging people to do their best." "the combination of goals plus feedback is more effective than goals alone" "on tasks that are complex for people, learning goals can be superior to performance goals". Deming 11(b): "Eliminate management by objective. Eliminate management by numbers, numerical goals. Substitute leadership."'
+  locator: null
+  group: management_rules
+  extra_sources:
+  - deming-14-points
+  source_titles:
+    locke-latham-building-practically-useful: Locke & Latham 2002, American Psychologist (copy)
+    deming-14-points: Deming 14 Points
+  sources_text: '[@locke-latham-building-practically-useful]; dissent: [@deming-14-points]'
+- id: Q10
+  rules:
+  - U51
+  source: campbell-1979-evaluation-program-planning
+  text: '"The more any quantitative social indicator is used for social decision-making, the more subject it will be to corruption pressures and the more apt it will be to distort and corrupt the social processes it is intended to monitor."'
+  locator: null
+  group: management_rules
+  extra_sources:
+  - wikipedia-campbells-law
+  sources_text: '[@campbell-1979-evaluation-program-planning]; [@wikipedia-campbells-law] (secondary, quote checked here)'
+- id: Q11
+  rules:
+  - U52
+  source: staw-knee-deep-big-muddy
+  text: "Staw: \"Results showed that persons committed the greatest amount of resources to a previously chosen course of action when they were personally responsible for negative consequences.\" PRINCE2 (blog wording): \"a principle that must persistently endure scrutiny throughout the project's entire lifecycle\""
+  locator: null
+  group: management_rules
+  extra_sources:
+  - purple-griffon-prince2-7th-edition
+  source_titles:
+    staw-knee-deep-big-muddy: Staw 1976, Organizational Behavior and Human Performance (copy)
+    purple-griffon-prince2-7th-edition: 'Purple Griffon: PRINCE2 principles'
+- id: Q12
+  rules:
+  - C14
+  source: conway-how-do-committees-invent
+  text: organizations which design systems are "constrained to produce designs which are copies of the communication structures of these organizations." "Ways must be found to reward design managers for keeping their organizations lean and flexible."
+  locator: null
+  group: management_rules
+- id: Q13
+  rules:
+  - C16
+  source: fema-national-incident-management-system
+  text: '"The optimal span of control for incident management is one supervisor to five subordinates;" "effective incident management frequently necessitates ratios significantly different from this." "The 1:5 ratio is a guideline, and incident personnel use their best judgment"'
+  locator: null
+  group: management_rules
+  source_titles:
+    fema-national-incident-management-system: 'FEMA: NIMS 3rd edition (2017)'
+- id: Q14
+  rules:
+  - R9
+  source: nist-csrc-glossary-separation-duty
+  text: Separation of duty "refers to the principle that no user should be given enough privileges to misuse the system on their own."
+  locator: null
+  group: management_rules
+  source_titles:
+    nist-csrc-glossary-separation-duty: 'NIST CSRC Glossary: separation of duty (from NIST SP 800-192)'
+- id: Q15
+  rules:
+  - U53
+  source: little-littles-law-as-viewed
+  text: '"the average number of items in a queuing system, denoted L, equals the average arrival rate of items to the system" … "multiplied by the average waiting time of an item in the system". "Note that if λ is prespecified, the only way to reduce inventory (L) is to find a way to reduce average wait/item (W)."'
+  locator: null
+  group: management_rules
+- id: Q16
+  rules:
+  - C15
+  source: jargon-file-brookss-law
+  text: '"Adding manpower to a late software project makes it later"'
+  locator: null
+  group: management_rules
+  sources_text: '[@jargon-file-brookss-law] (secondary only; primary: Brooks, *The Mythical Man-Month*, 1975, book, not online)'
+- id: Q17
+  rules:
+  - U56
+  source: sackett-zhang-berry-lievens-revisiting
+  text: '"Structured interviews emerged as the top-ranked selection procedure." "producing mean validity estimates of .42 for structured interviews and .19 for unstructured interviews."'
+  locator: null
+  group: management_rules
+  source_titles:
+    sackett-zhang-berry-lievens-revisiting: 'Sackett, Zhang, Berry, Lievens: Revisiting meta-analytic estimates of validity in personnel selection, Journal of Applied Psychology, doi:10.1037/apl0000994 (copy)'
+- id: Q18
+  rules:
+  - U57
+  source: kluger-denisi-effects-feedback-interventions
+  text: FIs "improved performance on average (d =.41)" but "over 1/3 of the FIs decreased performance."
+  locator: null
+  group: management_rules
+  source_titles:
+    kluger-denisi-effects-feedback-interventions: Kluger & DeNisi 1996, Psychological Bulletin 119(2), doi:10.1037/0033-2909.119.2.254 (abstract page)
+- id: Q19
+  rules:
+  - U58
+  source: kotter-leading-change-why-transformation
+  text: '"Error 4: Undercommunicating the Vision by a Factor of Ten"; "Error 7: Declaring Victory Too Soon"; "the change process goes through a series of phases"; "Skipping steps creates only the illusion of speed"'
+  locator: null
+  group: management_rules
+- id: Q20
+  rules:
+  - U48
+  source: nspe-ethics-reference-guide
+  text: 'II.4.a: "Engineers shall disclose all known or potential conflicts of interest that could influence or appear to influence their judgment or the quality of their services."'
+  locator: null
+  group: management_rules
+  rule_label: U48 (engineering)
+- id: Q21
+  rules:
+  - C15
+  source: reinertsen-always-bad-idea-add
+  text: "Brooks: \"Oversimplifying outrageously, we state Brooks' Law....\" Reinertsen: \"add extra resources as early as possible. The later you add them, the lower the payoff.\""
+  locator: null
+  group: management_rules
+  rule_label: C15 (nuance)
+- id: Q22
+  rules:
+  - U1
+  source: iso-9001-2026-launch
+  text: the update "places greater emphasis on leadership, a culture of quality and ethical behaviour."
+  locator: null
+  group: management_other
+  source_titles:
+    iso-9001-2026-launch: 'ISO: ISO 9001:2026 launch'
+- id: Q23
+  rules:
+  - U2
+  source: us-army-adp-6-0
+  text: 'ADP 6-0 principle: "Competence." COSO principle 5: "Attracts, Develops, and Retains Capable Individuals"'
+  locator: null
+  group: management_other
+  extra_sources:
+  - coso-erm-integrating-strategy-performance
+  source_titles:
+    us-army-adp-6-0: ADP 6-0
+    coso-erm-integrating-strategy-performance: COSO ERM
+- id: Q24
+  rules:
+  - U16
+  source: pmi-pmbok-guide-8th-edition
+  text: 'PMBOK 8 principles: "Adopt a holistic view, focus on value, embed quality, lead accountably, integrate sustainability, and build empowered teams."'
+  locator: null
+  group: management_other
+  extra_sources:
+  - iso-20400-2017-sustainable-procurement
+  - iso-14001-2015-withdrawn-replaced
+  source_titles:
+    pmi-pmbok-guide-8th-edition: 'PMI: PMBOK Guide 8'
+    iso-20400-2017-sustainable-procurement: ISO 20400
+    iso-14001-2015-withdrawn-replaced: ISO 14001 (catalogue)
+- id: Q25
+  rules:
+  - U20
+  source: directive-2019-1937
+  text: 'Art. 8(3): "Paragraph 1 shall apply to legal entities in the private sector with 50 or more workers." Recital 88: "A clear legal prohibition of retaliation would have an important dissuasive effect". Deming 8: "Drive out fear, so that everyone may work effectively for the company." Toyota: "the operator can stop the line by pulling the stop cord themselves"'
+  locator: null
+  group: management_other
+  extra_sources:
+  - deming-14-points
+  - toyota-production-system
+  source_titles:
+    directive-2019-1937: Directive (EU) 2019/1937
+    deming-14-points: Deming
+    toyota-production-system: Toyota
+- id: Q26
+  rules:
+  - U3
+  source: fema-national-incident-management-system
+  text: '"The Incident Commander or Unified Command establishes objectives that drive incident operations."'
+  locator: null
+  group: management_other
+  source_titles:
+    fema-national-incident-management-system: NIMS
+- id: Q27
+  rules:
+  - U21
+  source: coso-erm-integrating-strategy-performance
+  text: 'principle 8: "Evaluates Alternative Strategies"'
+  locator: null
+  group: management_other
+  source_titles:
+    coso-erm-integrating-strategy-performance: COSO ERM
+- id: Q28
+  rules:
+  - U22
+  source: hgb-239
+  text: '§ 239(3) HGB: "Eine Eintragung oder eine Aufzeichnung darf nicht in einer Weise verändert werden, daß der ursprüngliche Inhalt nicht mehr feststellbar ist." (An entry or record must not be changed in a way that makes the original content no longer determinable.) GDPR 5(2): "The controller shall be responsible for, and be able to demonstrate compliance with, paragraph 1"'
+  locator: null
+  group: management_other
+  extra_sources:
+  - gdpr-article-5
+  source_titles:
+    hgb-239: § 239 HGB (dejure.org)
+    gdpr-article-5: GDPR Art. 5
+- id: Q29
+  rules:
+  - U31
+  source: flyvbjerg-from-nobel-prize-project
+  text: 'step 1: "Identification of a relevant reference class of past, similar projects." "inaccuracy in cost forecasts in constant prices is on average 44.7% for rail, 33.8% for bridges and tunnels," "and 20.4% for roads."'
+  locator: null
+  group: management_other
+  source_titles:
+    flyvbjerg-from-nobel-prize-project: Flyvbjerg 2006
+- id: Q30
+  rules:
+  - U43
+  - R8
+  - C9
+  - U13
+  - U9
+  source: coso-erm-integrating-strategy-performance
+  text: 'principle names: 18 "Leverages Information Systems"; 8 "Evaluates Alternative Strategies"; 16 "Reviews Risk and Performance"; 15 "Assesses Substantial Change"'
+  locator: null
+  group: management_other
+  rule_label: U43, R8, C9, U13 (part), U9 (part)
+  source_titles:
+    coso-erm-integrating-strategy-performance: COSO ERM
+- id: Q31
+  rules:
+  - U45
+  source: oecd-due-diligence-guidance-responsible
+  text: '"This Guidance helps businesses to understand and implement due diligence for responsible business conduct."'
+  locator: null
+  group: management_other
+  source_titles:
+    oecd-due-diligence-guidance-responsible: OECD Due Diligence Guidance
+- id: Q32
+  rules:
+  - U6
+  source: klein-performing-project-premortem
+  text: 'Klein: "In a premortem, team members assume that the project they are planning has just failed—as so many do—" and "generate plausible reasons for its demise." COSO principle 14: "Develops Portfolio View"'
+  locator: null
+  group: management_other
+  extra_sources:
+  - coso-erm-integrating-strategy-performance
+  source_titles:
+    coso-erm-integrating-strategy-performance: COSO ERM
+- id: Q33
+  rules:
+  - U7
+  source: principles-behind-agile-manifesto
+  text: '"Simplicity--the art of maximizing the amount of work not done--is essential."'
+  locator: null
+  group: management_other
+  source_titles:
+    principles-behind-agile-manifesto: Agile principles
+- id: Q34
+  rules:
+  - U14
+  - U12
+  source: gdpr-article-5
+  text: '5(1)(e): "kept in a form which permits identification of data subjects for no longer than is necessary" 5(1)(c): "adequate, relevant and limited to what is necessary in relation to the purposes for which they are processed"'
+  locator: null
+  group: management_other
+  source_titles:
+    gdpr-article-5: GDPR Art. 5
+- id: Q35
+  rules:
+  - U15
+  source: google-re-work-understand-team
+  text: 'dynamic 3: "Structure and clarity"'
+  locator: null
+  group: management_other
+  source_titles:
+    google-re-work-understand-team: Google re:Work
+- id: Q36
+  rules:
+  - U38
+  source: who-ilo-long-working-hours
+  text: 'WHO/ILO: "working 55 or more hours per week is associated with an estimated 35% higher risk of a stroke" and "a 17% higher risk of dying from ischemic heart disease, compared to working 35-40 hours a week". Pencavel: "below an hours threshold, output is proportional to hours;" "above a threshold, output rises at a decreasing rate as hours increase." Agile 8: "The sponsors, developers, and users should be able to maintain a constant pace indefinitely."'
+  locator: null
+  group: management_other
+  extra_sources:
+  - pencavel-productivity-working-hours
+  - principles-behind-agile-manifesto
+  source_titles:
+    who-ilo-long-working-hours: WHO/ILO 2021
+    pencavel-productivity-working-hours: Pencavel 2014
+    principles-behind-agile-manifesto: Agile principles
+- id: Q37
+  rules:
+  - U46
+  - U26
+  - U34
+  - U42
+  - U32
+  source: fema-national-incident-management-system
+  text: '"Unity of command means that each individual only reports to one person." Management characteristics include "Modular Organization", "Integrated Communications", "Establishment and Transfer of Command". "IAPs represent concise, coherent means of capturing and communicating incident objectives, tactics, and assignments"'
+  locator: null
+  group: management_other
+  source_titles:
+    fema-national-incident-management-system: NIMS
+- id: Q38
+  rules:
+  - R7
+  source: kohavi-thomke-surprising-power-online
+  text: '"At Google and Bing, only about 10% to 20% of experiments generate positive results." At Microsoft, "one-third prove effective, one-third have neutral results, and one-third have negative results."'
+  locator: null
+  group: management_other
+  source_titles:
+    kohavi-thomke-surprising-power-online: Kohavi & Thomke 2017
+- id: Q39
+  rules:
+  - C4
+  - U28
+  - U5
+  source: deming-14-points
+  text: '9: "Break down barriers between departments." 3: "Cease dependence on inspection to achieve quality." "Eliminate the need for inspection on a mass basis by building quality into the product in the first place."'
+  locator: null
+  group: management_other
+  source_titles:
+    deming-14-points: Deming 14 Points
+- id: Q40
+  rules:
+  - U27
+  source: presencis-iso-45001-clause-8
+  text: "\"Eliminate the hazard — remove the hazard entirely so that it no longer exists\" (first of five levels, in the article's wording)"
+  locator: null
+  group: management_other
+  source_titles:
+    presencis-iso-45001-clause-8: 'Presencis: ISO 45001 8.1.2'
+  sources_text: '[@presencis-iso-45001-clause-8] (secondary; ISO text is paid)'
+- id: Q41
+  rules:
+  - U29
+  - U8
+  - U24
+  source: iia-three-lines-model
+  text: "\"However, responsibility for managing risk remains a part of first line roles and within the scope of management.\" \"Internal audit's independence from the responsibilities of management is critical to its objectivity, authority, and credibility.\" \"It achieves this through the competent application of systematic and disciplined processes, expertise, and insight.\""
+  locator: null
+  group: management_other
+  source_titles:
+    iia-three-lines-model: IIA Three Lines Model (2020)
+- id: Q42
+  rules:
+  - U8
+  source: regulation-no-537-2014-article
+  text: '"…nor this in combination with any renewed engagements therewith shall exceed a maximum duration of 10 years." "The key audit partners responsible for carrying out a statutory audit shall cease their participation" "in the statutory audit of the audited entity not later than seven years from the date of their appointment."'
+  locator: null
+  group: management_other
+  rule_label: U8 (external)
+  source_titles:
+    regulation-no-537-2014-article: EU 537/2014 Art. 17
+- id: Q43
+  rules:
+  - U8
+  - R2
+  source: uk-mod-red-teaming-handbook
+  text: red teaming is "the independent application of a range of structured, creative and critical thinking techniques" "to assist the end user make a better-informed decision or produce a more robust product."
+  locator: null
+  group: management_other
+  rule_label: U8 (red team), R2
+  source_titles:
+    uk-mod-red-teaming-handbook: UK MoD Red Teaming Handbook
+- id: Q44
+  rules:
+  - R1
+  - U40
+  source: iso-tc-260-people-power
+  text: ISO/TS 30433 "describes the elements of succession planning metrics and provides comparable measures to report on them."
+  locator: null
+  group: management_other
+  source_titles:
+    iso-tc-260-people-power: 'ISO TC 260: People power'
+- id: Q45
+  rules:
+  - U25
+  - U53
+  source: little-littles-law-as-viewed
+  text: see U53
+  locator: null
+  group: management_other
+  source_titles:
+    little-littles-law-as-viewed: Little 2011 (reprint)
+- id: Q46
+  rules:
+  - C3
+  - U35
+  source: bci-good-practice-guidelines-2018
+  text: 'MTPD: "the time frame within which the impacts of not resuming activities would become unacceptable to the organization". RTO: "prioritized time frames as set within the time identified in MTPD" "for resuming disrupted activities at a specified minimum acceptable capacity"'
+  locator: null
+  group: management_other
+  source_titles:
+    bci-good-practice-guidelines-2018: BCI GPG 2018 with ISO 22301:2019 definitions
+- id: Q47
+  rules:
+  - C6
+  - U36
+  source: scrum-guide
+  text: '"No changes are made that would endanger the Sprint Goal;" "Only the Product Owner has the authority to cancel the Sprint."'
+  locator: null
+  group: management_other
+  source_titles:
+    scrum-guide: Scrum Guide 2020
+- id: Q48
+  rules:
+  - C7
+  source: parkinson-parkinsons-law
+  text: '"It is a commonplace observation that work expands so as to fill the time available for its completion."'
+  locator: null
+  group: management_other
+  source_titles:
+    parkinson-parkinsons-law: Parkinson 1955 (text copy; original in The Economist, November 1955)
+- id: Q49
+  rules:
+  - C11
+  source: lee-padmanabhan-whang-information-distortion
+  text: '"Sell-through data and information on inventory status at downstream nodes are keys to improving channel coordination"'
+  locator: null
+  group: management_other
+  source_titles:
+    lee-padmanabhan-whang-information-distortion: Lee, Padmanabhan, Whang 1997
+- id: Q50
+  rules:
+  - U4
+  - U19
+  - R4
+  - U41
+  - U46
+  source: purple-griffon-prince2-7th-edition
+  text: 'principle names: "Ensure continued business justification", "Manage by stages", "Manage by exception", "Define roles, responsibilities, and relationships". On exceptions: "These exceptions are promptly escalated to the subsequent management tier"'
+  locator: null
+  group: management_other
+  sources_text: '[@purple-griffon-prince2-7th-edition] (secondary; the official manual is paid)'
+- id: Q51
+  rules:
+  - U19
+  source: dora-working-small-batches
+  text: '"Working in small batches is an essential principle in any discipline where feedback loops are important," "or you want to learn quickly from your decisions."'
+  locator: null
+  group: management_other
+- id: Q52
+  rules:
+  - U42
+  source: mark-gudith-klocke-cost-interrupted
+  text: '"people compensate for interruptions by working faster" "experiencing more stress, higher frustration, time pressure and effort"'
+  locator: null
+  group: management_other
+  source_titles:
+    mark-gudith-klocke-cost-interrupted: Mark, Gudith, Klocke 2008
+- id: Q53
+  rules:
+  - U10
+  source: us-army-foundations-aar-process
+  text: "an AAR \"is a professional discussion of an event, focused on performance standards,\" that \"enables soldiers to discover for themselves what happened, why it happened, and how to sustain strengths and improve on weaknesses\". Table 3: \"Minimizing 'finger-pointing'\""
+  locator: null
+  group: management_other
+- id: Q54
+  rules:
+  - U11
+  source: principles-behind-agile-manifesto
+  text: 'Agile 12: "At regular intervals, the team reflects on how to become more effective, then tunes and adjusts its behavior accordingly." Scrum: "transparency, inspection, and adaptation"'
+  locator: null
+  group: management_other
+  extra_sources:
+  - scrum-guide
+  source_titles:
+    principles-behind-agile-manifesto: Agile principles
+    scrum-guide: Scrum Guide
+- id: Q55
+  rules:
+  - U18
+  source: columbia-accident-investigation-board-report
+  text: '"the NASA organizational culture had as much to do with the accident as the foam that struck the Orbiter on ascent."'
+  locator: null
+  group: management_other
+  source_titles:
+    columbia-accident-investigation-board-report: CAIB report summary
+- id: Q56
+  rules:
+  - U23
+  source: troutman-pepper-sedona-commentary-legal
+  text: 'Guideline 1 trigger: "notice of a credible probability that [an organization]" "will become involved in litigation," "seriously contemplates initiating litigation, or when it takes specific actions to commence litigation."'
+  locator: null
+  group: management_other
+  source_titles:
+    troutman-pepper-sedona-commentary-legal: Troutman Pepper on the Sedona Commentary on Legal Holds
+  sources_text: '[@troutman-pepper-sedona-commentary-legal] (secondary; describes the primary commentary)'
+- id: Q57
+  rules:
+  - U13
+  source: wikipedia-genchi-genbutsu
+  text: no quote checked
+  locator: null
+  group: management_other
+  placeholder: true
+  rule_label: U13 (go and see)
+  sources_text: '[@wikipedia-genchi-genbutsu] (secondary only)'
+- id: Q58
+  rules:
+  - R5
+  - U30
+  - U44
+  - C13
+  - U33
+  - U37
+  source: null
+  text: no management source found
+  locator: null
+  group: management_other
+  placeholder: true
+  sources_text: cross-reference only
+- id: Q59
+  rules:
+  - C8
+  - U39
+  source: iso-21502-2020-guidance-project
+  text: no new quote
+  locator: null
+  group: management_other
+  placeholder: true
+  source_titles:
+    iso-21502-2020-guidance-project: ISO 21502:2020
+  sources_text: section 9 sources (theory of constraints, critical path method); [@iso-21502-2020-guidance-project]
+- id: Q60
+  rules:
+  - C2
+  - C5
+  - C10
+  - R3
+  - C1
+  - C12
+  - U17
+  source: null
+  text: catalogue pages give titles and summaries only; no requirement text quoted
+  locator: null
+  group: management_other
+  placeholder: true
+  sources_text: ISO catalogue pages listed in section 7

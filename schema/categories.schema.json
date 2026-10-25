@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/crazyracer98/engineering/schema/categories.schema.json",
+  "title": "Categories",
+  "description": "data/categories.yaml: categories A-I; `rules` gives the rule order inside the category (sections 3, 7 and 10).",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^[A-I]$"
+      },
+      "name": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+      },
+      "rules": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "pattern": "^[URC][1-9][0-9]*$",
+          "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+        },
+        "minItems": 1,
+        "uniqueItems": true
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "description",
+      "rules"
+    ],
+    "additionalProperties": false
+  }
+}

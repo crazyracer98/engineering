@@ -1,0 +1,21 @@
+# Sources cited in docs/methodology.md and docs/history.md that no other file
+# defines. Slugs defined elsewhere (data/sources.yaml, paper/references-extra.yaml)
+# are not repeated here.
+- slug: rfc-2119
+  title: Key words for use in RFCs to Indicate Requirement Levels (RFC 2119, BCP 14)
+  url: https://www.rfc-editor.org/rfc/rfc2119
+  kind: primary
+  publisher: IETF (RFC Editor)
+  year: 1997
+  paid: false
+  accessed: '2026-10-25'
+  notes: Author S. Bradner, March 1997. Defines MUST (an absolute requirement) and SHOULD (valid reasons may exist to ignore an item, and the implications must be weighed).
+- slug: semver-2-0-0
+  title: Semantic Versioning 2.0.0
+  url: https://semver.org/spec/v2.0.0.html
+  kind: primary
+  publisher: semver.org (Tom Preston-Werner)
+  year: 2013
+  paid: false
+  accessed: '2026-10-25'
+  notes: 'Items 7 and 8 define minor and major increments by backward compatibility. Author per the page: Tom Preston-Werner. The page does not state a year; 2013 is the author-supplied release year of 2.0.0 and was not verified on the page.'

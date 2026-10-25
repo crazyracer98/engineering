@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/crazyracer98/engineering/schema/method.schema.json",
+  "title": "Method and limits",
+  "description": "data/method.yaml: section 12 as ordered prose blocks (one per subsection).",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "section": {
+        "type": "string"
+      },
+      "text": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Markdown; sources are cited only as Pandoc citations `[@slug]`."
+      }
+    },
+    "required": [
+      "section",
+      "text"
+    ],
+    "additionalProperties": false
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/crazyracer98/engineering/schema/domains.schema.json",
+  "title": "Domain index",
+  "description": "data/domains.yaml: section 4.",
+  "type": "object",
+  "properties": {
+    "domains": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "branch": {
+            "type": "string",
+            "description": "Branch heading (table order = list order)."
+          },
+          "domain": {
+            "type": "string"
+          },
+          "rules": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^([URC][1-9][0-9]*|Master)$",
+              "description": "A rule ID, or `Master` for the master rule (meta.master_rule), as in edition 6."
+            },
+            "minItems": 1,
+            "description": "Rules found in the domain, in cell order."
+          },
+          "supports": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^([URC][1-9][0-9]*|Master)$",
+              "description": "A rule ID, or `Master` for the master rule (meta.master_rule), as in edition 6."
+            },
+            "description": "Optional. Rules the domain only supports (rendered with \" (supports)\")."
+          },
+          "rules_text": {
+            "type": "string",
+            "description": "Optional. Verbatim Rules cell when it is not `<id> <rule name>[ (supports)]` joined by `; ` (`Master` renders as \"Master rule\")."
+          },
+          "references": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "description": "Source slug (data/sources.yaml)."
+            },
+            "uniqueItems": true,
+            "minItems": 1,
+            "description": "References in cell order (rendered space-separated)."
+          },
+          "reference_titles": {
+            "type": "object",
+            "propertyNames": {
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+            },
+            "additionalProperties": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Per-use link-title overrides: slug -> the title this cell uses when it differs from sources.yaml `title`. Renderers use it instead of the canonical title for this use only."
+          }
+        },
+        "required": [
+          "branch",
+          "domain",
+          "rules",
+          "references"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "checked_without_row": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "no-source",
+              "blocked",
+              "umbrella",
+              "out-of-scope",
+              "covered-elsewhere",
+              "not-researched"
+            ],
+            "description": "Importer's classification of `note` (judgment). `not-researched` was added for rows edition 9 marks \"not researched separately\" or \"not checked\"."
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The Reason cell, verbatim."
+          },
+          "applicable": {
+            "type": "string",
+            "minLength": 1,
+            "description": "\"Applicable by cross-reference (besides all U-rules)\" cell, verbatim (author's judgment)."
+          }
+        },
+        "required": [
+          "domain",
+          "reason",
+          "note",
+          "applicable"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "domains",
+    "checked_without_row"
+  ],
+  "additionalProperties": false
+}

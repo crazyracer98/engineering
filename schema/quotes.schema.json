@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/crazyracer98/engineering/schema/quotes.schema.json",
+  "title": "Direct quotes",
+  "description": "data/quotes.yaml: section 11, one entry per table row, in document order.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^Q[1-9][0-9]*$"
+      },
+      "rules": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^([URC][1-9][0-9]*|Master)$",
+              "description": "A rule ID, or `Master` for the master rule (meta.master_rule), as in edition 6."
+            },
+            {
+              "type": "string",
+              "pattern": "^K[1-9][0-9]*$",
+              "description": "Conflict-rule ID."
+            }
+          ]
+        },
+        "description": "Rules the quote supports (IDs named in the Rule cell; `Master` for the master rule)."
+      },
+      "source": {
+        "oneOf": [
+          {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "description": "Source slug (data/sources.yaml)."
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "description": "First (main) source of the row. Null only on a placeholder row without a link."
+      },
+      "text": {
+        "type": "string",
+        "minLength": 1,
+        "description": "The Direct quote cell verbatim: quoted text with its attributions and inline locators."
+      },
+      "locator": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Locator for the whole row. Edition 9 gives no row locators, so it is null throughout 1.0.0; inline locators (\"para 1-45\", \"principle 7\") stay in `text`."
+      },
+      "placeholder": {
+        "const": true,
+        "description": "Optional. Present (true) on a row whose text states that no quote exists (\"no new quote\", \"no management source found\", ...)."
+      },
+      "group": {
+        "type": "string",
+        "enum": [
+          "master_rule",
+          "management_rules",
+          "management_other"
+        ],
+        "description": "Section 11 subsection (titles in meta.sections)."
+      },
+      "rule_label": {
+        "type": "string",
+        "description": "Optional. Verbatim Rule cell when it is not the `, `-joined `rules`."
+      },
+      "extra_sources": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "Source slug (data/sources.yaml)."
+        },
+        "uniqueItems": true,
+        "description": "Optional. Further sources of the row, in cell order."
+      },
+      "source_titles": {
+        "type": "object",
+        "propertyNames": {
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+        },
+        "additionalProperties": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": "Per-use link-title overrides: slug -> the title this cell uses when it differs from sources.yaml `title`. Renderers use it instead of the canonical title for this use only."
+      },
+      "sources_text": {
+        "type": "string",
+        "description": "Optional. The Sources cell with `[@slug]` citations when it is not just the `; `-joined citations."
+      }
+    },
+    "required": [
+      "id",
+      "rules",
+      "source",
+      "text",
+      "locator",
+      "group"
+    ],
+    "additionalProperties": false,
+    "allOf": [
+      {
+        "if": {
+          "not": {
+            "required": [
+              "placeholder"
+            ]
+          }
+        },
+        "then": {
+          "properties": {
+            "source": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "description": "Source slug (data/sources.yaml)."
+            }
+          }
+        }
+      }
+    ]
+  }
+}
