@@ -26,5 +26,5 @@ show how a step was done.
 Later editions are numbered by SemVer, and the version equals the release
 tag (see "Versioning" in [the methodology](methodology.md)). Each one is
 recorded in two places: `data/history.yaml` (the machine-readable record,
-including the map from old rule IDs to new ones) and a new section above
-this one in this file.
+including the map from old rule IDs to new ones) and a new section at the top
+of the list of editions in this file (newest first).
