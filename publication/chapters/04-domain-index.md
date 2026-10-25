@@ -216,7 +216,7 @@ Each row names an engineering domain, the rules **found** in it, and the referen
 | Domain | Rules | References |
 | --- | --- | --- |
 | Team leadership | [U47](07-rules.md#u47) Psychological safety; [U15](07-rules.md#u15) Human factors (role clarity) | [Edmondson: Psychological Safety and Learning Behavior in Work Teams (ASQ 1999)](https://web.mit.edu/curhan/www/docs/Articles/15341_Readings/Group_Performance/Edmondson%20Psychological%20safety.pdf) [Google re:Work: Understand team effectiveness](https://rework.withgoogle.com/intl/en/guides/understand-team-effectiveness) |
-| Personnel selection | [U56](07-rules.md#u56) Structured selection of people | [Sackett et al.: Revisiting meta-analytic estimates of validity in personnel selection (J. Appl. Psychol.)](https://www.Gwern.net/doc/statistics/meta-analysis/2021-sackett.pdf) |
+| Personnel selection | [U56](07-rules.md#u56) Structured selection of people | [Sackett et al.: Revisiting meta-analytic estimates of validity in personnel selection (J. Appl. Psychol.)](https://www.gwern.net/doc/statistics/meta-analysis/2021-sackett.pdf) |
 | Performance feedback | [U57](07-rules.md#u57) Feedback on the task | [Kluger & DeNisi: The effects of feedback interventions on performance (Psychol. Bull. 1996)](https://cris.huji.ac.il/en/publications/the-effects-of-feedback-interventions-on-performance-a-historical/) |
 | Goals and performance measurement | [U55](07-rules.md#u55) Specific, challenging goals with feedback; [U51](07-rules.md#u51) Indicators are not targets; [U3](07-rules.md#u3) Measurable requirements | [Locke & Latham: Building a practically useful theory of goal setting (Am. Psychol. 2002)](https://goal-lab.psych.umn.edu/orgpsych/2020/readings/5.%20Motivation/Locke%20&%20Latham%20(2002).pdf) [Wikipedia: Campbell's law](https://en.wikipedia.org/wiki/Campbell%27s_law) |
 | Working time and health | [U38](07-rules.md#u38) Accumulated degradation | [WHO/ILO: Long working hours increasing deaths (2021)](https://www.who.int/news/item/17-05-2021-long-working-hours-increasing-deaths-from-heart-disease-and-stroke-who-ilo) [Pencavel: The Productivity of Working Hours (IZA DP 8129, 2014)](https://docs.iza.org/dp8129.pdf) |
@@ -226,7 +226,7 @@ Each row names an engineering domain, the rules **found** in it, and the referen
 | Change management | [U58](07-rules.md#u58) Guided change | [Kotter: Leading Change — Why Transformation Efforts Fail (HBR 1995)](https://fcm.ucsf.edu/sites/g/files/tkssra17611/files/Kotter_WhyTransformationEffortsFail.pdf) |
 | Organizational justice | [U54](07-rules.md#u54) Fair process | [Kim & Mauborgne: Fair Process (HBR 1997)](https://ieanea.org/wp-content/uploads/2019/05/FairProcessArticle.pdf) |
 | Organization design | [C14](07-rules.md#c14) Structure follows the intended system; [C16](07-rules.md#c16) Span of control | [Conway: How Do Committees Invent? (1968)](https://www.melconway.com/Home/Committees_Paper.html) |
-| Escalation of commitment | [U52](07-rules.md#u52) Stop criteria set in advance | [Staw: Knee-deep in the big muddy (1976)](https://Www.Gwern.net/doc/psychology/cognitive-bias/sunk-cost/1976-staw.pdf) |
+| Escalation of commitment | [U52](07-rules.md#u52) Stop criteria set in advance | [Staw: Knee-deep in the big muddy (1976)](https://www.gwern.net/doc/psychology/cognitive-bias/sunk-cost/1976-staw.pdf) |
 
 ## Management: Finance
 

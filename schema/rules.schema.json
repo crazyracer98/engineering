@@ -142,7 +142,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "Relations to other rules, in the order of the RELATED cell. Only the direction edition 9 states is recorded; inverses are not inferred."
+        "description": "Relations to other rules: keys in `meta.relation_types` order, IDs in U, R, C numeric order. Both directions are recorded: every `strengthens`/`checks` has its inverse `strengthened_by`/`checked_by` on the target rule and vice versa, and `conflicts_with` is stated on both rules. `depends_on` and `scaled_by` have no inverse type and stay one-way."
       },
       "related_text": {
         "type": "string",
@@ -194,7 +194,7 @@
         },
         "uniqueItems": true,
         "minItems": 1,
-        "description": "Section 9 sources in edition-9 cell order (primary first where edition 9 orders them so)."
+        "description": "Section 9 sources: every primary source first, then the secondary ones, each kind in its edition-9 cell order."
       },
       "source_titles": {
         "type": "object",
