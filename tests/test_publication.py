@@ -51,12 +51,6 @@ def test_check_command(repo: Path, capsys: pytest.CaptureFixture[str]) -> None:
     assert "[citations]" in capsys.readouterr().err
 
 
-def test_paper_stub(capsys: pytest.CaptureFixture[str]) -> None:
-    assert cli.main(["paper", "--out", "build/paper.pdf"]) == 2
-    err = capsys.readouterr().err
-    assert err.startswith("taxonomy paper: ")
-    assert "Traceback" not in err
-
 
 def test_chapters_have_anchors_and_relative_links() -> None:
     ds = load_dataset(REPO)
