@@ -561,6 +561,7 @@
   text: no quote checked
   locator: null
   group: management_other
+  placeholder: true
   rule_label: U13 (go and see)
   sources_text: '[@wikipedia-genchi-genbutsu] (secondary only)'
 - id: Q58
@@ -575,6 +576,7 @@
   text: no management source found
   locator: null
   group: management_other
+  placeholder: true
   sources_text: cross-reference only
 - id: Q59
   rules:
@@ -584,6 +586,7 @@
   text: no new quote
   locator: null
   group: management_other
+  placeholder: true
   source_titles:
     iso-21502-2020-guidance-project: ISO 21502:2020
   sources_text: section 9 sources (theory of constraints, critical path method); [@iso-21502-2020-guidance-project]
@@ -600,4 +603,5 @@
   text: catalogue pages give titles and summaries only; no requirement text quoted
   locator: null
   group: management_other
+  placeholder: true
   sources_text: ISO catalogue pages listed in section 7

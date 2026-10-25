@@ -55,12 +55,11 @@
           "url": {
             "type": "string",
             "pattern": "^https?://",
-            "description": "URL of the copy that was read."
+            "description": "Optional. URL of the copy that was read, only when it differs from `url` (in data/sources.yaml `url` is always the copy, so it is omitted)."
           }
         },
         "required": [
-          "title",
-          "url"
+          "title"
         ],
         "additionalProperties": false,
         "description": "Optional. Present when the primary text was read through a faithful copy."
