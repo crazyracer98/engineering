@@ -16,12 +16,18 @@ reusable, with improvements shared back.
 ## Decision
 
 We will license prose and data under CC BY-SA 4.0 and code under GPL-3.0.
-CC BY-SA 4.0 covers `data/`, `publication/`, `paper/` (except `paper/csl/`,
-which carries CC BY-SA 3.0 in its own notice), `docs/`, `sources/` (except
-`sources/import/import_v9.py`, a script) and the site content. GPL-3.0 covers
-`src/`, `tests/`, `schema/`, scripts, workflows, configuration and everything
-else. `LICENSE` stays GPL-3.0; `LICENSE-CC-BY-SA-4.0` holds the verbatim legal
-code. The root `README.md` maps paths to licenses.
+CC BY-SA 4.0 covers only this repository's own prose and data:
+`docs/methodology.md`, `docs/history.md`, `docs/adrs/[0-9]*`,
+`docs/nfrs/NFR-*`, `data/`, `publication/`, `paper/` (except `paper/csl/`,
+which carries CC BY-SA 3.0 in its own notice), `sources/` (except
+`sources/import/import_v9.py`, a script) and the generated site and PDF.
+GPL-3.0 covers `src/`, `tests/`, `schema/`, scripts, workflows,
+configuration, the template-synced files under `docs/` (`docs/TEMPLATE.md`,
+directory `README.md`s, `template.md` files, which keep the template's
+license) and everything else. Of these paths, `data/`, `schema/`,
+`docs/methodology.md`, `docs/history.md`, `publication/`, `paper/`, `import_v9.py`, the site and the PDF are planned
+and don't exist yet. `LICENSE` stays GPL-3.0; `LICENSE-CC-BY-SA-4.0` holds
+the verbatim legal code. The root `README.md` maps paths to licenses.
 
 ## Consequences
 

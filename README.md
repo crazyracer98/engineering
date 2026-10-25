@@ -16,9 +16,10 @@ template sync) inherited from
 
 ## License
 
-The repository is dual-licensed by content type.
+Prose and data are CC BY-SA 4.0; code and everything else is GPL-3.0.
+Paths marked (planned) don't exist yet.
 
 | Paths | License |
 |---|---|
-| `data/`, `publication/`, `paper/` (except `paper/csl/`, which is CC BY-SA 3.0 per its own notice), `docs/`, `sources/` (except `sources/import/import_v9.py`, a script), and the site content | [CC BY-SA 4.0](LICENSE-CC-BY-SA-4.0) |
-| `src/`, `tests/`, `schema/`, scripts, workflows, configuration, and everything else | [GPL-3.0](LICENSE) |
+| This repo's own prose and data: `docs/methodology.md` (planned), `docs/history.md` (planned), `docs/adrs/[0-9]*`, `docs/nfrs/NFR-*`, `data/` (planned), `publication/` (planned), `paper/` (planned; except `paper/csl/`, CC BY-SA 3.0 per its own notice), `sources/` (except `sources/import/import_v9.py` (planned), a script), and the generated site and PDF (planned) | [CC BY-SA 4.0](LICENSE-CC-BY-SA-4.0) |
+| `src/`, `tests/`, `schema/` (planned), scripts, workflows, configuration, the template-synced files under `docs/` (`docs/TEMPLATE.md`, directory `README.md`s, `template.md` files), and everything else | [GPL-3.0](LICENSE) |

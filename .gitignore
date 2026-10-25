@@ -113,7 +113,11 @@ $RECYCLE.BIN/
 # Python bytecode (the scripts-tests hook runs the tests in-tree)
 __pycache__/
 *.pyc
+.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
 
 # Generated publication outputs (docs, site and PDF are built from data/)
-build/
-site/
+/build/
+/site/
