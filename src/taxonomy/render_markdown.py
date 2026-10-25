@@ -48,6 +48,25 @@ def citation_slugs(text: str) -> list[str]:
     return slugs
 
 
+class UnknownSlugError(KeyError):
+    """A citation or source list names a slug that no registry defines."""
+
+    def __init__(self, slug: str) -> None:
+        super().__init__(slug)
+        self.slug = slug
+
+    def __str__(self) -> str:
+        return f"unknown source slug {self.slug!r} (in no source registry)"
+
+
+def lookup(registry: Mapping[str, Source], slug: str) -> Source:
+    """``registry[slug]``, raising ``UnknownSlugError`` for an unknown slug."""
+    try:
+        return registry[slug]
+    except KeyError:
+        raise UnknownSlugError(slug) from None
+
+
 def resolve_citations(
     text: str,
     registry: Mapping[str, Source],
@@ -59,12 +78,12 @@ def resolve_citations(
     ``[title a](url a); [title b](url b)``; ``[@a, p. 3]`` becomes
     ``[title](url), p. 3``. ``titles`` overrides the link title per slug (the
     per-use ``source_titles``). Citations inside code are left alone. An
-    unknown slug raises ``KeyError``.
+    unknown slug raises ``UnknownSlugError`` (a ``KeyError``).
     """
     titles = titles or {}
 
     def link(slug: str, locator: str | None) -> str:
-        source = registry[slug]
+        source = lookup(registry, slug)
         out = f"[{titles.get(slug, source['title'])}]({source['url']})"
         return f"{out}, {locator}" if locator else out
 
