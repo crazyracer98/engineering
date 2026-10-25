@@ -51,7 +51,6 @@ def test_check_command(repo: Path, capsys: pytest.CaptureFixture[str]) -> None:
     assert "[citations]" in capsys.readouterr().err
 
 
-
 def test_chapters_have_anchors_and_relative_links() -> None:
     ds = load_dataset(REPO)
     chapters = render_chapters(ds, load_registry(REPO))
