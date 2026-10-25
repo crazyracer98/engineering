@@ -51,10 +51,7 @@ def test_check_command(repo: Path, capsys: pytest.CaptureFixture[str]) -> None:
     assert "[citations]" in capsys.readouterr().err
 
 
-def test_site_and_paper_stubs(capsys: pytest.CaptureFixture[str]) -> None:
-    assert cli.main(["site", "--out", "build/site"]) == 2
-    err = capsys.readouterr().err
-    assert "taxonomy site: taxonomy site is implemented by work item" in err
+def test_paper_stub(capsys: pytest.CaptureFixture[str]) -> None:
     assert cli.main(["paper", "--out", "build/paper.pdf"]) == 2
     err = capsys.readouterr().err
     assert err.startswith("taxonomy paper: ")
