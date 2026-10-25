@@ -2385,7 +2385,7 @@ rules:
     form_name: Pilots and exercises under real conditions
     form: test new processes, plans and organizations in real conditions before full rollout, and exercise continuity plans
     example: a new on-call model is piloted with one team for one month; the continuity plan is exercised once a year
-    sources_text: '[ISO 22301:2019 (catalogue page)](https://www.iso.org/standard/75106.html) (supports)'
+    sources_text: '[ISO 22301:2019](https://www.iso.org/standard/75106.html) (supports)'
     evidence: moderate
     evidence_note:
     sources:
@@ -2559,7 +2559,7 @@ rules:
     form_name: Decision log
     form: record each significant management decision with its reason, the alternatives considered and the owner
     example: 'a decision log entry: "move to a shared on-call rotation; rejected: per-team rotation, because…"'
-    sources_text: '[COSO: ERM — Integrating with Strategy and Performance, Executive Summary (2017)](https://www.coso.org/_files/ugd/3059fc_61ea5985b03c4293960642fdce408eaa.pdf); [ISO 30401:2018 Knowledge management systems (catalogue page)](https://www.iso.org/standard/68683.html) (supports)'
+    sources_text: '[COSO ERM principle 8 "Evaluates Alternative Strategies"](https://www.coso.org/_files/ugd/3059fc_61ea5985b03c4293960642fdce408eaa.pdf); [ISO 30401:2018](https://www.iso.org/standard/68683.html) (supports)'
     evidence: moderate
     evidence_note:
     sources:
@@ -2678,7 +2678,7 @@ rules:
     form_name: Auditable processes
     form: design each process so that its controls leave evidence that a reviewer can sample
     example: access approvals are stored as tickets that an auditor can sample
-    sources_text: '[IIA: The Three Lines Model (2020)](https://www.theiia.org/globalassets/documents/resources/the-iias-three-lines-model-an-update-of-the-three-lines-of-defense-july-2020/three-lines-model-updated-english.pdf) (supports)'
+    sources_text: '[IIA Three Lines principle 4](https://www.theiia.org/globalassets/documents/resources/the-iias-three-lines-model-an-update-of-the-three-lines-of-defense-july-2020/three-lines-model-updated-english.pdf) (supports)'
     evidence: moderate
     evidence_note:
     sources:
@@ -2732,7 +2732,7 @@ rules:
     form_name: Reserves and slack
     form: keep schedule buffers, budget contingency and free capacity of people; do not plan people near 100 % utilization
     example: the team plans 70 % of its capacity and keeps 30 % for unplanned work
-    sources_text: "[Little: Little's Law as Viewed on Its 50th Anniversary (Operations Research 2011, reprint)](https://projectproduction.org/journal/reprint-littles-law-as-viewed-on-its-50th-anniversary/) (with U53)"
+    sources_text: "[Little's law](https://projectproduction.org/journal/reprint-littles-law-as-viewed-on-its-50th-anniversary/) (with U53)"
     evidence: strong
     evidence_note:
     sources:
@@ -3025,7 +3025,7 @@ rules:
     form_name: Checklists for rare management procedures
     form: 'use checklists for rare, complex or time-critical procedures: onboarding, offboarding, month-end close, the first hour of a crisis'
     example: 'offboarding checklist: access removal, knowledge handover, equipment return'
-    sources_text: 'section 9 (surgery, rail); [FEMA: National Incident Management System, 3rd ed. (2017)](https://training.fema.gov:443/EMIWeb/IS/IS700b/Handouts/National_Incident_Management%20System_Third%20Edition_October_2017.pdf)'
+    sources_text: 'section 9 (surgery, rail); [NIMS: incident action plans](https://training.fema.gov:443/EMIWeb/IS/IS700b/Handouts/National_Incident_Management%20System_Third%20Edition_October_2017.pdf)'
     evidence: moderate
     evidence_note:
     sources:
@@ -3295,7 +3295,7 @@ rules:
     form_name: Critical path
     form: identify the longest chain of dependent tasks and protect it first
     example: in an office move, network installation is critical; furniture has slack
-    sources_text: section 9 (critical path method); [ISO 21502:2020 Guidance on project management (catalogue page)](https://www.iso.org/standard/74947.html)
+    sources_text: section 9 (critical path method); [ISO 21502:2020](https://www.iso.org/standard/74947.html)
     evidence: strong
     evidence_note: standard text is paid; only the official summary was read
     sources:
@@ -4127,7 +4127,7 @@ rules:
     form_name: Four-eyes principle at the moment of action
     form: require two authorized people for critical, irreversible management actions (large payments, contract signature, dismissal)
     example: a payment above a threshold needs two signatures
-    sources_text: '[NIST CSRC Glossary: separation of duty (SP 800-192)](https://csrc.nist.gov/glossary/term/separation_of_duty) (supports); see R9'
+    sources_text: '[NIST: separation of duty](https://csrc.nist.gov/glossary/term/separation_of_duty) (supports); see R9'
     evidence: strong
     evidence_note:
     sources:
@@ -4305,7 +4305,7 @@ rules:
     form_name: Maturity of new tools, vendors and methods
     form: assess the maturity of a new tool, vendor or management method before it carries a critical process
     example: a start-up vendor is not chosen for the payroll process without an exit plan
-    sources_text: '[ISO 56001:2024 Innovation management system (catalogue page)](https://www.iso.org/standard/79278.html) (supports)'
+    sources_text: '[ISO 56001:2024](https://www.iso.org/standard/79278.html) (supports)'
     evidence: moderate
     evidence_note:
     sources:
@@ -4425,7 +4425,7 @@ rules:
     form_name: Explicit agreements between units
     form: state what each unit delivers to the next (contract, service level, definition of ready) and return incomplete handovers instead of silently fixing them
     example: a request without a cost centre is returned, not guessed
-    sources_text: '[ISO/IEC 20000-1:2018 Service management (catalogue page)](https://www.iso.org/standard/70636.html) (supports)'
+    sources_text: '[ISO/IEC 20000-1:2018](https://www.iso.org/standard/70636.html) (supports)'
     evidence: moderate
     evidence_note:
     sources:
@@ -4623,7 +4623,7 @@ rules:
     form_name: Qualified roles
     form: where a result cannot be fully checked afterwards (hiring, audit, investigation, negotiation), use a proven procedure and trained people
     example: only trained interviewers run structured interviews (U56)
-    sources_text: '[Regulation (EU) No 537/2014, Article 17 (text copy)](https://www.charteredaccountants.ie/chariotindex/text/ec_2014_537/17.html) (supports)'
+    sources_text: '[EU 537/2014 (approved statutory auditors)](https://www.charteredaccountants.ie/chariotindex/text/ec_2014_537/17.html) (supports)'
     evidence: strong
     evidence_note: statutory audit
     sources:
@@ -5008,7 +5008,7 @@ quotes:
   text: '"We found that specific, difficult goals consistently led to higher performance than urging people to do their best." "the combination of goals plus feedback is more effective than goals alone" "on tasks that are complex for people, learning goals can be superior to performance goals". Deming 11(b): "Eliminate management by objective. Eliminate management by numbers, numerical goals. Substitute leadership."'
   locator:
   group: management_rules
-  sources_text: '[Locke & Latham: Building a practically useful theory of goal setting (Am. Psychol. 2002, copy)](https://goal-lab.psych.umn.edu/orgpsych/2020/readings/5.%20Motivation/Locke%20&%20Latham%20(2002).pdf); dissent: [The W. Edwards Deming Institute: 14 Points](https://deming.org/explore/fourteen-points/)'
+  sources_text: '[Locke & Latham 2002, American Psychologist (copy)](https://goal-lab.psych.umn.edu/orgpsych/2020/readings/5.%20Motivation/Locke%20&%20Latham%20(2002).pdf); dissent: [Deming 14 Points](https://deming.org/explore/fourteen-points/)'
   sources:
   - title: Locke & Latham 2002, American Psychologist (copy)
     url: https://goal-lab.psych.umn.edu/orgpsych/2020/readings/5.%20Motivation/Locke%20&%20Latham%20(2002).pdf
@@ -5328,7 +5328,7 @@ quotes:
   text: "\"Eliminate the hazard — remove the hazard entirely so that it no longer exists\" (first of five levels, in the article's wording)"
   locator:
   group: management_other
-  sources_text: '[Presencis: ISO 45001 clause 8.1.2](https://cdn.presencis.com/regulations/iso-45001/article-8.1.2/) (secondary; ISO text is paid)'
+  sources_text: '[Presencis: ISO 45001 8.1.2](https://cdn.presencis.com/regulations/iso-45001/article-8.1.2/) (secondary; ISO text is paid)'
   sources:
   - title: 'Presencis: ISO 45001 8.1.2'
     url: https://cdn.presencis.com/regulations/iso-45001/article-8.1.2/
@@ -5489,7 +5489,7 @@ quotes:
   text: 'Guideline 1 trigger: "notice of a credible probability that [an organization]" "will become involved in litigation," "seriously contemplates initiating litigation, or when it takes specific actions to commence litigation."'
   locator:
   group: management_other
-  sources_text: '[Troutman Pepper: Sedona Commentary on Legal Holds, 2nd ed.](https://www.troutman.com/insights/sedona-provides-updated-practical-guidance-for-legal-holds.html) (secondary; describes the primary commentary)'
+  sources_text: '[Troutman Pepper on the Sedona Commentary on Legal Holds](https://www.troutman.com/insights/sedona-provides-updated-practical-guidance-for-legal-holds.html) (secondary; describes the primary commentary)'
   sources:
   - title: Troutman Pepper on the Sedona Commentary on Legal Holds
     url: https://www.troutman.com/insights/sedona-provides-updated-practical-guidance-for-legal-holds.html
