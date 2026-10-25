@@ -875,16 +875,73 @@ def test_challenge_origin_with_full_alternative_is_matched(repo: Path) -> None:
 
 def test_unreadable_primary_is_not_rescued_by_extra_sources(repo: Path) -> None:
     repo_with(repo, EXTRA_QUOTE)
+    garbage = b"%PDF-1.4 garbage"
     t = FakeTransport(
         {
-            "https://a.example/": [ok(b"%PDF-1.4 garbage", "application/pdf")],
+            "https://a.example/": [ok(garbage, "application/pdf")],
             "https://g.example/": [ok(PAGE)],
         }
     )
     run_cli(repo, t, "--update-manifest", "Q1")
     entry = manifest_of(repo)["Q1"]
     assert entry["result"] == "unreadable"
-    assert all(entry[k] is None for k in EVIDENCE)
+    # The verdict came from the primary fetch, so its evidence is kept.
+    assert entry["method"] == "origin"
+    assert entry["final_url"] == "https://a.example/"
+    assert entry["sha256"] == hashlib.sha256(garbage).hexdigest()
+    assert not any(u.startswith("https://g.example") for u, _ in t.calls)
+
+
+def test_unreadable_primary_matched_in_full_by_archive(repo: Path) -> None:
+    repo_with(repo)
+    t = FakeTransport(
+        {
+            "https://a.example/": [ok(b"%PDF-1.4 garbage", "application/pdf")],
+            WB_A: [ok(AVAIL_A, "application/json")],
+            RAW_A: [ok(PAGE)],
+        }
+    )
+    assert run_cli(repo, t, "--update-manifest", "Q1") == 0
+    entry = manifest_of(repo)["Q1"]
+    assert (entry["result"], entry["method"]) == ("matched", "archive")
+    assert "web.archive.org" in str(entry["final_url"])
+    assert entry["sha256"] == hashlib.sha256(PAGE.encode()).hexdigest()
+
+
+def test_unreadable_primary_with_partial_alternative_stays_unreadable(
+    repo: Path,
+) -> None:
+    repo_with(repo)
+    (repo / "data" / "sources.yaml").write_text(VIA_REGISTRY, encoding="utf-8")
+    garbage = b"%PDF-1.4 garbage"
+    partial = "<p>the context of creating, preserving and realising values</p>"
+    t = FakeTransport(
+        {
+            "https://a.example/": [ok(garbage, "application/pdf")],
+            "https://v.example/": [ok(partial)],
+        }
+    )
+    assert run_cli(repo, t, "--update-manifest", "Q1") == 0
+    entry = manifest_of(repo)["Q1"]
+    assert entry["result"] == "unreadable"
+    assert entry["method"] == "origin"
+    assert entry["sha256"] == hashlib.sha256(garbage).hexdigest()
+
+
+def test_extra_sources_do_not_help_an_alternative_of_an_unreadable_primary(
+    repo: Path,
+) -> None:
+    repo_with(repo, EXTRA_QUOTE)
+    (repo / "data" / "sources.yaml").write_text(VIA_REGISTRY, encoding="utf-8")
+    t = FakeTransport(
+        {
+            "https://a.example/": [ok(b"%PDF-1.4 garbage", "application/pdf")],
+            "https://v.example/": [ok("<p>teaser only</p>")],
+            "https://g.example/": [ok(PAGE)],
+        }
+    )
+    run_cli(repo, t, "--update-manifest", "Q1")
+    assert manifest_of(repo)["Q1"]["result"] == "unreadable"
     assert not any(u.startswith("https://g.example") for u, _ in t.calls)
 
 

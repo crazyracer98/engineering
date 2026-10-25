@@ -796,10 +796,21 @@ class Verifier:
         if text is None:
             if challenge:
                 res.result, res.detail = "blocked", "challenge page"
-            else:
-                res.result = "unreadable"
-                res.detail = "source text could not be extracted"
-            _forget_fetch(res)
+                _forget_fetch(res)
+                return self._paid(res, src)
+            # Unreadable: another copy may still match in full (extra sources
+            # never rescue it). Otherwise the verdict, and its evidence, stay
+            # the primary's.
+            for alt in self._alternatives(src, primary):
+                alt_text = self._normalized(alt)
+                if alt_text is None:
+                    continue
+                if self._judge(quote, segments, alt_text, use_extras=False)[0] >= 1.0:
+                    res.score, res.missing, res.result = 1.0, [], "matched"
+                    self._adopt(res, alt)
+                    return self._paid(res, src)
+            res.result = "unreadable"
+            res.detail = "source text could not be extracted"
             return self._paid(res, src)
 
         score, missing, pending = self._judge(quote, segments, text)
@@ -821,10 +832,7 @@ class Verifier:
                 if a_score >= 1.0:
                     score, missing, pending = a_score, [], []
                     res.score, res.missing = score, missing
-                    res.method, res.final_url = alt.method, alt.final_url or None
-                    res.fetched_at = alt.fetched_at[:10] or None
-                    res.sha256 = alt.sha256 or None
-                    res.from_cache = alt.from_cache
+                    self._adopt(res, alt)
                     break
         if score >= 1.0:
             res.result = "matched"
@@ -840,6 +848,14 @@ class Verifier:
         else:
             res.result = "not-found"
         return self._paid(res, src)
+
+    @staticmethod
+    def _adopt(res: QuoteResult, alt: Fetched) -> None:
+        """Record ``alt`` as the fetch that produced the verdict."""
+        res.method, res.final_url = alt.method, alt.final_url or None
+        res.fetched_at = alt.fetched_at[:10] or None
+        res.sha256 = alt.sha256 or None
+        res.from_cache = alt.from_cache
 
     def _alternatives(self, src: Source, primary: Fetched) -> Iterator[Fetched]:
         """Other fetched copies of a source, tried lazily after a content miss.
@@ -859,12 +875,17 @@ class Verifier:
                 yield alt
 
     def _judge(
-        self, quote: Mapping[str, Any], segments: Sequence[str], text: str
+        self,
+        quote: Mapping[str, Any],
+        segments: Sequence[str],
+        text: str,
+        *,
+        use_extras: bool = True,
     ) -> tuple[float, list[str], list[str]]:
         """``(score, missing passages, failed extra sources)`` against ``text``.
 
         A passage missing from the main text is also looked for in the quote's
-        ``extra_sources``.
+        ``extra_sources`` (unless ``use_extras`` is false).
         """
         texts = [text]
         pending: list[str] = []
@@ -873,7 +894,7 @@ class Verifier:
         missing: list[str] = []
         for seg in segments:
             score = score_segment(seg, text)
-            if score < 1.0:
+            if score < 1.0 and use_extras:
                 if not extras_loaded:
                     extras_loaded = True
                     for extra in quote.get("extra_sources", []):
