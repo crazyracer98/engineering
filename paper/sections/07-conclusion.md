@@ -9,9 +9,9 @@ classification test built on the criteria for systems engineering
 principles [@incose-se-principles; @sebok-se-principles] sorts the rules
 into 58 universal, 9 risk-scaled and 16 conditional rules, and a single
 master rule, together with a rigor matrix, says how strictly each rule
-applies to a given system. The same rules are stated in management form,
-so that one taxonomy covers both the system and the organization that
-builds it, and the nine categories double as a nine-question checklist.
+applies to a given system. Rules from engineering sources are also stated
+in management form, and 16 rules come from management sources, so that one
+taxonomy covers both the system and the organization that builds it, and the nine categories double as a nine-question checklist.
 
 The taxonomy positions itself between principles, which deliberately avoid
 how-to statements, and process standards and handbooks, which describe
