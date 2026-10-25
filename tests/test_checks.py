@@ -34,6 +34,11 @@ def test_every_check_has_a_seeded_test() -> None:
         "source-used",
         "table-columns",
         "relation-contradictions",
+        "inverse-complete",
+        "conflicts-symmetric",
+        "related-order",
+        "override-agreement",
+        "sources-primary-first",
         "primary-source",
         "counterexamples",
         "conflict-rules",
@@ -162,13 +167,101 @@ def test_relation_self_reference(repo: Path, edit: Edit) -> None:
     )
 
 
-def test_missing_inverse_is_allowed(repo: Path, edit: Edit) -> None:
+def test_missing_inverse_is_not_a_contradiction(repo: Path, edit: Edit) -> None:
     def seed(doc: Any) -> None:
         rule(doc, "U2")["related"] = {"strengthens": ["U8"]}
         rule(doc, "U8")["related"] = {}
 
     edit("data/rules.yaml", seed)
     assert messages(repo, "relation-contradictions") == []
+
+
+def test_missing_inverse_strengthened_by(repo: Path, edit: Edit) -> None:
+    edit("data/rules.yaml", lambda d: rule(d, "U8")["related"].pop("strengthened_by"))
+    msgs = messages(repo, "inverse-complete")
+    assert "U2 strengthens U8, but U8 does not list U2 under strengthened_by" in msgs
+
+
+def test_missing_inverse_strengthens(repo: Path, edit: Edit) -> None:
+    edit("data/rules.yaml", lambda d: rule(d, "R2")["related"].pop("strengthens"))
+    msgs = messages(repo, "inverse-complete")
+    assert "R1 strengthened_by R2, but R2 does not list R1 under strengthens" in msgs
+
+
+def test_missing_inverse_checked_by(repo: Path, edit: Edit) -> None:
+    edit("data/rules.yaml", lambda d: rule(d, "U35")["related"].pop("checked_by"))
+    msgs = messages(repo, "inverse-complete")
+    assert "U13 checks U35, but U35 does not list U13 under checked_by" in msgs
+
+
+def test_conflicts_one_sided(repo: Path, edit: Edit) -> None:
+    edit("data/rules.yaml", lambda d: rule(d, "U35")["related"].pop("conflicts_with"))
+    msgs = messages(repo, "conflicts-symmetric")
+    assert msgs == [
+        "U23 conflicts_with U35, but U35 does not list U23 under conflicts_with"
+    ]
+
+
+def test_related_key_order(repo: Path, edit: Edit) -> None:
+    def seed(doc: Any) -> None:
+        r = rule(doc, "U23")
+        r["related"] = {"conflicts_with": ["U35"], "depends_on": ["U22"]}
+
+    edit("data/rules.yaml", seed)
+    assert any(
+        "U23 related keys ['conflicts_with', 'depends_on'] are not in "
+        "relation_types order" in m
+        for m in messages(repo, "related-order")
+    )
+
+
+def test_related_id_order(repo: Path, edit: Edit) -> None:
+    edit(
+        "data/rules.yaml",
+        lambda d: rule(d, "R1")["related"].update(
+            strengthened_by=["R2", "C13", "U6", "U34"]
+        ),
+    )
+    assert any(
+        "R1 strengthened_by ['R2', 'C13', 'U6', 'U34'] is not in ID order "
+        "['U6', 'U34', 'R2', 'C13']" in m
+        for m in messages(repo, "related-order")
+    )
+
+
+def test_override_disagrees_with_related(repo: Path, edit: Edit) -> None:
+    edit(
+        "data/rules.yaml",
+        lambda d: rule(d, "U47").update(
+            related_text="strengthens U10, U18, U20; conflicts with accountability"
+        ),
+    )
+    msgs = messages(repo, "override-agreement")
+    assert any("U47 related_text names" in m and "'U57'" in m for m in msgs)
+
+
+def test_override_ignores_non_rule_text(repo: Path, edit: Edit) -> None:
+    edit(
+        "data/rules.yaml",
+        lambda d: rule(d, "U49").update(
+            related_text="depends on U2; conflicts with U32, U33, C10 (see K6, K7)"
+        ),
+    )
+    assert messages(repo, "override-agreement") == []
+
+
+def test_secondary_source_before_primary(repo: Path, edit: Edit) -> None:
+    edit("data/rules.yaml", lambda d: rule(d, "U18")["sources"].reverse())
+    assert messages(repo, "sources-primary-first") == [
+        "U18 sources lists a secondary source before a primary one"
+    ]
+
+
+def test_management_secondary_source_before_primary(repo: Path, edit: Edit) -> None:
+    edit("data/rules.yaml", lambda d: rule(d, "R4")["management"]["sources"].reverse())
+    assert messages(repo, "sources-primary-first") == [
+        "R4 management.sources lists a secondary source before a primary one"
+    ]
 
 
 def test_primary_source_missing(repo: Path, edit: Edit) -> None:

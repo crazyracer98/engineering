@@ -316,7 +316,7 @@ def relation_edges(ds: Dataset) -> dict[tuple[str, str], set[str]]:
 
 
 def check_relation_contradictions(ctx: Context) -> list[str]:
-    """Missing inverses are allowed; contradictions are not.
+    """Contradictory relations (missing inverses are ``inverse-complete``'s job).
 
     - a rule relates to itself;
     - A conflicts_with B (either way) while A and B also have a supportive
@@ -341,6 +341,113 @@ def check_relation_contradictions(ctx: Context) -> list[str]:
             )
         if "depends_on" in forward and "depends_on" in backward:
             msgs.append(f"{lo} and {hi} depend on each other")
+    return msgs
+
+
+#: Relation -> its inverse; a relation listed here must be stated on both rules.
+INVERSES = {
+    "strengthens": "strengthened_by",
+    "strengthened_by": "strengthens",
+    "checks": "checked_by",
+    "checked_by": "checks",
+}
+
+_RULE_ID = re.compile(r"\b([URC])([1-9][0-9]*)\b")
+
+
+def _id_key(rule_id: str) -> tuple[int, int]:
+    """Sort key for rule IDs: U before R before C, then by number."""
+    match = _RULE_ID.fullmatch(rule_id)
+    if not match:
+        return (3, 0)
+    return ("URC".index(match.group(1)), int(match.group(2)))
+
+
+def check_inverse_complete(ctx: Context) -> list[str]:
+    """A strengthens B needs B strengthened_by A, and so on (``INVERSES``)."""
+    rules = ctx.ds.rule_by_id()
+    msgs: list[str] = []
+    for r in ctx.ds.rules:
+        for rel, targets in r["related"].items():
+            inverse = INVERSES.get(rel)
+            if inverse is None:
+                continue
+            for t in targets:
+                if t in rules and r["id"] not in rules[t]["related"].get(inverse, []):
+                    msgs.append(
+                        f"{r['id']} {rel} {t}, but {t} does not list "
+                        f"{r['id']} under {inverse}"
+                    )
+    return msgs
+
+
+def check_conflicts_symmetric(ctx: Context) -> list[str]:
+    rules = ctx.ds.rule_by_id()
+    return [
+        f"{r['id']} conflicts_with {t}, but {t} does not list {r['id']} "
+        "under conflicts_with"
+        for r in ctx.ds.rules
+        for t in r["related"].get("conflicts_with", [])
+        if t in rules and r["id"] not in rules[t]["related"].get("conflicts_with", [])
+    ]
+
+
+def check_related_order(ctx: Context) -> list[str]:
+    """Keys in ``meta.relation_types`` order; IDs U < R < C, then by number."""
+    order = list(ctx.ds.meta["relation_types"])
+    msgs: list[str] = []
+    for r in ctx.ds.rules:
+        keys = [k for k in r["related"] if k in order]
+        if keys != sorted(keys, key=order.index):
+            msgs.append(
+                f"{r['id']} related keys {keys} are not in relation_types order "
+                f"{sorted(keys, key=order.index)}"
+            )
+        for rel, targets in r["related"].items():
+            want = sorted(targets, key=_id_key)
+            if list(targets) != want:
+                msgs.append(
+                    f"{r['id']} {rel} {list(targets)} is not in ID order {want}"
+                )
+    return msgs
+
+
+def check_override_agreement(ctx: Context) -> list[str]:
+    """A ``related_text`` override names exactly the IDs of ``related``.
+
+    Non-rule text ("accountability", "(see K7)", qualifiers) is ignored; each
+    rule ID counts as often as it occurs.
+    """
+    msgs: list[str] = []
+    for r in ctx.ds.rules:
+        if "related_text" not in r:
+            continue
+        named = sorted(
+            (m.group(0) for m in _RULE_ID.finditer(r["related_text"])), key=_id_key
+        )
+        structured = sorted(
+            (t for targets in r["related"].values() for t in targets), key=_id_key
+        )
+        if named != structured:
+            msgs.append(
+                f"{r['id']} related_text names {named} but related has {structured}"
+            )
+    return msgs
+
+
+def check_sources_primary_first(ctx: Context) -> list[str]:
+    """Rule and management-form ``sources`` list primary before secondary."""
+    msgs: list[str] = []
+    for r in ctx.ds.rules:
+        lists = [("sources", r["sources"])]
+        if r["management"]:
+            lists.append(("management.sources", r["management"]["sources"]))
+        for where, slugs in lists:
+            kinds = [ctx.registry[s]["kind"] for s in slugs if s in ctx.registry]
+            if "secondary" in kinds and "primary" in kinds[kinds.index("secondary") :]:
+                msgs.append(
+                    f"{r['id']} {where} lists a secondary source before a primary one"
+                )
     return msgs
 
 
@@ -466,6 +573,11 @@ CHECKS: dict[str, Callable[[Context], list[str]]] = {
     "source-used": check_source_used,
     "table-columns": check_table_columns,
     "relation-contradictions": check_relation_contradictions,
+    "inverse-complete": check_inverse_complete,
+    "conflicts-symmetric": check_conflicts_symmetric,
+    "related-order": check_related_order,
+    "override-agreement": check_override_agreement,
+    "sources-primary-first": check_sources_primary_first,
     "primary-source": check_primary_source,
     "counterexamples": check_counterexamples,
     "conflict-rules": check_conflict_rules,
