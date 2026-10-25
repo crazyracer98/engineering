@@ -338,7 +338,7 @@ class ResponseTooLarge(Exception):
 UNREADABLE = "unreadable: "
 
 #: What a truncated, reset or stalled body read can raise.
-READ_ERRORS = (http.client.HTTPException, OSError, ValueError)
+READ_ERRORS = (http.client.HTTPException, OSError, EOFError, ValueError)
 
 
 def _read_limited(resp: Any) -> bytes:
@@ -360,7 +360,8 @@ def _inflate(body: bytes, headers: Mapping[str, str]) -> bytes:
     """Undo ``Content-Encoding: gzip | deflate``, streaming, capped at ``MAX_BYTES``.
 
     Returns the raw bytes if they do not decompress; raises ``ResponseTooLarge``
-    when the decompressed size exceeds the cap.
+    when the decompressed size exceeds the cap and ``EOFError`` when the
+    compressed stream is truncated.
     """
     encoding = headers.get("content-encoding", "").lower()
     wbits_options: tuple[int, ...]
@@ -378,6 +379,8 @@ def _inflate(body: bytes, headers: Mapping[str, str]) -> bytes:
             continue
         if len(out) > MAX_BYTES:
             raise ResponseTooLarge(f"decompressed body exceeds {MAX_BYTES} bytes")
+        if not inflater.eof:
+            raise EOFError("compressed body is truncated")
         return out
     return body
 

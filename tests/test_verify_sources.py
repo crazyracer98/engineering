@@ -708,3 +708,11 @@ def test_manifest_prunes_stale_entries(repo: Path) -> None:
     ids = [e["id"] for e in json.loads(path.read_text("utf-8"))]
     assert ids == ["Q1", "Q3"]
     assert vs.render_manifest([], stale, {"Q3"}).count('"id"') == 1
+
+
+def test_inflate_truncated_stream_raises() -> None:
+    import gzip
+
+    data = gzip.compress(b"x" * 5000)
+    with pytest.raises(EOFError):
+        vs._inflate(data[: len(data) // 2], {"content-encoding": "gzip"})
