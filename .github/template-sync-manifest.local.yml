@@ -1,0 +1,19 @@
+# Instance-owned paths this repo adds on top of template-base; read by the
+# template-sync-manifest completeness check, never by sync.
+ignore:
+  - data/
+  - schema/
+  - src/
+  - tests/
+  - publication/
+  - paper/
+  - sources/
+  - mkdocs.yml
+  - site-overrides/
+  - pyproject.toml
+  - uv.lock
+  - docs/methodology.md
+  - docs/history.md
+  - .github/workflows/pages.yml
+  - .github/workflows/links.yml
+  - LICENSE-CC-BY-SA-4.0
