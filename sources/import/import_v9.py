@@ -1333,6 +1333,7 @@ CHECKED_REASONS = {domain: reason for reason, domain in _CHECKED_REASONS}
 PLACEHOLDER_TEXTS = {
     "no management source found",
     "no new quote",
+    "no quote checked",
     "catalogue pages give titles and summaries only; no requirement text quoted",
 }
 

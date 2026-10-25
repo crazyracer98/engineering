@@ -561,6 +561,7 @@
   text: no quote checked
   locator: null
   group: management_other
+  placeholder: true
   rule_label: U13 (go and see)
   sources_text: '[@wikipedia-genchi-genbutsu] (secondary only)'
 - id: Q58
