@@ -17,4 +17,3 @@ ignore:
   - .github/workflows/pages.yml
   - .github/workflows/links.yml
   - LICENSE-CC-BY-SA-4.0
-  - .claude/skills/taxonomy-research/
