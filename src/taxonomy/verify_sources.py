@@ -740,6 +740,7 @@ class QuoteResult:
 def _forget_fetch(res: QuoteResult) -> None:
     """Drop what a blocked/challenge fetch must not leave in the manifest."""
     res.method = res.final_url = res.fetched_at = res.sha256 = None
+    res.from_cache = False
 
 
 def _id_key(qid: str) -> tuple[int, str]:
@@ -790,36 +791,46 @@ class Verifier:
             res.result, res.detail = primary.status, primary.detail
             _forget_fetch(res)
             return self._paid(res, src)
+        challenge = looks_like_challenge(primary.body, primary.content_type)
         text = self._normalized(primary)
-        unreadable = text is None
-        score, missing, pending = self._judge(quote, segments, text or "")
-        if score < 1.0:
+        if text is None:
+            if challenge:
+                res.result, res.detail = "blocked", "challenge page"
+            else:
+                res.result = "unreadable"
+                res.detail = "source text could not be extracted"
+            _forget_fetch(res)
+            return self._paid(res, src)
+
+        score, missing, pending = self._judge(quote, segments, text)
+        res.score, res.missing = score, missing
+        # Unresolved extra sources are not fixed by another copy of this source,
+        # unless the page itself is a challenge page.
+        if score < 1.0 and (challenge or not pending):
             # The page was fetched but lacks the passage (truncated, paywalled,
-            # changed since, or a challenge page): try the other copies of the
-            # source -- `via.url` if it differs, then the archive snapshot
-            # closest to the checked date -- before giving up.
+            # changed since, or a challenge page): try the other copies --
+            # `via.url` if it differs, then the archive snapshot closest to the
+            # checked date. Only a copy that fully matches wins and replaces
+            # the recorded evidence; the verdict otherwise stays the original
+            # fetch's (including its challenge status).
             for alt in self._alternatives(src, primary):
                 alt_text = self._normalized(alt)
                 if alt_text is None:
                     continue
-                a_score, a_missing, a_pending = self._judge(quote, segments, alt_text)
-                if a_score >= 1.0 or a_score > score:
-                    primary, unreadable = alt, False
-                    score, missing, pending = a_score, a_missing, a_pending
+                a_score, _, _ = self._judge(quote, segments, alt_text)
+                if a_score >= 1.0:
+                    score, missing, pending = a_score, [], []
+                    res.score, res.missing = score, missing
                     res.method, res.final_url = alt.method, alt.final_url or None
                     res.fetched_at = alt.fetched_at[:10] or None
                     res.sha256 = alt.sha256 or None
                     res.from_cache = alt.from_cache
-                if score >= 1.0:
                     break
-        res.score, res.missing = score, missing
         if score >= 1.0:
             res.result = "matched"
-        elif looks_like_challenge(primary.body, primary.content_type):
+        elif challenge:
             res.result, res.detail = "blocked", "challenge page"
             _forget_fetch(res)
-        elif unreadable:
-            res.result, res.detail = "unreadable", "source text could not be extracted"
         elif pending:
             res.result = "blocked"
             res.detail = "extra source(s) could not be fetched: " + ", ".join(pending)
