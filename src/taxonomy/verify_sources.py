@@ -9,8 +9,8 @@ cache; the committed manifest records hashes and results, never text.
 
 from __future__ import annotations
 
-import gzip
 import hashlib
+import http.client
 import io
 import json
 import logging
@@ -22,7 +22,7 @@ import urllib.parse
 import urllib.request
 import zlib
 from collections.abc import Callable, Mapping, Sequence
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from datetime import UTC, datetime
 from difflib import SequenceMatcher
 from html.parser import HTMLParser
@@ -156,10 +156,10 @@ def split_ellipsis(segment: str) -> list[str]:
 
 def find_parts(parts: Sequence[str], haystack: str) -> bool:
     """Whether every part occurs in ``haystack`` (normalized), in order."""
-    for variant in (haystack, _relaxed(haystack)):
+    for variant, relax in ((haystack, False), (_relaxed(haystack), True)):
         pos = 0
         for part in parts:
-            needle = part if variant is haystack else _relaxed(part)
+            needle = _relaxed(part) if relax else part
             idx = variant.find(needle, pos)
             if idx < 0:
                 break
@@ -330,6 +330,17 @@ class Transport(Protocol):
     ) -> HttpResponse: ...
 
 
+class ResponseTooLarge(Exception):
+    """A (decompressed) body exceeds ``MAX_BYTES``."""
+
+
+#: Prefix of ``HttpResponse.error`` for a body that cannot be used (no retry).
+UNREADABLE = "unreadable: "
+
+#: What a truncated, reset or stalled body read can raise.
+READ_ERRORS = (http.client.HTTPException, OSError, ValueError)
+
+
 def _read_limited(resp: Any) -> bytes:
     """Read a body up to ``MAX_BYTES``; ``TimeoutError`` after ``DEADLINE`` seconds."""
     end = time.monotonic() + DEADLINE
@@ -346,15 +357,28 @@ def _read_limited(resp: Any) -> bytes:
 
 
 def _inflate(body: bytes, headers: Mapping[str, str]) -> bytes:
-    """Undo ``Content-Encoding: gzip | deflate``; the raw bytes if that fails."""
+    """Undo ``Content-Encoding: gzip | deflate``, streaming, capped at ``MAX_BYTES``.
+
+    Returns the raw bytes if they do not decompress; raises ``ResponseTooLarge``
+    when the decompressed size exceeds the cap.
+    """
     encoding = headers.get("content-encoding", "").lower()
-    try:
-        if encoding in ("gzip", "x-gzip"):
-            return gzip.decompress(body)
-        if encoding == "deflate":
-            return zlib.decompress(body)
-    except OSError, EOFError, zlib.error:
-        pass
+    wbits_options: tuple[int, ...]
+    if encoding in ("gzip", "x-gzip"):
+        wbits_options = (16 + zlib.MAX_WBITS,)
+    elif encoding == "deflate":
+        wbits_options = (zlib.MAX_WBITS, -zlib.MAX_WBITS)  # zlib-wrapped, then raw
+    else:
+        return body
+    for wbits in wbits_options:
+        inflater = zlib.decompressobj(wbits)
+        try:
+            out = inflater.decompress(body, MAX_BYTES + 1)
+        except zlib.error:
+            continue
+        if len(out) > MAX_BYTES:
+            raise ResponseTooLarge(f"decompressed body exceeds {MAX_BYTES} bytes")
+        return out
     return body
 
 
@@ -377,9 +401,14 @@ class UrllibTransport:
                 return HttpResponse(resp.status, hdrs, body, resp.geturl())
         except urllib.error.HTTPError as exc:
             hdrs = {k.lower(): v for k, v in exc.headers.items()}
-            body = _inflate(_read_limited(exc), hdrs)
+            try:
+                body = _inflate(_read_limited(exc), hdrs)
+            except (ResponseTooLarge, *READ_ERRORS):
+                body = b""  # the status code still tells what happened
             return HttpResponse(exc.code, hdrs, body, exc.geturl() or url)
-        except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
+        except ResponseTooLarge as exc:
+            return HttpResponse(0, {}, b"", url, UNREADABLE + str(exc))
+        except (urllib.error.URLError, *READ_ERRORS) as exc:
             return HttpResponse(0, {}, b"", url, f"{type(exc).__name__}: {exc}")
 
 
@@ -407,10 +436,24 @@ class Throttle:
         self._last[host] = self._clock()
 
 
+def looks_like_challenge(body: bytes, content_type: str) -> bool:
+    """A short HTML page with a captcha / "access denied" marker.
+
+    Only consulted after a passage failed to match: a real page that happens to
+    mention "captcha" and still contains the quote is fine.
+    """
+    if "html" not in content_type.lower() or len(body) >= 40_000:
+        return False
+    low = body.decode("utf-8", errors="replace").lower()
+    return any(marker in low for marker in BLOCK_MARKERS)
+
+
 def classify(resp: HttpResponse) -> tuple[str, str]:
     """``(status, detail)`` with status ok | blocked | gone | timeout."""
     code = resp.status
     if code == 0:
+        if resp.error.startswith(UNREADABLE):
+            return "unreadable", resp.error[len(UNREADABLE) :]
         return "timeout", resp.error or "request failed"
     if code in (404, 410):
         return "gone", f"HTTP {code}"
@@ -420,11 +463,6 @@ def classify(resp: HttpResponse) -> tuple[str, str]:
         return "blocked", f"HTTP {code}"
     if not 200 <= code < 300:
         return "blocked", f"HTTP {code}"
-    ctype = resp.headers.get("content-type", "").lower()
-    if "html" in ctype and len(resp.body) < 40_000:
-        low = resp.body.decode("utf-8", errors="replace").lower()
-        if any(marker in low for marker in BLOCK_MARKERS):
-            return "blocked", "challenge page"
     if not resp.body:
         return "gone", "empty body"
     return "ok", f"HTTP {code}"
@@ -528,18 +566,26 @@ class Fetcher:
         for attempt in range(MAX_RETRIES + 1):
             self.throttle.wait(url)
             resp = self.transport.request(url, hdrs, TIMEOUT)
-            retryable = resp.status == 0 or resp.status >= 500
+            retryable = (
+                resp.status == 0 and not resp.error.startswith(UNREADABLE)
+            ) or resp.status >= 500
             if not retryable or attempt == MAX_RETRIES:
                 break
             self._sleep(2.0 * (attempt + 1))
         return resp
 
     def _from_cache(
-        self, meta: dict[str, Any], body: bytes, url: str, *, from_cache: bool
+        self,
+        meta: dict[str, Any],
+        body: bytes,
+        url: str,
+        method: str,
+        *,
+        from_cache: bool,
     ) -> Fetched:
         return Fetched(
             "ok",
-            method=str(meta.get("via", "origin")),
+            method=method,
             url=url,
             final_url=str(meta.get("final_url", url)),
             fetched_at=str(meta.get("fetched_at", "")),
@@ -569,20 +615,19 @@ class Fetcher:
             "content_type": ctype,
         }
         self.cache.store(key, meta, resp.body)
-        return self._from_cache(meta, resp.body, url, from_cache=False)
+        return self._from_cache(meta, resp.body, url, method, from_cache=False)
 
     def get(self, url: str, method: str) -> Fetched:
         """Fetch ``url`` once (cached, revalidated, or from the network)."""
-        if url in self._memo:
-            return self._memo[url]
-        out = self._get(url, method)
-        self._memo[url] = out
-        return out
+        if url not in self._memo:
+            self._memo[url] = self._get(url, method)
+        # One fetch per URL, but the method is how *this* caller reached it.
+        return replace(self._memo[url], method=method)
 
     def _get(self, url: str, method: str) -> Fetched:
         cached = self.cache.load(url)
         if cached and (self.offline or self._fresh(cached[0])):
-            return self._from_cache(*cached, url, from_cache=True)
+            return self._from_cache(*cached, url, method, from_cache=True)
         if self.offline:
             return Fetched("timeout", method, url, detail="not in cache (offline)")
         headers: dict[str, str] = {}
@@ -596,7 +641,7 @@ class Fetcher:
             meta = dict(cached[0])
             meta["fetched_at"] = self._now().isoformat(timespec="seconds")
             self.cache.store(url, meta, cached[1])
-            return self._from_cache(meta, cached[1], url, from_cache=True)
+            return self._from_cache(meta, cached[1], url, method, from_cache=True)
         status, detail = classify(resp)
         if status != "ok":
             return Fetched(status, method, url, resp.final_url, detail=detail)
@@ -616,7 +661,7 @@ class Fetcher:
     def _archive(self, key: str, url: str) -> Fetched:
         cached = self.cache.load(key)
         if cached:  # snapshots are immutable
-            return self._from_cache(*cached, url, from_cache=True)
+            return self._from_cache(*cached, url, "archive", from_cache=True)
         if self.offline:
             return Fetched("timeout", "archive", url, detail="not in cache (offline)")
         query = urllib.parse.urlencode({"url": url, "timestamp": CHECKED_TIMESTAMP})
@@ -764,6 +809,9 @@ class Verifier:
         res.score, res.missing = score, missing
         if score >= 1.0:
             res.result = "matched"
+        elif looks_like_challenge(primary.body, primary.content_type):
+            res.result, res.detail = "blocked", "challenge page"
+            res.method = res.final_url = None
         elif pending:
             res.result = "blocked"
             res.detail = "extra source(s) could not be fetched: " + ", ".join(pending)
@@ -883,10 +931,20 @@ def manifest_entry(r: QuoteResult) -> dict[str, Any]:
 
 
 def render_manifest(
-    results: Sequence[QuoteResult], previous: Sequence[Mapping[str, Any]] = ()
+    results: Sequence[QuoteResult],
+    previous: Sequence[Mapping[str, Any]] = (),
+    valid_ids: set[str] | None = None,
 ) -> str:
-    """Deterministic JSON: entries by quote number, keys sorted. Merges ``previous``."""
-    entries = {str(e["id"]): dict(e) for e in previous}
+    """Deterministic JSON: entries by quote number, keys sorted. Merges ``previous``.
+
+    ``valid_ids`` (when given) prunes previous entries of quotes that no longer
+    exist or are now placeholders.
+    """
+    entries = {
+        str(e["id"]): dict(e)
+        for e in previous
+        if valid_ids is None or str(e["id"]) in valid_ids
+    }
     for r in results:
         entries[r.id] = manifest_entry(r)
     ordered = [entries[k] for k in sorted(entries, key=_id_key)]
@@ -979,7 +1037,8 @@ def run(
             for line in verifier.explain(q):
                 echo(line)
         return 0
-    quotes = verifiable_quotes(_load_quotes(root), only)
+    all_quotes = _load_quotes(root)
+    quotes = verifiable_quotes(all_quotes, only)
     results: list[QuoteResult] = []
     for q in quotes:
         results.append(verifier.verify(q))
@@ -994,7 +1053,8 @@ def run(
         if manifest.is_file():
             previous = json.loads(manifest.read_text("utf-8"))
         manifest.parent.mkdir(parents=True, exist_ok=True)
-        manifest.write_text(render_manifest(results, previous), encoding="utf-8")
+        valid = {str(q["id"]) for q in verifiable_quotes(all_quotes)}
+        manifest.write_text(render_manifest(results, previous, valid), encoding="utf-8")
     counts = {k: sum(1 for r in results if r.result == k) for k in RESULT_ORDER}
     echo(
         "taxonomy verify-sources: "
