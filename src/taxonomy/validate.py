@@ -1,0 +1,468 @@
+"""Dataset integrity checks (NFR-001).
+
+``run_checks(root)`` returns a list of ``Finding``; an empty list means the
+dataset is clean. Every check is a function ``(Context) -> list[str]`` of
+messages and is registered in ``CHECKS`` under its name.
+"""
+
+from __future__ import annotations
+
+import re
+from collections import defaultdict
+from collections.abc import Callable
+from dataclasses import dataclass, field
+from importlib import import_module
+from pathlib import Path
+from typing import Any
+
+from taxonomy.load import (
+    load_dataset,
+    load_registry_files,
+    load_schema,
+    load_yaml,
+)
+from taxonomy.model import Dataset, Source
+from taxonomy.render_markdown import (
+    build_sections,
+    citation_slugs,
+)
+
+# jsonschema ships no type information and the project may not add stubs, so it is
+# loaded dynamically and used through Any.
+_jsonschema: Any = import_module("jsonschema")
+Draft202012Validator: Any = _jsonschema.Draft202012Validator
+FormatChecker: Any = _jsonschema.FormatChecker
+
+#: Data file stem -> schema stem is the identity; these files use ``sources``.
+EXTRA_REGISTRIES = {
+    "paper/references-extra.yaml": "sources",
+    "docs/methodology-references.yaml": "sources",
+}
+
+#: Relation pairs that must not both hold between the same two rules.
+#: Supportive relations contradict ``conflicts_with`` between the same rules.
+SUPPORTIVE = (
+    "depends_on",
+    "strengthens",
+    "strengthened_by",
+    "checks",
+    "checked_by",
+    "scaled_by",
+)
+
+
+@dataclass(frozen=True)
+class Finding:
+    """One failed check."""
+
+    check: str
+    message: str
+
+    def __str__(self) -> str:
+        return f"[{self.check}] {self.message}"
+
+
+@dataclass
+class Context:
+    root: Path
+    ds: Dataset
+    #: ``(relative path, entries)`` per registry file.
+    registries: list[tuple[str, list[Source]]]
+    #: Merged slug -> Source (first wins; duplicates are reported separately).
+    registry: dict[str, Source] = field(default_factory=dict)
+
+
+# -- text sources for citations ---------------------------------------------------
+
+
+def _strings(value: Any, path: str = "") -> list[tuple[str, str]]:
+    """Every string below ``value`` with a dotted path."""
+    if isinstance(value, str):
+        return [(path, value)]
+    out: list[tuple[str, str]] = []
+    if isinstance(value, dict):
+        for k, v in value.items():
+            out.extend(_strings(v, f"{path}.{k}" if path else str(k)))
+    elif isinstance(value, list):
+        for i, v in enumerate(value):
+            out.extend(_strings(v, f"{path}[{i}]"))
+    return out
+
+
+def prose_files(root: Path) -> list[Path]:
+    """Markdown and YAML files that may cite ``[@slug]`` outside ``data/``."""
+    files: list[Path] = []
+    for sub in ("paper", "docs"):
+        base = root / sub
+        if base.is_dir():
+            files.extend(
+                p
+                for p in sorted(base.rglob("*"))
+                if p.suffix in (".md", ".yaml")
+                and "plans" not in p.relative_to(base).parts
+            )
+    return files
+
+
+def cited_texts(ctx: Context) -> list[tuple[str, str]]:
+    """``(location, text)`` for all prose that may carry citations."""
+    out = [
+        (f"data/{stem}.yaml:{p}", s)
+        for stem, v in ctx.ds.raw.items()
+        for p, s in _strings(v)
+    ]
+    for path in prose_files(ctx.root):
+        rel = str(path.relative_to(ctx.root))
+        if path.suffix == ".md":
+            out.append((rel, path.read_text(encoding="utf-8")))
+        else:
+            out.extend((f"{rel}:{p}", s) for p, s in _strings(load_yaml(path)))
+    return out
+
+
+# -- checks ----------------------------------------------------------------------------
+
+
+def check_schema(ctx: Context) -> list[str]:
+    msgs: list[str] = []
+    targets: list[tuple[str, str]] = [
+        (f"data/{stem}.yaml", stem) for stem in ctx.ds.raw
+    ]
+    targets += [
+        (rel, stem)
+        for rel, stem in EXTRA_REGISTRIES.items()
+        if (ctx.root / rel).is_file()
+    ]
+    for rel, stem in targets:
+        schema = load_schema(ctx.root, stem)
+        try:
+            Draft202012Validator.check_schema(schema)
+        except Exception as exc:  # jsonschema.SchemaError
+            msgs.append(f"schema/{stem}.schema.json is not a valid JSON Schema: {exc}")
+            continue
+        validator = Draft202012Validator(schema, format_checker=FormatChecker())
+        data = (
+            ctx.ds.raw[stem] if rel.startswith("data/") else load_yaml(ctx.root / rel)
+        )
+        for err in sorted(
+            validator.iter_errors(data), key=lambda e: list(e.absolute_path)
+        ):
+            where = "/".join(str(p) for p in err.absolute_path) or "(root)"
+            msgs.append(f"{rel} at {where}: {err.message}")
+    return msgs
+
+
+def check_unique_ids(ctx: Context) -> list[str]:
+    msgs: list[str] = []
+    groups = {
+        "rules.yaml": [r["id"] for r in ctx.ds.rules],
+        "conflicts.yaml": [k["id"] for k in ctx.ds.conflicts],
+        "quotes.yaml": [q["id"] for q in ctx.ds.quotes],
+        "categories.yaml": [c["id"] for c in ctx.ds.categories],
+    }
+    for name, ids in groups.items():
+        seen: set[str] = set()
+        for i in ids:
+            if i in seen:
+                msgs.append(f"duplicate ID {i} in {name}")
+            seen.add(i)
+    rule_ids = set(groups["rules.yaml"])
+    for k in groups["conflicts.yaml"]:
+        if k in rule_ids:
+            msgs.append(f"conflict ID {k} is also a rule ID")
+    return msgs
+
+
+def check_related_targets(ctx: Context) -> list[str]:
+    ids = ctx.ds.all_ids()
+    msgs: list[str] = []
+    for r in ctx.ds.rules:
+        for rel, targets in r["related"].items():
+            for t in targets:
+                if t not in ids:
+                    msgs.append(f"{r['id']} {rel} {t}: no such rule")
+    return msgs
+
+
+def check_id_references(ctx: Context) -> list[str]:
+    """Other places that name rules: categories, domains, quotes, exceptions."""
+    ds = ctx.ds
+    ids = ds.all_ids()
+    msgs: list[str] = []
+
+    def need(where: str, rid: str, allow_master: bool = False) -> None:
+        if rid not in ids and not (allow_master and rid == "Master"):
+            msgs.append(f"{where} names unknown rule {rid}")
+
+    for c in ds.categories:
+        for rid in c["rules"]:
+            need(f"category {c['id']}", rid)
+    for k in ds.conflicts:
+        for rid in k["rules"]:
+            need(f"conflict {k['id']}", rid)
+    for d in ds.domains["domains"]:
+        for rid in [*d["rules"], *d.get("supports", [])]:
+            need(f"domain {d['domain']!r}", rid, True)
+    for q in ds.quotes:
+        for rid in q["rules"]:
+            need(f"quote {q['id']}", rid, True)
+    for e in ds.meta["known_exceptions"]:
+        need("meta.known_exceptions", e["rule"])
+    return msgs
+
+
+def check_rule_in_domain(ctx: Context) -> list[str]:
+    covered = {rid for d in ctx.ds.domains["domains"] for rid in d["rules"]}
+    return [
+        f"{r['id']} appears in no domain (domains.yaml)"
+        for r in ctx.ds.rules
+        if r["id"] not in covered
+    ]
+
+
+def _used_slugs(ctx: Context) -> set[str]:
+    ds = ctx.ds
+    used: set[str] = set(ds.meta["master_rule"]["sources"])
+    for r in ds.rules:
+        used.update(r["sources"])
+        if r["management"]:
+            used.update(r["management"]["sources"])
+    for d in ds.domains["domains"]:
+        used.update(d["references"])
+    for q in ds.quotes:
+        if q["source"]:
+            used.add(q["source"])
+        used.update(q.get("extra_sources", []))
+    for _, text in cited_texts(ctx):
+        try:
+            used.update(citation_slugs(text))
+        except ValueError:
+            pass  # reported by the citations check
+    return used
+
+
+def check_source_used(ctx: Context) -> list[str]:
+    used = _used_slugs(ctx)
+    msgs: list[str] = []
+    for rel, entries in ctx.registries:
+        for s in entries:
+            if s["slug"] not in used:
+                msgs.append(
+                    f"source {s['slug']} ({rel}) is not used by data, paper/ or docs/"
+                )
+    return msgs
+
+
+_PIPE = re.compile(r"(?<!\\)\|")
+
+
+def check_table_columns(ctx: Context) -> list[str]:
+    """Render the single file and compare every row's column count to its header."""
+    msgs: list[str] = []
+    try:
+        for sec in build_sections(ctx.ds, ctx.registry, chapter=False):
+            for block in sec.blocks:
+                if block.kind != "table":
+                    continue
+                rows = block.text.split("\n")
+                width = len(_PIPE.findall(rows[0])) - 1
+                for row in rows[1:]:
+                    if len(_PIPE.findall(row)) - 1 != width:
+                        msgs.append(
+                            f"section {sec.number}: a table row has a different column "
+                            "count "
+                            f"than its header ({width}): {row[:60]!r}"
+                        )
+    except (ValueError, KeyError) as exc:
+        msgs.append(f"a table cannot be built: {exc!r}")
+    return msgs
+
+
+def relation_edges(ds: Dataset) -> dict[tuple[str, str], set[str]]:
+    """``(a, b) -> relation names`` stated by a about b."""
+    edges: dict[tuple[str, str], set[str]] = defaultdict(set)
+    for r in ds.rules:
+        for rel, targets in r["related"].items():
+            for t in targets:
+                edges[(r["id"], t)].add(rel)
+    return edges
+
+
+def check_relation_contradictions(ctx: Context) -> list[str]:
+    """Missing inverses are allowed; contradictions are not.
+
+    - a rule relates to itself;
+    - A conflicts_with B (either way) while A and B also have a supportive
+      relation (depends_on, strengthens, strengthened_by, checks, checked_by,
+      scaled_by) in either direction;
+    - A depends_on B while B depends_on A.
+    """
+    edges = relation_edges(ctx.ds)
+    msgs: list[str] = []
+    for (a, b), rels in sorted(edges.items()):
+        if a == b:
+            msgs.append(f"{a} lists itself in related ({', '.join(sorted(rels))})")
+            continue
+        both = rels | edges.get((b, a), set())
+        if "conflicts_with" in both and both & set(SUPPORTIVE) and a < b:
+            msgs.append(
+                f"{a} and {b} conflict and also support each other "
+                f"({a}: {sorted(rels)}, {b}: {sorted(edges.get((b, a), set()))})"
+            )
+        if "depends_on" in rels and "depends_on" in edges.get((b, a), set()) and a < b:
+            msgs.append(f"{a} and {b} depend on each other")
+    return msgs
+
+
+def check_primary_source(ctx: Context) -> list[str]:
+    exceptions = {
+        e["rule"]
+        for e in ctx.ds.meta["known_exceptions"]
+        if e["check"] == "primary-source"
+    }
+    msgs: list[str] = []
+    for r in ctx.ds.rules:
+        if r["id"] in exceptions:
+            continue
+        kinds = [ctx.registry[s]["kind"] for s in r["sources"] if s in ctx.registry]
+        if "primary" not in kinds:
+            msgs.append(
+                f"{r['id']} has no primary source and is not in meta.known_exceptions"
+            )
+    return msgs
+
+
+def check_counterexamples(ctx: Context) -> list[str]:
+    return [
+        f"{r['id']} is a C-rule without a counterexample"
+        for r in ctx.ds.rules
+        if r["id"].startswith("C") and not r.get("counterexample", "").strip()
+    ]
+
+
+def check_conflict_rules(ctx: Context) -> list[str]:
+    ids = ctx.ds.all_ids()
+    msgs: list[str] = []
+    for k in ctx.ds.conflicts:
+        named = k["rules"]
+        if len(set(named)) < 2:
+            msgs.append(f"{k['id']} names fewer than 2 rules ({named})")
+        msgs.extend(f"{k['id']} names unknown rule {t}" for t in named if t not in ids)
+    return msgs
+
+
+def check_category_membership(ctx: Context) -> list[str]:
+    msgs: list[str] = []
+    rules = ctx.ds.rule_by_id()
+    listed: dict[str, str] = {}
+    for c in ctx.ds.categories:
+        for rid in c["rules"]:
+            if rid in listed:
+                msgs.append(
+                    f"{rid} is listed in categories {listed[rid]} and {c['id']}"
+                )
+            listed[rid] = c["id"]
+            if rid in rules and rules[rid]["category"] != c["id"]:
+                msgs.append(
+                    f"{rid} is listed in category {c['id']} but has category "
+                    f"{rules[rid]['category']}"
+                )
+    for rid, r in rules.items():
+        if rid not in listed:
+            msgs.append(f"{rid} (category {r['category']}) is listed in no category")
+    return msgs
+
+
+def check_quick_view(ctx: Context) -> list[str]:
+    q = ctx.ds.meta["quick_view_questions"]
+    msgs: list[str] = []
+    if not 5 <= len(q) <= 9:
+        msgs.append(f"quick view has {len(q)} questions; it needs 5 to 9")
+    cats = {c["id"] for c in ctx.ds.categories}
+    msgs.extend(f"quick-view question {k} has no category" for k in q if k not in cats)
+    msgs.extend(
+        f"category {k} has no quick-view question" for k in sorted(cats - set(q))
+    )
+    return msgs
+
+
+def check_id_map(ctx: Context) -> list[str]:
+    ids = ctx.ds.all_ids()
+    return [
+        f"history.id_map: {e['old']} -> {e['new']} points at an unknown rule"
+        for e in ctx.ds.history["id_map"]
+        if e["new"] not in ids
+    ]
+
+
+def check_citations(ctx: Context) -> list[str]:
+    msgs: list[str] = []
+    for where, text in cited_texts(ctx):
+        try:
+            slugs = citation_slugs(text)
+        except ValueError as exc:
+            msgs.append(f"{where}: {exc}")
+            continue
+        msgs.extend(
+            f"{where}: [@{s}] does not resolve" for s in slugs if s not in ctx.registry
+        )
+    return msgs
+
+
+def check_registry_unique(ctx: Context) -> list[str]:
+    msgs: list[str] = []
+    slugs: dict[str, str] = {}
+    urls: dict[str, str] = {}
+    for rel, entries in ctx.registries:
+        for s in entries:
+            if s["slug"] in slugs:
+                msgs.append(f"slug {s['slug']} is in {rel} and {slugs[s['slug']]}")
+            slugs.setdefault(s["slug"], rel)
+            if s["url"] in urls:
+                msgs.append(
+                    f"URL {s['url']} ({s['slug']}) is in {rel} and {urls[s['url']]}"
+                )
+            urls.setdefault(s["url"], rel)
+    return msgs
+
+
+CHECKS: dict[str, Callable[[Context], list[str]]] = {
+    "schema": check_schema,
+    "unique-ids": check_unique_ids,
+    "related-targets": check_related_targets,
+    "id-references": check_id_references,
+    "rule-in-domain": check_rule_in_domain,
+    "source-used": check_source_used,
+    "table-columns": check_table_columns,
+    "relation-contradictions": check_relation_contradictions,
+    "primary-source": check_primary_source,
+    "counterexamples": check_counterexamples,
+    "conflict-rules": check_conflict_rules,
+    "category-membership": check_category_membership,
+    "quick-view": check_quick_view,
+    "id-map": check_id_map,
+    "citations": check_citations,
+    "registry-unique": check_registry_unique,
+}
+
+
+def make_context(root: Path) -> Context:
+    ds = load_dataset(root)
+    registries = load_registry_files(root)
+    registry: dict[str, Source] = {}
+    for _, entries in registries:
+        for s in entries:
+            registry.setdefault(s["slug"], s)
+    return Context(root, ds, registries, registry)
+
+
+def run_checks(root: Path) -> list[Finding]:
+    """Run every check; a crashing check is reported as a finding, not raised."""
+    ctx = make_context(root)
+    findings: list[Finding] = []
+    for name, fn in CHECKS.items():
+        try:
+            findings.extend(Finding(name, m) for m in fn(ctx))
+        except (KeyError, TypeError, ValueError, AttributeError) as exc:
+            findings.append(Finding(name, f"check could not run on this data: {exc!r}"))
+    return findings
