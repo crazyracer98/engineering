@@ -716,3 +716,113 @@ def test_inflate_truncated_stream_raises() -> None:
     data = gzip.compress(b"x" * 5000)
     with pytest.raises(EOFError):
         vs._inflate(data[: len(data) // 2], {"content-encoding": "gzip"})
+
+
+# -- alternatives on a content miss ---------------------------------------
+
+VIA_REGISTRY = REGISTRY.replace(
+    "kind: primary, paid: false}\n- {slug: beta",
+    "kind: primary, paid: false, via: {title: V, url: 'https://v.example/'}}\n"
+    "- {slug: beta",
+    1,
+)
+WB_A = f"{vs.WAYBACK_API}?url=https%3A%2F%2Fa.example%2F&timestamp=20261014"
+RAW_A = "https://web.archive.org/web/20261010101010id_/https://a.example/"
+AVAIL_A = json.dumps(
+    {
+        "archived_snapshots": {
+            "closest": {
+                "available": True,
+                "url": "http://web.archive.org/web/20261010101010/https://a.example/",
+            }
+        }
+    }
+)
+
+
+def manifest_of(repo: Path) -> dict[str, dict[str, object]]:
+    data = json.loads((repo / "sources" / "verification.json").read_text("utf-8"))
+    return {e["id"]: e for e in data}
+
+
+def test_via_tried_before_archive_on_content_miss(repo: Path) -> None:
+    repo_with(repo)
+    (repo / "data" / "sources.yaml").write_text(VIA_REGISTRY, encoding="utf-8")
+    t = FakeTransport(
+        {
+            "https://a.example/": [ok("<p>teaser only</p>")],
+            "https://v.example/": [ok(PAGE)],
+        }
+    )
+    assert run_cli(repo, t, "--update-manifest", "Q1") == 0
+    entry = manifest_of(repo)["Q1"]
+    assert (entry["result"], entry["method"]) == ("matched", "via")
+    assert not any("archive.org" in u for u, _ in t.calls)
+
+
+def test_archive_after_via_when_via_also_misses(repo: Path) -> None:
+    repo_with(repo)
+    (repo / "data" / "sources.yaml").write_text(VIA_REGISTRY, encoding="utf-8")
+    t = FakeTransport(
+        {
+            "https://a.example/": [ok("<p>teaser only</p>")],
+            "https://v.example/": [ok("<p>another teaser</p>")],
+            WB_A: [ok(AVAIL_A, "application/json")],
+            RAW_A: [ok(PAGE)],
+        }
+    )
+    assert run_cli(repo, t, "--update-manifest", "Q1") == 0
+    assert manifest_of(repo)["Q1"]["method"] == "archive"
+    urls = [u for u, _ in t.calls]
+    assert urls.index("https://v.example/") < urls.index(WB_A)
+
+
+def test_via_equal_to_fetched_url_is_not_refetched_on_miss(repo: Path) -> None:
+    repo_with(repo)
+    (repo / "data" / "sources.yaml").write_text(
+        VIA_REGISTRY.replace("https://v.example/", "https://a.example/"),
+        encoding="utf-8",
+    )
+    t = FakeTransport({"https://a.example/": [ok("<p>teaser only</p>")]})
+    assert run_cli(repo, t, "Q1") == 1
+    assert [u for u, _ in t.calls].count("https://a.example/") == 1
+
+
+# -- challenge pages --------------------------------------------------------
+
+
+def test_unextractable_challenge_page_is_blocked_not_unreadable(repo: Path) -> None:
+    repo_with(repo)
+    # Served as HTML, looks like a PDF, so no text can be extracted.
+    body = b"%PDF-1.4 <html>Please solve the CAPTCHA</html>"
+    t = FakeTransport({"https://b.example/": [ok(body, "text/html")]})
+    assert run_cli(repo, t, "--update-manifest", "Q2") == 0
+    assert manifest_of(repo)["Q2"]["result"] == "blocked"
+    report = (repo / "build" / "report.md").read_text("utf-8")
+    assert "## blocked (1)" in report and "unreadable" not in report.split("##", 2)[1]
+
+
+def test_unextractable_non_challenge_stays_unreadable(repo: Path) -> None:
+    repo_with(repo)
+    t = FakeTransport(
+        {"https://b.example/": [ok(b"%PDF-1.4 garbage", "application/pdf")]}
+    )
+    assert run_cli(repo, t, "--update-manifest", "Q2") == 0
+    assert manifest_of(repo)["Q2"]["result"] == "unreadable"
+
+
+def test_blocked_result_records_no_fetch_data(repo: Path) -> None:
+    repo_with(repo)
+    t = FakeTransport(
+        {
+            "https://b.example/": [ok("<html>Please solve the CAPTCHA</html>")],
+            "https://a.example/": [ok(PAGE)],
+        }
+    )
+    run_cli(repo, t, "--update-manifest", "Q1", "Q2")
+    entries = manifest_of(repo)
+    challenge = entries["Q2"]
+    assert challenge["result"] == "blocked"
+    for key in ("method", "final_url", "fetched_at", "sha256"):
+        assert challenge[key] is None, key
+    assert entries["Q1"]["sha256"] is not None  # a real match keeps its hash
