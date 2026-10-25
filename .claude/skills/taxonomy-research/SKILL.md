@@ -15,6 +15,7 @@ Ground rules, from the methodology's cross-cutting principles:
 
 - Edit `data/` directly. Never re-run `sources/import/import_v9.py --write`:
   it is a frozen provenance record and discards every edit made since.
+  Its `--check` diverges from `data/` by design since gate G1.
 - Never edit `publication/` by hand; `taxonomy build` regenerates it.
 - Rule IDs and source slugs are frozen once published.
 - Cite sources in prose only as Pandoc citations, `[@slug]`.
