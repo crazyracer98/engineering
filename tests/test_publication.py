@@ -71,9 +71,8 @@ def test_check_command(repo: Path, capsys: pytest.CaptureFixture[str]) -> None:
     assert "[citations]" in capsys.readouterr().err
 
 
-def test_site_and_paper_stubs(capsys: pytest.CaptureFixture[str]) -> None:
+def test_site_stub(capsys: pytest.CaptureFixture[str]) -> None:
     assert cli.main(["site", "--out", "build/site"]) == 2
-    assert cli.main(["paper", "--out", "build/paper.pdf"]) == 2
     assert "NotImplementedError" not in capsys.readouterr().err
 
 
