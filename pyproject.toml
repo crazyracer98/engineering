@@ -1,0 +1,38 @@
+[project]
+name = "taxonomy"
+version = "0.0.0"
+description = "Cross-domain engineering best-practices taxonomy: data, checks and generators."
+readme = "README.md"
+requires-python = ">=3.14"
+license = "GPL-3.0-only"
+dependencies = [
+    "ruamel.yaml>=0.19.1,<0.20",
+    "jsonschema>=4.26,<5",
+    "mkdocs>=1.6,<2",
+    "mkdocs-material>=9.8,<10",
+    "pypandoc-binary>=1.17,<2",
+    "typst>=0.15,<0.16",
+]
+
+[project.urls]
+Repository = "https://github.com/crazyracer98/engineering"
+
+[dependency-groups]
+dev = ["ruff>=0.17,<0.18", "mypy>=2.4,<3", "pytest>=9.1,<10"]
+
+[build-system]
+requires = ["uv_build>=0.13.5,<0.14"]
+build-backend = "uv_build"
+
+[tool.ruff]
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.mypy]
+strict = true
+files = ["src", "tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
