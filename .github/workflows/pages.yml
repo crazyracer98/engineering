@@ -1,0 +1,96 @@
+# Deploys the site to GitHub Pages on each published release. Pull requests
+# (and manual runs) only build the site and the PDF and upload them as
+# workflow artifacts for review; they never deploy.
+name: Pages
+
+on:
+  release:
+    types: [published]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  NO_MKDOCS_2_WARNING: "1"
+
+jobs:
+  preview:
+    if: github.event_name != 'release'
+    runs-on: ${{ vars.CI_RUNNER || 'ubuntu-24.04' }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      # setup-uv instead of the devcontainer (checks.yml): the site and PDF
+      # need only Python wheels (Pandoc and Typst come from PyPI), so the
+      # devcontainer's compose stack would just add minutes.
+      - name: Set up uv
+        uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+
+      - name: Install dependencies
+        run: uv sync --locked
+
+      - name: Build the site
+        run: uv run --locked taxonomy site --out build/site
+
+      - name: Build the PDF
+        run: uv run --locked taxonomy paper --out build/paper.pdf
+
+      - name: Upload the site preview
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: site-preview
+          path: build/site
+          if-no-files-found: error
+
+      - name: Upload the PDF preview
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: paper-preview
+          path: |
+            build/paper.pdf
+            build/references.json
+          if-no-files-found: error
+
+  build:
+    if: github.event_name == 'release'
+    runs-on: ${{ vars.CI_RUNNER || 'ubuntu-24.04' }}
+    steps:
+      - name: Check out the release tag
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+
+      - name: Install dependencies
+        run: uv sync --locked
+
+      - name: Build the site
+        run: uv run --locked taxonomy site --out build/site
+
+      - name: Upload the Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: build/site
+
+  deploy:
+    needs: build
+    runs-on: ${{ vars.CI_RUNNER || 'ubuntu-24.04' }}
+    permissions:
+      pages: write
+      id-token: write
+      contents: read
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

@@ -11,14 +11,24 @@
 release-arches:
 	@echo '["amd64"]'
 
+# publication/ (Markdown + YAML), the site (build/site) and the PDF paper
+# (build/paper.pdf, build/references.json). Pandoc and Typst come from PyPI,
+# so only `uv` is needed.
 build:
-	@echo "template-base ships no artifact -- nothing to build."
+	uv run --locked taxonomy build
+	NO_MKDOCS_2_WARNING=1 uv run --locked taxonomy site --out build/site
+	uv run --locked taxonomy paper --out build/paper.pdf
 
 sbom:
 	@echo "template-base ships no artifact -- nothing to scan."
 
+# Run after `build` (release.yml does); the names are linked from the site and README: keep them.
 release-assets:
 	@mkdir -p dist
+	cp build/paper.pdf dist/engineering-best-practices.pdf
+	cp publication/engineering-best-practices.md dist/engineering-best-practices.md
+	cp publication/engineering-best-practices.yaml dist/engineering-best-practices.yaml
+	cp build/references.json dist/references.json
 
 # Per arch: image registries only (a package must not be published here --
 # it would run once per arch; use publish-packages).
