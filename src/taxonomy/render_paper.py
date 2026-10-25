@@ -52,7 +52,11 @@ _SECTION_REF = re.compile(
     r"\b([Ss])ections?\s+(\d{1,2})((?:\s*(?:,|and)\s*\d{1,2})*)(?!\d|\.\d)"
 )
 _ID_REF = re.compile(r"(?<![\w/#-])([URCK][1-9][0-9]*)\b")
-_REL_LINK = re.compile(r"\[([^\]]+)\]\((?!https?://|#)[^)]*\)")
+#: A relative link or image (any target without a URL scheme such as ``https:``
+#: or ``mailto:``, and not an in-page ``#anchor``). ``method_markdown`` reduces
+#: it to its text; an image, which cannot be fetched from the repository, to
+#: its alt text.
+_REL_LINK = re.compile(r"!?\[([^\]]*)\]\((?![a-zA-Z][a-zA-Z0-9+.-]*:|#)[^)]*\)")
 _APPLIED = "> **Applied in this taxonomy:**"
 
 #: Hosts whose pages are journal articles, for the CSL ``type`` mapping.
@@ -538,7 +542,8 @@ class _Paper:
                 parts.append(
                     f"**{q['id']}: {self.link_ids(label)}** {_cite(slugs)}{locator}"
                 )
-                parts.append("> " + self.c(q["text"]).replace("\n", "\n> "))
+                # verbatim quote: never rewritten (no section-reference mapping)
+                parts.append("> " + q["text"].strip().replace("\n", "\n> "))
         return "\n\n".join(parts)
 
     def limits(self) -> str:

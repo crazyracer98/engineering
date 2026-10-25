@@ -205,3 +205,29 @@ def test_build_real_pdf(tmp_path: Path) -> None:
     assert out.with_name("paper.md").is_file() and out.with_name("paper.typ").is_file()
     typ = out.with_name("paper.typ").read_text(encoding="utf-8")
     assert "not found" not in typ
+
+
+def test_verbatim_quote_is_not_rewritten(repo: Path, edit: Edit) -> None:
+    def seed(doc: Any) -> None:
+        quote = next(q for q in doc if not q.get("placeholder"))
+        quote["text"] = '"see section 6 and sections 1 and 12" verbatim'
+
+    edit("data/quotes.yaml", seed)
+    md = assemble(repo)
+    quotes = md.split("# Direct quotes", 1)[1].split("# Limits", 1)[0]
+    assert '> "see section 6 and sections 1 and 12" verbatim' in quotes
+    assert "Section 4.4" not in quotes.split("verbatim", 1)[0].rsplit("\n\n", 1)[-1]
+
+
+def test_relative_links_reduced_images_to_alt_text() -> None:
+    text = (
+        "[doc](history.md) [mail](mailto:a@b.org) [web](https://x.org/a) "
+        "[anchor](#sec) ![diagram](img/d.png) ![web](https://x.org/i.png)\n"
+    )
+    out = method_markdown(text)
+    assert "doc " in out and "](history.md)" not in out
+    assert "[mail](mailto:a@b.org)" in out
+    assert "[web](https://x.org/a)" in out
+    assert "[anchor](#sec)" in out
+    assert "diagram " in out and "!diagram" not in out and "img/d.png" not in out
+    assert "![web](https://x.org/i.png)" in out
