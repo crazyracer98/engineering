@@ -268,7 +268,7 @@ def extract_html(markup: str) -> str:
 
 
 #: A footnote marker glued to a word: 3+ lowercase letters, then 1-3 digits,
-#: then whitespace, punctuation or the end. "U17", "B2B", "ISO 22301" stay.
+#: then whitespace, punctuation or the end. "P17", "B2B", "ISO 22301" stay.
 _FOOTNOTE = re.compile(r"(?<=[a-z]{3})\d{1,3}(?=[\s.,;:!?)\]]|$)")
 
 

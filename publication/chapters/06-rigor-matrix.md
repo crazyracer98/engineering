@@ -4,5 +4,5 @@ Find the cell that matches your system. U-rules apply in every cell; the master 
 
 |  | **Low uncertainty** | **High uncertainty** |
 | --- | --- | --- |
-| **Low consequence** | all U-rules, C-rules whose condition is true. Checker level: peer ([U8](07-rules.md#u8)). | all U-rules, C-rules whose condition is true, [R4](07-rules.md#r4), [R7](07-rules.md#r7), [R8](07-rules.md#r8). Checker level: peer ([U8](07-rules.md#u8)). |
-| **High consequence** | all U-rules, C-rules whose condition is true, [R1](07-rules.md#r1), [R2](07-rules.md#r2), [R3](07-rules.md#r3), [R6](07-rules.md#r6), [R9](07-rules.md#r9). Checker level: external ([U8](07-rules.md#u8)). | all U-rules, C-rules whose condition is true, all R-rules. Checker level: external ([U8](07-rules.md#u8)). |
+| **Low consequence** | all U-rules, C-rules whose condition is true. Checker level: peer ([P56](07-rules.md#p56)). | all U-rules, C-rules whose condition is true, [P16](07-rules.md#p16), [P31](07-rules.md#p31), [P68](07-rules.md#p68). Checker level: peer ([P56](07-rules.md#p56)). |
+| **High consequence** | all U-rules, C-rules whose condition is true, [P42](07-rules.md#p42), [P43](07-rules.md#p43), [P45](07-rules.md#p45), [P46](07-rules.md#p46), [P59](07-rules.md#p59). Checker level: external ([P56](07-rules.md#p56)). | all U-rules, C-rules whose condition is true, all R-rules. Checker level: external ([P56](07-rules.md#p56)). |

@@ -12,20 +12,20 @@
   apply:
   - all U-rules
   - C-rules whose condition is true
-  - R4
-  - R7
-  - R8
+  - P16
+  - P31
+  - P68
   checker_level: peer
 - consequence: high
   uncertainty: low
   apply:
   - all U-rules
   - C-rules whose condition is true
-  - R1
-  - R2
-  - R3
-  - R6
-  - R9
+  - P42
+  - P43
+  - P45
+  - P46
+  - P59
   checker_level: external
 - consequence: high
   uncertainty: high

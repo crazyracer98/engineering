@@ -2,7 +2,7 @@
 
 ``render_single`` reproduces the edition-9 Markdown from ``data/``;
 ``render_chapters`` splits the same content by numbered section for GitHub
-reading, adding stable ``<a id="u1"></a>`` rule anchors and relative links
+reading, adding stable ``<a id="p1"></a>`` rule anchors and relative links
 between chapters.
 """
 
@@ -12,7 +12,16 @@ import re
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 
-from taxonomy.model import RELATION_LABELS, Dataset, Management, Quote, Rule, Source
+from taxonomy.ids import link_ids
+from taxonomy.model import (
+    CHECKER_LEVEL_RULE,
+    RELATION_LABELS,
+    Dataset,
+    Management,
+    Quote,
+    Rule,
+    Source,
+)
 
 _CITATION = re.compile(r"\[(@[^\[\]]*)\]")
 _ITEM = re.compile(r"^@([a-z0-9]+(?:-[a-z0-9]+)*)(?:,\s*(.+))?$")
@@ -339,7 +348,8 @@ class _Builder:
 
         def cell(cons: str, unc: str) -> str:
             r = cells[(cons, unc)]
-            return f"{', '.join(r['apply'])}. Checker level: {r['checker_level']} (U8)."
+            level = f"Checker level: {r['checker_level']} ({CHECKER_LEVEL_RULE})."
+            return f"{', '.join(r['apply'])}. {level}"
 
         rows = [
             [
@@ -377,7 +387,8 @@ class _Builder:
                 detail.append(
                     [
                         rid,
-                        f"{r['class']}: {r['class_note']}",
+                        f"{r['class']} ({r['class'][0].upper()}), category "
+                        f"{r['category']}: {r['class_note']}",
                         self.c(r["check"]),
                         self.c(r["violation"]),
                         self.related(r),
@@ -558,7 +569,6 @@ def chapter_filename(ds: Dataset, number: int) -> str:
 
 _SKIP = re.compile(r"`[^`\n]*`|\[[^\]]*\]\([^)]*\)|<a id=\"[^\"]*\"></a>[A-Z]\d+")
 _SECTION_REF = re.compile(r"\b([Ss]ection) (\d{1,2})\b(?![.\d]\d)")
-_ID_REF = re.compile(r"(?<![\w/#-])([URCK][1-9][0-9]*)\b")
 
 
 def _link_refs(text: str, ds: Dataset, current: int) -> str:
@@ -574,24 +584,29 @@ def _link_refs(text: str, ds: Dataset, current: int) -> str:
             return m.group(0)
         return f"[{m.group(1)} {num}]({chapter_filename(ds, num)})"
 
-    def id_sub(m: re.Match[str]) -> str:
-        rid = m.group(1)
-        if rid not in ids:
-            return m.group(0)
-        chapter = conflict_chapter if rid.startswith("K") else rule_chapter
-        here = current == (8 if rid.startswith("K") else 7)
-        target = f"#{rid.lower()}" if here else f"{chapter}#{rid.lower()}"
-        return f"[{rid}]({target})"
+    prefixes = list(ds.meta["id_prefixes"])
+    conflicts = {k["id"] for k in ds.conflicts}
+
+    def href(rid: str) -> str:
+        is_conflict = rid in conflicts
+        here = current == (8 if is_conflict else 7)
+        anchor = f"#{rid.lower()}"
+        return (
+            anchor
+            if here
+            else f"{conflict_chapter if is_conflict else rule_chapter}{anchor}"
+        )
+
+    def link(piece: str) -> str:
+        return link_ids(_SECTION_REF.sub(sec_sub, piece), ids, prefixes, href)
 
     out: list[str] = []
     last = 0
     for m in _SKIP.finditer(text):
-        out.append(
-            _ID_REF.sub(id_sub, _SECTION_REF.sub(sec_sub, text[last : m.start()]))
-        )
+        out.append(link(text[last : m.start()]))
         out.append(m.group(0))
         last = m.end()
-    out.append(_ID_REF.sub(id_sub, _SECTION_REF.sub(sec_sub, text[last:])))
+    out.append(link(text[last:]))
     return "".join(out)
 
 

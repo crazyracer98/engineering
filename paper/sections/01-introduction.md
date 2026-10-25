@@ -71,11 +71,11 @@ The taxonomy makes four contributions.
    taxonomy. The rules were collected from 130 domains in 20 branches, 12 of
    them engineering branches and 8 management branches. Of the 83 rules, 67
    are also restated in management form, for teams, projects and
-   organizations; the other 16 (U47–U58, R9 and C14–C16) come from
+   organizations; the other 16 (P5–P8, P18–P21, P35, P43, P52, P53, P62, P63, P69, P79) come from
    management sources and are already written for organizations.
 4. **Explicit evidence and source quality per rule.** Every rule lists its
    sources, primary sources first, with an evidence rating and verbatim
-   quotes where a quote decides the rating. All but one rule (C15, Brooks's
+   quotes where a quote decides the rating. All but one rule (P53, Brooks's
    law) rest on at least one primary source. The evidence ratings are the
    author's assessment, and the paper reports the limits of the source base
    openly instead of averaging them away.
@@ -84,7 +84,7 @@ The taxonomy is a synthesis of published practice. It does not test any rule
 empirically, and a rule's presence in it means that published sources
 support the practice, not that its effect has been measured across the
 domains it is said to apply to. The paper also does not replace any
-domain's codes or standards; one rule (C1) states explicitly that codes are a
+domain's codes or standards; one rule (P60) states explicitly that codes are a
 minimum to meet, not a ceiling.
 
 Beyond the content, the paper describes the method that produced the

@@ -15,14 +15,14 @@ from tests.conftest import REPO
 def test_chapter_linking_skips_inline_and_fenced_code() -> None:
     ds = load_dataset(REPO)
     text = (
-        "Use `U8` and `section 6` but U8 and section 6 link.\n"
-        "```\nU8 section 6\n```\nU8"
+        "Use `P56` and `section 6` but P56 and section 6 link.\n"
+        "```\nP56 section 6\n```\nP56"
     )
     lines = _link_block(text, ds, 5)
-    assert lines[0].startswith("Use `U8` and `section 6` but [U8](07-rules.md#u8)")
+    assert lines[0].startswith("Use `P56` and `section 6` but [P56](07-rules.md#p56)")
     assert "[section 6](06-rigor-matrix.md)" in lines[0]
-    assert lines[2] == "U8 section 6"
-    assert lines[4] == "[U8](07-rules.md#u8)"
+    assert lines[2] == "P56 section 6"
+    assert lines[4] == "[P56](07-rules.md#p56)"
 
 
 def test_inline_code_does_not_cross_a_newline() -> None:

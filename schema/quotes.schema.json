@@ -17,7 +17,7 @@
           "oneOf": [
             {
               "type": "string",
-              "pattern": "^([URC][1-9][0-9]*|Master)$",
+              "pattern": "^(P[1-9][0-9]*|Master)$",
               "description": "A rule ID, or `Master` for the master rule (meta.master_rule), as in edition 6."
             },
             {

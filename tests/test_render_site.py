@@ -54,9 +54,9 @@ def test_real_build_strict(tmp_path: Path) -> None:
     render_site.build(out, REPO)
     assert (out / "index.html").is_file()
     rules = (out / "07-rules" / "index.html").read_text(encoding="utf-8")
-    assert 'id="u1"' in rules
+    assert 'id="p1"' in rules
     assert re.search(
-        r'href="\.\./07-rules/#u8"',
+        r'href="\.\./07-rules/#p56"',
         (out / "03-overview" / "index.html").read_text("utf-8"),
     )
     assert (out / "methodology" / "index.html").is_file()

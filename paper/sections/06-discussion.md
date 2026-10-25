@@ -29,11 +29,11 @@ appendices. They are stated here because they bound what the results can
 support.
 
 **Secondary-only support.** Every rule has at least one primary source
-except C15 (late work and added people, Brooks's law). Its support is the
+except P53 (late work and added people, Brooks's law). Its support is the
 Jargon File and a trade article, because the primary source is a 1975
-book that is not online. In the management forms, three rules (C7, U13 and
-U27) rest on secondary pages for their management form only; the rules
-themselves have primary engineering sources. The integrity checks treat C15
+book that is not online. In the management forms, three rules (P49, P70 and
+P38) rest on secondary pages for their management form only; the rules
+themselves have primary engineering sources. The integrity checks treat P53
 as a declared exception, so it cannot be forgotten.
 
 **Paid standards.** The texts of the ISO standards, PRINCE2 and PMBOK are
@@ -48,25 +48,25 @@ copies that reproduce them word for word, and the sources name both the
 copy and the original. A few primary texts could not be retrieved in full,
 so a recital, an abstract or a summary is quoted instead; the appendices
 list each case. One numerical table (the resource-margin phase values cited
-for U25) comes from a garbled extraction and is marked to be checked before
+for P44) comes from a garbled extraction and is marked to be checked before
 it is quoted.
 
 **Contested evidence.** Four rules carry a stated caveat. Goal setting
-(U55) is contested by Deming's rejection of numerical goals, and conflict
-rule K8 resolves the tension rather than hiding it. Guided change (U58)
+(P21) is contested by Deming's rejection of numerical goals, and conflict
+rule K8 resolves the tension rather than hiding it. Guided change (P69)
 rests on a practitioner model with limited empirical testing. Decision
-speed by reversibility (U50) rests on a chief executive's letter, not on
-research. Part of U57 (feedback should focus on the task) is the author's
+speed by reversibility (P18) rests on a chief executive's letter, not on
+research. Part of P63 (feedback should focus on the task) is the author's
 summary of the cited authors' theory.
 
-**Cross-reference-only transfers.** Six rules (R5, U30, U44, C13, U33 and
-U37) have no management source; their management form is a transfer by
+**Cross-reference-only transfers.** Six rules (P15, P27, P29, P34, P72 and
+P74) have no management source; their management form is a transfer by
 analogy and is the author's judgment. The table of domains checked without a
 separate row likewise lists, for each such domain, the rules that apply by
 cross-reference; that column is the author's judgment, not a sourced
 finding.
 
-**Classification and conflict rules.** The class of each rule (U, R or C)
+**Classification and conflict rules.** The class of each rule (U, R or C, a field shown next to its ID)
 is the author's judgment against the test, and the counterexamples named by
 the conditional rules are reasoned, not sourced. The conflict rules K1–K8
 are the author's synthesis unless their basis names a source.
@@ -155,7 +155,7 @@ Expert review by practitioners in the domains that contributed few rules
 row each) would test the cross-reference transfers.
 
 Some limits can be closed by better sources rather than new research: a
-primary source for C15, the full texts of the paid standards for the rules
+primary source for P53, the full texts of the paid standards for the rules
 that quote only their summaries, and the documents that could not be
 retrieved in full. Finally, the method itself can be tested by applying it
 to another field where practices have to be gathered from many sources into

@@ -53,7 +53,7 @@ Give each finding exactly one decision (use the record template):
 
 | Decision | Effect on `data/` |
 |---|---|
-| **new rule** | Add to `rules.yaml` (next free ID in its prefix, sentence pattern, check, violation, evidence, sources), list it in its category in `categories.yaml`, add related/domain/conflict links as needed |
+| **new rule** | Add to `rules.yaml` (next free `P` number (IDs are opaque and stay as they are, so a new rule does not renumber the others; set its class and category as fields), sentence pattern, check, violation, evidence, sources), list it in its category in `categories.yaml`, add related/domain/conflict links as needed |
 | **change** | Edit the existing rule (IF, wording, class, strength, evidence); keep its ID |
 | **supports only** | Add the source and quote to the existing rule's `sources`/`quotes`; nothing else changes |
 | **null result** | No rule change. Record the reason: searched and nothing found (with depth), source not fetchable, or out of scope |
