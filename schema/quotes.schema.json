@@ -40,7 +40,7 @@
             "type": "null"
           }
         ],
-        "description": "First (main) source of the row; null for rows without a link."
+        "description": "First (main) source of the row. Null only on a placeholder row without a link."
       },
       "text": {
         "type": "string",
@@ -52,7 +52,11 @@
           "string",
           "null"
         ],
-        "description": "Locator for the whole row; null when the text carries its own inline locators."
+        "description": "Locator for the whole row. Edition 9 gives no row locators, so it is null throughout 1.0.0; inline locators (\"para 1-45\", \"principle 7\") stay in `text`."
+      },
+      "placeholder": {
+        "const": true,
+        "description": "Optional. Present (true) on a row whose text states that no quote exists (\"no new quote\", \"no management source found\", ...)."
       },
       "group": {
         "type": "string",
@@ -101,6 +105,26 @@
       "locator",
       "group"
     ],
-    "additionalProperties": false
+    "additionalProperties": false,
+    "allOf": [
+      {
+        "if": {
+          "not": {
+            "required": [
+              "placeholder"
+            ]
+          }
+        },
+        "then": {
+          "properties": {
+            "source": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "description": "Source slug (data/sources.yaml)."
+            }
+          }
+        }
+      }
+    ]
   }
 }

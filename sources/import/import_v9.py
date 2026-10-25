@@ -24,25 +24,43 @@ records come from the tables in this file (``HOSTS`` and ``URL_OVERRIDES``),
 which encode section 1 ("Source quality"), section 12 and the Evidence
 columns of edition 9; every judgment is labelled in the source's ``notes``.
 
-From the first import on, ``data/`` is the single source of truth (ADR 0003).
-This script is kept only for reproducibility: running it again regenerates
-exactly the same files and overwrites any later hand edits in ``data/``.
-All post-import fixes live in this script, so a rerun reproduces them.
+Status: frozen provenance record
+--------------------------------
+The import ran once, in wave 1. Since wave 1 merged, ``data/`` is the single
+source of truth (ADR 0003) and this script is only a record of how ``data/``
+was first produced. It is frozen: it is not updated when ``data/`` changes.
+All post-import fixes made before the freeze live in this script, so it
+still reproduces the original import exactly.
+
+By default the script only regenerates the import in memory and compares it
+with ``data/``; it writes nothing. Once ``data/`` is edited by hand (new
+rules, quotes, history entries), ``--check`` is *expected* to report
+differences; that is not an error in ``data/``. Overwriting ``data/`` needs
+``--write`` and would discard every edit made since the import.
+
+Before rendering, the script asserts that every source slug matches
+``^[a-z0-9]+(-[a-z0-9]+)*$`` and is unique. Slugs are frozen after import.
 
 How to run
 ----------
 From the repository root::
 
-    uv run python sources/import/import_v9.py            # write data/
+    uv run python sources/import/import_v9.py            # --check (default):
+                                                         # compare with data/,
+                                                         # exit 1 and list the
+                                                         # differing files
+    uv run python sources/import/import_v9.py --write    # overwrite data/
     uv run python sources/import/import_v9.py --report   # also print the
                                                          # edition-6 vs 9 diff
 
-The output is deterministic: rerunning it leaves ``git status`` clean.
+The output is deterministic: ``--write`` on unchanged inputs leaves
+``git status`` clean.
 """
 
 from __future__ import annotations
 
 import argparse
+import io
 import re
 import sys
 import unicodedata
@@ -65,6 +83,8 @@ DATA_DIR = ROOT / "data"
 EDITION = "1.0.0"
 
 LINK_RE = re.compile(r"\[([^\]]+)\]\((https?://[^\s()]*(?:\([^\s()]*\)[^\s()]*)*)\)")
+SLUG_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
+RULE_ID_RE = re.compile(r"\b[URC]\d+\b")
 ID_RE = re.compile(r"\b[URCK]\d+\b")
 LEVELS = ("strong", "moderate", "weak")
 RELATIONS = {
@@ -1310,6 +1330,14 @@ _CHECKED_REASONS = [
 ]
 CHECKED_REASONS = {domain: reason for reason, domain in _CHECKED_REASONS}
 
+# Section 11 rows whose "quote" says that no quote exists (placeholders).
+PLACEHOLDER_TEXTS = {
+    "no management source found",
+    "no new quote",
+    "no quote checked",
+    "catalogue pages give titles and summaries only; no requirement text quoted",
+}
+
 HOW_TO_READ_KEYS = [
     "sentence_structure",
     "rule_classes",
@@ -1495,14 +1523,31 @@ def slugify(title: str) -> str:
     return "-".join(kept[:5])
 
 
+YEAR_RE = re.compile(r"(?<![\d.\-])(19\d\d|20\d\d)(?![\d.])")
+
+
 def year_of(title: str) -> int | None:
-    parens = re.findall(r"\(([^()]*)\)", title)
-    for p in reversed(parens):
-        m = re.search(r"\b(19\d\d|20\d\d)\b", p)
-        if m:
-            return int(m.group(1))
-    m = re.search(r":(19\d\d|20\d\d)\b", title)
-    return int(m.group(1)) if m else None
+    """Year stated in a link title, or None.
+
+    Takes the first 4-digit year that is not part of a standard's or
+    regulation's designation (``ISO 22301:2019``, ``No 537/2014``,
+    ``2019/1937``); if every year is part of a designation, the first one.
+    Numbers inside dotted or hyphenated designations (``29 CFR 1910.119``,
+    ``NBSIR 80-2172``) are not years.
+    """
+    years: list[tuple[int, bool]] = []
+    for m in YEAR_RE.finditer(title):
+        before, after = title[: m.start()], title[m.end() :]
+        designation = (
+            before.endswith(":")
+            or bool(re.search(r"\d/$", before))
+            or after.startswith("/")
+        )
+        years.append((int(m.group(1)), designation))
+    for year, designation in years:
+        if not designation:
+            return year
+    return years[0][0] if years else None
 
 
 # --------------------------------------------------------------------------
@@ -1580,7 +1625,8 @@ def represent_none(rep: RoundTripRepresenter, _data: None) -> Any:
     return rep.represent_scalar("tag:yaml.org,2002:null", "null")
 
 
-def dump(name: str, obj: Any, desc: str) -> None:
+def render(name: str, obj: Any, desc: str) -> str:
+    """Render one data file as YAML text (header comment included)."""
     yaml = YAML()
     yaml.width = 4096
     yaml.indent(mapping=2, sequence=2, offset=0)
@@ -1591,9 +1637,9 @@ def dump(name: str, obj: Any, desc: str) -> None:
         f"Schema: schema/{name}.schema.json. data/ is the single source of truth"
         " (ADR 0003);\nseeded once by sources/import/import_v9.py from edition 9."
     )
-    path = DATA_DIR / f"{name}.yaml"
-    with path.open("w", encoding="utf-8", newline="\n") as fh:
-        yaml.dump(data, fh)
+    buf = io.StringIO()
+    yaml.dump(data, buf)
+    return buf.getvalue()
 
 
 # --------------------------------------------------------------------------
@@ -1605,7 +1651,8 @@ def opt(d: dict[str, Any], key: str, value: Any) -> None:
         d[key] = value
 
 
-def run(report: bool) -> None:
+def run(report: bool) -> dict[str, str]:
+    """Import edition 9; return ``{data file stem: YAML text}``."""
     md_lines = MD_PATH.read_text(encoding="utf-8").split("\n")
     if md_lines[-1] != "":
         raise ImportError_("edition 9 must end with a newline")
@@ -1948,10 +1995,12 @@ def run(report: bool) -> None:
     conflicts = []
     for r in s8[0].rows()[1:]:
         kid, cond, then, because, example, basis = r
+        # every rule the K-rule mentions, in any cell, in order of first use
         ids = []
-        for t in ID_RE.findall(cond):
-            if t not in ids:
-                ids.append(t)
+        for cell in (cond, then, because, example, basis):
+            for t in RULE_ID_RE.findall(cell):
+                if t not in ids:
+                    ids.append(t)
         conflicts.append(
             {
                 "id": kid,
@@ -2090,6 +2139,10 @@ def run(report: bool) -> None:
                 "locator": None,
                 "group": gkey,
             }
+            if qtext in PLACEHOLDER_TEXTS:
+                q["placeholder"] = True
+            elif not slugs:
+                raise ImportError_(f"quote row without a source: {label}")
             if label != ", ".join(rids):
                 q["rule_label"] = label
             opt(q, "extra_sources", slugs[1:])
@@ -2156,7 +2209,8 @@ def run(report: bool) -> None:
             "year": year_of(reg.title[url]),
         }
         if "via" in ov:
-            src["via"] = {"title": ov["via"], "url": url}
+            # edition 9 links the copy itself, so via.url would repeat url
+            src["via"] = {"title": ov["via"]}
         src["paid"] = paid
         src["accessed"] = "2026-10-14" if url in reg.quoted else None
         src["notes"] = src_note
@@ -2209,7 +2263,17 @@ def run(report: bool) -> None:
         "id_map": [],
     }
 
-    DATA_DIR.mkdir(exist_ok=True)
+    for src in source_out:
+        if not SLUG_RE.fullmatch(src["slug"]):
+            raise ImportError_(f"slug does not match {SLUG_RE.pattern}: {src['slug']}")
+    if len({src["slug"] for src in source_out}) != len(source_out):
+        raise ImportError_("source slugs are not unique")
+
+    out: dict[str, str] = {}
+
+    def dump(name: str, obj: Any, desc: str) -> None:
+        out[name] = render(name, obj, desc)
+
     dump("meta", meta, "Taxonomy metadata, section prose and layout.")
     dump("categories", categories, "Rule categories A-I in lifecycle order.")
     dump("rules", rule_out, "The 83 rules (U, R, C), in ID order.")
@@ -2238,6 +2302,7 @@ def run(report: bool) -> None:
             reg,
             rpc_issues + mf_issues,
         )
+    return out
 
 
 # --------------------------------------------------------------------------
@@ -2424,11 +2489,38 @@ def main() -> int:
         description=__doc__.split("\n\n")[0] if __doc__ else None
     )
     parser.add_argument(
+        "--check",
+        action="store_true",
+        help="compare the import with data/ and exit 1 on difference (default)",
+    )
+    parser.add_argument(
+        "--write",
+        action="store_true",
+        help="overwrite data/ (default: only compare with data/)",
+    )
+    parser.add_argument(
         "--report", action="store_true", help="print the edition-6 vs 9 report"
     )
     args = parser.parse_args()
-    run(args.report)
-    return 0
+    if args.check and args.write:
+        parser.error("--check and --write are mutually exclusive")
+    out = run(args.report)
+    if args.write:
+        DATA_DIR.mkdir(exist_ok=True)
+        for name, text in out.items():
+            path = DATA_DIR / f"{name}.yaml"
+            with path.open("w", encoding="utf-8", newline="\n") as fh:
+                fh.write(text)
+        return 0
+    differing = [
+        name
+        for name, text in out.items()
+        if not (DATA_DIR / f"{name}.yaml").is_file()
+        or (DATA_DIR / f"{name}.yaml").read_text(encoding="utf-8") != text
+    ]
+    for name in differing:
+        print(f"differs from the import: data/{name}.yaml")
+    return 1 if differing else 0
 
 
 if __name__ == "__main__":

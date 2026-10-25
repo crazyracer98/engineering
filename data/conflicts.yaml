@@ -53,6 +53,7 @@
   - U50
   - U9
   - U8
+  - R6
 - id: K6
   if: U49 (leave the method to the people doing the work) conflicts with U32 (checklists), U33 (critical control points) and C10 (qualified procedure)
   then: prescribe the method only at critical control points, in qualified or regulated procedures, and where the rigor matrix requires it; everywhere else give intent and constraints
