@@ -67,7 +67,7 @@
     read for this paper. Its rule of thumb on checklist length is quoted
     through the book notes the dataset already cites
     (mann-checklist-manifesto-notes).
-- slug: haynes-2009-surgical-safety-checklist
+- slug: haynes-2009-surgical-checklist
   title: "A Surgical Safety Checklist to Reduce Morbidity and Mortality in a Global Population"
   url: https://doi.org/10.1056/NEJMsa0810119
   kind: primary
@@ -138,7 +138,7 @@
     Schünemann HJ. BMJ 336(7650):924-926. Full text read in PMC. Quotes from
     the abstract, Box 2, "What makes a good grading system?" and "How does
     the GRADE system classify quality of evidence?".
-- slug: page-2021-prisma-2020
+- slug: page-2021-prisma
   title: "The PRISMA 2020 statement: an updated guideline for reporting systematic reviews"
   url: https://doi.org/10.1136/bmj.n71
   kind: primary

@@ -106,10 +106,10 @@ Surgical Safety Checklist study. Haynes and colleagues introduced a 19-item
 checklist in eight hospitals in eight cities and compared patients before
 and after its introduction: "The rate of death was 1.5% before the checklist
 was introduced and declined to 0.8% afterward (P=0.003)", and inpatient
-complications fell from 11.0% to 7.0% [@haynes-2009-surgical-safety-checklist].
+complications fell from 11.0% to 7.0% [@haynes-2009-surgical-checklist].
 The authors concluded that implementation "was associated with concomitant
 reductions in the rates of death and complications"
-[@haynes-2009-surgical-safety-checklist]. The design was a before-and-after
+[@haynes-2009-surgical-checklist]. The design was a before-and-after
 comparison, not a randomized trial. A later population-level study of
 mandatory adoption in Ontario, covering 101 hospitals, found that
 implementation "was not associated with significant reductions in operative
@@ -162,7 +162,7 @@ PRISMA 2020 asks reviews to report the selection process "from the number
 of records identified in the search to the number of studies included in the
 review, ideally using a flow diagram", and to cite studies that "might
 appear to meet the inclusion criteria, but which were excluded, and explain
-why they were excluded" [@page-2021-prisma-2020, items 16a--16b]. The
+why they were excluded" [@page-2021-prisma, items 16a--16b]. The
 taxonomy borrows the second idea in a lighter form: domains that were
 searched without producing a rule are listed with a reason, instead of being
 left out. It does not follow PRISMA's search protocol, and it is not a

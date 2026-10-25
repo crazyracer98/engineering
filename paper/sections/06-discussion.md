@@ -109,7 +109,7 @@ navigation aid with one question per category, and each question bundles
 several checks. Whether nine such questions work as a checklist under time
 pressure is untested. The checklist evidence itself is mixed: the WHO study
 found lower death and complication rates after introduction
-[@haynes-2009-surgical-safety-checklist], and the Ontario study of mandatory
+[@haynes-2009-surgical-checklist], and the Ontario study of mandatory
 adoption found no significant reduction [@urbach-2014-ontario-checklists].
 
 **Domain of the examples.** Every rule carries one worked example from
