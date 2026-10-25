@@ -1,0 +1,22 @@
+# lychee configuration for .github/workflows/links.yml (weekly link check).
+
+# Retry flaky hosts before reporting; 429 (rate limited) is not a broken link.
+max_retries = 3
+retry_wait_time = 5
+timeout = 30
+accept = ["100..=103", "200..=299", "429"]
+
+# lychee only supports a global accept list, not per host, so hosts that
+# answer bots with 403 are excluded instead of accepting 403 everywhere
+# (which would hide real "forbidden" errors on every other host):
+#   - DOI resolvers and NEJM redirect to publishers that block bots.
+#   - incose.org returned 403 to automated fetches (see the plan's P1 note).
+# Source quotes are checked by the separate source-verification workflow.
+exclude = [
+  '^https?://(dx\.)?doi\.org/',
+  '^https?://([a-z0-9-]+\.)?nejm\.org/',
+  '^https?://([a-z0-9-]+\.)?incose\.org/',
+]
+
+# Working plans are not published content.
+exclude_path = ["docs/plans"]

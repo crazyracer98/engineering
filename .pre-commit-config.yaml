@@ -122,3 +122,21 @@ repos:
         files: ^(data|schema|src|paper|docs|publication|sources)/|^(pyproject\.toml|uv\.lock)$
         pass_filenames: false
         stages: [pre-commit, manual]
+
+      # Manual stage only: they build the full site and PDF, which is too
+      # slow for every commit. CI runs them via `--hook-stage manual`.
+      - id: site-build
+        name: site build (taxonomy site)
+        entry: env NO_MKDOCS_2_WARNING=1 uv run --locked taxonomy site --out build/site
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [manual]
+
+      - id: paper-build
+        name: paper build (taxonomy paper)
+        entry: uv run --locked taxonomy paper --out build/paper.pdf
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [manual]
