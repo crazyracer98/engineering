@@ -18,5 +18,6 @@ ignore:
   - .claude/skills/taxonomy-research/
   - .github/workflows/pages.yml
   - .github/workflows/links.yml
+  - .github/workflows/verify-sources.yml
   - LICENSE-CC-BY-SA-4.0
   - lychee.toml

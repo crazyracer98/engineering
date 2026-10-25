@@ -25,7 +25,10 @@ Built with `uv_build` from `../pyproject.toml`; the console script
   to it; `write_csl_json(root, out)`. See [`../paper/README.md`](../paper/README.md).
 - `render_site.py`: `build(out: Path, root: Path | None = None) -> None` builds
   the Material for MkDocs site (`assemble(root)` stages the pages; `../mkdocs.yml`).
-- `cli.py`: `taxonomy check | build [--check] | site --out DIR | paper --out FILE`.
+- `verify_sources.py`: `run(...)` behind `taxonomy verify-sources`: fetches
+  each quote's source (cache, origin, `via`, Internet Archive), extracts
+  the text and checks the quote appears in it; see `../sources/README.md`.
+- `cli.py`: `taxonomy check | build [--check] | site --out DIR | paper --out FILE | verify-sources`.
 
 ## Do
 

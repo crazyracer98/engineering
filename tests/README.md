@@ -16,6 +16,8 @@
   failure on a missing citation, and one real PDF build marked `slow`
   (registered in `conftest.py`; a few seconds, so it runs in the default
   `pytest`; deselect it with `-m "not slow"`).
+- `test_verify_sources.py`: `taxonomy verify-sources` offline (fake transport and
+  clock; fixtures in `fixtures/verify/`, authored here, never third-party text).
 
 ## Do
 
