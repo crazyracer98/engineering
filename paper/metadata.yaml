@@ -1,0 +1,19 @@
+# Paper metadata, read by `taxonomy paper` (P2) and passed to Pandoc.
+title: "Engineering Best Practices"
+subtitle: "A Cross-Domain Taxonomy of Checkable Rules for Engineered Systems and the Organizations That Build Them"
+author: "crazyracer98, with Claude"
+edition: "1.0.0"
+license: "CC BY-SA 4.0"
+license-url: "https://creativecommons.org/licenses/by-sa/4.0/"
+lang: en-US
+keywords:
+  - systems engineering
+  - engineering management
+  - best practices
+  - taxonomy
+  - design rules
+  - checklists
+  - risk-based tailoring
+  - ALARP
+  - evidence grading
+  - source quality
