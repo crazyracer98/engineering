@@ -1,0 +1,170 @@
+# Paper-only sources (related work and discussion). Same shape as
+# data/sources.yaml. Sources the dataset already holds are cited by their
+# data/sources.yaml slug and are not repeated here.
+- slug: iso-iec-ieee-15288-2023
+  title: "ISO/IEC/IEEE 15288:2023 Systems and software engineering — System life cycle processes"
+  url: https://www.iso.org/standard/81702.html
+  kind: primary
+  publisher: ISO
+  year: 2023
+  via:
+    title: "ISO committee site: same catalogue entry"
+    url: https://committee.iso.org/standard/81702.html
+  paid: true
+  accessed: '2026-10-25'
+  notes: >-
+    Edition 2, published 2023-05. Standard text is paid; only the official
+    abstract was read and quoted, through the committee.iso.org copy of the
+    catalogue entry (www.iso.org refused the fetch). Status on 2026-10-25:
+    published, not marked "to be revised".
+- slug: incose-se-handbook-5
+  title: "INCOSE Systems Engineering Handbook, 5th Edition"
+  url: https://www.wiley.com/en-us/INCOSE+Systems+Engineering+Handbook%2C+5th+Edition-p-9781119814290
+  kind: primary
+  publisher: Wiley
+  year: 2023
+  paid: true
+  accessed: '2026-10-25'
+  notes: >-
+    ISBN 9781119814290. Handbook text is paid and was not read; the paper
+    quotes only the publisher's description ("state-of-the-good-practice";
+    elaboration of the ISO/IEC/IEEE 15288:2023 processes).
+- slug: nasa-se-handbook-rev2
+  title: "NASA Systems Engineering Handbook (NASA/SP-2016-6105 Rev2)"
+  url: https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf
+  kind: primary
+  publisher: NASA
+  year: 2016
+  paid: false
+  accessed: '2026-10-25'
+  notes: >-
+    Full PDF read. Supersedes SP-2007-6105 Rev 1. Quotes from the Preface
+    (p. viii), section 1.2 (p. 1) and section 3.11.1 (p. 34); page numbers
+    are the printed ones. Linked from
+    https://www.nasa.gov/reference/systems-engineering-handbook/.
+- slug: swebok-v4
+  title: "Guide to the Software Engineering Body of Knowledge (SWEBOK Guide), Version 4.0"
+  url: https://www.computer.org/education/bodies-of-knowledge/software-engineering
+  kind: primary
+  publisher: IEEE Computer Society
+  year: 2024
+  paid: false
+  accessed: '2026-10-25'
+  notes: >-
+    Editor H. Washizaki. The IEEE CS page describing the guide was read;
+    the guide itself was not. Quote and the count of 18 knowledge areas are
+    from that page.
+- slug: gawande-2009-checklist-manifesto
+  title: "The Checklist Manifesto: How to Get Things Right"
+  url: https://us.macmillan.com/books/9780805091748/thechecklistmanifesto/
+  kind: primary
+  publisher: Metropolitan Books
+  year: 2009
+  paid: true
+  accessed: '2026-10-25'
+  notes: >-
+    Atul Gawande. ISBN 9780805091748. Publisher page only; the book was not
+    read for this paper. Its rule of thumb on checklist length is quoted
+    through the book notes the dataset already cites
+    (mann-checklist-manifesto-notes).
+- slug: haynes-2009-surgical-safety-checklist
+  title: "A Surgical Safety Checklist to Reduce Morbidity and Mortality in a Global Population"
+  url: https://doi.org/10.1056/NEJMsa0810119
+  kind: primary
+  publisher: New England Journal of Medicine
+  year: 2009
+  via:
+    title: "PubMed abstract record (PMID 19144931)"
+    url: https://pubmed.ncbi.nlm.nih.gov/19144931/
+  paid: true
+  accessed: '2026-10-25'
+  notes: >-
+    Haynes AB, Weiser TG, Berry WR, et al. N Engl J Med 360(5):491-499.
+    Only the abstract was read (Europe PMC API, same record as PubMed); the publisher page refused
+    the fetch, so free access to the full text is unconfirmed. Quotes are
+    from the abstract's Results and Conclusions.
+- slug: urbach-2014-ontario-checklists
+  title: "Introduction of Surgical Safety Checklists in Ontario, Canada"
+  url: https://doi.org/10.1056/NEJMsa1308261
+  kind: primary
+  publisher: New England Journal of Medicine
+  year: 2014
+  via:
+    title: "PubMed abstract record (PMID 24620866)"
+    url: https://pubmed.ncbi.nlm.nih.gov/24620866/
+  paid: true
+  accessed: '2026-10-25'
+  notes: >-
+    Urbach DR, Govindarajan A, Saskin R, Wilton AS, Baxter NN. N Engl J Med
+    370(11):1029-1038. Only the abstract was read (Europe PMC API, same record as PubMed); free
+    access to the full text is unconfirmed. Quote is from the abstract's
+    Conclusions.
+- slug: miller-1956-magical-number-seven
+  title: "The magical number seven, plus or minus two: Some limits on our capacity for processing information"
+  url: https://doi.org/10.1037/h0043158
+  kind: primary
+  publisher: Psychological Review
+  year: 1956
+  paid: true
+  accessed: '2026-10-25'
+  notes: >-
+    George A. Miller. Psychological Review 63(2):81-97. Metadata checked
+    through Crossref; the paper was not read. Cited only for its title
+    phrase; its content is characterized through Cowan (2001).
+- slug: cowan-2001-magical-number-four
+  title: "The magical number 4 in short-term memory: A reconsideration of mental storage capacity"
+  url: https://doi.org/10.1017/S0140525X01003922
+  kind: primary
+  publisher: Behavioral and Brain Sciences
+  year: 2001
+  paid: true
+  accessed: '2026-10-25'
+  notes: >-
+    Nelson Cowan. Behavioral and Brain Sciences 24(1):87-114. Only the
+    abstract was read (via Europe PMC); quotes are from the abstract.
+- slug: guyatt-2008-grade
+  title: "GRADE: an emerging consensus on rating quality of evidence and strength of recommendations"
+  url: https://doi.org/10.1136/bmj.39489.470347.AD
+  kind: primary
+  publisher: BMJ
+  year: 2008
+  via:
+    title: "PubMed Central full text (PMC2335261)"
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC2335261/
+  paid: false
+  accessed: '2026-10-25'
+  notes: >-
+    Guyatt GH, Oxman AD, Vist GE, Kunz R, Falck-Ytter Y, Alonso-Coello P,
+    Schünemann HJ. BMJ 336(7650):924-926. Full text read in PMC. Quotes from
+    the abstract, Box 2, "What makes a good grading system?" and "How does
+    the GRADE system classify quality of evidence?".
+- slug: page-2021-prisma-2020
+  title: "The PRISMA 2020 statement: an updated guideline for reporting systematic reviews"
+  url: https://doi.org/10.1136/bmj.n71
+  kind: primary
+  publisher: BMJ
+  year: 2021
+  via:
+    title: "PubMed Central full text (PMC8005924)"
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC8005924/
+  paid: false
+  accessed: '2026-10-25'
+  notes: >-
+    Page MJ, McKenzie JE, Bossuyt PM, et al. BMJ 372:n71. Open access; full
+    text read through Europe PMC. Quotes are checklist items 16a and 16b
+    (Table 1).
+- slug: saunders-2018-saturation
+  title: "Saturation in qualitative research: exploring its conceptualization and operationalization"
+  url: https://doi.org/10.1007/s11135-017-0574-8
+  kind: primary
+  publisher: Quality & Quantity
+  year: 2018
+  via:
+    title: "PubMed Central full text (PMC5993836)"
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC5993836/
+  paid: false
+  accessed: '2026-10-25'
+  notes: >-
+    Saunders B, Sim J, Kingstone T, et al. Quality & Quantity 52(4):1893-1907
+    (online 2017-09-14). Open access. Quotes are from the abstract (read via
+    Europe PMC).
