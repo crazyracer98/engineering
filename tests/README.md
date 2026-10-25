@@ -8,9 +8,9 @@
 - `test_checks.py`: one seeded violation per integrity check
   ([NFR-0001](../docs/nfrs/NFR-0001-dataset-integrity.md)), each asserting the
   check fails with a clear message, plus the clean-dataset test.
-- `test_publication.py`: the round trip against the edition-9 Markdown (only
-  the version line may differ), `publication/` freshness, chapters, the
-  flattened YAML, citation resolution and the CLI.
+- `test_publication.py`: `publication/` freshness, chapters, the flattened
+  YAML, citation resolution and the CLI. There is no round trip against the
+  edition-9 Markdown any more (ADR 0003, "G1 delta").
 
 ## Do
 

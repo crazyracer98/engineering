@@ -107,7 +107,7 @@ how_to_read:
 - key: rule_names
   text: '**Rule names** are short labels for scanning. The IF / THEN / BECAUSE text is the rule itself.'
 - key: scope
-  text: '**Scope: systems and the organizations that build them.** Every engineered system is designed, built and operated by an organization. Rules whose source domain is "management" govern that organization (decisions, delegation, people, change). Section 10 states every rule in management form, for teams, projects and organizations.'
+  text: '**Scope: systems and the organizations that build them.** Every engineered system is designed, built and operated by an organization. Rules whose source domain is "management" govern that organization (decisions, delegation, people, change). Section 10 states 67 of the 83 rules in management form, for teams, projects and organizations; the other 16 (U47–U58, R9, C14–C16) come from management sources.'
 known_exceptions:
 - rule: C15
   check: primary-source

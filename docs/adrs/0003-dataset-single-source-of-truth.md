@@ -74,3 +74,51 @@ primary source is a book that isn't online).
   provenance. `import_v9.py --check` will drift from `data/` as the dataset
   evolves. `--write` would discard every edit made since the import, so it
   is for reproducing the original import only.
+
+## G1 delta (2026-10-25)
+
+At gate G1 the user accepted the import and decided that edition 9's own
+inconsistencies are fixed in `data/` before 1.0.0. From then on edition 9
+is no longer the oracle. The round-trip test against
+`sources/import/engineering-best-practices.md` is retired, and
+`import_v9.py --check` is expected to diverge. `taxonomy build --check`
+stays: `publication/` must still equal what `data/` renders.
+
+The accepted delta from edition 9 to 1.0.0 is 45 diff hunks in the
+single-file Markdown. Besides the version line ("Version 9" becomes
+"Version 1.0.0"), it contains:
+
+- **(a) Primary sources first.** Edition 9's section 1 says "each rule lists
+  its primary sources first", but 16 rules didn't. The `sources` of U6, U8,
+  U18, U20, U21, U25, U27, U28, U29, U31, U32, U35, U38, U46, R1 and C11,
+  and the management `sources` of R4, are reordered so that primary
+  sources come first. Each kind keeps its relative order.
+- **(b) Scope.** "Section 10 states every rule in management form" becomes
+  "67 of the 83 rules". The other 16 (U47–U58, R9, C14–C16) come from
+  management sources.
+- **(c) Section-11 pointer.** "ISO catalogue pages listed in section 7"
+  becomes "listed in sections 4 and 10; for C10, the ASME page in
+  section 9".
+- **(d) Inverses.** 122 inverses were missing: 121 `strengthened_by` and
+  1 `checked_by`. R2 gains `strengthens` R1 to match R1's
+  `strengthened_by` R2. No new relation types were added: `depends_on` and
+  `scaled_by` stay one-way. Every `related` map is normalized: keys follow
+  `relation_types` order, and IDs run U before R before C, then by number.
+- **(e) Symmetric conflicts.** The other side of 8 one-sided
+  `conflicts_with` relations is added: U35–U23, U32/U33/C10–U49,
+  U8/U9–U50, U51–U55 and R1–C15. The qualifier "when people are added for
+  redundancy (add early, not late)" is on both C15 and R1.
+- **(f) Paid-only "strong" ratings.** The ratings of rules U40, C10 and C13,
+  and of the management forms of U16, U39, R3, C1 and C12, stay "strong",
+  because the scale rates institutional requirement. Each of these 8
+  evidence notes gains "standard text is paid; only the official summary
+  was read", and section 12's Limits gains a line naming them.
+- **Source URLs.** The hosts of `staw-knee-deep-big-muddy` and
+  `sackett-zhang-berry-lievens-revisiting` are lowercased to
+  `www.gwern.net`. The paths are unchanged.
+
+`related_text` overrides are kept only where a cell carries text that isn't
+a rule ID: U47, U49, U50, U55, C15 and R1. NFR-0001's `override-agreement`
+check keeps them in step with `related`. The checks `inverse-complete`,
+`conflicts-symmetric`, `related-order` and `sources-primary-first` keep
+the delta from regressing.

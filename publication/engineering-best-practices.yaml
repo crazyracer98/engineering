@@ -1260,7 +1260,7 @@ domains:
   - U56
   references:
   - title: 'Sackett et al.: Revisiting meta-analytic estimates of validity in personnel selection (J. Appl. Psychol.)'
-    url: https://www.Gwern.net/doc/statistics/meta-analysis/2021-sackett.pdf
+    url: https://www.gwern.net/doc/statistics/meta-analysis/2021-sackett.pdf
 - branch: 'Management: People and organization'
   domain: Performance feedback
   rules:
@@ -1343,7 +1343,7 @@ domains:
   - U52
   references:
   - title: 'Staw: Knee-deep in the big muddy (1976)'
-    url: https://Www.Gwern.net/doc/psychology/cognitive-bias/sunk-cost/1976-staw.pdf
+    url: https://www.gwern.net/doc/psychology/cognitive-bias/sunk-cost/1976-staw.pdf
 - branch: 'Management: Finance'
   domain: Accounting and bookkeeping
   rules:
@@ -1706,6 +1706,8 @@ rules:
     strengthens:
     - U26
     - U27
+    strengthened_by:
+    - U20
   evidence: strong
   evidence_note:
   source_domain: all (professional ethics)
@@ -1740,6 +1742,9 @@ rules:
   related:
     strengthens:
     - U8
+    strengthened_by:
+    - U48
+    - U56
   evidence: strong
   evidence_note:
   source_domain: all (professional ethics)
@@ -1775,6 +1780,8 @@ rules:
     strengthens:
     - U4
     - R3
+    strengthened_by:
+    - U55
   evidence: moderate
   evidence_note:
   source_domain: systems engineering
@@ -1809,6 +1816,9 @@ rules:
   related:
     depends_on:
     - U3
+    strengthened_by:
+    - U3
+    - U24
   evidence: strong
   evidence_note:
   source_domain: systems engineering, building services (commissioning)
@@ -1844,6 +1854,8 @@ rules:
     strengthens:
     - U6
     - U28
+    strengthened_by:
+    - U17
   evidence: moderate
   evidence_note: direction strong; the '10x per stage' factor is weak
   source_domain: software engineering
@@ -1876,22 +1888,26 @@ rules:
   related:
     strengthens:
     - U25
-    - R1
-    - R2
     - U26
     - U27
     - U34
+    - R1
+    - R2
+    strengthened_by:
+    - U5
+    - U44
+    - C2
   evidence: moderate
   evidence_note: method widely used; RPN scoring criticized
   source_domain: reliability and safety (FMEA, STPA), automotive (SOTIF)
   notes:
   sources:
-  - title: 'EBSCO: FMEA'
-    url: https://www.ebsco.com/research-starters/social-sciences-and-humanities/failure-mode-and-effects-analysis-fmea
   - title: 'BMJ Qual Saf / PMC: FMEA outputs - are they valid?'
     url: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3405478/
   - title: 'Leveson & Thomas: STPA Handbook'
     url: https://www.flighttestsafety.org/images/STPA_Handbook.pdf
+  - title: 'EBSCO: FMEA'
+    url: https://www.ebsco.com/research-starters/social-sciences-and-humanities/failure-mode-and-effects-analysis-fmea
   - title: 'Swift Navigation: What is SOTIF (ISO 21448)?'
     url: https://www.swiftnav.com/glossary/what-is-safety-of-the-intended-functionality-sotif
   management:
@@ -1919,12 +1935,16 @@ rules:
   check: each component has one stated purpose, and no part is unused
   violation: adding features for imagined future needs
   related:
+    strengthened_by:
+    - U14
+    - U46
+    - C14
     conflicts_with:
     - U25
-    - R1
-    - R2
     - U29
     - U34
+    - R1
+    - R2
     - C3
   evidence: moderate
   evidence_note:
@@ -1960,6 +1980,14 @@ rules:
   related:
     depends_on:
     - U2
+    strengthened_by:
+    - U2
+    - U48
+    - U56
+    - R6
+    - R9
+    conflicts_with:
+    - U50
   evidence: strong
   evidence_note:
   source_domain: technical drawing (checker in the title block), civil and structural (independent checking)
@@ -1967,16 +1995,16 @@ rules:
   sources:
   - title: 'Singapore: Building Control (Accredited Checkers and Accredited Checking Organisations) Regulations'
     url: https://sso.agc.gov.sg/SL/BCA1989-RG2?DocDate=20121130
-  - title: 'LibreTexts: Peer review in design'
-    url: https://eng.libretexts.org/Courses/Western_Technical_College/Inventor_Parametric_Design:_Level_1_%28Bahl%29/01:_Technical_Drawings/1.02:_Peer_Review_Process_and_Markup_Drawings/1.2.01:_The_Role_of_Peer_Review_in_Engineering_Design
-  - title: 'EPCLand: Checking of design'
-    url: https://epcland.com/checking-of-design-engineering-checklist/
   - title: 'IIA: The Three Lines Model (2020)'
     url: https://www.theiia.org/globalassets/documents/resources/the-iias-three-lines-model-an-update-of-the-three-lines-of-defense-july-2020/three-lines-model-updated-english.pdf
   - title: Regulation (EU) No 537/2014, Article 17 (text copy)
     url: https://www.charteredaccountants.ie/chariotindex/text/ec_2014_537/17.html
   - title: 'UK MoD: Red Teaming Handbook, 3rd ed. (2021)'
     url: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1027158/20210625-Red_Teaming_Handbook.pdf
+  - title: 'LibreTexts: Peer review in design'
+    url: https://eng.libretexts.org/Courses/Western_Technical_College/Inventor_Parametric_Design:_Level_1_%28Bahl%29/01:_Technical_Drawings/1.02:_Peer_Review_Process_and_Markup_Drawings/1.2.01:_The_Role_of_Peer_Review_in_Engineering_Design
+  - title: 'EPCLand: Checking of design'
+    url: https://epcland.com/checking-of-design-engineering-checklist/
   management:
     name: Independent checker
     form_name: Independent assurance, scaled to consequence
@@ -2006,6 +2034,13 @@ rules:
   related:
     strengthens:
     - U10
+    strengthened_by:
+    - U21
+    - U22
+    - U46
+    - U54
+    conflicts_with:
+    - U50
   evidence: strong
   evidence_note:
   source_domain: all (configuration management), chemical process safety (management of change)
@@ -2046,6 +2081,13 @@ rules:
     - U9
     strengthens:
     - U11
+    strengthened_by:
+    - U9
+    - U13
+    - U18
+    - U21
+    - U23
+    - U47
   evidence: moderate
   evidence_note:
   source_domain: site reliability engineering
@@ -2081,6 +2123,10 @@ rules:
     depends_on:
     - U10
     - U13
+    strengthened_by:
+    - U10
+    - U13
+    - R7
   evidence: strong
   evidence_note:
   source_domain: quality management (ISO 9001)
@@ -2118,6 +2164,8 @@ rules:
     strengthens:
     - U27
     - U29
+    strengthened_by:
+    - C12
   evidence: strong
   evidence_note:
   source_domain: security engineering (NIST)
@@ -2154,6 +2202,11 @@ rules:
     - U10
     - U11
     - U18
+    strengthened_by:
+    - U24
+    - U41
+    - U51
+    - C9
     checks:
     - U25
     - U35
@@ -2194,6 +2247,8 @@ rules:
     strengthens:
     - U7
     - U16
+    strengthened_by:
+    - C12
   evidence: moderate
   evidence_note:
   source_domain: nuclear, offshore, aerospace
@@ -2232,6 +2287,9 @@ rules:
     - U10
     strengthens:
     - U28
+    strengthened_by:
+    - U32
+    - U42
   evidence: moderate
   evidence_note: strong in medical devices
   source_domain: human factors, medical devices, biomechanics (anthropometry)
@@ -2270,6 +2328,9 @@ rules:
   related:
     depends_on:
     - U14
+    strengthened_by:
+    - U14
+    - C7
   evidence: moderate
   evidence_note:
   source_domain: all (professional ethics)
@@ -2283,7 +2344,7 @@ rules:
     form: include environmental and social impact in decisions across the whole life cycle, including procurement
     example: cloud cost and energy reports reviewed with the budget
     evidence: strong
-    evidence_note:
+    evidence_note: standard text is paid; only the official summary was read
     sources:
     - title: ISO 14001:2026 (via 2015 page)
       url: https://www.iso.org/standard/60857.html
@@ -2308,6 +2369,10 @@ rules:
     - U4
     strengthens:
     - U5
+    strengthened_by:
+    - U24
+    - U40
+    - C10
   evidence: moderate
   evidence_note:
   source_domain: aerospace (Test Like You Fly)
@@ -2344,15 +2409,23 @@ rules:
     - U20
     strengthens:
     - U10
+    strengthened_by:
+    - U13
+    - U20
+    - U41
+    - U47
+    - U51
+    - R5
+    - C5
   evidence: moderate
   evidence_note:
   source_domain: aerospace, accident research (normalization of deviance)
   notes:
   sources:
-  - title: 'Wikipedia: Normalization of deviance'
-    url: https://en.wikipedia.org/wiki/Normalization_of_deviance
   - title: 'National Academies: Accident precursor analysis'
     url: https://www.nationalacademies.org/read/11061/chapter/8
+  - title: 'Wikipedia: Normalization of deviance'
+    url: https://en.wikipedia.org/wiki/Normalization_of_deviance
   management:
     name: Investigate anomalies
     form_name: Weak signals and near misses
@@ -2380,6 +2453,10 @@ rules:
     - U13
     strengthens:
     - R4
+    strengthened_by:
+    - U39
+    - U52
+    - U58
   evidence: moderate
   evidence_note:
   source_domain: flight testing (build-up approach), construction management (hold points)
@@ -2421,17 +2498,19 @@ rules:
     strengthens:
     - U1
     - U18
+    strengthened_by:
+    - U47
   evidence: strong
   evidence_note: emergency stop is standardized in ISO 13850
   source_domain: manufacturing (Toyota andon), machinery (emergency stop)
   notes:
   sources:
-  - title: 'Wikipedia: Andon (manufacturing)'
-    url: https://en.wikipedia.org/wiki/Andon_%28manufacturing%29
   - title: ISO 13850:2015 Emergency stop function (sample)
     url: https://cdn.standards.iteh.ai/samples/59970/06ad76004ab746ff90b82cf44a8b0752/ISO-13850-2015.pdf
   - title: Directive (EU) 2019/1937 (EUR-Lex)
     url: https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32019L1937
+  - title: 'Wikipedia: Andon (manufacturing)'
+    url: https://en.wikipedia.org/wiki/Andon_%28manufacturing%29
   management:
     name: Stop authority
     form_name: Speak-up and stop-the-line
@@ -2462,15 +2541,19 @@ rules:
     strengthens:
     - U9
     - U10
+    strengthened_by:
+    - U50
+    - U52
+    - R8
   evidence: moderate
   evidence_note:
   source_domain: software (ADR), civil and offshore (basis of design)
   notes:
   sources:
-  - title: 'adr.github.io: Architectural Decision Records'
-    url: https://adr.github.io/
   - title: 'SPE: Design for decommissioning (basis of design)'
     url: https://onepetro.org/spe/general-information/1423/Design-for-decommissioning
+  - title: 'adr.github.io: Architectural Decision Records'
+    url: https://adr.github.io/
   management:
     name: Decision records
     form_name: Decision log
@@ -2500,6 +2583,9 @@ rules:
     strengthens:
     - U9
     - R3
+    strengthened_by:
+    - U43
+    - U45
   evidence: strong
   evidence_note: required in regulated domains
   source_domain: pharma and clinical trials (ALCOA)
@@ -2611,6 +2697,13 @@ rules:
   check: a load test shows capacity ≥ the stated design load × the chosen factor, and queue delay stays within the target at that load
   violation: sizing exactly to the average load
   related:
+    strengthened_by:
+    - U6
+    - U30
+    - U31
+    - U53
+    - C7
+    - C8
     conflicts_with:
     - U7
     checked_by:
@@ -2622,18 +2715,18 @@ rules:
   sources:
   - title: 'Univ. of Portland: Fail-safe designs and factor of safety'
     url: https://faculty.up.edu/lulay/MEStudentPage/failsafe.pdf
-  - title: 'Wikipedia: Return period'
-    url: https://en.wikipedia.org/wiki/Return_period
   - title: 'Linda Green: Queueing theory and modeling'
     url: https://business.columbia.edu/sites/default/files-efs/pubfiles/5474/queueing%20theory%20and%20modeling.pdf
   - title: NASA GSFC-STD-1000 Rev H (resource margins)
     url: https://standards.nasa.gov/sites/default/files/standards/GSFC/H/0/GSFC-STD-1000RevH_Approved.pdf
+  - title: "Little: Little's Law as Viewed on Its 50th Anniversary (Operations Research 2011, reprint)"
+    url: https://projectproduction.org/journal/reprint-littles-law-as-viewed-on-its-50th-anniversary/
+  - title: 'Wikipedia: Return period'
+    url: https://en.wikipedia.org/wiki/Return_period
   - title: 'Wikipedia: Derating'
     url: https://en.wikipedia.org/wiki/Derating
   - title: 'Wikipedia: All models are wrong (Box & Draper 1987)'
     url: https://en.wikipedia.org/wiki/All_models_are_wrong
-  - title: "Little: Little's Law as Viewed on Its 50th Anniversary (Operations Research 2011, reprint)"
-    url: https://projectproduction.org/journal/reprint-littles-law-as-viewed-on-its-50th-anniversary/
   management:
     name: Margin
     form_name: Reserves and slack
@@ -2660,6 +2753,10 @@ rules:
   related:
     depends_on:
     - U6
+    strengthened_by:
+    - U1
+    - U6
+    - R5
   evidence: strong
   evidence_note:
   source_domain: nuclear, elevators, aviation
@@ -2698,6 +2795,10 @@ rules:
     - U14
     strengthens:
     - U28
+    strengthened_by:
+    - U1
+    - U6
+    - U12
   evidence: strong
   evidence_note:
   source_domain: occupational and chemical process safety (NIOSH, Kletz), acoustic engineering (source-path-receiver)
@@ -2705,10 +2806,10 @@ rules:
   sources:
   - title: 'CDC/NIOSH: Hierarchy of controls'
     url: https://www.cdc.gov/niosh/hierarchy-of-controls/about/index.html
-  - title: 'Wikipedia: Inherent safety'
-    url: https://en.wikipedia.org/wiki/Inherent_safety
   - title: 'OSHA Technical Manual: Noise'
     url: https://www.osha.gov/otm/section-3-health-hazards/chapter-5
+  - title: 'Wikipedia: Inherent safety'
+    url: https://en.wikipedia.org/wiki/Inherent_safety
   management:
     name: Hierarchy of controls
     form_name: Hierarchy of controls for management risks
@@ -2735,16 +2836,20 @@ rules:
     depends_on:
     - U10
     strengthened_by:
+    - U5
+    - U15
     - U27
+    - U36
+    - C5
   evidence: moderate
   evidence_note:
   source_domain: manufacturing (poka-yoke), transportation (Safe System)
   notes:
   sources:
-  - title: 'UserSolutions: Poka-yoke'
-    url: https://usersolutions.com/blog/poka-yoke-error-proofing
   - title: 'FHWA: Zero deaths and the Safe System approach'
     url: https://highways.dot.gov/safety/zero-deaths
+  - title: 'UserSolutions: Poka-yoke'
+    url: https://usersolutions.com/blog/poka-yoke-error-proofing
   management:
     name: Error-proofing
     form_name: Build quality into the process
@@ -2770,6 +2875,11 @@ rules:
   related:
     depends_on:
     - U12
+    strengthened_by:
+    - U12
+    - U34
+    - R9
+    - C4
     conflicts_with:
     - U7
   evidence: moderate
@@ -2777,12 +2887,12 @@ rules:
   source_domain: security, oil and gas (well barriers), drinking water (multi-barrier)
   notes:
   sources:
+  - title: 'JPT: Robust well barrier and well integrity management'
+    url: https://jpt.spe.org/robust-well-barrier-and-well-integrity-management
   - title: 'ScienceDirect: Least privilege and defense in depth'
     url: https://www.sciencedirect.com/topics/computer-science/principle-of-least-privilege
   - title: 'Palo Alto Networks: Defense in depth'
     url: https://www.paloaltonetworks.com/cyberpedia/what-is-defense-in-depth
-  - title: 'JPT: Robust well barrier and well integrity management'
-    url: https://jpt.spe.org/robust-well-barrier-and-well-integrity-management
   - title: 'Wikipedia: Multi-barrier approach'
     url: https://en.wikipedia.org/wiki/Multi-barrier_approach
   management:
@@ -2849,6 +2959,10 @@ rules:
     - U4
     strengthens:
     - U25
+    strengthened_by:
+    - U40
+    - C9
+    - C13
   evidence: moderate
   evidence_note:
   source_domain: simulation and computational engineering, engineering physics (Fermi estimates)
@@ -2856,14 +2970,14 @@ rules:
   sources:
   - title: 'OSTI: A Perspective on Model Validation and Validated Models (keynote)'
     url: https://www.osti.gov/servlets/purl/1109271
+  - title: 'Flyvbjerg: From Nobel Prize to Project Management (2006)'
+    url: https://arxiv.org/pdf/1302.3642
   - title: 'Wikipedia: V&V of computer simulation models'
     url: https://en.wikipedia.org/wiki/Verification_and_validation_of_computer_simulation_models
   - title: 'Wikipedia: Fermi problem'
     url: https://en.wikipedia.org/wiki/Fermi_problem
   - title: 'Wikipedia: All models are wrong (Box & Draper 1987)'
     url: https://en.wikipedia.org/wiki/All_models_are_wrong
-  - title: 'Flyvbjerg: From Nobel Prize to Project Management (2006)'
-    url: https://arxiv.org/pdf/1302.3642
   management:
     name: Model validity
     form_name: Forecast validity (outside view)
@@ -2889,15 +3003,21 @@ rules:
   related:
     strengthens:
     - U15
+    strengthened_by:
+    - U42
+    - C10
+    - C16
+    conflicts_with:
+    - U49
   evidence: moderate
   evidence_note: 'mixed results: large effect in 8 pilot hospitals, no significant effect in 101 Ontario hospitals'
   source_domain: surgery, railway (pointing and calling)
   notes:
   sources:
-  - title: 'ScienceDaily: WHO surgical checklist study (2009)'
-    url: https://www.sciencedaily.com/releases/2009/01/090114172304.htm
   - title: 'ICES: Ontario checklist study (2014)'
     url: https://www.ices.on.ca/news-releases/study-shows-introduction-of-surgical-safety-checklists-in-ontario-have-not-reduced-post-operative-mortality-or-complications/
+  - title: 'ScienceDaily: WHO surgical checklist study (2009)'
+    url: https://www.sciencedaily.com/releases/2009/01/090114172304.htm
   - title: 'Wikipedia: Pointing and calling'
     url: https://en.wikipedia.org/wiki/Pointing_and_calling
   management:
@@ -2928,6 +3048,8 @@ rules:
     - U6
     strengthens:
     - R4
+    conflicts_with:
+    - U49
   evidence: strong
   evidence_note:
   source_domain: food safety (HACCP), mining (critical control management)
@@ -2960,8 +3082,10 @@ rules:
   violation: one shared database for all tenants and all environments
   related:
     strengthens:
-    - R1
     - U29
+    - R1
+    strengthened_by:
+    - U6
     conflicts_with:
     - U7
   evidence: strong
@@ -2998,6 +3122,12 @@ rules:
   related:
     depends_on:
     - U13
+    strengthened_by:
+    - U41
+    conflicts_with:
+    - U23
+    checked_by:
+    - U13
   evidence: moderate
   evidence_note:
   source_domain: fire protection (ASET > RSET)
@@ -3005,10 +3135,10 @@ rules:
   sources:
   - title: 'Cooper: Estimating Safe Available Egress Time from Fires (NBSIR 80-2172, 1981)'
     url: https://nvlpubs.nist.gov/nistpubs/Legacy/IR/nbsir80-2172.pdf
-  - title: 'Fire Risk Assessment Network: ASET and RSET'
-    url: https://fire-risk-assessment-network.com/blog/aset-rset/
   - title: BCI Good Practice Guidelines 2018 (with ISO 22301:2019 definitions)
     url: https://www.thebci.org/static/cf455e45-b2c2-4a44-b77da7c99fd6df77/BCI-GPG-2018-Edition.pdf
+  - title: 'Fire Risk Assessment Network: ASET and RSET'
+    url: https://fire-risk-assessment-network.com/blog/aset-rset/
   management:
     name: Response faster than harm
     form_name: Recovery inside the tolerable disruption
@@ -3067,6 +3197,9 @@ rules:
     depends_on:
     - U6
     - U13
+    strengthened_by:
+    - U38
+    - C12
   evidence: moderate
   evidence_note:
   source_domain: aviation maintenance (RCM)
@@ -3109,14 +3242,14 @@ rules:
   sources:
   - title: 'FAA AC 25.1309-1A: System Design and Analysis (fail-safe design concept)'
     url: https://www.faa.gov/documentLibrary/media/Advisory_Circular/AC_25.1309-1A.pdf
-  - title: 'Wikipedia: Fatigue (material)'
-    url: https://en.wikipedia.org/wiki/Fatigue_%28material%29
-  - title: 'Wermac: Corrosion allowance'
-    url: https://www.wermac.org/materials/corrosion_allowance.html
   - title: 'WHO/ILO: Long working hours increasing deaths (2021)'
     url: https://www.who.int/news/item/17-05-2021-long-working-hours-increasing-deaths-from-heart-disease-and-stroke-who-ilo
   - title: 'Pencavel: The Productivity of Working Hours (IZA DP 8129, 2014)'
     url: https://docs.iza.org/dp8129.pdf
+  - title: 'Wikipedia: Fatigue (material)'
+    url: https://en.wikipedia.org/wiki/Fatigue_%28material%29
+  - title: 'Wermac: Corrosion allowance'
+    url: https://www.wermac.org/materials/corrosion_allowance.html
   management:
     name: Accumulated degradation
     form_name: Sustainable pace
@@ -3146,6 +3279,8 @@ rules:
   related:
     strengthens:
     - U19
+    strengthened_by:
+    - C15
   evidence: moderate
   evidence_note:
   source_domain: construction management (critical path method)
@@ -3162,7 +3297,7 @@ rules:
     example: in an office move, network installation is critical; furniture has slack
     sources_text: section 9 (critical path method); [ISO 21502:2020 Guidance on project management (catalogue page)](https://www.iso.org/standard/74947.html)
     evidence: strong
-    evidence_note:
+    evidence_note: standard text is paid; only the official summary was read
     sources:
     - title: ISO 21502:2020
       url: https://www.iso.org/standard/74947.html
@@ -3180,10 +3315,12 @@ rules:
   violation: comparing two single benchmark runs from different machines
   related:
     strengthens:
-    - U31
     - U17
+    - U31
+    strengthened_by:
+    - U51
   evidence: strong
-  evidence_note: standardized in ISO 139 and the GUM
+  evidence_note: standardized in ISO 139 and the GUM; standard text is paid; only the official summary was read
   source_domain: textile testing (ISO 139), metrology (GUM, traceability)
   notes:
   sources:
@@ -3255,8 +3392,10 @@ rules:
   violation: side discussions and parallel deployments during an incident
   related:
     strengthens:
-    - U32
     - U15
+    - U32
+    strengthened_by:
+    - C16
   evidence: strong
   evidence_note: FAA regulation since 1981
   source_domain: aviation (sterile flight deck)
@@ -3326,8 +3465,8 @@ rules:
   violation: upgrading one component and breaking another that was never tested with it
   related:
     strengthens:
-    - C5
     - U6
+    - C5
   evidence: moderate
   evidence_note:
   source_domain: materials (galvanic corrosion), biomaterials (biocompatibility)
@@ -3401,6 +3540,9 @@ rules:
     strengthens:
     - U7
     - U9
+    strengthened_by:
+    - C14
+    - C16
   evidence: moderate
   evidence_note:
   source_domain: optomechanical and precision engineering (kinematic coupling)
@@ -3408,10 +3550,10 @@ rules:
   sources:
   - title: 'Slocum: Kinematic couplings, a review of design principles and applications (MIT)'
     url: https://web.mit.edu/2.70/Reading%20Materials/Kinematic%20coupling%20review%20article.pdf
-  - title: 'Wikipedia: Kinematic coupling (exact constraint)'
-    url: https://en.wikipedia.org/wiki/Kinematic_coupling
   - title: 'FEMA: National Incident Management System, 3rd ed. (2017)'
     url: https://training.fema.gov:443/EMIWeb/IS/IS700b/Handouts/National_Incident_Management%20System_Third%20Edition_October_2017.pdf
+  - title: 'Wikipedia: Kinematic coupling (exact constraint)'
+    url: https://en.wikipedia.org/wiki/Kinematic_coupling
   management:
     name: Exact constraint
     form_name: Single point of accountability, unity of command
@@ -3441,7 +3583,9 @@ rules:
     - U10
     - U18
     - U20
-  related_text: strengthens U10, U18, U20; conflicts with accountability (see K7)
+    strengthened_by:
+    - U57
+  related_text: strengthens U10, U18, U20; strengthened by U57; conflicts with accountability (see K7)
   evidence: strong
   evidence_note: peer-reviewed field study; Google study of 180 teams
   source_domain: management (team leadership)
@@ -3466,8 +3610,8 @@ rules:
   violation: a reviewer approves a design that uses a product of a company they own
   related:
     strengthens:
-    - U8
     - U2
+    - U8
     - R9
   evidence: strong
   evidence_note: NSPE Code of Ethics II.4.a; G20/OECD Principles II.F.2
@@ -3550,9 +3694,11 @@ rules:
   violation: ticket count as the only measure of on-call quality
   related:
     strengthens:
-    - U40
-    - U18
     - U13
+    - U18
+    - U40
+    conflicts_with:
+    - U55
   evidence: strong
   evidence_note: Campbell; the same pattern is known as Goodhart's law
   source_domain: management (performance measurement)
@@ -3577,9 +3723,9 @@ rules:
   violation: '"we have invested too much to stop now"'
   related:
     strengthens:
-    - R8
     - U19
     - U21
+    - R8
     - C2
   evidence: strong
   evidence_note: experimental research, Staw 1976; PRINCE2 "continued business justification"
@@ -3587,7 +3733,7 @@ rules:
   notes:
   sources:
   - title: 'Staw: Knee-deep in the big muddy (1976, copy)'
-    url: https://Www.Gwern.net/doc/psychology/cognitive-bias/sunk-cost/1976-staw.pdf
+    url: https://www.gwern.net/doc/psychology/cognitive-bias/sunk-cost/1976-staw.pdf
   - title: 'Purple Griffon: PRINCE2 7th edition principles'
     url: https://purplegriffon.com/blog/prince2-7th-edition-principles
   management:
@@ -3604,11 +3750,11 @@ rules:
   check: a visible WIP limit exists, and lead time and WIP are tracked
   violation: everything is "in progress" and nothing is finished
   related:
+    depends_on:
+    - U13
     strengthens:
     - U25
     - C8
-    depends_on:
-    - U13
   evidence: strong
   evidence_note:
   evidence_text: strong for the relation (mathematical theorem); moderate for the practice
@@ -3632,8 +3778,8 @@ rules:
   violation: announcing a reorganization without reasons
   related:
     strengthens:
-    - U58
     - U9
+    - U58
   evidence: moderate
   evidence_note: management research; practitioner article
   source_domain: management (organizational justice)
@@ -3657,9 +3803,11 @@ rules:
   related:
     strengthens:
     - U3
+    strengthened_by:
+    - U57
     conflicts_with:
     - U51
-  related_text: strengthens U3; conflicts with U51 (see K8)
+  related_text: strengthens U3; strengthened by U57; conflicts with U51 (see K8)
   evidence: strong
   evidence_note:
   evidence_text: strong (experimental and field research summarized in the paper); contested by Deming points 11 and 12, who rejects management by numerical goals
@@ -3686,15 +3834,15 @@ rules:
   related:
     strengthens:
     - U2
-    - C10
     - U8
+    - C10
   evidence: strong
   evidence_note: meta-analysis, Journal of Applied Psychology
   source_domain: management (personnel selection)
   notes:
   sources:
   - title: 'Sackett, Zhang, Berry, Lievens: Revisiting meta-analytic estimates of validity in personnel selection (J. Appl. Psychol., copy)'
-    url: https://www.Gwern.net/doc/statistics/meta-analysis/2021-sackett.pdf
+    url: https://www.gwern.net/doc/statistics/meta-analysis/2021-sackett.pdf
   management:
 - id: U57
   name: Feedback on the task
@@ -3735,10 +3883,12 @@ rules:
   violation: announcing a change by email and declaring it done
   related:
     depends_on:
-    - U54
     - U9
+    - U54
     strengthens:
     - U19
+    strengthened_by:
+    - U54
   evidence: moderate
   evidence_note: practitioner model from case experience; the eight steps have limited empirical testing
   source_domain: management (change management)
@@ -3761,22 +3911,27 @@ rules:
   violation: a single replica of a critical service
   related:
     strengthened_by:
+    - U6
+    - U34
     - R2
+    - C13
     conflicts_with:
     - U7
+    - C15
+  related_text: strengthened by U6, U34, R2, C13; conflicts with U7; conflicts with C15 when people are added for redundancy (add early, not late)
   evidence: strong
   evidence_note: N-1 ignores how likely an outage is and how large the affected area is; use the master rule for those. Error correction helps only when component error rates are below a threshold (quantum threshold theorem)
   source_domain: aerospace, electronics, power grids, quantum engineering, computing theory (von Neumann)
   notes:
   sources:
-  - title: 'ScienceDirect: Fail-safe design'
-    url: https://www.sciencedirect.com/topics/materials-science/fail-safe-design
   - title: 'USPTO: Materials-based failure analysis in electronic devices'
     url: https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/8285522
-  - title: "SINTEF: N-1 isn't always enough"
-    url: https://blog.sintef.com/sintefenergy/energy-systems/electricity-supply-security-n-1-isnt-always-enough/
   - title: "UCSD: Lectures on von Neumann's Probabilistic Logics"
     url: https://cseweb.ucsd.edu/~dasgupta/254-neural-ul/anthony-andrew.pdf
+  - title: 'ScienceDirect: Fail-safe design'
+    url: https://www.sciencedirect.com/topics/materials-science/fail-safe-design
+  - title: "SINTEF: N-1 isn't always enough"
+    url: https://blog.sintef.com/sintefenergy/energy-systems/electricity-supply-security-n-1-isnt-always-enough/
   - title: 'Wikipedia: Quantum error correction'
     url: https://en.wikipedia.org/wiki/Quantum_error_correction
   management:
@@ -3804,6 +3959,10 @@ rules:
   related:
     depends_on:
     - R1
+    strengthens:
+    - R1
+    strengthened_by:
+    - U6
     conflicts_with:
     - U7
   evidence: moderate
@@ -3838,6 +3997,9 @@ rules:
   related:
     depends_on:
     - U3
+    strengthened_by:
+    - U3
+    - U22
   evidence: strong
   evidence_note:
   source_domain: aerospace, automotive, medical (DO-178C, ISO 26262, IEC 62304)
@@ -3853,7 +4015,7 @@ rules:
     form: in regulated areas, link each legal or contractual obligation to a control and to a test of that control
     example: each GDPR obligation in the register points to an owner, a control and an audit test
     evidence: strong
-    evidence_note: regulated areas
+    evidence_note: regulated areas; standard text is paid; only the official summary was read
     sources:
     - title: ISO 37301:2021
       url: https://www.iso.org/standard/75080.html
@@ -3873,6 +4035,9 @@ rules:
     depends_on:
     - U13
     - U19
+    strengthened_by:
+    - U19
+    - U33
   evidence: moderate
   evidence_note:
   source_domain: geotechnical (observational method)
@@ -3888,10 +4053,10 @@ rules:
     evidence: moderate
     evidence_note:
     sources:
-    - title: PRINCE2 principle 5 "Manage by exception"
-      url: https://purplegriffon.com/blog/prince2-7th-edition-principles
     - title: 'Scrum: inspection and adaptation'
       url: https://scrumguides.org/scrum-guide.html
+    - title: PRINCE2 principle 5 "Manage by exception"
+      url: https://purplegriffon.com/blog/prince2-7th-edition-principles
 - id: R5
   name: Precaution
   class: risk-scaled
@@ -3906,8 +4071,10 @@ rules:
   violation: writes continue while the team waits for proof of data corruption
   related:
     strengthens:
-    - U26
     - U18
+    - U26
+    strengthened_by:
+    - U50
   evidence: moderate
   evidence_note: 'contested: critics call it vague and say strong versions block beneficial technology; this rule uses the weak, proportionate version'
   source_domain: environmental engineering (precautionary principle)
@@ -3943,6 +4110,9 @@ rules:
     - U12
     strengthens:
     - U8
+    strengthened_by:
+    - U50
+    - R9
   evidence: strong
   evidence_note: NIST SP 800-53 control AC-3(2) "Dual Authorization"
   source_domain: nuclear, banking, aviation (two-person rule)
@@ -4019,6 +4189,8 @@ rules:
     strengthens:
     - U21
     - C2
+    strengthened_by:
+    - U52
   evidence: moderate
   evidence_note:
   source_domain: design engineering (Toyota set-based concurrent engineering)
@@ -4052,9 +4224,11 @@ rules:
     depends_on:
     - U12
     strengthens:
-    - R6
     - U8
     - U29
+    - R6
+    strengthened_by:
+    - U48
   evidence: strong
   evidence_note: NIST SP 800-192 definition; internal control frameworks
   source_domain: management (internal control), security engineering
@@ -4092,7 +4266,7 @@ rules:
     form: meet laws and standards as a minimum, then apply the other rules
     example: working-time law is the minimum; U47 and U38 go further
     evidence: strong
-    evidence_note:
+    evidence_note: standard text is paid; only the official summary was read
     sources:
     - title: ISO 37301:2021
       url: https://www.iso.org/standard/75080.html
@@ -4113,6 +4287,9 @@ rules:
     - U21
     strengthens:
     - U6
+    strengthened_by:
+    - U52
+    - R8
   evidence: strong
   evidence_note: standardized as ISO 16290:2013; NASA defines TRL 1 to 9
   source_domain: aerospace (NASA TRL), EU, DoD
@@ -4149,6 +4326,8 @@ rules:
   related:
     depends_on:
     - U25
+    strengthened_by:
+    - C6
     conflicts_with:
     - U7
   evidence: moderate
@@ -4220,8 +4399,11 @@ rules:
   violation: silently ignoring unknown or malformed fields
   related:
     strengthens:
-    - U28
     - U18
+    - U28
+    strengthened_by:
+    - U44
+    - C14
     conflicts_with:
     - U30
   evidence: moderate
@@ -4266,6 +4448,8 @@ rules:
     - U13
     strengthens:
     - C3
+    strengthened_by:
+    - C11
   evidence: moderate
   evidence_note:
   source_domain: control engineering
@@ -4304,6 +4488,8 @@ rules:
     strengthens:
     - U16
     - U25
+    strengthened_by:
+    - C11
   evidence: moderate
   evidence_note:
   source_domain: transportation (induced demand)
@@ -4341,6 +4527,8 @@ rules:
     - U13
     strengthens:
     - U25
+    strengthened_by:
+    - U53
   evidence: moderate
   evidence_note:
   source_domain: industrial engineering (theory of constraints)
@@ -4416,8 +4604,12 @@ rules:
     strengthens:
     - U17
     - U32
+    strengthened_by:
+    - U56
+    conflicts_with:
+    - U49
   evidence: strong
-  evidence_note: required for welding by ASME Section IX
+  evidence_note: required for welding by ASME Section IX; standard text is paid; only the official summary was read
   source_domain: welding (WPS, PQR, welder qualification)
   counterexample: results that can be fully inspected afterwards (a dimension check on a simple part)
   notes:
@@ -4463,10 +4655,10 @@ rules:
   sources:
   - title: 'MIT Sloan Management Review: The Bullwhip Effect in Supply Chains'
     url: https://sloanreview.mit.edu/article/the-bullwhip-effect-in-supply-chains/
-  - title: 'Wikipedia: Bullwhip effect'
-    url: https://en.wikipedia.org/wiki/Bullwhip_effect
   - title: 'Lee, Padmanabhan, Whang: Information Distortion in a Supply Chain (Management Science 1997)'
     url: https://courses.ie.bilkent.edu.tr/ie102/wp-content/uploads/sites/12/2019/02/Lee-Padmanabhan-Whang-1997-MS.pdf
+  - title: 'Wikipedia: Bullwhip effect'
+    url: https://en.wikipedia.org/wiki/Bullwhip_effect
   management:
     name: Shared demand signal
     form_name: Share real end demand
@@ -4491,9 +4683,11 @@ rules:
   violation: a forgotten test cluster with public access
   related:
     strengthens:
+    - U12
     - U14
     - U37
-    - U12
+    strengthened_by:
+    - U45
   evidence: moderate
   evidence_note:
   source_domain: municipal and infrastructure engineering (asset management, ISO 55000)
@@ -4510,7 +4704,7 @@ rules:
     form: keep complete registers with an owner, condition and life-cycle stage
     example: a contract register with end dates and notice periods
     evidence: strong
-    evidence_note:
+    evidence_note: standard text is paid; only the official summary was read
     sources:
     - title: ISO 55000:2024
       url: https://www.iso.org/standard/83053.html
@@ -4535,7 +4729,7 @@ rules:
     - U31
     - R1
   evidence: strong
-  evidence_note: 'ASTM C1683: "The larger the specimen or component, the weaker it is likely to be"'
+  evidence_note: 'ASTM C1683: "The larger the specimen or component, the weaker it is likely to be"; standard text is paid; only the official summary was read'
   source_domain: ceramics and brittle materials (Weibull statistics, size effect)
   counterexample: a system of fixed, small size
   notes:
@@ -4570,8 +4764,8 @@ rules:
   related:
     strengthens:
     - U7
-    - C5
     - U46
+    - C5
   evidence: moderate
   evidence_note: widely observed; one original paper
   source_domain: management (organization design), software engineering
@@ -4625,8 +4819,8 @@ rules:
   violation: one incident commander directly coordinating 20 people in one channel
   related:
     strengthens:
-    - U42
     - U32
+    - U42
     - U46
   evidence: strong
   evidence_note:
@@ -4840,7 +5034,7 @@ quotes:
   group: management_rules
   sources:
   - title: Staw 1976, Organizational Behavior and Human Performance (copy)
-    url: https://Www.Gwern.net/doc/psychology/cognitive-bias/sunk-cost/1976-staw.pdf
+    url: https://www.gwern.net/doc/psychology/cognitive-bias/sunk-cost/1976-staw.pdf
   - title: 'Purple Griffon: PRINCE2 principles'
     url: https://purplegriffon.com/blog/prince2-7th-edition-principles
 - id: Q12
@@ -4897,7 +5091,7 @@ quotes:
   group: management_rules
   sources:
   - title: 'Sackett, Zhang, Berry, Lievens: Revisiting meta-analytic estimates of validity in personnel selection, Journal of Applied Psychology, doi:10.1037/apl0000994 (copy)'
-    url: https://www.Gwern.net/doc/statistics/meta-analysis/2021-sackett.pdf
+    url: https://www.gwern.net/doc/statistics/meta-analysis/2021-sackett.pdf
 - id: Q18
   rules:
   - U57
@@ -5320,6 +5514,7 @@ method:
   text: |-
     - **Current standard editions (checked 2026-10-14).** ISO 9001:2015 is withdrawn; ISO 9001:2026 was published on 16 September 2026, and the CQI describes a planned three-year transition. ISO 14001:2015 is withdrawn and replaced by ISO 14001:2026. ISO 22301:2019, ISO 21502:2020, ISO 30401:2018 and ISO 45001:2018 are current but marked "to be revised". ISO 30414:2018 is withdrawn (a 2025 edition exists; its catalogue page was not checked).
     - **Paid documents.** The texts of ISO standards, PRINCE2 and PMBOK are paid. This file quotes only official summaries, press releases or secondary pages for them, and says so. Check the original before quoting a requirement in an audit.
+    - **Strong on a summary only.** Rules U40, C10 and C13, and the management forms of U16, U39, R3, C1 and C12, are rated strong on a paid standard: the standard text is paid; only the official summary was read. The rating reflects that the standard requires the practice, which its official summary confirms.
     - **Not fetched in full.** The text of Article 19 (prohibition of retaliation) of Directive (EU) 2019/1937 could not be retrieved; recital 88 is quoted instead. The OECD Due Diligence Guidance PDF could not be retrieved; only its abstract is quoted. The HBR article by Klein was only available as a summary.
     - **Secondary only.** Rule C15 (Brooks's law) rests on the Jargon File and a trade article; the primary source is a book that is not online. In section 10, the management forms of C7 (a copy of Parkinson's essay that could not be compared with The Economist's archive), U13 (go and see) and U27 (ISO 45001 clause text) rest on secondary pages; the rules themselves have primary engineering sources in section 9.
     - **Cross-reference only.** R5, U30, U44, C13, U33 and U37 have no management source. The transfer is the author's judgment.
@@ -6915,7 +7110,7 @@ sources:
   notes: "Classification is the importer's judgment against section 1's definition: Google's report on its own study."
 - slug: sackett-zhang-berry-lievens-revisiting
   title: 'Sackett, Zhang, Berry, Lievens: Revisiting meta-analytic estimates of validity in personnel selection (J. Appl. Psychol., copy)'
-  url: https://www.Gwern.net/doc/statistics/meta-analysis/2021-sackett.pdf
+  url: https://www.gwern.net/doc/statistics/meta-analysis/2021-sackett.pdf
   kind: primary
   publisher: Journal of Applied Psychology
   year:
@@ -7033,7 +7228,7 @@ sources:
   notes: Author's own copy of the original paper.
 - slug: staw-knee-deep-big-muddy
   title: 'Staw: Knee-deep in the big muddy (1976, copy)'
-  url: https://Www.Gwern.net/doc/psychology/cognitive-bias/sunk-cost/1976-staw.pdf
+  url: https://www.gwern.net/doc/psychology/cognitive-bias/sunk-cost/1976-staw.pdf
   kind: primary
   publisher: Organizational Behavior and Human Performance
   year: 1976

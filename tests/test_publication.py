@@ -1,8 +1,7 @@
-"""Round trip, generated files and CLI."""
+"""Generated files, chapters, the flattened YAML, citation resolution and the CLI."""
 
 from __future__ import annotations
 
-import difflib
 from pathlib import Path
 from typing import Any
 
@@ -10,31 +9,10 @@ import pytest
 
 from taxonomy import build, cli
 from taxonomy.load import load_dataset, load_registry
-from taxonomy.render_markdown import render_chapters, render_single, resolve_citations
+from taxonomy.render_markdown import render_chapters, resolve_citations
 from taxonomy.render_yaml import render_yaml
 from tests.conftest import REPO
 from tests.test_checks import Edit
-
-COUNTS = (
-    "83 rules (58 universal, 9 risk-scaled, 16 conditional) "
-    "and 8 conflict rules in 9 categories"
-)
-IMPORTED = REPO / "sources" / "import" / "engineering-best-practices.md"
-
-
-def test_round_trip_only_the_edition_line_differs() -> None:
-    ds = load_dataset(REPO)
-    got = render_single(ds, load_registry(REPO)).splitlines()
-    want = IMPORTED.read_text(encoding="utf-8").splitlines()
-    diff = [
-        line
-        for line in difflib.unified_diff(want, got, lineterm="", n=0)
-        if not line.startswith(("---", "+++", "@@"))
-    ]
-    assert diff == [
-        "-Version 9 · 2026-10-14 · " + COUNTS,
-        "+Version 1.0.0 · 2026-10-14 · " + COUNTS,
-    ]
 
 
 def test_publication_is_up_to_date() -> None:
