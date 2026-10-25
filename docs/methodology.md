@@ -172,8 +172,10 @@ appears with two meanings.
 > **Applied in this taxonomy:** The content shows each item.
 > The pattern is IF / THEN / BECAUSE, and the table also carries a check, a
 > violation, a software or infrastructure example and a source domain.
-> Strength keywords follow RFC 2119 [@rfc-2119]: MUST means required, and
-> SHOULD means expected, so that not following it needs a written reason.
+> Strength keywords follow the meanings of RFC 2119 [@rfc-2119]: MUST means
+> required, and SHOULD means expected. The rule that not following a SHOULD
+> needs a written reason is this taxonomy's own convention (the author's), not
+> part of RFC 2119.
 > The glossary (section 5) states that each term has exactly one meaning
 > and no other word is used for it, and it has a third column for what a term
 > is not the same as: for example verification versus validation, defect
@@ -307,7 +309,7 @@ reproduces the published documents exactly.
 > - every citation key in data or prose resolves to a defined source;
 > - the generated files under `publication/` are up to date.
 >
-> The content of edition 9 shows the effect of such checks in its own
+> The content of 1.0.0 shows the effect of such checks in its own
 > statements (for example the single listed exception for C15) but does not
 > show when the checks were introduced; the checks above are those of this
 > repository.
@@ -374,8 +376,9 @@ counterexample, and the checklist has five to nine items.
 > classification of each rule "is the author's judgment against the test in
 > section 1" and that the counterexamples "are reasoned, not sourced". The
 > nine quick-view questions (section 3), one per category, implement the
-> five-to-nine checklist size, and the content cites Gawande via book notes
-> [@mann-checklist-manifesto-notes] for the limit of working memory. The
+> five-to-nine checklist size, and the content cites Mann's notes on Gawande's book
+> [@mann-checklist-manifesto-notes], not Gawande directly, for the limit of
+> working memory. The
 > content does not show a consolidation step, the number of rules before and
 > after classification, or an old-to-new ID map.
 
@@ -466,6 +469,14 @@ version number is the release tag.
 | A rule is removed, or an ID changes | major |
 | A rule is added, or the meaning of a rule changes | minor |
 | Wording or source fixes that do not change a rule's meaning | patch |
+| A field, column, vocabulary value, relation type or strength keyword is removed or renamed | major |
+| A field, column, vocabulary value, relation type or strength keyword is added | minor |
+| Rewording without a change of meaning | patch |
+
+The data-format rows follow the compatibility rule of Semantic Versioning
+[@semver-2-0-0]: a change that breaks existing users of the format is major,
+and a backward-compatible addition is minor. Mapping "existing users" onto
+readers and tools of the dataset is the author's judgment.
 
 Every edition adds a section to [history.md](history.md) and an entry to
 `data/history.yaml`, including the old-to-new ID map when a major change
