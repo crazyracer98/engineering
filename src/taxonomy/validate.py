@@ -17,6 +17,7 @@ from typing import Any
 from jsonschema import Draft202012Validator, FormatChecker
 
 from taxonomy.load import (
+    REGISTRY_FILES,
     load_dataset,
     load_registry_files,
     load_schema,
@@ -29,10 +30,7 @@ from taxonomy.render_markdown import (
 )
 
 #: Data file stem -> schema stem is the identity; these files use ``sources``.
-EXTRA_REGISTRIES = {
-    "paper/references-extra.yaml": "sources",
-    "docs/methodology-references.yaml": "sources",
-}
+EXTRA_REGISTRIES = dict.fromkeys(REGISTRY_FILES[1:], "sources")
 
 #: Relation pairs that must not both hold between the same two rules.
 #: Supportive relations contradict ``conflicts_with`` between the same rules.
