@@ -12,6 +12,10 @@ The content of 1.0.0 is dated 2026-10-14. It contains:
 - 8 conflict rules (K1 to K8);
 - 9 categories (A to I), each with one question in the quick view.
 
+The imported source document is headed "Version 9". That was its
+pre-publication working label. It is not a published edition number: 1.0.0 is
+the first published edition, and there are no published earlier editions.
+
 The numbers are the counts in the imported Markdown source
 (`sources/import/engineering-best-practices.md`), which is the starting
 point of the dataset in `data/`.
