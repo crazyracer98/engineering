@@ -47,7 +47,11 @@ class ApplyReplaceExecutableBitTest(unittest.TestCase):
         self._tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self._tmp.cleanup)
         root = Path(self._tmp.name)
-        self.old, self.new, self.instance = root / "old", root / "new", root / "instance"
+        self.old, self.new, self.instance = (
+            root / "old",
+            root / "new",
+            root / "instance",
+        )
 
     def apply(self, path: str) -> dict[str, list[str]]:
         """Run ``template_sync``'s replace step for ``path`` and return what it reports."""
@@ -157,7 +161,9 @@ class TierPathsGlobTest(unittest.TestCase):
 
     def test_bracket_glob(self) -> None:
         """Character classes alongside ``*`` work (``docs/adrs/[0-9]*.md``)."""
-        self.assertEqual(self.paths("merge", ["docs/adrs/[0-9]*.md"]), {"docs/adrs/0001-x.md"})
+        self.assertEqual(
+            self.paths("merge", ["docs/adrs/[0-9]*.md"]), {"docs/adrs/0001-x.md"}
+        )
 
     def test_glob_matching_nothing(self) -> None:
         """A glob that matches nothing contributes no paths and does not fail."""
@@ -169,7 +175,11 @@ class TierPathsGlobTest(unittest.TestCase):
 
     def test_glob_overlapping_another_tier_is_excluded(self) -> None:
         """A path also matched by another tier is not returned (existing rule)."""
-        tiers = {"replace": ["scripts/*.sh"], "ignore": ["scripts/other.sh"], "merge": []}
+        tiers = {
+            "replace": ["scripts/*.sh"],
+            "ignore": ["scripts/other.sh"],
+            "merge": [],
+        }
         self.assertEqual(
             template_sync.tier_paths(self.root, tiers, "replace"),
             {"scripts/release-a.sh", "scripts/release-b.sh"},
@@ -209,7 +219,9 @@ class ApplyMergeTest(unittest.TestCase):
         self._tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self._tmp.cleanup)
         self.root = Path(self._tmp.name)
-        self.old, self.new, self.instance = (self.root / n for n in ("old", "new", "instance"))
+        self.old, self.new, self.instance = (
+            self.root / n for n in ("old", "new", "instance")
+        )
         write(self.old / "m.txt", b"a\nb\nc\n", 0o644)
         write(self.new / "m.txt", b"a\nB\nc\n", 0o644)
         write(self.instance / "m.txt", b"a\nb\nc\nd\n", 0o644)
@@ -283,7 +295,9 @@ class MergeFileErrorTest(unittest.TestCase):
         write(self.root / "base", b"a\n", 0o644)
         write(self.root / "ours", b"a\n", 0o644)
         with self.assertRaises(RuntimeError):
-            template_sync.merge_file(self.root / "ours", self.root / "base", self.root / "none")
+            template_sync.merge_file(
+                self.root / "ours", self.root / "base", self.root / "none"
+            )
 
     def test_binary_file_error_propagates_from_apply_merge(self) -> None:
         """A binary merge-tier file fails the sync rather than landing in ``conflicts``."""
@@ -299,13 +313,18 @@ class MergeFileErrorTest(unittest.TestCase):
         manifest = self.root / "manifest.yml"
         manifest.write_text("")
         args = argparse.Namespace(
-            manifest=manifest, old_ref=self.root, new_ref=self.root, instance_root=self.root
+            manifest=manifest,
+            old_ref=self.root,
+            new_ref=self.root,
+            instance_root=self.root,
         )
         with (
             mock.patch.object(template_sync, "parse_manifest", return_value={}),
             mock.patch.object(template_sync, "tier_paths", return_value=set()),
             mock.patch.object(template_sync, "apply_replace", return_value={}),
-            mock.patch.object(template_sync, "apply_merge", side_effect=RuntimeError("boom")),
+            mock.patch.object(
+                template_sync, "apply_merge", side_effect=RuntimeError("boom")
+            ),
             contextlib.redirect_stderr(io.StringIO()),
         ):
             self.assertEqual(template_sync.cmd_apply(args), 2)
@@ -313,7 +332,10 @@ class MergeFileErrorTest(unittest.TestCase):
     def _apply_args(self, manifest: Path) -> argparse.Namespace:
         """Build ``apply`` arguments over empty checkouts and the given manifest."""
         return argparse.Namespace(
-            manifest=manifest, old_ref=self.root, new_ref=self.root, instance_root=self.root
+            manifest=manifest,
+            old_ref=self.root,
+            new_ref=self.root,
+            instance_root=self.root,
         )
 
     def _exit_code(self, args: argparse.Namespace) -> int:
@@ -335,14 +357,18 @@ class MergeFileErrorTest(unittest.TestCase):
         """A failure while expanding tiers to paths exits 2."""
         manifest = self.root / "manifest.yml"
         manifest.write_text("")
-        with mock.patch.object(template_sync, "tier_paths", side_effect=OSError("denied")):
+        with mock.patch.object(
+            template_sync, "tier_paths", side_effect=OSError("denied")
+        ):
             self.assertEqual(self._exit_code(self._apply_args(manifest)), 2)
 
     def test_cmd_apply_returns_error_code_on_unexpected_exception(self) -> None:
         """Even a bug (here a KeyError) exits 2, not the traceback's 1 (= conflicts)."""
         manifest = self.root / "manifest.yml"
         manifest.write_text("")
-        with mock.patch.object(template_sync, "tier_paths", side_effect=KeyError("bug")):
+        with mock.patch.object(
+            template_sync, "tier_paths", side_effect=KeyError("bug")
+        ):
             self.assertEqual(self._exit_code(self._apply_args(manifest)), 2)
 
     def test_cmd_apply_does_not_catch_base_exceptions(self) -> None:
@@ -350,7 +376,9 @@ class MergeFileErrorTest(unittest.TestCase):
         manifest = self.root / "manifest.yml"
         manifest.write_text("")
         with (
-            mock.patch.object(template_sync, "tier_paths", side_effect=KeyboardInterrupt),
+            mock.patch.object(
+                template_sync, "tier_paths", side_effect=KeyboardInterrupt
+            ),
             self.assertRaises(KeyboardInterrupt),
         ):
             self._exit_code(self._apply_args(manifest))
@@ -359,7 +387,9 @@ class MergeFileErrorTest(unittest.TestCase):
 _SCRIPT_PATH_RE = re.compile(r"(?<![\w.-])(\.github/scripts/[\w.-]+\.sh)\b")
 # What may sit between an interpreter and the script path: a `./` or a
 # `${{ ... }}/` prefix, quotes. Stripped from the text before the path.
-_PATH_PREFIX_RE = re.compile(r"""["']?(?:\$\{\{[^}]*\}\}/|\$\{?GITHUB_WORKSPACE\}?/|\./)?["']?$""")
+_PATH_PREFIX_RE = re.compile(
+    r"""["']?(?:\$\{\{[^}]*\}\}/|\$\{?GITHUB_WORKSPACE\}?/|\./)?["']?$"""
+)
 # An interpreter (optionally by path, with flags) ending the text before a path.
 _INTERPRETER_RE = re.compile(
     r"(?:^|[\s;&|(])(?:\S*/)?(?:bash|sh|source|\.)(?:\s+-(?!\w*c)\S+)*\s+$"
@@ -393,7 +423,9 @@ class DirectlyInvokedScriptsAreExecutableTest(unittest.TestCase):
         invoked: set[str] = set()
         for workflow in (REPO_ROOT / ".github" / "workflows").glob("*.yml"):
             invoked |= directly_invoked_scripts(workflow.read_text())
-        self.assertTrue(invoked, "expected the moderate-* workflows to invoke scripts directly")
+        self.assertTrue(
+            invoked, "expected the moderate-* workflows to invoke scripts directly"
+        )
         for rel in sorted(invoked):
             self.assertTrue(is_exec(REPO_ROOT / rel), f"{rel} is not executable")
 
@@ -412,7 +444,9 @@ class DirectlyInvokedScriptsAreExecutableTest(unittest.TestCase):
             "run: bash -ec .github/scripts/a.sh": "a",
         }
         for text, name in direct.items():
-            self.assertEqual(directly_invoked_scripts(text), {f".github/scripts/{name}.sh"}, text)
+            self.assertEqual(
+                directly_invoked_scripts(text), {f".github/scripts/{name}.sh"}, text
+            )
         interpreted = [
             "run: bash .github/scripts/a.sh",
             "run: bash ./.github/scripts/a.sh",
@@ -461,7 +495,9 @@ class KeepsDefaultPublishPackagesTest(unittest.TestCase):
                 '\t@echo "error: Makefile doesn\'t implement publish-packages" >&2\n'
             )
         )
-        self.assertFalse(keeps_default_publish_packages("publish-packages:\n\tnpm publish\n"))
+        self.assertFalse(
+            keeps_default_publish_packages("publish-packages:\n\tnpm publish\n")
+        )
         # A comment mentioning the phrase is not the default.
         self.assertFalse(
             keeps_default_publish_packages(
@@ -511,7 +547,8 @@ class DefaultPublishPackagesTest(unittest.TestCase):
             result = self.run_target(**{var: "1"})
             self.assertNotEqual(result.returncode, 0, var)
             self.assertIn(
-                f"sets {var} but its Makefile doesn't implement publish-packages", result.stderr
+                f"sets {var} but its Makefile doesn't implement publish-packages",
+                result.stderr,
             )
 
 

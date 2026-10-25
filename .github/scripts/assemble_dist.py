@@ -118,7 +118,9 @@ def assemble(arches: list[str], parts: Path, dist: Path) -> None:
     leaves ``dist`` untouched.
     """
     if not hasattr(tarfile, "data_filter"):
-        msg = "this Python's tarfile has no extraction filters; Python 3.12+ is required"
+        msg = (
+            "this Python's tarfile has no extraction filters; Python 3.12+ is required"
+        )
         raise AssembleError(msg)
     tarballs = _check(_validate_arches(arches), parts)
     if dist.exists() and (not dist.is_dir() or any(dist.iterdir())):

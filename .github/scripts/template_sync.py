@@ -120,7 +120,8 @@ def write_state(state_path: Path, template_repo: str, synced_tag: str) -> None:
     """Write ``{template_repo, synced_tag}`` to the state file, pretty-printed."""
     state_path.parent.mkdir(parents=True, exist_ok=True)
     state_path.write_text(
-        json.dumps({"template_repo": template_repo, "synced_tag": synced_tag}, indent=2) + "\n"
+        json.dumps({"template_repo": template_repo, "synced_tag": synced_tag}, indent=2)
+        + "\n"
     )
 
 
@@ -314,8 +315,12 @@ def cmd_apply(args: argparse.Namespace) -> int:
             args.old_ref, tiers, "merge"
         )
         summary = {
-            "replace": apply_replace(args.old_ref, args.new_ref, args.instance_root, replace_paths),
-            "merge": apply_merge(args.old_ref, args.new_ref, args.instance_root, merge_paths),
+            "replace": apply_replace(
+                args.old_ref, args.new_ref, args.instance_root, replace_paths
+            ),
+            "merge": apply_merge(
+                args.old_ref, args.new_ref, args.instance_root, merge_paths
+            ),
         }
     except Exception as err:  # noqa: BLE001 -- any failure must exit 2, never an uncaught 1
         # An uncaught exception exits 1, which the workflow reads as "conflicts".
@@ -327,9 +332,15 @@ def cmd_apply(args: argparse.Namespace) -> int:
     return EXIT_CONFLICTS if summary["merge"]["conflicts"] else 0
 
 
-def pr_body(summary: dict[str, dict[str, list[str]]], old_tag: str, new_tag: str, repo: str) -> str:
+def pr_body(
+    summary: dict[str, dict[str, list[str]]], old_tag: str, new_tag: str, repo: str
+) -> str:
     """Render the sync PR body markdown from an ``apply`` summary."""
-    lines = [f"Syncs from `{old_tag}` to `{new_tag}` of {repo}.", "", "### Files changed"]
+    lines = [
+        f"Syncs from `{old_tag}` to `{new_tag}` of {repo}.",
+        "",
+        "### Files changed",
+    ]
     for path in summary["replace"]["updated"]:
         lines.append(f"- replace: `{path}`")
     for path in summary["replace"]["removed"]:
@@ -369,7 +380,9 @@ def build_parser() -> argparse.ArgumentParser:
     select_tag.set_defaults(func=cmd_select_tag)
 
     check_cadence = subparsers.add_parser("check-cadence")
-    check_cadence.add_argument("--interval", required=True, choices=["weekly", "monthly"])
+    check_cadence.add_argument(
+        "--interval", required=True, choices=["weekly", "monthly"]
+    )
     check_cadence.add_argument("--date", type=date.fromisoformat, default=date.today())
     check_cadence.set_defaults(func=cmd_check_cadence)
 

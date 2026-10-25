@@ -76,8 +76,12 @@ def bump_base(base: tuple[int, int, int], part: str) -> tuple[int, int, int]:
 def main() -> int:
     """Parse CLI args and print the computed tag/version/prerelease outputs."""
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--bump", required=True, choices=["major", "minor", "patch", "none"])
-    parser.add_argument("--release-type", required=True, choices=["alpha", "beta", "rc", "full"])
+    parser.add_argument(
+        "--bump", required=True, choices=["major", "minor", "patch", "none"]
+    )
+    parser.add_argument(
+        "--release-type", required=True, choices=["alpha", "beta", "rc", "full"]
+    )
     args = parser.parse_args()
 
     all_tags = list_tags()
@@ -90,7 +94,11 @@ def main() -> int:
     if parsed_tags:
         latest_overall_base = max(parsed_tags, key=sort_key)[:3]
 
-    base = latest_overall_base if args.bump == "none" else bump_base(latest_final_base, args.bump)
+    base = (
+        latest_overall_base
+        if args.bump == "none"
+        else bump_base(latest_final_base, args.bump)
+    )
 
     if args.release_type == "full":
         version = f"{base[0]}.{base[1]}.{base[2]}"
@@ -100,7 +108,9 @@ def main() -> int:
             return 1
         prerelease = "false"
     else:
-        existing_nums = [p[4] for p in parsed_tags if p[:3] == base and p[3] == args.release_type]
+        existing_nums = [
+            p[4] for p in parsed_tags if p[:3] == base and p[3] == args.release_type
+        ]
         next_num = max(existing_nums, default=0) + 1
         version = f"{base[0]}.{base[1]}.{base[2]}-{args.release_type}.{next_num}"
         tag = f"v{version}"

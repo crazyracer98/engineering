@@ -59,7 +59,9 @@ class AssembleDistTest(unittest.TestCase):
         self.parts.mkdir()
         self.dist = tmp / "dist"
 
-    def leg(self, arch: str, entries: dict[str, bytes | None], **kw: dict[str, str]) -> None:
+    def leg(
+        self, arch: str, entries: dict[str, bytes | None], **kw: dict[str, str]
+    ) -> None:
         """Create ``assets-<arch>.tar``."""
         make_tar(self.parts / f"assets-{arch}.tar", entries, kw.get("links"))
 
@@ -70,10 +72,15 @@ class AssembleDistTest(unittest.TestCase):
 
     def test_merges_disjoint_legs(self) -> None:
         """Different names (and a shared directory) from two legs are all extracted."""
-        self.leg("amd64", {"./": None, "./a-amd64.tar": b"1", "./sbom/": None, "./sbom/a": b"x"})
+        self.leg(
+            "amd64",
+            {"./": None, "./a-amd64.tar": b"1", "./sbom/": None, "./sbom/a": b"x"},
+        )
         self.leg("arm64", {"./a-arm64.tar": b"2", "./sbom/": None, "./sbom/b": b"y"})
         assemble_dist.assemble(["amd64", "arm64"], self.parts, self.dist)
-        got = sorted(str(p.relative_to(self.dist)) for p in self.dist.rglob("*") if p.is_file())
+        got = sorted(
+            str(p.relative_to(self.dist)) for p in self.dist.rglob("*") if p.is_file()
+        )
         self.assertEqual(got, ["a-amd64.tar", "a-arm64.tar", "sbom/a", "sbom/b"])
 
     def test_empty_leg_is_fine(self) -> None:
@@ -137,16 +144,29 @@ class AssembleDistTest(unittest.TestCase):
     def test_symlink_out_of_dist_is_reported(self) -> None:
         """A link pointing outside dist/ is a reported error, not a traceback."""
         self.leg("amd64", {}, links={"latest": "/etc/passwd"})
-        self.assertEqual(assemble_dist.main(["x", '["amd64"]', str(self.parts), str(self.dist)]), 1)
+        self.assertEqual(
+            assemble_dist.main(["x", '["amd64"]', str(self.parts), str(self.dist)]), 1
+        )
 
     def test_corrupt_tarball_is_reported(self) -> None:
         """A tarball that is not a tar is a reported error."""
         (self.parts / "assets-amd64.tar").write_bytes(b"not a tar")
-        self.assertEqual(assemble_dist.main(["x", '["amd64"]', str(self.parts), str(self.dist)]), 1)
+        self.assertEqual(
+            assemble_dist.main(["x", '["amd64"]', str(self.parts), str(self.dist)]), 1
+        )
 
     def test_invalid_arches_are_reported(self) -> None:
         """ARCHES_JSON must be a non-empty array of plain arch names."""
-        for raw in ("[]", '"amd64"', '{"amd64": 1}', "[1]", '[""]', '["../x"]', '["a/b"]', "nope"):
+        for raw in (
+            "[]",
+            '"amd64"',
+            '{"amd64": 1}',
+            "[1]",
+            '[""]',
+            '["../x"]',
+            '["a/b"]',
+            "nope",
+        ):
             self.assertEqual(
                 assemble_dist.main(["x", raw, str(self.parts), str(self.dist)]), 1, raw
             )
@@ -161,7 +181,10 @@ class AssembleDistTest(unittest.TestCase):
         self.leg("amd64", {"a": b"1"})
         self.leg("arm64", {}, links={"latest": "/etc/passwd"})
         self.assertEqual(
-            assemble_dist.main(["x", '["amd64", "arm64"]', str(self.parts), str(self.dist)]), 1
+            assemble_dist.main(
+                ["x", '["amd64", "arm64"]', str(self.parts), str(self.dist)]
+            ),
+            1,
         )
         self.assertEqual(sorted(p.name for p in self.dist.parent.iterdir()), ["parts"])
 
@@ -172,7 +195,9 @@ class AssembleDistTest(unittest.TestCase):
         assemble_dist.assemble(["amd64"], self.parts, self.dist)
         self.assertTrue((self.dist / "a").is_file())
         (self.dist / "keep").write_text("x")
-        with self.assertRaisesRegex(assemble_dist.AssembleError, "not an empty directory"):
+        with self.assertRaisesRegex(
+            assemble_dist.AssembleError, "not an empty directory"
+        ):
             assemble_dist.assemble(["amd64"], self.parts, self.dist)
         self.assertEqual(sorted(p.name for p in self.dist.iterdir()), ["a", "keep"])
 
@@ -188,7 +213,12 @@ class AssembleDistTest(unittest.TestCase):
         """With three legs, every ordering accepts or rejects the same layouts."""
         layouts = {
             "disjoint": ({"a": b"1"}, {"b": b"1"}, {"d/": None, "d/c": b"1"}, False),
-            "shared dir": ({"d/a": b"1"}, {"d/b": b"1"}, {"d/": None, "d/c": b"1"}, False),
+            "shared dir": (
+                {"d/a": b"1"},
+                {"d/b": b"1"},
+                {"d/": None, "d/c": b"1"},
+                False,
+            ),
             "file vs dir": ({"d/a": b"1"}, {"d/b": b"1"}, {"d": b"1"}, True),
             "file vs implied dir": ({"d": b"1"}, {"e": b"1"}, {"d/x": b"1"}, True),
             "same file": ({"a": b"1"}, {"b": b"1"}, {"a": b"2"}, True),
@@ -215,7 +245,9 @@ class AssembleDistTest(unittest.TestCase):
             assemble_dist.assemble(["amd64"], self.parts, self.dist)
 
 
-@unittest.skipUnless(_gnu_make(), "GNU make not installed (the probe parses its -p dump)")
+@unittest.skipUnless(
+    _gnu_make(), "GNU make not installed (the probe parses its -p dump)"
+)
 class HasMakeTargetTest(unittest.TestCase):
     """``has_make_target.sh`` tells a defined rule from everything else."""
 

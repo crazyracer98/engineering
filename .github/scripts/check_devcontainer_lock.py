@@ -18,7 +18,9 @@ DEVCONTAINER_DIR = Path(__file__).parent.parent.parent / ".devcontainer"
 
 def remote_features(config: dict) -> set[str]:
     """Return ``config``'s feature references, minus local ``./`` ones (never locked)."""
-    return {ref for ref in config.get("features", {}) if not ref.startswith(("./", "../"))}
+    return {
+        ref for ref in config.get("features", {}) if not ref.startswith(("./", "../"))
+    }
 
 
 def check(config_path: Path, lock_path: Path) -> list[str]:
@@ -27,16 +29,26 @@ def check(config_path: Path, lock_path: Path) -> list[str]:
     locked: set[str] = set()
     if lock_path.exists():
         locked = set(json.loads(lock_path.read_text()).get("features", {}))
-    errors = [f"{ref}: in {config_path} but not in {lock_path}" for ref in sorted(wanted - locked)]
-    errors += [f"{ref}: in {lock_path} but not in {config_path}" for ref in sorted(locked - wanted)]
+    errors = [
+        f"{ref}: in {config_path} but not in {lock_path}"
+        for ref in sorted(wanted - locked)
+    ]
+    errors += [
+        f"{ref}: in {lock_path} but not in {config_path}"
+        for ref in sorted(locked - wanted)
+    ]
     return errors
 
 
 def main() -> int:
     """Run the lockfile-consistency check and print any errors."""
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--config", type=Path, default=DEVCONTAINER_DIR / "devcontainer.json")
-    parser.add_argument("--lock", type=Path, default=DEVCONTAINER_DIR / "devcontainer-lock.json")
+    parser.add_argument(
+        "--config", type=Path, default=DEVCONTAINER_DIR / "devcontainer.json"
+    )
+    parser.add_argument(
+        "--lock", type=Path, default=DEVCONTAINER_DIR / "devcontainer-lock.json"
+    )
     args = parser.parse_args()
 
     errors = check(args.config, args.lock)

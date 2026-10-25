@@ -22,7 +22,9 @@ jq -r "$2" "$FAKE_RESPONSE"
 """
 
 
-@unittest.skipUnless(shutil.which("jq"), "jq not installed (the fake gh runs the real filter)")
+@unittest.skipUnless(
+    shutil.which("jq"), "jq not installed (the fake gh runs the real filter)"
+)
 class FindModerationResultTest(unittest.TestCase):
     """The lookup reports found/missing/expired and never hides an API failure."""
 
@@ -71,7 +73,9 @@ class FindModerationResultTest(unittest.TestCase):
         """The artifact is requested by name, so it is found past the first 30."""
         self.run_script([])
         args = (self.tmp / "args.txt").read_text()
-        self.assertIn("repos/o/r/actions/runs/42/artifacts?name=moderation-result", args)
+        self.assertIn(
+            "repos/o/r/actions/runs/42/artifacts?name=moderation-result", args
+        )
 
     def test_no_artifact_is_not_found_and_not_an_error(self) -> None:
         """A skipped worker run leaves no artifact: ``found=false``, exit 0."""

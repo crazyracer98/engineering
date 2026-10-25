@@ -49,7 +49,9 @@ def matches(path: str, pattern: str) -> bool:
 
 def classify(path: str, tiers: dict[str, list[str]]) -> list[str]:
     """Return every tier name whose patterns match ``path`` (ideally exactly one)."""
-    return [tier for tier in TIERS if any(matches(path, pattern) for pattern in tiers[tier])]
+    return [
+        tier for tier in TIERS if any(matches(path, pattern) for pattern in tiers[tier])
+    ]
 
 
 def tracked_files() -> list[str]:
@@ -91,7 +93,9 @@ def check(manifest_path: Path) -> list[str]:
         if len(matched) == 0:
             errors.append(f"{path}: not covered by any tier in {manifest_path}")
         elif len(matched) > 1:
-            errors.append(f"{path}: matched by more than one tier ({', '.join(matched)})")
+            errors.append(
+                f"{path}: matched by more than one tier ({', '.join(matched)})"
+            )
     return errors
 
 

@@ -1,0 +1,70 @@
+site_name: Engineering Best Practices
+site_description: A cross-domain taxonomy of engineering and management rules.
+site_url: https://crazyracer98.github.io/engineering/
+repo_url: https://github.com/crazyracer98/engineering
+repo_name: crazyracer98/engineering
+# Pages are generated; "edit" leads to the data they are built from.
+edit_uri: edit/main/data/
+copyright: CC BY-SA 4.0 (content), GPL-3.0 (code)
+docs_dir: build/site-src
+site_dir: build/site
+strict: true
+
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+  anchors: warn
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+  features:
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+    - toc.follow
+
+plugins:
+  - search
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - attr_list
+  - tables
+  - admonition
+  - md_in_html
+
+nav:
+- Home: index.md
+- Chapters:
+    - "1. How to read this file": 01-how-to-read.md
+    - "2. Master rule": 02-master-rule.md
+    - "3. Taxonomy overview": 03-overview.md
+    - "4. Domain index": 04-domain-index.md
+    - "5. Glossary": 05-glossary.md
+    - "6. Rigor matrix": 06-rigor-matrix.md
+    - "7. Rules by category": 07-rules.md
+    - "8. Conflict rules": 08-conflicts.md
+    - "9. Sources by rule": 09-sources-by-rule.md
+    - "10. Management form of each rule": 10-management-forms.md
+    - "11. Direct quotes": 11-quotes.md
+    - "12. Method and limits": 12-method.md
+- Methodology: methodology.md
+- History: history.md
