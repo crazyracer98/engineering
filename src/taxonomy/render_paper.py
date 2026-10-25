@@ -3,6 +3,6 @@
 from pathlib import Path
 
 
-def build(out: Path) -> None:
+def build(out: Path, root: Path | None = None) -> None:
     """Build the PDF at ``out``."""
     raise NotImplementedError("taxonomy paper is implemented by work item P2")

@@ -21,5 +21,5 @@ Paths marked (planned) don't exist yet.
 
 | Paths | License |
 |---|---|
-| This repo's own prose and data: `docs/methodology.md`, `docs/history.md`, `docs/adrs/[0-9]*`, `docs/nfrs/NFR-*`, `data/`, `publication/` (planned), `paper/` (except `paper/csl/`, CC BY-SA 3.0 per its own notice), `sources/` (except `sources/import/import_v9.py`, a script), and the generated site and PDF (planned) | [CC BY-SA 4.0](LICENSE-CC-BY-SA-4.0) |
+| This repo's own prose and data: `docs/methodology.md`, `docs/history.md`, `docs/adrs/[0-9]*`, `docs/nfrs/NFR-*`, `data/`, `publication/`, `paper/` (except `paper/csl/`, CC BY-SA 3.0 per its own notice), `sources/` (except `sources/import/import_v9.py`, a script), and the generated site and PDF (planned) | [CC BY-SA 4.0](LICENSE-CC-BY-SA-4.0) |
 | `src/`, `tests/`, `schema/`, scripts, workflows, configuration, the template-synced files under `docs/` (`docs/TEMPLATE.md`, directory `README.md`s, `template.md` files), and everything else | [GPL-3.0](LICENSE) |

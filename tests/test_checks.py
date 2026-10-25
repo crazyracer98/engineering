@@ -330,3 +330,51 @@ def test_domain_count_mismatch(repo: Path, edit: Edit) -> None:
     edit("data/meta.yaml", seed)
     msgs = messages(repo, "domain-count")
     assert any("states 131 domains" in m and "has 130 domains" in m for m in msgs)
+
+
+def test_contradiction_found_when_edges_run_from_larger_to_smaller_id(
+    repo: Path, edit: Edit
+) -> None:
+    def seed(doc: Any) -> None:
+        rule(doc, "U5")["related"] = {"conflicts_with": ["U2"], "strengthens": ["U2"]}
+        rule(doc, "U2")["related"] = {}
+
+    edit("data/rules.yaml", seed)
+    msgs = messages(repo, "relation-contradictions")
+    assert len([m for m in msgs if "U2 and U5 conflict" in m]) == 1
+
+
+def test_domain_count_without_domain_index_section(repo: Path, edit: Edit) -> None:
+    def seed(doc: Any) -> None:
+        for sec in doc["sections"]:
+            if sec["key"] == "domain_index":
+                sec["key"] = "renamed"
+
+    edit("data/meta.yaml", seed)
+    assert any("no 'N domains" in m for m in messages(repo, "domain-count"))
+
+
+def test_yaml_syntax_error_is_a_finding(repo: Path) -> None:
+    (repo / "data" / "glossary.yaml").write_text("a: [unclosed\n", encoding="utf-8")
+    findings = run_checks(repo)
+    assert [f.check for f in findings] == ["load"]
+    assert "glossary.yaml" in findings[0].message
+
+
+def test_missing_schema_is_a_finding(repo: Path) -> None:
+    (repo / "schema" / "rules.schema.json").unlink()
+    msgs = messages(repo, "schema")
+    assert any("rules.schema.json" in m for m in msgs)
+
+
+def test_missing_data_file_is_a_finding(repo: Path) -> None:
+    (repo / "data" / "rules.yaml").unlink()
+    findings = run_checks(repo)
+    assert findings and findings[0].check == "load"
+    assert "rules.yaml" in findings[0].message
+
+
+def test_missing_sources_registry_is_an_error(repo: Path) -> None:
+    (repo / "data" / "sources.yaml").unlink()
+    findings = run_checks(repo)
+    assert findings and "sources.yaml" in findings[0].message
