@@ -55,6 +55,16 @@ def _refs(
     return out
 
 
+def _sources_text(
+    item: dict[str, Any], src: Mapping[str, Any], reg: Mapping[str, Source]
+) -> None:
+    """Resolve ``sources_text`` with the per-use ``source_titles``, as the Markdown."""
+    if "sources_text" in src:
+        item["sources_text"] = resolve_citations(
+            src["sources_text"], reg, src.get("source_titles")
+        )
+
+
 def build_document(ds: Dataset, reg: Mapping[str, Source]) -> dict[str, Any]:
     meta = dict(ds.meta)
     master = dict(meta["master_rule"])
@@ -93,6 +103,7 @@ def build_document(ds: Dataset, reg: Mapping[str, Source]) -> dict[str, Any]:
         if mg:
             m = {k: v for k, v in mg.items() if k not in ("sources", "source_titles")}
             m["sources"] = _refs(mg["sources"], reg, mg.get("source_titles"))
+            _sources_text(m, mg, reg)
             item["management"] = m
         else:
             item["management"] = None
@@ -108,8 +119,9 @@ def build_document(ds: Dataset, reg: Mapping[str, Source]) -> dict[str, Any]:
         }
         slugs = ([q["source"]] if q["source"] else []) + q.get("extra_sources", [])
         item["sources"] = _refs(slugs, reg, q.get("source_titles"))
+        _sources_text(item, q, reg)
         quotes.append(item)
-    used = {s["slug"] for s in ds.sources}
+    dataset_sources = {s["slug"] for s in ds.sources}
     doc: dict[str, Any] = {
         "meta": flat_meta,
         "categories": ds.categories,
@@ -121,7 +133,7 @@ def build_document(ds: Dataset, reg: Mapping[str, Source]) -> dict[str, Any]:
         "conflict_rules": ds.conflicts,
         "quotes": quotes,
         "method": ds.method,
-        "sources": [reg[s] for s in reg if s in used],
+        "sources": [reg[s] for s in reg if s in dataset_sources],
         "history": ds.history,
     }
     return _resolve(doc, reg, None)  # type: ignore[no-any-return]

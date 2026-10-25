@@ -9,8 +9,8 @@ import pytest
 
 from taxonomy import build, cli
 from taxonomy.load import load_dataset, load_registry
-from taxonomy.render_markdown import render_chapters, resolve_citations
-from taxonomy.render_yaml import render_yaml
+from taxonomy.render_markdown import render_chapters, render_single, resolve_citations
+from taxonomy.render_yaml import build_document, render_yaml
 from tests.conftest import REPO
 from tests.test_checks import Edit
 
@@ -134,3 +134,15 @@ def test_duplicate_slugs_are_all_reported(repo: Path, edit: Edit) -> None:
     with pytest.raises(ValueError) as info:
         load_registry(repo)
     assert "wikipedia-andon" in str(info.value) and "rfc-2119" in str(info.value)
+
+
+def test_yaml_sources_text_uses_per_use_titles_like_markdown() -> None:
+    ds = load_dataset(REPO)
+    reg = load_registry(REPO)
+    doc = build_document(ds, reg)
+    md = render_single(ds, reg)
+    quote = next(q for q in doc["quotes"] if q["id"] == "Q9")
+    form = next(r for r in doc["rules"] if r["id"] == "U17")["management"]
+    assert f"| {quote['sources_text']} |" in md
+    assert f"| {form['sources_text']} |" in md
+    assert form["sources_text"].startswith("[ISO 22301:2019](")
