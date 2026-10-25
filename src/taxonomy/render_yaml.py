@@ -17,7 +17,7 @@ from ruamel.yaml import YAML
 from ruamel.yaml.scalarstring import LiteralScalarString
 
 from taxonomy.model import Dataset, Source
-from taxonomy.render_markdown import resolve_citations
+from taxonomy.render_markdown import lookup, resolve_citations
 
 HEADER = (
     "# Engineering Best Practices: machine-readable version.\n"
@@ -50,7 +50,7 @@ def _refs(
 ) -> Any:
     out = []
     for slug in slugs:
-        src = reg[slug]
+        src = lookup(reg, slug)
         out.append({"title": (titles or {}).get(slug, src["title"]), "url": src["url"]})
     return out
 

@@ -22,7 +22,9 @@ written as `[@slug]`; citations inside code spans and fenced code are ignored.
 | `id-references` | rule IDs named in categories, conflicts, domains, quotes and `known_exceptions` exist (`Master` allowed where the schema allows it) | `validate.check_id_references` | `test_id_reference_missing` |
 | `rule-in-domain` | every rule appears in at least one domain row | `validate.check_rule_in_domain` | `test_rule_in_no_domain` |
 | `domain-count` | the domain-index intro sentence "N domains in B branches (E engineering branches, M management branches)" matches `domains.yaml` | `validate.check_domain_count` | `test_domain_count_mismatch` |
-| `source-used` | every source of `data/sources.yaml`, `paper/references-extra.yaml` and `docs/methodology-references.yaml` is used by data, or cited in `paper/` or `docs/` | `validate.check_source_used` | `test_unused_source`, `test_unused_paper_source` |
+| `management-count` | the sentence "Section 10 states N of the M rules in management form … the other K (IDs)" in `meta` matches `rules.yaml`: N rules have a `management` form, M rules in all, and the K listed IDs (ranges such as `U47–U58`, en dash or hyphen, for any prefix in `meta.id_prefixes`) are exactly the rules whose `management` is null | `validate.check_management_count` | `test_management_count_wrong_n`, `test_management_count_wrong_id_list`, `test_management_count_sentence_missing`, `test_parse_id_list_is_prefix_generic` |
+| `slug-references` | every structured slug (rule and management `sources`, domain `references`, quote `source` and `extra_sources`, `master_rule.sources`) is in the merged registry; `taxonomy build` stops with exit 1 and a message naming the slug and where it is used | `validate.check_slug_references`, `cli.main` | `test_slug_reference_typo` |
+| `source-used` | every source of `data/sources.yaml`, `paper/references-extra.yaml` and `docs/methodology-references.yaml` is used by data, or cited in `paper/` or `docs/`; a citation inside a registry (a title, note or `via`) does not count | `validate.check_source_used` | `test_unused_source`, `test_unused_paper_source`, `test_source_cited_only_by_itself_is_unused` |
 | `table-columns` | every table of the rendered single file has the header's column count (escaped `\|` does not count) | `validate.check_table_columns` | `test_table_column_count`, `test_escaped_pipe_is_not_a_column` |
 | `relation-contradictions` | see below | `validate.check_relation_contradictions` | `test_relation_contradiction_*`, `test_relation_self_reference`, `test_missing_inverse_is_not_a_contradiction`, `test_contradiction_found_when_edges_run_from_larger_to_smaller_id` |
 | `inverse-complete` | A `strengthens` B needs B `strengthened_by` A and the reverse; the same for `checks`/`checked_by`. `depends_on` and `scaled_by` have no inverse type and stay one-way | `validate.check_inverse_complete` | `test_missing_inverse_strengthened_by`, `test_missing_inverse_strengthens`, `test_missing_inverse_checked_by` |
@@ -38,7 +40,7 @@ written as `[@slug]`; citations inside code spans and fenced code are ignored.
 | `id-map` | every `history.id_map` entry points at an existing rule | `validate.check_id_map` | `test_id_map_target_missing` |
 | `citations` | every citation in data, `paper/` and `docs/` resolves in the merged registry and is well formed | `validate.check_citations` | `test_unresolved_citation_*`, `test_citation_in_code_is_ignored` |
 | `registry-unique` | slugs and URLs are unique across the three registries | `validate.check_registry_unique` | `test_duplicate_slug_across_registries`, `test_duplicate_url_across_registries` |
-| `schema` | every data file, and the two extra registries, validate against their JSON Schema with `jsonschema` and a `FormatChecker` | `validate.check_schema` | `test_schema_violation`, `test_schema_format_checker_is_enforced`, `test_schema_covers_extra_registries` |
+| `schema` | every data file, and the two extra registries, validate against their JSON Schema with `jsonschema` and a `FormatChecker`; a missing or invalid schema, or an extra registry that fails to load, is a finding for that file and the other files are still validated | `validate.check_schema` | `test_schema_violation`, `test_schema_format_checker_is_enforced`, `test_schema_covers_extra_registries`, `test_schema_findings_are_per_file` |
 | generated files current | `publication/` equals what `data/` renders | `taxonomy build --check`, prek hook `taxonomy-generated` | `test_build_check_detects_stale_files`, `test_publication_is_up_to_date` |
 
 `test_every_check_has_a_seeded_test` fails when a check is added to `CHECKS`
@@ -48,7 +50,9 @@ compares the rendered file with the imported edition-9 text.
 
 A file that cannot be read or parsed (missing, YAML syntax error, missing schema)
 is reported as a `load` or `schema` finding with its path, and a check that
-crashes on malformed data is reported as a finding of its own. The CLI exits 1
+crashes on malformed data is reported as a finding of its own. When a data file
+fails to load, the other checks cannot run, but the `schema` check still
+validates every other file one by one. The CLI exits 1
 with that message and no traceback.
 
 ### Relation contradictions
