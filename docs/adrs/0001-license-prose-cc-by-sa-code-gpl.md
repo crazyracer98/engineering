@@ -25,7 +25,7 @@ GPL-3.0 covers `src/`, `tests/`, `schema/`, scripts, workflows,
 configuration, the template-synced files under `docs/` (`docs/TEMPLATE.md`,
 directory `README.md`s, `template.md` files, which keep the template's
 license) and everything else. Of these paths, `data/`, `schema/`,
-`publication/`, `paper/`, `import_v9.py`, the site and the PDF are planned
+`docs/methodology.md`, `docs/history.md`, `publication/`, `paper/`, `import_v9.py`, the site and the PDF are planned
 and don't exist yet. `LICENSE` stays GPL-3.0; `LICENSE-CC-BY-SA-4.0` holds
 the verbatim legal code. The root `README.md` maps paths to licenses.
 
