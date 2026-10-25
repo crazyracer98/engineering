@@ -1,4 +1,4 @@
-"""One seeded violation per integrity check (NFR-001); each must fail clearly."""
+"""One seeded violation per integrity check (NFR-0001); each must fail clearly."""
 
 from __future__ import annotations
 
@@ -30,6 +30,7 @@ def test_every_check_has_a_seeded_test() -> None:
         "related-targets",
         "id-references",
         "rule-in-domain",
+        "domain-count",
         "source-used",
         "table-columns",
         "relation-contradictions",
@@ -319,3 +320,13 @@ def test_schema_format_checker_is_enforced(repo: Path, edit: Edit) -> None:
 def test_schema_covers_extra_registries(repo: Path, edit: Edit) -> None:
     edit("paper/references-extra.yaml", lambda d: d[0].update(kind="tertiary"))
     assert any("paper/references-extra.yaml" in m for m in messages(repo, "schema"))
+
+
+def test_domain_count_mismatch(repo: Path, edit: Edit) -> None:
+    def seed(doc: Any) -> None:
+        sec = next(s for s in doc["sections"] if s["key"] == "domain_index")
+        sec["intro"] = sec["intro"].replace("130 domains", "131 domains")
+
+    edit("data/meta.yaml", seed)
+    msgs = messages(repo, "domain-count")
+    assert any("states 131 domains" in m and "has 130 domains" in m for m in msgs)

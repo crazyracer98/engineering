@@ -1,4 +1,4 @@
-"""Dataset integrity checks (NFR-001).
+"""Dataset integrity checks (NFR-0001).
 
 ``run_checks(root)`` returns a list of ``Finding``; an empty list means the
 dataset is clean. Every check is a function ``(Context) -> list[str]`` of
@@ -11,9 +11,10 @@ import re
 from collections import defaultdict
 from collections.abc import Callable
 from dataclasses import dataclass, field
-from importlib import import_module
 from pathlib import Path
 from typing import Any
+
+from jsonschema import Draft202012Validator, FormatChecker
 
 from taxonomy.load import (
     load_dataset,
@@ -26,12 +27,6 @@ from taxonomy.render_markdown import (
     build_sections,
     citation_slugs,
 )
-
-# jsonschema ships no type information and the project may not add stubs, so it is
-# loaded dynamically and used through Any.
-_jsonschema: Any = import_module("jsonschema")
-Draft202012Validator: Any = _jsonschema.Draft202012Validator
-FormatChecker: Any = _jsonschema.FormatChecker
 
 #: Data file stem -> schema stem is the identity; these files use ``sources``.
 EXTRA_REGISTRIES = {
@@ -209,6 +204,38 @@ def check_id_references(ctx: Context) -> list[str]:
     for e in ds.meta["known_exceptions"]:
         need("meta.known_exceptions", e["rule"])
     return msgs
+
+
+_DOMAIN_COUNT = re.compile(
+    r"(\d+) domains in (\d+) branches "
+    r"\((\d+) engineering branches, (\d+) management branches\)"
+)
+
+
+def check_domain_count(ctx: Context) -> list[str]:
+    """The domain-index intro states counts that must match domains.yaml."""
+    section = next(s for s in ctx.ds.meta["sections"] if s["key"] == "domain_index")
+    match = _DOMAIN_COUNT.search(section.get("intro", ""))
+    if not match:
+        return ["domain_index intro has no 'N domains in B branches (...)' sentence"]
+    domains = ctx.ds.domains["domains"]
+    branches = {d["branch"] for d in domains}
+    management = {b for b in branches if b.startswith("Management:")}
+    actual = (
+        len(domains),
+        len(branches),
+        len(branches) - len(management),
+        len(management),
+    )
+    stated = tuple(int(g) for g in match.groups())
+    if stated != actual:
+        return [
+            f"domain-index intro states {stated[0]} domains in {stated[1]} branches "
+            f"({stated[2]} engineering, {stated[3]} management) but domains.yaml has "
+            f"{actual[0]} domains in {actual[1]} branches ({actual[2]} engineering, "
+            f"{actual[3]} management)"
+        ]
+    return []
 
 
 def check_rule_in_domain(ctx: Context) -> list[str]:
@@ -432,6 +459,7 @@ CHECKS: dict[str, Callable[[Context], list[str]]] = {
     "related-targets": check_related_targets,
     "id-references": check_id_references,
     "rule-in-domain": check_rule_in_domain,
+    "domain-count": check_domain_count,
     "source-used": check_source_used,
     "table-columns": check_table_columns,
     "relation-contradictions": check_relation_contradictions,

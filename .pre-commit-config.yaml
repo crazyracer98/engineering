@@ -108,7 +108,7 @@ repos:
         stages: [pre-commit, manual]
 
       - id: taxonomy-check
-        name: taxonomy check (dataset integrity, NFR-001)
+        name: taxonomy check (dataset integrity, NFR-0001)
         entry: uv run --locked taxonomy check
         language: system
         files: ^(data|schema|src|paper|docs|publication)/

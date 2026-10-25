@@ -6,7 +6,7 @@
   `docs/`, `publication/` and `sources/` into a temp directory; `edit`
   changes a YAML file there.
 - `test_checks.py`: one seeded violation per integrity check
-  ([NFR-001](../docs/nfrs/NFR-001-dataset-integrity.md)), each asserting the
+  ([NFR-0001](../docs/nfrs/NFR-0001-dataset-integrity.md)), each asserting the
   check fails with a clear message, plus the clean-dataset test.
 - `test_publication.py`: the round trip against the edition-9 Markdown (only
   the version line may differ), `publication/` freshness, chapters, the

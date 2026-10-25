@@ -21,7 +21,12 @@ Repository = "https://github.com/crazyracer98/engineering"
 taxonomy = "taxonomy.cli:main"
 
 [dependency-groups]
-dev = ["ruff>=0.17,<0.18", "mypy>=2.4,<3", "pytest>=9.1,<10"]
+dev = [
+    "ruff>=0.17,<0.18",
+    "mypy>=2.4,<3",
+    "pytest>=9.1,<10",
+    "types-jsonschema>=4.26,<5",
+]
 
 [build-system]
 requires = ["uv_build>=0.13.5,<0.14"]

@@ -13,7 +13,7 @@ Built with `uv_build` from `../pyproject.toml`; the console script
   `docs/methodology-references.yaml` into `slug -> Source`) and
   `load_registry_files(root)`.
 - `validate.py`: the integrity checks of
-  [NFR-001](../docs/nfrs/NFR-001-dataset-integrity.md); `run_checks(root)`
+  [NFR-0001](../docs/nfrs/NFR-0001-dataset-integrity.md); `run_checks(root)`
   returns `Finding`s.
 - `render_markdown.py`: `resolve_citations(text, registry, titles=None)`
   (turns `[@a]`, `[@a; @b]` and `[@a, p. 3]` into `[title](url)` links),

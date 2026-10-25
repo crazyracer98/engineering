@@ -1,4 +1,4 @@
-# NFR-001. The dataset and its generated files stay internally consistent
+# NFR-0001. The dataset and its generated files stay internally consistent
 
 ## Status
 
@@ -21,6 +21,7 @@ written as `[@slug]`; citations inside code spans and fenced code are ignored.
 | `related-targets` | every `related` target is an existing rule | `validate.check_related_targets` | `test_related_target_missing` |
 | `id-references` | rule IDs named in categories, conflicts, domains, quotes and `known_exceptions` exist (`Master` allowed where the schema allows it) | `validate.check_id_references` | `test_id_reference_missing` |
 | `rule-in-domain` | every rule appears in at least one domain row | `validate.check_rule_in_domain` | `test_rule_in_no_domain` |
+| `domain-count` | the domain-index intro sentence "N domains in B branches (E engineering branches, M management branches)" matches `domains.yaml` | `validate.check_domain_count` | `test_domain_count_mismatch` |
 | `source-used` | every source of `data/sources.yaml`, `paper/references-extra.yaml` and `docs/methodology-references.yaml` is used by data, or cited in `paper/` or `docs/` | `validate.check_source_used` | `test_unused_source`, `test_unused_paper_source` |
 | `table-columns` | every table of the rendered single file has the header's column count (escaped `\|` does not count) | `validate.check_table_columns` | `test_table_column_count`, `test_escaped_pipe_is_not_a_column` |
 | `relation-contradictions` | see below | `validate.check_relation_contradictions` | `test_relation_contradiction_*`, `test_relation_self_reference`, `test_missing_inverse_is_allowed` |
