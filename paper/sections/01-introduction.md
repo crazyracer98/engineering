@@ -69,8 +69,10 @@ The taxonomy makes four contributions.
    system is designed, built and operated by an organization, so rules about
    decisions, delegation, selection, feedback and change belong in the same
    taxonomy. The rules were collected from 130 domains in 20 branches, 12 of
-   them engineering branches and 8 management branches, and every rule is
-   also stated in management form, for teams, projects and organizations.
+   them engineering branches and 8 management branches. Of the 83 rules, 67
+   are also restated in management form, for teams, projects and
+   organizations; the other 16 (U47–U58, R9 and C14–C16) come from
+   management sources and are already written for organizations.
 4. **Explicit evidence and source quality per rule.** Every rule lists its
    sources, primary sources first, with an evidence rating and verbatim
    quotes where a quote decides the rating. All but one rule (C15, Brooks's
@@ -101,5 +103,5 @@ Sections 4 and 5 present the generated taxonomy: the master rule, the
 overview and quick view, the rigor matrix, and each rule as a card. Section 6 discusses
 the open limits, threats to validity and future work, and Section 7
 concludes. The appendices hold the glossary, the domain index, the
-management form of each rule, the direct quotes and the limits recorded with
+management forms of the rules, the direct quotes and the limits recorded with
 the sources.

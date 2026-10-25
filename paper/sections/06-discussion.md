@@ -128,9 +128,10 @@ INCOSE criteria in Section 2 are quoted as recorded with the taxonomy's
 sources, because the document's server refused a re-check.
 
 **Decay of links and sources.** Web pages move and standards are revised.
-The dataset records an access date for every source, and a scheduled
-link check runs over the published text, but a citation that was valid on its access date may
-not stay valid.
+The dataset records an access date only for the sources behind the direct
+quotes (56 of its 233 sources, all checked on 2026-10-14), and a scheduled
+link check runs over the published text, but a citation that was valid when
+it was checked may not stay valid.
 
 ## Future work {#sec-disc-future}
 
