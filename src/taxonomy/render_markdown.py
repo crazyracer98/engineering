@@ -17,7 +17,7 @@ from taxonomy.model import RELATION_LABELS, Dataset, Management, Quote, Rule, So
 _CITATION = re.compile(r"\[(@[^\[\]]*)\]")
 _ITEM = re.compile(r"^@([a-z0-9]+(?:-[a-z0-9]+)*)(?:,\s*(.+))?$")
 _FENCE = re.compile(r"^(```|~~~).*?^\1[ \t]*$", re.MULTILINE | re.DOTALL)
-_INLINE_CODE = re.compile(r"(`+)(?:(?!\1).)+?\1", re.DOTALL)
+_INLINE_CODE = re.compile(r"(`+)(?:(?!\1).)+?\1")
 
 
 def strip_code(text: str) -> str:
@@ -537,7 +537,7 @@ def chapter_filename(ds: Dataset, number: int) -> str:
     return f"{number:02d}-{sec['key'].replace('_', '-')}.md"
 
 
-_SKIP = re.compile(r"\[[^\]]*\]\([^)]*\)|<a id=\"[^\"]*\"></a>[A-Z]\d+")
+_SKIP = re.compile(r"`[^`\n]*`|\[[^\]]*\]\([^)]*\)|<a id=\"[^\"]*\"></a>[A-Z]\d+")
 _SECTION_REF = re.compile(r"\b([Ss]ection) (\d{1,2})\b(?![.\d]\d)")
 _ID_REF = re.compile(r"(?<![\w/#-])([URCK][1-9][0-9]*)\b")
 
@@ -576,6 +576,24 @@ def _link_refs(text: str, ds: Dataset, current: int) -> str:
     return "".join(out)
 
 
+def _link_block(text: str, ds: Dataset, current: int) -> list[str]:
+    """Link references line by line, leaving fenced code blocks untouched."""
+    out: list[str] = []
+    fence: str | None = None
+    for line in text.split("\n"):
+        marker = line.lstrip()[:3]
+        if fence is None and marker in ("```", "~~~"):
+            fence = marker
+            out.append(line)
+        elif fence is not None:
+            if marker == fence:
+                fence = None
+            out.append(line)
+        else:
+            out.append(_link_refs(line, ds, current))
+    return out
+
+
 def render_chapters(ds: Dataset, registry: Mapping[str, Source]) -> dict[str, str]:
     """``{filename: text}`` for ``publication/chapters/``: one file per section,
     plus ``README.md`` (title, version line and linked contents)."""
@@ -594,9 +612,7 @@ def render_chapters(ds: Dataset, registry: Mapping[str, Source]) -> dict[str, st
             if block.kind in ("h2", "h3"):
                 lines.append(block.text[1:])  # demote one level under the chapter H1
             else:
-                lines.extend(
-                    _link_refs(ln, ds, sec.number) for ln in block.text.split("\n")
-                )
+                lines.extend(_link_block(block.text, ds, sec.number))
         files[name] = "\n".join(lines) + "\n"
     head = [f"# {ds.meta['title']}", "", counts_line(ds), "", "## Contents", "", *toc]
     files["README.md"] = "\n".join(head) + "\n"

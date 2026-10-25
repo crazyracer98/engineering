@@ -45,7 +45,8 @@ def existing(root: Path) -> dict[str, str]:
     return {
         str(p.relative_to(base)): p.read_text(encoding="utf-8")
         for p in sorted(base.rglob("*"))
-        if p.is_file() and not p.name.startswith(".")
+        if p.is_file()
+        and not any(part.startswith(".") for part in p.relative_to(base).parts)
     }
 
 
@@ -78,4 +79,8 @@ def write(root: Path) -> list[str]:
         if rel not in want:
             (base / rel).unlink()
             changed.append(rel)
+    # Remove directories the cleanup left empty (deepest first).
+    for directory in sorted((d for d in base.rglob("*") if d.is_dir()), reverse=True):
+        if not any(directory.iterdir()):
+            directory.rmdir()
     return sorted(changed)
