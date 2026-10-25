@@ -2,7 +2,13 @@
 
 from __future__ import annotations
 
+import email.message
+import gzip
+import http.client
+import io
 import json
+import urllib.error
+import urllib.request
 from collections.abc import Callable, Mapping
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
@@ -208,11 +214,6 @@ def test_no_retry_on_404_and_failure_kinds(tmp_path: Path) -> None:
     assert [u for u, _ in transport.calls].count("https://o.example/a") == 1
     f2, _, _ = fetcher(tmp_path / "x", {"https://o.example/b": [status(403)]})
     assert f2.fetch_source(src("https://o.example/b")).status == "blocked"
-    f3, _, _ = fetcher(
-        tmp_path / "y",
-        {"https://o.example/c": [ok("<html>Please solve the CAPTCHA</html>")]},
-    )
-    assert f3.fetch_source(src("https://o.example/c")).status == "blocked"
 
 
 def test_conditional_revalidation(tmp_path: Path) -> None:
@@ -437,16 +438,15 @@ def test_inflate_gzip_and_deflate() -> None:
     assert vs._inflate(b"not gzip", {"content-encoding": "gzip"}) == b"not gzip"
 
 
-def test_javascript_challenge_is_blocked() -> None:
+def test_challenge_heuristic_is_separate_from_fetch() -> None:
     page = (
         "<html>Please verify that you're not a robot. This requires JavaScript.</html>"
     )
-    assert (
-        vs.classify(
-            vs.HttpResponse(202, {"content-type": "text/html"}, page.encode(), "")
-        )[0]
-        == "blocked"
-    )
+    resp = vs.HttpResponse(202, {"content-type": "text/html"}, page.encode(), "")
+    assert vs.classify(resp)[0] == "ok"
+    assert vs.looks_like_challenge(page.encode(), "text/html")
+    assert not vs.looks_like_challenge(page.encode(), "application/pdf")
+    assert not vs.looks_like_challenge(b"<p>plain</p>", "text/html")
 
 
 def test_single_and_double_quotes_are_equivalent() -> None:
@@ -545,3 +545,166 @@ def test_paid_source_missing_passage_after_archive(repo: Path) -> None:
     )
     t = FakeTransport({"https://b.example/": [ok(PAGE)]})
     assert run_cli(repo, t, "Q2") == 0
+
+
+# -- robustness -------------------------------------------------------------
+
+
+class _FakeResp:
+    """A urlopen() result; ``read`` serves ``body`` or raises ``error``."""
+
+    def __init__(self, body: bytes = b"", error: Exception | None = None) -> None:
+        self._body, self._error = body, error
+        self.status = 200
+        self.headers = email.message.Message()
+        self.headers["Content-Type"] = "text/html"
+
+    def __enter__(self) -> _FakeResp:
+        return self
+
+    def __exit__(self, *exc: object) -> None:
+        return None
+
+    def geturl(self) -> str:
+        return "https://x.example/"
+
+    def read(self, n: int = -1) -> bytes:
+        if self._error is not None:
+            raise self._error
+        out, self._body = self._body, b""
+        return out
+
+
+class _BrokenFp(io.BytesIO):
+    def read(self, n: int | None = -1) -> bytes:
+        raise http.client.IncompleteRead(b"par")
+
+
+def test_truncated_reads_do_not_abort_the_run(
+    repo: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repo_with(repo)
+
+    def fake_urlopen(req: urllib.request.Request, timeout: float) -> _FakeResp:
+        url = req.full_url
+        if url.startswith("https://a.example"):
+            return _FakeResp(error=http.client.IncompleteRead(b"par"))
+        if url.startswith("https://b.example"):
+            raise urllib.error.HTTPError(
+                url, 403, "Forbidden", email.message.Message(), _BrokenFp()
+            )
+        if url.startswith("https://g.example"):
+            return _FakeResp(PAGE.encode())
+        raise urllib.error.URLError("offline")
+
+    monkeypatch.setattr(urllib.request, "urlopen", fake_urlopen)
+    clock = Clock()
+    code = vs.run(
+        repo,
+        cache_dir=repo / "build" / "cache",
+        manifest=repo / "sources" / "verification.json",
+        report=repo / "build" / "report.md",
+        update_manifest=True,
+        transport=vs.UrllibTransport(),
+        throttle=vs.Throttle(0, clock.now, clock.sleep),
+        sleep=clock.sleep,
+        echo=lambda _s: None,
+    )
+    data = json.loads((repo / "sources" / "verification.json").read_text("utf-8"))
+    by_id = {e["id"]: e["result"] for e in data}
+    assert by_id == {"Q1": "timeout", "Q2": "blocked", "Q3": "not-found"}
+    assert (repo / "build" / "report.md").is_file() and code == 1
+
+
+def test_inflate_is_capped(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(vs, "MAX_BYTES", 100)
+    bomb = gzip.compress(b"a" * 10_000)
+    with pytest.raises(vs.ResponseTooLarge):
+        vs._inflate(bomb, {"content-encoding": "gzip"})
+    small = gzip.compress(b"a" * 50)
+    assert vs._inflate(small, {"content-encoding": "gzip"}) == b"a" * 50
+
+
+def test_oversized_body_is_unreadable_and_not_retried(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(vs, "MAX_BYTES", 100)
+    bomb = gzip.compress(b"a" * 10_000)
+    calls: list[str] = []
+
+    def fake_urlopen(req: urllib.request.Request, timeout: float) -> _FakeResp:
+        calls.append(req.full_url)
+        resp = _FakeResp(bomb)
+        resp.headers["Content-Encoding"] = "gzip"
+        return resp
+
+    monkeypatch.setattr(urllib.request, "urlopen", fake_urlopen)
+    clock = Clock()
+    f = vs.Fetcher(
+        vs.UrllibTransport(),
+        vs.Cache(tmp_path),
+        vs.Throttle(0, clock.now, clock.sleep),
+        sleep=clock.sleep,
+    )
+    got = f.get("https://o.example/big", "origin")
+    assert got.status == "unreadable" and "exceeds" in got.detail
+    assert calls == ["https://o.example/big"]
+
+
+def test_captcha_word_on_a_matching_page_is_not_blocked(repo: Path) -> None:
+    repo_with(repo)
+    page = PAGE + "<p>We use a CAPTCHA to protect forms.</p>"
+    assert run_cli(repo, FakeTransport({"https://a.example/": [ok(page)]}), "Q1") == 0
+    report = (repo / "build" / "report.md").read_text("utf-8")
+    assert "failing=0 unchecked=0" in report
+
+
+def test_challenge_page_without_the_passage_is_blocked(repo: Path) -> None:
+    repo_with(repo)
+    t = FakeTransport(
+        {"https://b.example/": [ok("<html>Please solve the CAPTCHA</html>")]}
+    )
+    assert run_cli(repo, t, "Q2") == 0
+    report = (repo / "build" / "report.md").read_text("utf-8")
+    assert "## blocked (1)" in report and "challenge page" in report
+
+
+def test_via_equal_to_origin_is_fetched_once_with_right_method(
+    tmp_path: Path,
+) -> None:
+    url = "https://o.example/doc"
+    f, transport, _ = fetcher(tmp_path, {url: [status(503)]})
+    got = f.fetch_source(src(url, via={"title": "V", "url": url}))
+    assert got.status == "timeout"
+    assert [u for u, _ in transport.calls].count(url) == 3  # one fetch, 2 retries
+    f2, _, _ = fetcher(tmp_path / "ok", {url: [ok("<p>x</p>")]})
+    assert f2.fetch_source(src(url, via={"title": "V", "url": url})).method == "origin"
+
+
+def test_method_is_per_caller_not_per_first_fetch(tmp_path: Path) -> None:
+    url = "https://o.example/doc"
+    f, transport, _ = fetcher(tmp_path, {url: [ok("<p>x</p>")]})
+    assert f.get(url, "origin").method == "origin"
+    assert f.get(url, "via").method == "via"
+    assert len(transport.calls) == 1
+
+
+def test_manifest_prunes_stale_entries(repo: Path) -> None:
+    repo_with(repo)
+    path = repo / "sources" / "verification.json"
+    path.parent.mkdir(exist_ok=True)
+    stale = [
+        {"id": "Q99", "result": "matched"},  # no such quote
+        {"id": "Q4", "result": "matched"},  # now a placeholder
+        {"id": "Q3", "result": "matched"},  # still valid, not re-run
+    ]
+    path.write_text(json.dumps(stale), encoding="utf-8")
+    run_cli(
+        repo,
+        FakeTransport({"https://a.example/": [ok(PAGE)]}),
+        "--update-manifest",
+        "Q1",
+    )
+    ids = [e["id"] for e in json.loads(path.read_text("utf-8"))]
+    assert ids == ["Q1", "Q3"]
+    assert vs.render_manifest([], stale, {"Q3"}).count('"id"') == 1
