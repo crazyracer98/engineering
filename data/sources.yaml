@@ -1254,7 +1254,7 @@
   kind: primary
   publisher: Harvard Business Review
   year: 2007
-  paid: false
+  paid: true
   accessed: '2026-10-14'
   notes: 'Original article; edition 9 section 12: only available as a summary.'
 - slug: iso-21502-2020-guidance-project

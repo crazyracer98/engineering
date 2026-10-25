@@ -52,7 +52,7 @@ MAX_BYTES = 40 * 1024 * 1024
 FRESH_SECONDS = 24 * 3600
 NEAR_MISS_MIN = 0.8
 #: Bump when normalization or extraction changes: invalidates cached ``.text``.
-TEXT_VERSION = "v2"
+TEXT_VERSION = "v3"
 EXPLAIN_CHARS = 400
 MIN_SEGMENT_CHARS = 4
 
@@ -104,6 +104,8 @@ _QUOTE_MAP = str.maketrans(
         "−": "-",
     }
 )
+#: Private-use code points are font glyphs (Wingdings bullets), not text.
+_PRIVATE_USE = re.compile("[\ue000-\uf8ff]")
 _HYPHEN_BREAK = re.compile(r"(\w)-[ \t]*\r?\n\s*(\w)")
 _DASHES = re.compile(r"-{2,}")
 _SPACE = re.compile(r"\s+")
@@ -114,12 +116,14 @@ _QUOTED = re.compile(r'"([^"]+)"|“([^”]+)”')
 def normalize(text: str) -> str:
     """Fold typography so a quote and its source compare equal.
 
-    NFKC, soft hyphens dropped, hyphenated line breaks joined, lowercase,
+    NFKC, soft hyphens and private-use glyphs dropped, hyphenated line breaks
+    joined, lowercase,
     dashes to ASCII, every kind of quote mark (single or double, straight or
     curly) to ``"`` so that nested-quote and apostrophe variants compare
     equal, whitespace collapsed.
     """
     text = unicodedata.normalize("NFKC", text).replace("­", "")
+    text = _PRIVATE_USE.sub("", text)
     text = _HYPHEN_BREAK.sub(r"\1\2", text).lower().translate(_QUOTE_MAP)
     text = _DASHES.sub("-", text)
     return _SPACE.sub(" ", text).strip()
@@ -738,10 +742,51 @@ class Verifier:
             res.result, res.detail = "unreadable", "source text could not be extracted"
             return self._paid(res, src)
 
+        score, missing, pending = self._judge(quote, segments, text)
+        if score < 1.0 and primary.method != "archive":
+            # The page was fetched but lacks the passage (truncated, paywalled,
+            # changed since): try the snapshot closest to the checked date.
+            snap = self.fetcher.archive(src["url"])
+            snap_text = self._normalized(snap) if snap.status == "ok" else None
+            if snap_text is not None:
+                s_score, s_missing, s_pending = self._judge(quote, segments, snap_text)
+                if s_score >= 1.0 or s_score > score:
+                    primary, score, missing, pending = (
+                        snap,
+                        s_score,
+                        s_missing,
+                        s_pending,
+                    )
+                    res.method, res.final_url = snap.method, snap.final_url or None
+                    res.fetched_at = snap.fetched_at[:10] or None
+                    res.sha256 = snap.sha256 or None
+                    res.from_cache = snap.from_cache
+        res.score, res.missing = score, missing
+        if score >= 1.0:
+            res.result = "matched"
+        elif pending:
+            res.result = "blocked"
+            res.detail = "extra source(s) could not be fetched: " + ", ".join(pending)
+            res.method = res.final_url = None
+        elif score >= NEAR_MISS_MIN:
+            res.result = "near-miss"
+        else:
+            res.result = "not-found"
+        return self._paid(res, src)
+
+    def _judge(
+        self, quote: Mapping[str, Any], segments: Sequence[str], text: str
+    ) -> tuple[float, list[str], list[str]]:
+        """``(score, missing passages, failed extra sources)`` against ``text``.
+
+        A passage missing from the main text is also looked for in the quote's
+        ``extra_sources``.
+        """
         texts = [text]
-        pending_failures: list[str] = []
+        pending: list[str] = []
         extras_loaded = False
         scores: list[float] = []
+        missing: list[str] = []
         for seg in segments:
             score = score_segment(seg, text)
             if score < 1.0:
@@ -753,28 +798,15 @@ class Verifier:
                             self._normalized(got) if got.status == "ok" else None
                         )
                         if extra_text is None:
-                            pending_failures.append(f"{extra}: {got.status}")
+                            pending.append(f"{extra}: {got.status}")
                         else:
                             texts.append(extra_text)
                 for other in texts[1:]:
                     score = max(score, score_segment(seg, other))
             scores.append(score)
             if score < 1.0:
-                res.missing.append(seg)
-        res.score = min(scores)
-        if res.score >= 1.0:
-            res.result = "matched"
-        elif pending_failures:
-            res.result = "blocked"
-            res.detail = "extra source(s) could not be fetched: " + ", ".join(
-                pending_failures
-            )
-            res.method = res.final_url = None
-        elif res.score >= NEAR_MISS_MIN:
-            res.result = "near-miss"
-        else:
-            res.result = "not-found"
-        return self._paid(res, src)
+                missing.append(seg)
+        return min(scores), missing, pending
 
     def explain(self, quote: Mapping[str, Any]) -> list[str]:
         """Per passage, the best-matching window of each source text (stdout only)."""

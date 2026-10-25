@@ -33,7 +33,8 @@ must match in order. Per source it tries the cache, the origin `url`,
 - Results: `matched`; `not-found` / `near-miss (score)` fail the run (exit 1);
   `blocked`, `gone`, `timeout`, `unreadable` and `paid` (paid source whose
   fetched page lacks the quote) are only reported (exit 0).
-- Quote marks (single, double, straight, curly) compare equal, and in PDF text a
+- When a fetched page lacks a passage the archive snapshot is tried before a failure is
+  reported; private-use glyphs (bullets) are ignored. Quote marks (single, double, straight, curly) compare equal, and in PDF text a
   footnote marker glued to a word ("command12") is dropped.
 - `--offline` uses only the cache; `--only Q12,Q13` limits the run;
   `--report FILE` writes the Markdown report; `--explain Q4,Q32` prints the best-matching

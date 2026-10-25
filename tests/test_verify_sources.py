@@ -494,3 +494,54 @@ def test_explain_prints_window_only(repo: Path) -> None:
     out = "\n".join(lines)
     assert code == 0 and "== Q2" in out and "score" in out
     assert not (repo / "sources" / "verification.json").exists()
+
+
+def test_private_use_glyphs_dropped() -> None:
+    hay = vs.normalize("of \uf06c Competence. \uf06c Mutual trust. \uf06c Shared")
+    assert vs.score_segment("Competence. Mutual trust. Shared", hay) == 1.0
+    assert vs.normalize("a\ue000b") == "ab"
+
+
+def test_archive_tried_when_origin_lacks_passage(repo: Path) -> None:
+    repo_with(repo)
+    snap = "http://web.archive.org/web/20261010101010/https://a.example/"
+    avail = json.dumps(
+        {"archived_snapshots": {"closest": {"available": True, "url": snap}}}
+    )
+    wb = f"{vs.WAYBACK_API}?url=https%3A%2F%2Fa.example%2F&timestamp=20261014"
+    raw = "https://web.archive.org/web/20261010101010id_/https://a.example/"
+    t = FakeTransport(
+        {
+            # Origin answers 200 but is truncated; the snapshot has the text.
+            "https://a.example/": [ok("<p>teaser only</p>")],
+            wb: [ok(avail, "application/json")],
+            raw: [ok(PAGE)],
+        }
+    )
+    assert run_cli(repo, t, "--update-manifest", "Q1") == 0
+    entry = json.loads((repo / "sources" / "verification.json").read_text("utf-8"))[0]
+    assert (entry["result"], entry["method"]) == ("matched", "archive")
+    assert "web.archive.org" in entry["final_url"]
+
+
+def test_archive_missing_keeps_origin_failure(repo: Path) -> None:
+    repo_with(repo)
+    t = FakeTransport(
+        {
+            "https://b.example/": [ok(PAGE)],
+            vs.WAYBACK_API: [ok("{}", "application/json")],
+        }
+    )
+    assert run_cli(repo, t, "Q2") == 1
+    report = (repo / "build" / "report.md").read_text("utf-8")
+    assert "## not-found (1)" in report
+
+
+def test_paid_source_missing_passage_after_archive(repo: Path) -> None:
+    repo_with(repo)
+    (repo / "data" / "sources.yaml").write_text(
+        REGISTRY.replace("paid: false}\n- {slug: gamma", "paid: true}\n- {slug: gamma"),
+        encoding="utf-8",
+    )
+    t = FakeTransport({"https://b.example/": [ok(PAGE)]})
+    assert run_cli(repo, t, "Q2") == 0
