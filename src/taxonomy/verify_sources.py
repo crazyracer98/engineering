@@ -21,7 +21,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import zlib
-from collections.abc import Callable, Mapping, Sequence
+from collections.abc import Callable, Iterator, Mapping, Sequence
 from dataclasses import dataclass, field, replace
 from datetime import UTC, datetime
 from difflib import SequenceMatcher
@@ -737,6 +737,11 @@ class QuoteResult:
     missing: list[str] = field(default_factory=list)
 
 
+def _forget_fetch(res: QuoteResult) -> None:
+    """Drop what a blocked/challenge fetch must not leave in the manifest."""
+    res.method = res.final_url = res.fetched_at = res.sha256 = None
+
+
 def _id_key(qid: str) -> tuple[int, str]:
     m = re.fullmatch(r"Q(\d+)", qid)
     return (int(m.group(1)) if m else 10**9, qid)
@@ -783,47 +788,64 @@ class Verifier:
         res.from_cache = primary.from_cache
         if primary.status != "ok":
             res.result, res.detail = primary.status, primary.detail
-            res.method = res.final_url = None
+            _forget_fetch(res)
             return self._paid(res, src)
         text = self._normalized(primary)
-        if text is None:
-            res.result, res.detail = "unreadable", "source text could not be extracted"
-            return self._paid(res, src)
-
-        score, missing, pending = self._judge(quote, segments, text)
-        if score < 1.0 and primary.method != "archive":
+        unreadable = text is None
+        score, missing, pending = self._judge(quote, segments, text or "")
+        if score < 1.0:
             # The page was fetched but lacks the passage (truncated, paywalled,
-            # changed since): try the snapshot closest to the checked date.
-            snap = self.fetcher.archive(src["url"])
-            snap_text = self._normalized(snap) if snap.status == "ok" else None
-            if snap_text is not None:
-                s_score, s_missing, s_pending = self._judge(quote, segments, snap_text)
-                if s_score >= 1.0 or s_score > score:
-                    primary, score, missing, pending = (
-                        snap,
-                        s_score,
-                        s_missing,
-                        s_pending,
-                    )
-                    res.method, res.final_url = snap.method, snap.final_url or None
-                    res.fetched_at = snap.fetched_at[:10] or None
-                    res.sha256 = snap.sha256 or None
-                    res.from_cache = snap.from_cache
+            # changed since, or a challenge page): try the other copies of the
+            # source -- `via.url` if it differs, then the archive snapshot
+            # closest to the checked date -- before giving up.
+            for alt in self._alternatives(src, primary):
+                alt_text = self._normalized(alt)
+                if alt_text is None:
+                    continue
+                a_score, a_missing, a_pending = self._judge(quote, segments, alt_text)
+                if a_score >= 1.0 or a_score > score:
+                    primary, unreadable = alt, False
+                    score, missing, pending = a_score, a_missing, a_pending
+                    res.method, res.final_url = alt.method, alt.final_url or None
+                    res.fetched_at = alt.fetched_at[:10] or None
+                    res.sha256 = alt.sha256 or None
+                    res.from_cache = alt.from_cache
+                if score >= 1.0:
+                    break
         res.score, res.missing = score, missing
         if score >= 1.0:
             res.result = "matched"
         elif looks_like_challenge(primary.body, primary.content_type):
             res.result, res.detail = "blocked", "challenge page"
-            res.method = res.final_url = None
+            _forget_fetch(res)
+        elif unreadable:
+            res.result, res.detail = "unreadable", "source text could not be extracted"
         elif pending:
             res.result = "blocked"
             res.detail = "extra source(s) could not be fetched: " + ", ".join(pending)
-            res.method = res.final_url = None
+            _forget_fetch(res)
         elif score >= NEAR_MISS_MIN:
             res.result = "near-miss"
         else:
             res.result = "not-found"
         return self._paid(res, src)
+
+    def _alternatives(self, src: Source, primary: Fetched) -> Iterator[Fetched]:
+        """Other fetched copies of a source, tried lazily after a content miss.
+
+        ``via.url`` when it is a different URL than the one already read, then
+        the archive snapshot (unless the primary already is one). Fetch
+        failures are skipped.
+        """
+        via_url = src.get("via", {}).get("url")
+        if via_url and via_url != primary.url and primary.method != "via":
+            alt = self.fetcher.get(via_url, "via")
+            if alt.status == "ok":
+                yield alt
+        if primary.method != "archive":
+            alt = self.fetcher.archive(src["url"])
+            if alt.status == "ok":
+                yield alt
 
     def _judge(
         self, quote: Mapping[str, Any], segments: Sequence[str], text: str
