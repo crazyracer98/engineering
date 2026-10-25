@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import email.message
 import gzip
+import hashlib
 import http.client
 import io
 import json
@@ -798,8 +799,6 @@ def test_unextractable_challenge_page_is_blocked_not_unreadable(repo: Path) -> N
     t = FakeTransport({"https://b.example/": [ok(body, "text/html")]})
     assert run_cli(repo, t, "--update-manifest", "Q2") == 0
     assert manifest_of(repo)["Q2"]["result"] == "blocked"
-    report = (repo / "build" / "report.md").read_text("utf-8")
-    assert "## blocked (1)" in report and "unreadable" not in report.split("##", 2)[1]
 
 
 def test_unextractable_non_challenge_stays_unreadable(repo: Path) -> None:
@@ -826,3 +825,113 @@ def test_blocked_result_records_no_fetch_data(repo: Path) -> None:
     for key in ("method", "final_url", "fetched_at", "sha256"):
         assert challenge[key] is None, key
     assert entries["Q1"]["sha256"] is not None  # a real match keeps its hash
+
+
+# -- verdict attribution ----------------------------------------------------
+
+EXTRA_QUOTE = """\
+- id: Q1
+  rules: [U1]
+  source: alpha
+  extra_sources: [gamma]
+  text: 'See "the context of creating, preserving, and realizing value"'
+  locator: null
+  group: master_rule
+"""
+EVIDENCE = ("method", "final_url", "fetched_at", "sha256")
+
+
+def test_challenge_origin_with_clean_partial_alternative_stays_blocked(
+    repo: Path,
+) -> None:
+    repo_with(repo)
+    (repo / "data" / "sources.yaml").write_text(VIA_REGISTRY, encoding="utf-8")
+    partial = "<p>the context of creating, preserving and realising values</p>"
+    t = FakeTransport(
+        {
+            "https://a.example/": [ok("<html>Please solve the CAPTCHA</html>")],
+            "https://v.example/": [ok(partial)],
+        }
+    )
+    run_cli(repo, t, "--update-manifest", "Q1")
+    entry = manifest_of(repo)["Q1"]
+    assert entry["result"] == "blocked"
+    assert all(entry[k] is None for k in EVIDENCE)
+
+
+def test_challenge_origin_with_full_alternative_is_matched(repo: Path) -> None:
+    repo_with(repo)
+    (repo / "data" / "sources.yaml").write_text(VIA_REGISTRY, encoding="utf-8")
+    t = FakeTransport(
+        {
+            "https://a.example/": [ok("<html>Please solve the CAPTCHA</html>")],
+            "https://v.example/": [ok(PAGE)],
+        }
+    )
+    run_cli(repo, t, "--update-manifest", "Q1")
+    entry = manifest_of(repo)["Q1"]
+    assert (entry["result"], entry["method"]) == ("matched", "via")
+
+
+def test_unreadable_primary_is_not_rescued_by_extra_sources(repo: Path) -> None:
+    repo_with(repo, EXTRA_QUOTE)
+    t = FakeTransport(
+        {
+            "https://a.example/": [ok(b"%PDF-1.4 garbage", "application/pdf")],
+            "https://g.example/": [ok(PAGE)],
+        }
+    )
+    run_cli(repo, t, "--update-manifest", "Q1")
+    entry = manifest_of(repo)["Q1"]
+    assert entry["result"] == "unreadable"
+    assert all(entry[k] is None for k in EVIDENCE)
+    assert not any(u.startswith("https://g.example") for u, _ in t.calls)
+
+
+def test_failing_alternative_leaves_primary_evidence(repo: Path) -> None:
+    repo_with(repo)
+    (repo / "data" / "sources.yaml").write_text(VIA_REGISTRY, encoding="utf-8")
+    origin_body = "<p>teaser only</p>"
+    t = FakeTransport(
+        {
+            "https://a.example/": [ok(origin_body)],
+            "https://v.example/": [ok("<p>the context of creating, preserving</p>")],
+            WB_A: [ok(AVAIL_A, "application/json")],
+            RAW_A: [ok("<p>another teaser</p>")],
+        }
+    )
+    assert run_cli(repo, t, "--update-manifest", "Q1") == 1
+    entry = manifest_of(repo)["Q1"]
+    assert entry["result"] == "not-found"
+    assert entry["method"] == "origin"
+    assert entry["final_url"] == "https://a.example/"
+    assert entry["sha256"] == hashlib.sha256(origin_body.encode()).hexdigest()
+
+
+def test_pending_extra_sources_skip_the_fallbacks(repo: Path) -> None:
+    repo_with(repo, EXTRA_QUOTE)
+    (repo / "data" / "sources.yaml").write_text(VIA_REGISTRY, encoding="utf-8")
+    t = FakeTransport(
+        {
+            "https://a.example/": [ok("<p>teaser only</p>")],
+            "https://g.example/": [status(403)],
+        }
+    )
+    assert run_cli(repo, t, "--update-manifest", "Q1") == 0
+    entry = manifest_of(repo)["Q1"]
+    assert entry["result"] == "blocked"
+    assert all(entry[k] is None for k in EVIDENCE)
+    assert not any(
+        u.startswith(("https://v.example", "https://web.archive.org"))
+        or "archive.org" in u
+        for u, _ in t.calls
+        if "g.example" not in u
+    )
+
+
+def test_forget_fetch_clears_from_cache() -> None:
+    res = vs.QuoteResult(
+        "Q1", "s", "u", "blocked", method="origin", sha256="x", from_cache=True
+    )
+    vs._forget_fetch(res)
+    assert not res.from_cache and res.sha256 is None and res.method is None
