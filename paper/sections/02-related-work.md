@@ -124,8 +124,8 @@ that Miller's number "was meant more as a rough estimate and a rhetorical
 device than as a real capacity limit", and that "A single, central capacity
 limit averaging about four chunks is implicated"
 [@cowan-2001-magical-number-four]. The taxonomy keeps nine questions because
-a quick view needs one entry per category and because Gawande presents the
-range as a practitioner's rule of thumb, not as a cognitive law. Section 6
+a quick view needs one entry per category and because Mann's notes on Gawande's
+book present the range as a practitioner's rule of thumb, not as a cognitive law. Section 6
 returns to this.
 
 ## Evidence grading and reporting {#sec-rw-evidence}
