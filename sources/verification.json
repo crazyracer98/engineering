@@ -279,8 +279,8 @@
     "final_url": "https://training.fema.gov/emiweb/is/is700b/handouts/national_incident_management%20system_third%20edition_october_2017.pdf",
     "id": "Q26",
     "method": "origin",
-    "result": "near-miss",
-    "score": 0.892,
+    "result": "matched",
+    "score": 1.0,
     "sha256": "5496c912f312ffac5547ede249e9aec590ec2d176c260d243cdb6391ed702930",
     "source": "fema-national-incident-management-system",
     "url": "https://training.fema.gov:443/EMIWeb/IS/IS700b/Handouts/National_Incident_Management%20System_Third%20Edition_October_2017.pdf"
@@ -576,8 +576,8 @@
     "final_url": "https://web.archive.org/web/20250208085543id_/https://apps.dtic.mil/sti/pdfs/ADA368651.pdf",
     "id": "Q53",
     "method": "archive",
-    "result": "near-miss",
-    "score": 0.867,
+    "result": "matched",
+    "score": 1.0,
     "sha256": "24684a5db8602998a54a1404bdda318dc2c51afd17a93461a978e81c0b0e727d",
     "source": "us-army-foundations-aar-process",
     "url": "https://apps.dtic.mil/sti/pdfs/ADA368651.pdf"

@@ -51,6 +51,9 @@ MAX_RETRIES = 2
 MAX_BYTES = 40 * 1024 * 1024
 FRESH_SECONDS = 24 * 3600
 NEAR_MISS_MIN = 0.8
+#: Bump when normalization or extraction changes: invalidates cached ``.text``.
+TEXT_VERSION = "v2"
+EXPLAIN_CHARS = 400
 MIN_SEGMENT_CHARS = 4
 
 #: Results that fail the job: the source was read and lacks the quote.
@@ -81,11 +84,12 @@ BLOCK_TAGS = frozenset(
 
 _QUOTE_MAP = str.maketrans(
     {
-        "‘": "'",
-        "’": "'",
-        "‚": "'",
-        "‛": "'",
-        "′": "'",
+        "'": '"',
+        "‘": '"',
+        "’": '"',
+        "‚": '"',
+        "‛": '"',
+        "′": '"',
         "“": '"',
         "”": '"',
         "„": '"',
@@ -111,7 +115,9 @@ def normalize(text: str) -> str:
     """Fold typography so a quote and its source compare equal.
 
     NFKC, soft hyphens dropped, hyphenated line breaks joined, lowercase,
-    curly quotes and dashes to ASCII, whitespace collapsed.
+    dashes to ASCII, every kind of quote mark (single or double, straight or
+    curly) to ``"`` so that nested-quote and apostrophe variants compare
+    equal, whitespace collapsed.
     """
     text = unicodedata.normalize("NFKC", text).replace("­", "")
     text = _HYPHEN_BREAK.sub(r"\1\2", text).lower().translate(_QUOTE_MAP)
@@ -159,15 +165,16 @@ def find_parts(parts: Sequence[str], haystack: str) -> bool:
     return False
 
 
-def best_ratio(needle: str, haystack: str) -> float:
+def best_window(needle: str, haystack: str) -> tuple[float, int]:
     """Best ``SequenceMatcher`` ratio of ``needle`` over windows of ``haystack``.
 
-    Only windows around occurrences of the needle's longest words are scored,
-    so a megabyte page costs a few hundred comparisons, not tens of thousands.
+    Returns ``(ratio, window start)``. Only windows around occurrences of the
+    needle's longest words are scored, so a megabyte page costs a few hundred
+    comparisons, not tens of thousands. ``(0.0, -1)`` when no anchor occurs.
     """
     n = len(needle)
     if not n or not haystack:
-        return 0.0
+        return 0.0, -1
     words = sorted(set(re.findall(r"\w{5,}", needle)), key=len, reverse=True)[:6]
     starts: set[int] = set()
     for word in words:
@@ -181,16 +188,23 @@ def best_ratio(needle: str, haystack: str) -> float:
     matcher = SequenceMatcher(None, autojunk=False)
     matcher.set_seq2(needle)
     width = n + n // 4
-    best = 0.0
+    best, best_start = 0.0, -1
     for bucket in sorted(starts)[:400]:
         start = bucket * max(1, n // 8)
         matcher.set_seq1(haystack[start : start + width])
         if matcher.real_quick_ratio() <= best or matcher.quick_ratio() <= best:
             continue
-        best = max(best, matcher.ratio())
+        ratio = matcher.ratio()
+        if ratio > best:
+            best, best_start = ratio, start
         if best >= 0.999:
             break
-    return best
+    return best, best_start
+
+
+def best_ratio(needle: str, haystack: str) -> float:
+    """The ratio of :func:`best_window`."""
+    return best_window(needle, haystack)[0]
 
 
 def score_segment(segment: str, haystack: str) -> float:
@@ -249,9 +263,20 @@ def extract_html(markup: str) -> str:
     return "".join(parser.chunks)
 
 
+#: A footnote marker glued to a word: 3+ lowercase letters, then 1-3 digits,
+#: then whitespace, punctuation or the end. "U17", "B2B", "ISO 22301" stay.
+_FOOTNOTE = re.compile(r"(?<=[a-z]{3})\d{1,3}(?=[\s.,;:!?)\]]|$)")
+
+
+def strip_footnote_markers(text: str) -> str:
+    """Drop footnote markers such as ``command12`` -> ``command`` (PDF text only)."""
+    return _FOOTNOTE.sub("", text)
+
+
 def extract_pdf(body: bytes) -> str:
     reader = PdfReader(io.BytesIO(body))
-    return "\n".join(page.extract_text() or "" for page in reader.pages)
+    text = "\n".join(page.extract_text() or "" for page in reader.pages)
+    return strip_footnote_markers(text)
 
 
 def extract_text(body: bytes, content_type: str, url: str = "") -> str:
@@ -443,13 +468,15 @@ class Cache:
     def load_text(self, sha256: str) -> str | None:
         """Normalized text extracted earlier from a body with this hash."""
         try:
-            return (self.directory / f"{sha256}.text").read_text("utf-8")
+            return (self.directory / f"{sha256}.{TEXT_VERSION}.text").read_text("utf-8")
         except OSError:
             return None
 
     def store_text(self, sha256: str, text: str) -> None:
         self.directory.mkdir(parents=True, exist_ok=True)
-        (self.directory / f"{sha256}.text").write_text(text, encoding="utf-8")
+        (self.directory / f"{sha256}.{TEXT_VERSION}.text").write_text(
+            text, encoding="utf-8"
+        )
 
     def store(self, key: str, meta: dict[str, Any], body: bytes) -> None:
         body_path, meta_path = self._paths(key)
@@ -749,6 +776,39 @@ class Verifier:
             res.result = "not-found"
         return self._paid(res, src)
 
+    def explain(self, quote: Mapping[str, Any]) -> list[str]:
+        """Per passage, the best-matching window of each source text (stdout only)."""
+        qid = str(quote["id"])
+        slugs = [str(quote["source"]), *map(str, quote.get("extra_sources", []))]
+        lines = [f"== {qid}"]
+        texts: list[tuple[str, str]] = []
+        for slug in slugs:
+            got = self.fetcher.fetch_source(self.registry[slug])
+            text = self._normalized(got) if got.status == "ok" else None
+            if text is None:
+                lines.append(
+                    f"source {slug}: not available ({got.status}: {got.detail})"
+                )
+            else:
+                texts.append((slug, text))
+        for seg in quoted_segments(str(quote["text"])):
+            lines.append(f"passage: {_snippet(seg, 600)}")
+            for part in split_ellipsis(seg):
+                lines.append(f"  part (normalized): {part}")
+                for slug, text in texts:
+                    exact = text.find(part)
+                    if exact >= 0:
+                        score, start = 1.0, exact
+                    else:
+                        score, start = best_window(part, text)
+                    if start < 0:
+                        lines.append(f"  [{slug}] score 0.00: no similar text found")
+                        continue
+                    window = text[start : start + EXPLAIN_CHARS]
+                    lines.append(f"  [{slug}] score {score:.2f}, best window:")
+                    lines.append(f"    {window}")
+        return lines
+
     @staticmethod
     def _paid(res: QuoteResult, src: Source) -> QuoteResult:
         """A paid source that could not confirm the quote is unverifiable."""
@@ -866,6 +926,7 @@ def run(
     manifest: Path,
     update_manifest: bool = False,
     report: Path | None = None,
+    explain: set[str] | None = None,
     transport: Transport | None = None,
     throttle: Throttle | None = None,
     sleep: Callable[[float], None] = time.sleep,
@@ -881,6 +942,11 @@ def run(
         sleep=sleep,
     )
     verifier = Verifier(fetcher, registry)
+    if explain:
+        for q in verifiable_quotes(_load_quotes(root), explain):
+            for line in verifier.explain(q):
+                echo(line)
+        return 0
     quotes = verifiable_quotes(_load_quotes(root), only)
     results: list[QuoteResult] = []
     for q in quotes:

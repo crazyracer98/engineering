@@ -53,13 +53,17 @@ def cmd_build(root: Path, check: bool) -> int:
     return 0
 
 
+def _ids(arg: str | None) -> set[str] | None:
+    return {i.strip() for i in arg.split(",") if i.strip()} if arg else None
+
+
 def cmd_verify_sources(root: Path, args: argparse.Namespace) -> int:
-    only = {i.strip() for i in args.only.split(",") if i.strip()} if args.only else None
     return verify_sources.run(
         root,
         cache_dir=root / args.cache_dir,
         offline=args.offline,
-        only=only,
+        only=_ids(args.only),
+        explain=_ids(args.explain),
         manifest=root / args.manifest,
         update_manifest=args.update_manifest,
         report=root / args.report if args.report else None,
@@ -85,6 +89,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     v.add_argument("--only", help="comma-separated quote IDs, e.g. Q12,Q13")
     v.add_argument("--manifest", type=Path, default=Path("sources/verification.json"))
     v.add_argument("--update-manifest", action="store_true", help="write the manifest")
+    v.add_argument(
+        "--explain",
+        help="print the best-matching source window for these IDs (stdout only)",
+    )
     v.add_argument("--report", type=Path, help="write a Markdown report here")
     args = parser.parse_args(argv)
 

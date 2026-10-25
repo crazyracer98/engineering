@@ -110,7 +110,7 @@ def src(url: str, **extra: object) -> Source:
 
 
 def test_normalize_typography() -> None:
-    assert vs.normalize("“It’s — fine”") == '"it\'s - fine"'
+    assert vs.normalize("“It’s — fine”") == '"it"s - fine"'
     assert vs.normalize("Simplicity--the art") == "simplicity-the art"
     assert vs.normalize("a…b") == "a...b"
 
@@ -447,3 +447,50 @@ def test_javascript_challenge_is_blocked() -> None:
         )[0]
         == "blocked"
     )
+
+
+def test_single_and_double_quotes_are_equivalent() -> None:
+    hay = vs.normalize('Minimizing "finger-pointing" and \u201cblame\u201d here')
+    assert vs.score_segment("Minimizing 'finger-pointing'", hay) == 1.0
+    assert vs.score_segment("Minimizing \u2018finger-pointing\u2019", hay) == 1.0
+    assert vs.score_segment("and \u2018blame\u2019 here", hay) == 1.0
+    assert vs.normalize("Commander's") == vs.normalize("Commander\u2019s")
+
+
+def test_footnote_markers_stripped() -> None:
+    strip = vs.strip_footnote_markers
+    assert strip("unified command12 establishes") == "unified command establishes"
+    assert strip("objectives.3 Next") == "objectives.3 Next"  # not glued to a letter
+    assert strip("done, see note7.") == "done, see note."
+    assert strip("operations123") == "operations"
+
+
+def test_footnote_strip_leaves_identifiers_alone() -> None:
+    strip = vs.strip_footnote_markers
+    for token in ("ISO 22301", "U17 applies", "B2B sales", "R4,", "ISO22301 x"):
+        assert strip(token) == token
+
+
+def test_pdf_footnote_marker_only_removed_for_pdf() -> None:
+    pdf = make_pdf("the unified command12 establishes objectives")
+    assert "command establishes" in vs.extract_text(pdf, "application/pdf")
+    html = vs.extract_text(b"<p>the unified command12 establishes</p>", "text/html")
+    assert "command12" in html
+
+
+def test_explain_prints_window_only(repo: Path) -> None:
+    repo_with(repo)
+    lines: list[str] = []
+    clock = Clock()
+    code = vs.run(
+        repo,
+        cache_dir=repo / "build" / "cache",
+        manifest=repo / "sources" / "verification.json",
+        explain={"Q2"},
+        transport=FakeTransport({"https://b.example/": [ok(PAGE)]}),
+        throttle=vs.Throttle(0, clock.now, clock.sleep),
+        echo=lines.append,
+    )
+    out = "\n".join(lines)
+    assert code == 0 and "== Q2" in out and "score" in out
+    assert not (repo / "sources" / "verification.json").exists()
