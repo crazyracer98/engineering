@@ -73,3 +73,36 @@ repos:
         files: ^\.devcontainer/devcontainer(-lock)?\.json$
         pass_filenames: false
         stages: [pre-commit, manual]
+
+      # Instance hooks: run through uv so they use the locked tool versions.
+      - id: ruff-check
+        name: ruff check
+        entry: uv run --frozen ruff check
+        language: system
+        files: ^(src|tests)/.*\.py$
+        require_serial: true
+        stages: [pre-commit, manual]
+
+      - id: ruff-format
+        name: ruff format --check
+        entry: uv run --frozen ruff format --check
+        language: system
+        files: ^(src|tests)/.*\.py$
+        require_serial: true
+        stages: [pre-commit, manual]
+
+      - id: mypy
+        name: mypy (strict)
+        entry: uv run --frozen mypy
+        language: system
+        files: ^(src|tests)/.*\.py$
+        pass_filenames: false
+        stages: [pre-commit, manual]
+
+      - id: pytest
+        name: pytest
+        entry: uv run --frozen pytest
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-commit, manual]
