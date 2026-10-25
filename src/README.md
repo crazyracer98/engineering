@@ -22,7 +22,10 @@ Built with `uv_build` from `../pyproject.toml`; the console script
 - `build.py`: `generate`, `stale` and `write` for `../publication/`.
 - `render_site.py`, `render_paper.py`: `build(out: Path) -> None`; stubs that
   raise `NotImplementedError` until the site and paper work items land.
-- `cli.py`: `taxonomy check | build [--check] | site --out DIR | paper --out FILE`.
+- `verify_sources.py`: `run(...)` behind `taxonomy verify-sources`: fetches
+  each quote's source (cache, origin, `via`, Internet Archive), extracts
+  the text and checks the quote appears in it; see `../sources/README.md`.
+- `cli.py`: `taxonomy check | build [--check] | site --out DIR | paper --out FILE | verify-sources`.
 
 ## Do
 

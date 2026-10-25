@@ -1,4 +1,4 @@
-"""Command line: ``taxonomy check | build [--check] | site | paper``."""
+"""Command line: ``taxonomy check | build | site | paper | verify-sources``."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from taxonomy import build as build_mod
-from taxonomy import render_paper, render_site
+from taxonomy import render_paper, render_site, verify_sources
 from taxonomy.load import find_root
 from taxonomy.validate import run_checks
 
@@ -53,6 +53,19 @@ def cmd_build(root: Path, check: bool) -> int:
     return 0
 
 
+def cmd_verify_sources(root: Path, args: argparse.Namespace) -> int:
+    only = {i.strip() for i in args.only.split(",") if i.strip()} if args.only else None
+    return verify_sources.run(
+        root,
+        cache_dir=root / args.cache_dir,
+        offline=args.offline,
+        only=only,
+        manifest=root / args.manifest,
+        update_manifest=args.update_manifest,
+        report=root / args.report if args.report else None,
+    )
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="taxonomy", description=__doc__)
     parser.add_argument("--root", help="repository root (default: found from the cwd)")
@@ -64,6 +77,15 @@ def main(argv: Sequence[str] | None = None) -> int:
     s.add_argument("--out", type=Path, default=Path("build/site"))
     p = sub.add_parser("paper", help="build the PDF paper")
     p.add_argument("--out", type=Path, default=Path("build/paper.pdf"))
+    v = sub.add_parser(
+        "verify-sources", help="check that each quote appears in its fetched source"
+    )
+    v.add_argument("--cache-dir", type=Path, default=Path("build/source-cache"))
+    v.add_argument("--offline", action="store_true", help="use only the cache")
+    v.add_argument("--only", help="comma-separated quote IDs, e.g. Q12,Q13")
+    v.add_argument("--manifest", type=Path, default=Path("sources/verification.json"))
+    v.add_argument("--update-manifest", action="store_true", help="write the manifest")
+    v.add_argument("--report", type=Path, help="write a Markdown report here")
     args = parser.parse_args(argv)
 
     try:
@@ -76,6 +98,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             return cmd_check(root)
         if args.command == "build":
             return cmd_build(root, args.check)
+        if args.command == "verify-sources":
+            return cmd_verify_sources(root, args)
         if args.command == "site":
             render_site.build(args.out, root)
         else:

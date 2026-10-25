@@ -11,6 +11,8 @@
 - `test_publication.py`: the round trip against the edition-9 Markdown (only
   the version line may differ), `publication/` freshness, chapters, the
   flattened YAML, citation resolution and the CLI.
+- `test_verify_sources.py`: `taxonomy verify-sources` offline (fake transport and
+  clock; fixtures in `fixtures/verify/`, authored here, never third-party text).
 
 ## Do
 

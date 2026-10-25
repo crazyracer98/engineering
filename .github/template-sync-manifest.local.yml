@@ -17,4 +17,5 @@ ignore:
   - docs/methodology-references.yaml
   - .github/workflows/pages.yml
   - .github/workflows/links.yml
+  - .github/workflows/verify-sources.yml
   - LICENSE-CC-BY-SA-4.0
