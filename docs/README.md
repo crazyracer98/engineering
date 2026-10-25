@@ -11,6 +11,13 @@ AI-assisted coding workflow (`CLAUDE.md` at the repo root covers that).
   and key design decisions.
 - `adrs/` — Architecture Decision Records: app-specific decisions and
   the reasoning behind them. See `adrs/README.md`.
+- `methodology.md` — the generalized method for gathering practices from many
+  sources into checkable rules, with a box per phase showing how this
+  taxonomy applied it.
+- `history.md` — the edition history of the taxonomy: 1.0.0 is the first
+  edition.
+- `methodology-references.yaml` — the sources cited in those two pages that
+  no other file defines.
 - `plans/` — working plans for in-progress or upcoming work. See
   `plans/README.md`.
 - `frs/` — functional requirements: what the system must do. See

@@ -1,0 +1,12 @@
+# Sources cited in docs/methodology.md and docs/history.md that no other file
+# defines. Slugs defined elsewhere (data/sources.yaml, paper/references-extra.yaml)
+# are not repeated here.
+- slug: rfc-2119
+  title: Key words for use in RFCs to Indicate Requirement Levels (RFC 2119, BCP 14)
+  url: https://www.rfc-editor.org/rfc/rfc2119
+  kind: primary
+  publisher: IETF (RFC Editor)
+  year: 1997
+  paid: false
+  accessed: '2026-10-25'
+  notes: Author S. Bradner, March 1997. Defines MUST (an absolute requirement) and SHOULD (valid reasons may exist to ignore an item, and the implications must be weighed).

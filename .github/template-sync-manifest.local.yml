@@ -14,6 +14,7 @@ ignore:
   - uv.lock
   - docs/methodology.md
   - docs/history.md
+  - docs/methodology-references.yaml
   - .github/workflows/pages.yml
   - .github/workflows/links.yml
   - LICENSE-CC-BY-SA-4.0
