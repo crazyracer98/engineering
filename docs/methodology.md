@@ -304,7 +304,7 @@ reproduces the published documents exactly.
 > - category membership matches each rule's category;
 > - the quick-view question count is between 5 and 9;
 > - every entry in `history.id_map` points at an existing ID;
-> - every `[@slug]` citation in data or prose resolves;
+> - every citation key in data or prose resolves to a defined source;
 > - the generated files under `publication/` are up to date.
 >
 > The content of edition 9 shows the effect of such checks in its own
