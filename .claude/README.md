@@ -44,6 +44,9 @@ this directory).
     decides and raises gates; landers do the reviewing, merging,
     verifying and releasing.
   - `owasp-scan` — a parallel OWASP Top Ten scan of `src/`.
+  - `taxonomy-research` — one methodology round on `data/`: sweep,
+    decide each finding, record quotes, check and build, bump the
+    edition and add a history entry.
 
   Base lists each of these skills one by one in its sync manifest, so an
   instance adds its own as `skills/<name>/` and lists that directory
@@ -53,8 +56,9 @@ this directory).
   the local file. Don't reuse a base (or removed base) skill or agent
   name, since sync would overwrite or remove it.
 
-  `../CLAUDE.md` points at the two plan skills, so they're used even when
-  a request doesn't match their descriptions word for word.
+  `../CLAUDE.md` points at the two plan skills and `taxonomy-research`, so
+  they're used even when a request doesn't match their descriptions word
+  for word.
 - The `PreToolUse` hook on `Bash` runs `snip hook`, the
   [snip](https://github.com/edouard-claude/snip) token-filtering proxy:
   it rewrites supported commands (`git` and others; an instance's own
