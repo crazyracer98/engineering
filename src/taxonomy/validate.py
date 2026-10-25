@@ -17,6 +17,7 @@ from typing import Any
 from jsonschema import Draft202012Validator, FormatChecker
 
 from taxonomy.load import (
+    DATA_STEMS,
     REGISTRY_FILES,
     load_dataset,
     load_registry_files,
@@ -116,33 +117,43 @@ def cited_texts(ctx: Context) -> list[tuple[str, str]]:
 # -- checks ----------------------------------------------------------------------------
 
 
-def check_schema(ctx: Context) -> list[str]:
+def schema_findings(root: Path) -> list[str]:
+    """Validate each data file and extra registry on its own.
+
+    A missing or invalid schema, or a file that fails to load, is a message for
+    that file; the other files are still validated.
+    """
     msgs: list[str] = []
-    targets: list[tuple[str, str]] = [
-        (f"data/{stem}.yaml", stem) for stem in ctx.ds.raw
-    ]
+    targets = [(f"data/{stem}.yaml", stem) for stem in DATA_STEMS]
     targets += [
-        (rel, stem)
-        for rel, stem in EXTRA_REGISTRIES.items()
-        if (ctx.root / rel).is_file()
+        (rel, stem) for rel, stem in EXTRA_REGISTRIES.items() if (root / rel).is_file()
     ]
     for rel, stem in targets:
-        schema = load_schema(ctx.root, stem)
         try:
+            schema = load_schema(root, stem)
             Draft202012Validator.check_schema(schema)
-        except Exception as exc:  # jsonschema.SchemaError
-            msgs.append(f"schema/{stem}.schema.json is not a valid JSON Schema: {exc}")
+        except Exception as exc:  # OSError, JSONDecodeError, SchemaError
+            msgs.append(
+                f"schema/{stem}.schema.json (for {rel}) is missing or not a valid "
+                f"JSON Schema: {type(exc).__name__}: {exc}"
+            )
+            continue
+        try:
+            data = load_yaml(root / rel)
+        except Exception as exc:
+            msgs.append(f"{rel} cannot be loaded: {exc}")
             continue
         validator = Draft202012Validator(schema, format_checker=FormatChecker())
-        data = (
-            ctx.ds.raw[stem] if rel.startswith("data/") else load_yaml(ctx.root / rel)
-        )
         for err in sorted(
             validator.iter_errors(data), key=lambda e: list(e.absolute_path)
         ):
             where = "/".join(str(p) for p in err.absolute_path) or "(root)"
             msgs.append(f"{rel} at {where}: {err.message}")
     return msgs
+
+
+def check_schema(ctx: Context) -> list[str]:
+    return schema_findings(ctx.root)
 
 
 def check_unique_ids(ctx: Context) -> list[str]:
@@ -238,6 +249,76 @@ def check_domain_count(ctx: Context) -> list[str]:
     return []
 
 
+def _prefix_alt(prefixes: list[str]) -> str:
+    """A regex alternative of ``prefixes``, longest first."""
+    return "|".join(re.escape(p) for p in sorted(prefixes, key=len, reverse=True))
+
+
+def _id_pattern(prefixes: list[str]) -> str:
+    """A regex for any rule ID with one of ``prefixes``."""
+    return rf"(?:{_prefix_alt(prefixes)})[1-9][0-9]*"
+
+
+def parse_id_list(text: str, prefixes: list[str]) -> list[str]:
+    """``"U47–U58, R9, C14-C16"`` -> every ID, ranges expanded (en dash or hyphen).
+
+    Raises ``ValueError`` for an item that is not an ID or a range within one
+    prefix.
+    """
+    one = re.compile(rf"({_prefix_alt(prefixes)})([1-9][0-9]*)")
+    ids: list[str] = []
+    for item in (i.strip() for i in text.split(",")):
+        ends = [e.strip() for e in re.split(r"[–-]", item)]
+        parsed = [one.fullmatch(e) for e in ends]
+        if len(ends) > 2 or not all(parsed):
+            raise ValueError(f"{item!r} is not a rule ID or ID range")
+        matches = [m for m in parsed if m]
+        lo, hi = matches[0], matches[-1]
+        if lo.group(1) != hi.group(1) or int(lo.group(2)) > int(hi.group(2)):
+            raise ValueError(f"{item!r} is not a range within one prefix")
+        ids.extend(
+            f"{lo.group(1)}{n}" for n in range(int(lo.group(2)), int(hi.group(2)) + 1)
+        )
+    return ids
+
+
+def check_management_count(ctx: Context) -> list[str]:
+    """The scope sentence on section 10 matches the rules without ``management``."""
+    prefixes = list(ctx.ds.meta["id_prefixes"])
+    item = rf"{_id_pattern(prefixes)}(?:\s*[–-]\s*{_id_pattern(prefixes)})?"
+    sentence = re.compile(
+        r"Section 10 states (\d+) of the (\d+) rules in management form.*?"
+        rf"the other (\d+) \(({item}(?:,\s*{item})*)\)"
+    )
+    match = next(
+        (m for _, s in _strings(ctx.ds.meta) if (m := sentence.search(s))), None
+    )
+    if not match:
+        return [
+            "meta has no 'Section 10 states N of the M rules in management form ... "
+            "the other K (IDs)' sentence"
+        ]
+    stated_n, stated_m, stated_k = (int(match.group(i)) for i in (1, 2, 3))
+    listed = parse_id_list(match.group(4), prefixes)
+    rules = ctx.ds.rules
+    without = [r["id"] for r in rules if not r["management"]]
+    msgs: list[str] = []
+    actual = (len(rules) - len(without), len(rules), len(without))
+    if (stated_n, stated_m, stated_k) != actual:
+        msgs.append(
+            f"meta states section 10 has {stated_n} of {stated_m} rules and "
+            f"{stated_k} others, but rules.yaml has {actual[0]} of {actual[1]} "
+            f"with a management form and {actual[2]} without"
+        )
+    if sorted(listed) != sorted(without):
+        msgs.append(
+            "meta's list of rules without a management form has extra "
+            f"{sorted(set(listed) - set(without), key=_id_key)} and misses "
+            f"{sorted(set(without) - set(listed), key=_id_key)}"
+        )
+    return msgs
+
+
 def check_rule_in_domain(ctx: Context) -> list[str]:
     covered = {rid for d in ctx.ds.domains["domains"] for rid in d["rules"]}
     return [
@@ -247,25 +328,70 @@ def check_rule_in_domain(ctx: Context) -> list[str]:
     ]
 
 
-def _used_slugs(ctx: Context) -> set[str]:
-    ds = ctx.ds
-    used: set[str] = set(ds.meta["master_rule"]["sources"])
+def structured_slugs(ds: Dataset) -> list[tuple[str, str]]:
+    """``(location, slug)`` for every slug named outside prose citations."""
+    out = [
+        ("data/meta.yaml: master_rule.sources", s)
+        for s in ds.meta["master_rule"]["sources"]
+    ]
     for r in ds.rules:
-        used.update(r["sources"])
+        out.extend((f"data/rules.yaml: {r['id']} sources", s) for s in r["sources"])
         if r["management"]:
-            used.update(r["management"]["sources"])
+            out.extend(
+                (f"data/rules.yaml: {r['id']} management.sources", s)
+                for s in r["management"]["sources"]
+            )
     for d in ds.domains["domains"]:
-        used.update(d["references"])
+        out.extend(
+            (f"data/domains.yaml: domain {d['domain']!r} references", s)
+            for s in d["references"]
+        )
     for q in ds.quotes:
         if q["source"]:
-            used.add(q["source"])
-        used.update(q.get("extra_sources", []))
-    for _, text in cited_texts(ctx):
+            out.append((f"data/quotes.yaml: {q['id']} source", q["source"]))
+        out.extend(
+            (f"data/quotes.yaml: {q['id']} extra_sources", s)
+            for s in q.get("extra_sources", [])
+        )
+    return out
+
+
+def _in_registry(location: str) -> bool:
+    """True for a ``cited_texts`` location inside a source registry file."""
+    return any(location.startswith(f"{rel}:") for rel in REGISTRY_FILES)
+
+
+def _used_slugs(ctx: Context) -> set[str]:
+    """Slugs used by data or cited in prose; a registry citing itself is no use."""
+    used = {slug for _, slug in structured_slugs(ctx.ds)}
+    for where, text in cited_texts(ctx):
+        if _in_registry(where):
+            continue
         try:
             used.update(citation_slugs(text))
         except ValueError:
             pass  # reported by the citations check
     return used
+
+
+def slug_locations(ctx: Context, slug: str) -> list[str]:
+    """Every place that names ``slug``, structured or as a citation."""
+    found = [where for where, s in structured_slugs(ctx.ds) if s == slug]
+    for where, text in cited_texts(ctx):
+        try:
+            if slug in citation_slugs(text):
+                found.append(where)
+        except ValueError:
+            continue
+    return found
+
+
+def check_slug_references(ctx: Context) -> list[str]:
+    return [
+        f"{where} names unknown source slug {slug!r}"
+        for where, slug in structured_slugs(ctx.ds)
+        if slug not in ctx.registry
+    ]
 
 
 def check_source_used(ctx: Context) -> list[str]:
@@ -570,6 +696,8 @@ CHECKS: dict[str, Callable[[Context], list[str]]] = {
     "id-references": check_id_references,
     "rule-in-domain": check_rule_in_domain,
     "domain-count": check_domain_count,
+    "management-count": check_management_count,
+    "slug-references": check_slug_references,
     "source-used": check_source_used,
     "table-columns": check_table_columns,
     "relation-contradictions": check_relation_contradictions,
@@ -608,9 +736,18 @@ def run_checks(root: Path) -> list[Finding]:
     try:
         ctx = make_context(root)
     except Exception as exc:
-        return [
-            Finding("load", f"cannot load the dataset: {type(exc).__name__}: {exc}")
-        ]
+        # The other checks need the whole dataset; the schema check still runs
+        # file by file, so every other file is validated too.
+        load = Finding("load", f"cannot load the dataset: {type(exc).__name__}: {exc}")
+        try:
+            schema = [Finding("schema", m) for m in schema_findings(root)]
+        except Exception as inner:
+            schema = [
+                Finding(
+                    "schema", f"check could not run: {type(inner).__name__}: {inner}"
+                )
+            ]
+        return [load, *schema]
     findings: list[Finding] = []
     for name, fn in CHECKS.items():
         try:

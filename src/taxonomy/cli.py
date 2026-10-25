@@ -10,7 +10,8 @@ from pathlib import Path
 from taxonomy import build as build_mod
 from taxonomy import render_paper, render_site, verify_sources
 from taxonomy.load import find_root
-from taxonomy.validate import run_checks
+from taxonomy.render_markdown import UnknownSlugError
+from taxonomy.validate import make_context, run_checks, slug_locations
 
 
 def _root(arg: str | None) -> Path:
@@ -21,6 +22,15 @@ def _root(arg: str | None) -> Path:
             raise FileNotFoundError(f"{root} has no data/meta.yaml")
         return root
     return find_root()
+
+
+def _where(root: Path, slug: str) -> str:
+    """Where ``slug`` is named, for an unknown-slug error message."""
+    try:
+        places = slug_locations(make_context(root), slug)
+    except Exception:
+        places = []
+    return f"named in {', '.join(places)}" if places else "run `taxonomy check`"
 
 
 def cmd_check(root: Path) -> int:
@@ -112,6 +122,11 @@ def main(argv: Sequence[str] | None = None) -> int:
             render_site.build(args.out, root)
         else:
             render_paper.build(args.out, root)
+    except UnknownSlugError as exc:
+        print(
+            f"taxonomy {args.command}: {exc}; {_where(root, exc.slug)}", file=sys.stderr
+        )
+        return 1
     except NotImplementedError as exc:
         print(f"taxonomy {args.command}: {exc}", file=sys.stderr)
         return 2

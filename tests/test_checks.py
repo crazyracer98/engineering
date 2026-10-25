@@ -6,7 +6,10 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
-from taxonomy.validate import CHECKS, Finding, run_checks
+import pytest
+
+from taxonomy import cli
+from taxonomy.validate import CHECKS, Finding, parse_id_list, run_checks
 
 Edit = Callable[[str, Callable[[Any], None]], None]
 
@@ -31,6 +34,8 @@ def test_every_check_has_a_seeded_test() -> None:
         "id-references",
         "rule-in-domain",
         "domain-count",
+        "management-count",
+        "slug-references",
         "source-used",
         "table-columns",
         "relation-contradictions",
@@ -447,11 +452,16 @@ def test_domain_count_without_domain_index_section(repo: Path, edit: Edit) -> No
     assert any("no 'N domains" in m for m in messages(repo, "domain-count"))
 
 
-def test_yaml_syntax_error_is_a_finding(repo: Path) -> None:
+def test_yaml_syntax_error_is_a_finding(repo: Path, edit: Edit) -> None:
+    edit("data/rules.yaml", lambda d: rule(d, "U1").update(strength="MAYBE"))
     (repo / "data" / "glossary.yaml").write_text("a: [unclosed\n", encoding="utf-8")
     findings = run_checks(repo)
-    assert [f.check for f in findings] == ["load"]
+    assert findings[0].check == "load"
     assert "glossary.yaml" in findings[0].message
+    schema = [f.message for f in findings if f.check == "schema"]
+    assert any(m.startswith("data/glossary.yaml cannot be loaded") for m in schema)
+    assert any("data/rules.yaml at 0/strength" in m for m in schema)
+    assert {f.check for f in findings} == {"load", "schema"}
 
 
 def test_missing_schema_is_a_finding(repo: Path) -> None:
@@ -471,3 +481,92 @@ def test_missing_sources_registry_is_an_error(repo: Path) -> None:
     (repo / "data" / "sources.yaml").unlink()
     findings = run_checks(repo)
     assert findings and "sources.yaml" in findings[0].message
+
+
+def test_slug_reference_typo(
+    repo: Path, edit: Edit, capsys: pytest.CaptureFixture[str]
+) -> None:
+    edit(
+        "data/rules.yaml",
+        lambda d: rule(d, "U1")["sources"].__setitem__(0, "nspe-typo"),
+    )
+    assert messages(repo, "slug-references") == [
+        "data/rules.yaml: U1 sources names unknown source slug 'nspe-typo'"
+    ]
+    assert cli.main(["--root", str(repo), "build"]) == 1
+    err = capsys.readouterr().err
+    assert "unknown source slug 'nspe-typo'" in err
+    assert "data/rules.yaml: U1 sources" in err
+    assert "Traceback" not in err
+
+
+def test_schema_findings_are_per_file(repo: Path, edit: Edit) -> None:
+    (repo / "schema" / "glossary.schema.json").unlink()
+    edit("data/rules.yaml", lambda d: rule(d, "U1").update(strength="MAYBE"))
+    msgs = messages(repo, "schema")
+    assert any(
+        "schema/glossary.schema.json (for data/glossary.yaml)" in m for m in msgs
+    )
+    assert any("data/rules.yaml at 0/strength" in m for m in msgs)
+    assert not any("could not run" in m for m in msgs)
+
+
+def _scope(doc: Any, old: str, new: str) -> None:
+    item = next(h for h in doc["how_to_read"] if h["key"] == "scope")
+    assert old in item["text"]
+    item["text"] = item["text"].replace(old, new)
+
+
+def test_management_count_wrong_n(repo: Path, edit: Edit) -> None:
+    edit("data/meta.yaml", lambda d: _scope(d, "67 of the 83", "66 of the 83"))
+    assert any(
+        "states section 10 has 66 of 83" in m and "has 67 of 83" in m
+        for m in messages(repo, "management-count")
+    )
+
+
+def test_management_count_wrong_id_list(repo: Path, edit: Edit) -> None:
+    edit("data/meta.yaml", lambda d: _scope(d, "U47–U58, R9,", "U47-U57, R8,"))
+    assert messages(repo, "management-count") == [
+        "meta's list of rules without a management form has extra ['R8'] "
+        "and misses ['U58', 'R9']"
+    ]
+
+
+def test_management_count_sentence_missing(repo: Path, edit: Edit) -> None:
+    edit("data/meta.yaml", lambda d: _scope(d, "Section 10 states", "Section 10 has"))
+    assert any(
+        "has no 'Section 10 states" in m for m in messages(repo, "management-count")
+    )
+
+
+def test_parse_id_list_is_prefix_generic() -> None:
+    assert parse_id_list("P1–P3, P9, P10-P11", ["P", "K"]) == [
+        "P1",
+        "P2",
+        "P3",
+        "P9",
+        "P10",
+        "P11",
+    ]
+    with pytest.raises(ValueError, match="within one prefix"):
+        parse_id_list("P1–K3", ["P", "K"])
+    with pytest.raises(ValueError, match="not a rule ID"):
+        parse_id_list("U1", ["P"])
+
+
+def test_source_cited_only_by_itself_is_unused(repo: Path, edit: Edit) -> None:
+    def seed(doc: Any) -> None:
+        doc.append(
+            {
+                "slug": "self-cited",
+                "title": "Self",
+                "url": "https://example.org/self",
+                "kind": "primary",
+                "paid": False,
+                "notes": "see [@self-cited]",
+            }
+        )
+
+    edit("data/sources.yaml", seed)
+    assert any("self-cited" in m for m in messages(repo, "source-used"))
