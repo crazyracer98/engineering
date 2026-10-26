@@ -9,7 +9,12 @@ import pytest
 
 from taxonomy import build, cli
 from taxonomy.load import load_dataset, load_registry
-from taxonomy.render_markdown import render_chapters, render_single, resolve_citations
+from taxonomy.render_markdown import (
+    number_citations,
+    render_chapters,
+    render_single,
+    resolve_citations,
+)
 from taxonomy.render_yaml import build_document, render_yaml
 from tests.conftest import REPO
 from tests.test_checks import Edit
@@ -87,6 +92,27 @@ def test_resolve_citations_forms() -> None:
     assert r("`[@zz]` and [@a]", reg) == "`[@zz]` and [Alpha](https://x/a)"  # type: ignore[arg-type]
     with pytest.raises(KeyError):
         r("[@zz]", reg)  # type: ignore[arg-type]
+
+
+def test_number_citations_numbers_per_page_and_lists_references() -> None:
+    reg = {
+        "a": {"slug": "a", "title": "Alpha", "url": "https://x/a"},
+        "b": {"slug": "b", "title": "Beta", "url": "https://x/b"},
+    }
+    text = "One [@b]. Two [@a; @b], and [@a, p. 3]. `[@zz]`\n"
+    out = number_citations(text, reg)  # type: ignore[arg-type]
+    body, refs = out.split("\n\n## References\n\n")
+    one, two = r"[\[1\]](#ref-1)", r"[\[2\]](#ref-2)"
+    assert body == f"One {one}. Two {two}, {one}, and {two}, p. 3. `[@zz]`"
+    assert "Alpha" not in body
+    assert refs == (
+        '- <a id="ref-1"></a>\\[1\\] [Beta](https://x/b)\n'
+        '- <a id="ref-2"></a>\\[2\\] [Alpha](https://x/a)\n'
+    )
+    # a page without citations gets no list, and an unknown slug raises
+    assert number_citations("none\n", reg) == "none\n"  # type: ignore[arg-type]
+    with pytest.raises(KeyError):
+        number_citations("[@zz]", reg)  # type: ignore[arg-type]
 
 
 def test_cli_reports_load_errors_without_traceback(

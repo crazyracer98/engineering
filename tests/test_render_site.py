@@ -26,6 +26,21 @@ def test_assemble_has_every_page_without_raw_citations() -> None:
         assert "[@" not in strip_code(path.read_text(encoding="utf-8")), path.name
 
 
+def test_site_citations_are_numbered_links_with_a_reference_list() -> None:
+    src = render_site.assemble(REPO)
+    page = (src / "methodology.md").read_text(encoding="utf-8")
+    body, refs = page.split("\n## References\n\n")
+    assert r"[\[1\]](#ref-1)" in body
+    assert "RFC 2119" not in body.split("## Cross-cutting", 1)[0]
+    entries = refs.strip().split("\n")
+    for n, entry in enumerate(entries, 1):
+        assert entry.startswith(f'- <a id="ref-{n}"></a>\\[{n}\\] [')
+        assert entry.endswith(")")
+    cited = {int(m) for m in re.findall(r"\(#ref-(\d+)\)", body)}
+    assert cited == set(range(1, len(entries) + 1))
+    assert "References" not in (src / "history.md").read_text(encoding="utf-8")
+
+
 def test_index_version_line_and_downloads() -> None:
     edition = str(load_dataset(REPO).meta["edition"])
     index = (render_site.assemble(REPO) / "index.md").read_text(encoding="utf-8")

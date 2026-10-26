@@ -4,14 +4,14 @@
 - consequence: low
   uncertainty: low
   apply:
-  - all U-rules
-  - C-rules whose condition is true
+  - all universal rules
+  - conditional rules whose condition is true
   checker_level: peer
 - consequence: low
   uncertainty: high
   apply:
-  - all U-rules
-  - C-rules whose condition is true
+  - all universal rules
+  - conditional rules whose condition is true
   - P16
   - P31
   - P68
@@ -19,8 +19,8 @@
 - consequence: high
   uncertainty: low
   apply:
-  - all U-rules
-  - C-rules whose condition is true
+  - all universal rules
+  - conditional rules whose condition is true
   - P42
   - P43
   - P45
@@ -30,7 +30,7 @@
 - consequence: high
   uncertainty: high
   apply:
-  - all U-rules
-  - C-rules whose condition is true
-  - all R-rules
+  - all universal rules
+  - conditional rules whose condition is true
+  - all risk-scaled rules
   checker_level: external

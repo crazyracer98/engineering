@@ -13,12 +13,16 @@ Built with `uv_build` from `../pyproject.toml`; the console script
   `docs/methodology-references.yaml` into `slug -> Source`) and
   `load_registry_files(root)`.
 - `ids.py`: rule-ID matching for any prefix in `meta.id_prefixes`
-  (`id_key`, `id_finder`, `link_ids`, which links every ID of a range).
+  (`id_key`, `id_finder`, `expand_ids`, and `link_ids`, which keeps a range as
+  written and links both ends).
 - `validate.py`: the integrity checks of
   [NFR-0001](../docs/nfrs/NFR-0001-dataset-integrity.md); `run_checks(root)`
   returns `Finding`s.
 - `render_markdown.py`: `resolve_citations(text, registry, titles=None)`
   (turns `[@a]`, `[@a; @b]` and `[@a, p. 3]` into `[title](url)` links),
+  `number_citations(text, registry)` (the site's methodology and history
+  pages: numbered `[n]` links and a `## References` list with `#ref-n`
+  anchors),
   `render_single(ds, registry)` and `render_chapters(ds, registry)`.
 - `render_yaml.py`: `render_yaml(ds, registry)`, the flattened YAML.
 - `build.py`: `generate`, `stale` and `write` for `../publication/`.

@@ -31,7 +31,7 @@ id_prefixes:
     description: An opaque, stable rule ID (P plus number), numbered in category order. The ID carries no meaning; the class (U universal, R risk-scaled, C conditional) and the category are fields shown next to it.
   K:
     name: conflict rule
-    description: It decides between two rules that pull in opposite directions.
+    description: A conflict rule decides between rules that pull in opposite directions.
 classification_test: '"Is there a common class of engineered systems in which this condition can never be true during the whole life cycle?" No → U (or R, if only the strength of the need varies with risk). Yes → C.'
 applicability_note: the test asks whether a rule *can* apply, not whether a domain already practices it. A domain without the practice has an adoption gap; that is not a counterexample. Rules therefore apply across domains by cross-reference, even where no source from that domain exists.
 quick_view_questions:
@@ -67,8 +67,8 @@ how_to_read:
     **Rule classes.** The IF field does a different job in each class:
       - **U = universal.** The condition is true, or the trigger occurs, in every engineered system. IF is either "always" or a trigger such as "a failure has happened". Every system applies these rules; the master rule scales how strictly.
       - **R = risk-scaled.** The rule applies only above a consequence or uncertainty threshold. The rigor matrix (section 6) says where.
-      - **C = conditional.** The rule applies only when the system has a property that a common class of systems lacks. IF names that property. Each C-rule names a counterexample system.
-      - **K = conflict rule.** It decides between two rules that pull in opposite directions.
+      - **C = conditional.** The rule applies only when the system has a property that a common class of systems lacks. IF names that property. Each conditional rule names a counterexample system.
+      - **K = conflict rule.** It decides between rules that pull in opposite directions.
 - key: classification_test
   text: '**Classification test:** "Is there a common class of engineered systems in which this condition can never be true during the whole life cycle?" No → U (or R, if only the strength of the need varies with risk). Yes → C.'
 - key: applicability
@@ -109,7 +109,7 @@ known_exceptions:
 sections:
 - key: how_to_read
   number: 1
-  title: How to read this file
+  title: How to read the rules
 - key: master_rule
   number: 2
   title: Master rule
@@ -126,20 +126,20 @@ sections:
   intro: |-
     Each row names an engineering domain, the rules **found** in it, and the references that support those rules. A rule can appear under several domains. "Supports" in the rule list means the domain confirms an existing rule but added nothing new.
 
-    **Found is not the same as applicable.** All U-rules apply to every domain in this index, the R-rules apply wherever the rigor matrix requires them, and the C-rules apply wherever their condition is true. That holds even where the domain has no published practice yet (adoption gap).
+    **Found is not the same as applicable.** All universal rules apply to every domain in this index, the risk-scaled rules apply wherever the rigor matrix requires them, and the conditional rules apply wherever their condition is true. That holds even where the domain has no published practice yet (adoption gap).
 
     130 domains in 20 branches (12 engineering branches, 8 management branches).
   checked_without_row:
     title: Checked without a separate row
-    intro: These domains produced no sourced rule. The last column shows which rules apply anyway by cross-reference, in addition to all U-rules. This column is the author's judgment, not a sourced finding.
+    intro: These domains produced no sourced rule. The last column shows which rules apply anyway by cross-reference, in addition to all universal rules. This column is the author's judgment, not a sourced finding.
 - key: glossary
   number: 5
   title: Glossary
-  intro: Each term has exactly one meaning in this file. No other word is used for the same meaning.
+  intro: Each term has exactly one meaning in this taxonomy. No other word is used for the same meaning.
 - key: rigor_matrix
   number: 6
   title: Rigor matrix
-  intro: Find the cell that matches your system. U-rules apply in every cell; the master rule scales how strictly. C-rules apply in every cell where their condition is true. R-rules apply only in the cells listed. MUST rules apply whenever their IF-condition is true.
+  intro: Find the cell that matches your system. Universal rules apply in every cell; the master rule scales how strictly. Conditional rules apply in every cell where their condition is true. Risk-scaled rules apply only in the cells listed. MUST rules apply whenever their IF-condition is true.
 - key: rules
   number: 7
   title: Rules by category
@@ -196,7 +196,7 @@ quick_view:
   intro: A checklist works best with five to nine items, so the taxonomy can be used as one question per category. Each question leads to the rules of its category.
 analogy_map:
   title: 'Analogy map: engineering object → management object'
-  intro: The left column is the engineering term used in this file. The right column is the thing that plays the same role in an organization.
+  intro: The left column is the engineering term used in this taxonomy. The right column is the thing that plays the same role in an organization.
   rows:
   - engineering: system
     management: organization, team, project, process
@@ -294,7 +294,7 @@ tables:
   checked_without_row:
   - Domain
   - Reason
-  - Applicable by cross-reference (besides all U-rules)
+  - Applicable by cross-reference (besides all universal rules)
   glossary:
   - Term
   - Meaning
