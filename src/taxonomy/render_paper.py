@@ -111,13 +111,15 @@ def csl_type(source: Source) -> str:
 
 def csl_item(source: Source) -> dict[str, Any]:
     """One CSL-JSON item: ``id`` (the slug), ``type``, ``title``, ``URL``,
-    ``issued`` (from ``year``), ``publisher`` and ``accessed`` when present."""
+    ``author`` (CSL name objects), ``issued`` (from ``year``), ``publisher`` and ``accessed`` when present."""
     item: dict[str, Any] = {
         "id": source["slug"],
         "type": csl_type(source),
         "title": source["title"],
         "URL": source["url"],
     }
+    if source.get("author"):
+        item["author"] = [dict(name) for name in source["author"]]
     if source.get("year"):
         item["issued"] = {"date-parts": [[int(source["year"] or 0)]]}
     if source.get("publisher"):

@@ -50,6 +50,7 @@ def test_csl_item_fields(repo: Path) -> None:
         item = items[slug]
         assert item["title"] == source["title"]
         assert item["URL"] == source["url"]
+        assert item["author"] == source["author"], slug
         if source.get("year"):
             assert item["issued"] == {"date-parts": [[source["year"]]]}
         else:
