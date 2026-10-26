@@ -67,14 +67,14 @@
 - rule: P12
   scenario: >-
     A team sizes a cluster for next year's traffic from a benchmark. The
-    benchmark ran on three nodes.
+    benchmark ran on three, four and six nodes.
   applying: >-
     The sizing note states that the benchmark is valid for 3 to 6 nodes. The
     plan targets 5 nodes, inside that range. The team also checks the result
     against a rough back-of-the-envelope estimate, and both agree within an
     order of magnitude.
   violating: >-
-    The team multiplies the three-node result to predict 50 nodes. The
+    The team scales the benchmark results up to predict 50 nodes. The
     benchmark never covered that range, and no independent estimate checks the
     result. The decision rests on an unvalidated extrapolation.
   management:
@@ -202,10 +202,11 @@
 - rule: P19
   scenario: A manager wants to rank on-call engineers by a single number.
   applying: >-
-    The team rewards deployment frequency but pairs it with change failure
-    rate. It reviews each year whether both still track the real objective.
-    Mean time to restore is not a bonus target. Every rewarded indicator has a
-    counter-indicator.
+    The manager pairs the closed ticket count with a counter-indicator, the
+    number of reopened incidents, and reads a sample of incidents to compare
+    the numbers with what really happened. Each year the team reviews whether
+    both still track on-call quality. Mean time to restore is not a bonus
+    target.
   violating: >-
     Closed ticket count is the only measure of on-call quality. Engineers split
     tickets and close them early to raise the number, and real quality drops.

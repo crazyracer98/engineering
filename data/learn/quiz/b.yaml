@@ -190,9 +190,9 @@
 - id: q-b-07
   rules: [P11, P13]
   stem: >-
-    A finance team keeps the project budget in a shared ledger. Under the
-    management form of P11, which handling of a budget change is right? Select
-    all that apply.
+    A finance team keeps the project budget in a shared ledger. Which practices
+    keep its figures trustworthy under the management forms of P11 and P13?
+    Select all that apply.
   options:
     - text: A new entry with author, date and reason, keeping the old figure visible
       correct: true
@@ -218,8 +218,8 @@
 - id: q-b-08
   rules: [P12]
   stem: >-
-    A team benchmarks its service on 3 nodes and must decide how many nodes to
-    run for next year's load. Which actions follow P12? Select all that apply.
+    A team benchmarks its service on 3, 4 and 6 nodes and must decide how many
+    nodes to run for next year's load. Which actions follow P12? Select all that apply.
   options:
     - text: >-
         State the validated range (3 to 6 nodes) and keep the decision inside
@@ -228,7 +228,7 @@
       feedback: >-
         Right. P12 says to use a model only inside the range it was validated
         for.
-    - text: Multiply the 3-node result by 17 to predict 50 nodes
+    - text: Scale the 3-node result up by 17 times to predict 50 nodes
       correct: false
       feedback: >-
         This extrapolates far beyond the tested load. P12's own example warns
@@ -306,7 +306,7 @@
   rules: [P13, P11]
   stem: >-
     A delivery lead reports DORA metrics to executives each quarter. Which
-    practices meet the management form of P13? Select all that apply.
+    practices meet the management forms of P13 and P11? Select all that apply.
   options:
     - text: A documented job generates the dashboard from named pipeline data
       correct: true
@@ -477,8 +477,8 @@
   rules: [P16, P20]
   stem: >-
     A company needs a new monitoring vendor, and leadership is unsure which
-    will fit. Which approaches follow the management form of P16? Select all
-    that apply.
+    will fit. Which approaches follow the management form of P16, or P20,
+    which strengthens it? Select all that apply.
   options:
     - text: Run a paid pilot with two vendors and drop the weaker one
       correct: true
