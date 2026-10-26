@@ -17,6 +17,50 @@
         "minLength": 1,
         "description": "Canonical link title, verbatim from edition 9 (section 9's wording first, then 4, 12, 11, 10). Other titles used for the same URL are per-use overrides (`source_titles`/`reference_titles`)."
       },
+      "author": {
+        "type": "array",
+        "minItems": 1,
+        "description": "Authors of the cited work, in order, as CSL-JSON name objects: a person is `{family, given}`; an organization or collective is `{literal}`. Standards, regulations and guidance name the issuing body; a copy of a work hosted elsewhere names the original authors, not the host; Wikipedia is `{literal: Wikipedia contributors}`. Never a guessed person: where no person can be determined, the publishing organization.",
+        "items": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "family": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "given": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "suffix": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Generational suffix, e.g. Jr. or III."
+                }
+              },
+              "required": [
+                "family"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "literal": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "literal"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
       "url": {
         "type": "string",
         "pattern": "^https?://",
@@ -87,6 +131,7 @@
     "required": [
       "slug",
       "title",
+      "author",
       "url",
       "kind",
       "paid"

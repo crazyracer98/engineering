@@ -26,6 +26,8 @@ Schema in [`../schema/`](../schema/).
 - Cite sources in prose only as Pandoc citations, `[@slug]`.
 - Add a new source to `sources.yaml` under a new slug matching
   `^[a-z0-9]+(-[a-z0-9]+)*$`.
+- Give every source an `author` list of CSL-JSON names: `{family, given}` for a person, `{literal}` for an organization or
+  collective (the issuing body of a standard or regulation, `Wikipedia contributors`); never a guessed person.
 - Bump `meta.edition` and add a `history.yaml` entry per
   [`docs/methodology.md`](../docs/methodology.md) "Versioning".
 

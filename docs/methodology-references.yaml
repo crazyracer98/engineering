@@ -3,6 +3,9 @@
 # are not repeated here.
 - slug: rfc-2119
   title: Key words for use in RFCs to Indicate Requirement Levels (RFC 2119, BCP 14)
+  author:
+  - family: Bradner
+    given: S.
   url: https://www.rfc-editor.org/rfc/rfc2119
   kind: primary
   publisher: IETF (RFC Editor)
@@ -12,6 +15,9 @@
   notes: Author S. Bradner, March 1997. Defines MUST (an absolute requirement) and SHOULD (valid reasons may exist to ignore an item, and the implications must be weighed).
 - slug: semver-2-0-0
   title: Semantic Versioning 2.0.0
+  author:
+  - family: Preston-Werner
+    given: Tom
   url: https://semver.org/spec/v2.0.0.html
   kind: primary
   publisher: semver.org (Tom Preston-Werner)
