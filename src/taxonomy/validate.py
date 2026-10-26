@@ -16,7 +16,7 @@ from typing import Any
 
 from jsonschema import Draft202012Validator, FormatChecker
 
-from taxonomy.ids import id_finder, id_key, id_pattern, prefix_alt
+from taxonomy.ids import expand_ids, id_key, id_pattern, prefix_alt
 from taxonomy.load import (
     DATA_STEMS,
     REGISTRY_FILES,
@@ -529,18 +529,17 @@ def check_override_agreement(ctx: Context) -> list[str]:
     """A ``related_text`` override names exactly the IDs of ``related``.
 
     Non-rule text ("accountability", "(see K7)", qualifiers) is ignored; each
-    rule ID counts as often as it occurs.
+    rule ID counts as often as it occurs, and a range ("P5–P8" or "P5-P8")
+    counts as every ID in it.
     """
     # Only rule IDs count: "(see K7)" names a conflict rule, not a relation.
-    finder = id_finder({re.sub(r"\d+$", "", r["id"]) for r in ctx.ds.rules})
+    prefixes = sorted({re.sub(r"\d+$", "", r["id"]) for r in ctx.ds.rules})
     key = _id_key(ctx)
     msgs: list[str] = []
     for r in ctx.ds.rules:
         if "related_text" not in r:
             continue
-        named = sorted(
-            (m.group(0) for m in finder.finditer(r["related_text"])), key=key
-        )
+        named = sorted(expand_ids(r["related_text"], prefixes), key=key)
         structured = sorted(
             (t for targets in r["related"].values() for t in targets), key=key
         )

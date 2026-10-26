@@ -2,7 +2,7 @@
 
 Each row names an engineering domain, the rules **found** in it, and the references that support those rules. A rule can appear under several domains. "Supports" in the rule list means the domain confirms an existing rule but added nothing new.
 
-**Found is not the same as applicable.** All U-rules apply to every domain in this index, the R-rules apply wherever the rigor matrix requires them, and the C-rules apply wherever their condition is true. That holds even where the domain has no published practice yet (adoption gap).
+**Found is not the same as applicable.** All universal rules apply to every domain in this index, the risk-scaled rules apply wherever the rigor matrix requires them, and the conditional rules apply wherever their condition is true. That holds even where the domain has no published practice yet (adoption gap).
 
 130 domains in 20 branches (12 engineering branches, 8 management branches).
 
@@ -238,17 +238,17 @@ Each row names an engineering domain, the rules **found** in it, and the referen
 
 ## Checked without a separate row
 
-These domains produced no sourced rule. The last column shows which rules apply anyway by cross-reference, in addition to all U-rules. This column is the author's judgment, not a sourced finding.
+These domains produced no sourced rule. The last column shows which rules apply anyway by cross-reference, in addition to all universal rules. This column is the author's judgment, not a sourced finding.
 
-| Domain | Reason | Applicable by cross-reference (besides all U-rules) |
+| Domain | Reason | Applicable by cross-reference (besides all universal rules) |
 | --- | --- | --- |
 | Regenerative medicine | searched; no source found for a distinct principle | [P59](07-rules.md#p59) (regulated), [P15](07-rules.md#p15) (irreversible harm), [P17](07-rules.md#p17) (new technology), [P61](07-rules.md#p61) (results that cannot be fully inspected) |
 | Composite materials | the source for barely visible impact damage could not be fetched; not included | [P61](07-rules.md#p61) (hidden damage that inspection cannot fully find) |
 | Computational materials | the checked source has no statement on model validation; [P12](07-rules.md#p12) covers model validity | [P31](07-rules.md#p31) (weak models), [P77](07-rules.md#p77) (data-driven models) |
-| Material characterization | the checked source has no statement on calibration; [P58](07-rules.md#p58) covers it | U-rules only; [P58](07-rules.md#p58) is the central one |
+| Material characterization | the checked source has no statement on calibration; [P58](07-rules.md#p58) covers it | universal rules only; [P58](07-rules.md#p58) is the central one |
 | Sports engineering | no distinct principle found; equipment safety standards fit [P60](07-rules.md#p60) | [P60](07-rules.md#p60) (equipment standards exist) |
 | Thermal engineering | the checked source states only that heat must be managed for reliability; covered by [P44](07-rules.md#p44) (derating) and [P28](07-rules.md#p28) | [P48](07-rules.md#p48) (thermal control loops) |
-| Surface engineering, industrial plant, power plant, project, information, facilities | not researched separately; they overlap covered domains ([P28](07-rules.md#p28), [P24](07-rules.md#p24), [P45](07-rules.md#p45), [P74](07-rules.md#p74), [P67](07-rules.md#p67), [P77](07-rules.md#p77)) | plants: [P45](07-rules.md#p45), [P59](07-rules.md#p59), [P48](07-rules.md#p48), [P78](07-rules.md#p78); information: [P33](07-rules.md#p33), [P77](07-rules.md#p77); project: U-rules only |
+| Surface engineering, industrial plant, power plant, project, information, facilities | not researched separately; they overlap covered domains ([P28](07-rules.md#p28), [P24](07-rules.md#p24), [P45](07-rules.md#p45), [P74](07-rules.md#p74), [P67](07-rules.md#p67), [P77](07-rules.md#p77)) | plants: [P45](07-rules.md#p45), [P59](07-rules.md#p59), [P48](07-rules.md#p48), [P78](07-rules.md#p78); information: [P33](07-rules.md#p33), [P77](07-rules.md#p77); project: universal rules only |
 | Applied engineering, electromechanics, mechatronics | umbrella terms that combine other branches | [P33](07-rules.md#p33) (data interfaces), [P48](07-rules.md#p48) (control loops) |
 | Geomatics | only the units and reference-frame principle ([P33](07-rules.md#p33)) applies; no geomatics-specific source | [P33](07-rules.md#p33) (data interfaces), [P77](07-rules.md#p77) (data-driven results) |
 | Explosives and military engineering | out of scope beyond organizational practice ([P42](07-rules.md#p42) two-person rule) | not assessed (out of scope) |
@@ -257,5 +257,5 @@ These domains produced no sourced rule. The last column shows which rules apply 
 | Facility management (ISO 41001), energy management (ISO 50001) | catalogue pages not checked | [P78](07-rules.md#p78), [P74](07-rules.md#p74), [P3](07-rules.md#p3) |
 | Treasury, tax, legal departments | covered by finance and compliance rows | [P43](07-rules.md#p43), [P42](07-rules.md#p42), [P60](07-rules.md#p60), [P59](07-rules.md#p59) |
 | Public administration | covered by procurement, governance and records rows | [P6](07-rules.md#p6), [P11](07-rules.md#p11), [P60](07-rules.md#p60), [P59](07-rules.md#p59) |
-| Non-profit management | no distinct principle found | U-rules and MU-rules only |
+| Non-profit management | no distinct principle found | universal rules and the rules from management sources only |
 | Self-management and time management | out of scope (one person, see [section 1](01-how-to-read.md)) | [P76](07-rules.md#p76) and [P52](07-rules.md#p52) apply to one person as advice, not as organizational rules |

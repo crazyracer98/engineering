@@ -65,6 +65,11 @@ _SECTION_REF = re.compile(
 #: its alt text.
 _REL_LINK = re.compile(r"!?\[([^\]]*)\]\((?![a-zA-Z][a-zA-Z0-9+.-]*:|#)[^)]*\)")
 _APPLIED = "> **Applied in this taxonomy:**"
+#: The published history page; the paper cannot link ``history.md``.
+HISTORY_URL = "https://crazyracer98.github.io/engineering/history/"
+#: An apostrophe after a digit or a link ("P71's") in Pandoc's Typst output.
+#: Typst's smart quotes would typeset it as a prime, so it becomes ``’``.
+_DIGIT_APOSTROPHE = re.compile(r"([0-9]|\])'(?=[A-Za-z])")
 
 #: Hosts whose pages are journal articles, for the CSL ``type`` mapping.
 _JOURNAL_HOSTS = (
@@ -186,7 +191,8 @@ def method_markdown(text: str) -> str:
             continue
         out.append(lines[i])
         i += 1
-    return _REL_LINK.sub(r"\1", "\n".join(out)).strip() + "\n"
+    text = "\n".join(out).replace("](history.md)", f"]({HISTORY_URL})")
+    return _REL_LINK.sub(r"\1", text).strip() + "\n"
 
 
 def _typst_open(function: str) -> list[str]:
@@ -260,7 +266,8 @@ class _Paper:
 
     def how_to_read(self) -> str:
         items = "\n".join(
-            f"- {self.c(item['text'])}" for item in self.meta["how_to_read"]
+            f"- {self.link_ids(self.c(item['text']))}"
+            for item in self.meta["how_to_read"]
         )
         return "\n\n".join(["## How to read the rules {#sec-howto}", items])
 
@@ -370,7 +377,7 @@ class _Paper:
                 ("Evidence", self.evidence(r)),
                 ("Sources", _cite(r["sources"]) + "."),
                 ("Source domain", self.c(r["source_domain"])),
-                ("Class", self.c(r["class_note"])),
+                ("Class (why)", self.c(r["class_note"])),
                 ("Notes", self.c(r.get("notes"))),
             ]
         )
@@ -436,7 +443,7 @@ class _Paper:
 
     def intro_of(self, key: str) -> str:
         sec = next(s for s in self.meta["sections"] if s["key"] == key)
-        return self.c(sec.get("intro"))
+        return self.link_ids(self.c(sec.get("intro")))
 
     def glossary(self) -> str:
         rows = [
@@ -510,12 +517,15 @@ class _Paper:
                 m = self.rules[rid]["management"]
                 if not m:
                     continue
+                # A row without sources prints its sources_text ("cross-reference
+                # only"), never an empty citation.
+                sources = _cite(m["sources"]) or self.c(m.get("sources_text"))
                 rows.append(
                     [
                         f"{self.link_ids(rid)} {m['name']}",
-                        f"**{self.c(m['form_name'])}.** {self.c(m['form'])}. "
+                        f"**{self.c(m['form_name'])}**: {self.c(m['form'])}. "
                         f"*Example:* {self.c(m['example'])}",
-                        f"{_cite(m['sources'])}. Evidence: {self.evidence(m)}.",
+                        f"{sources}. Evidence: {self.evidence(m)}.",
                     ]
                 )
             if not rows:
@@ -661,6 +671,12 @@ def run_pandoc(
         raise RuntimeError(
             f"pandoc failed (exit {result.returncode}):\n{result.stderr.strip()}"
         )
+    typ.write_text(typographic_apostrophes(typ.read_text("utf-8")), encoding="utf-8")
+
+
+def typographic_apostrophes(typst_source: str) -> str:
+    """Replace a straight apostrophe after a digit or ``]`` ("P71's") by ``’``."""
+    return _DIGIT_APOSTROPHE.sub("\\1\u2019", typst_source)
 
 
 def compile_typst(typ: Path, out: Path, date: str) -> None:

@@ -4,7 +4,7 @@ Version 1.0.0 · 2026-10-14 · 83 rules (58 universal, 9 risk-scaled, 16 conditi
 
 ## Contents
 
-1. [How to read this file](01-how-to-read.md)
+1. [How to read the rules](01-how-to-read.md)
 2. [Master rule](02-master-rule.md)
 3. [Taxonomy overview](03-overview.md)
 4. [Domain index (engineering and management domains, their rules and references)](04-domain-index.md)

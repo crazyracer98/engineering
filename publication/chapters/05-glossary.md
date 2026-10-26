@@ -1,6 +1,6 @@
 # 5. Glossary
 
-Each term has exactly one meaning in this file. No other word is used for the same meaning.
+Each term has exactly one meaning in this taxonomy. No other word is used for the same meaning.
 
 | Term | Meaning | Not the same as / opposite |
 | --- | --- | --- |

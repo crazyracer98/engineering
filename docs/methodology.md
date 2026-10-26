@@ -1,9 +1,9 @@
 # Methodology
 
-This page describes a method for turning widely scattered practices into a
-set of rules that can be checked. It applies to any field where good practice
-is spread over many sources: standards, regulations, papers, handbooks and
-practitioner writing. It was used to build this taxonomy of engineering and
+This method turns widely scattered practices into a set of rules that can
+be checked. It applies to any field where good practice is spread over many
+sources: standards, regulations, papers, handbooks and practitioner
+writing. It was used to build this taxonomy of engineering and
 management practices. Each phase below has its inputs, steps, outputs, exit
 criteria and failure modes, and a box that shows how this taxonomy applied
 it.
@@ -13,7 +13,7 @@ content of edition 1.0.0 shows (the rules, the glossary, the sections on
 method and limits, the source tables). Where the content does not show how a
 step was carried out, the box says so. Statements marked "author's judgment"
 are the author's own assessment, not a sourced finding. The history of the
-editions is in [history.md](history.md).
+editions is on [the history page](history.md).
 
 The phases run in order, but phases 3 to 6 can repeat. A later phase often
 sends work back to an earlier one: a classification review (phase 5) may
@@ -289,7 +289,7 @@ reproduces the published documents exactly.
   A difference between the imported document and its regenerated form is a
   finding, and it goes to the maintainer.
 
-> **Applied in this taxonomy (this repository):** In this repository, `data/`
+> **Applied in this taxonomy:** In this repository, `data/`
 > is the single source of truth and `publication/` is generated from it.
 > `taxonomy check` validates the dataset and `taxonomy build --check` fails
 > if a generated file is out of date. The checks are:
@@ -301,7 +301,7 @@ reproduces the published documents exactly.
 >   checked by);
 > - every rule has at least one primary source unless it is listed in
 >   `meta.known_exceptions` with a reason (today only P53);
-> - every C-rule names a counterexample, and every K-rule names two or more
+> - every conditional rule names a counterexample, and every conflict rule names two or more
 >   existing rules;
 > - category membership matches each rule's category;
 > - the quick-view question count is between 5 and 9;
@@ -369,7 +369,7 @@ counterexample, and the checklist has five to nine items.
 > only the strength of the need varies with risk. If yes, it is conditional
 > (C). The content states that the test asks whether a rule can apply, not
 > whether a domain already practices it: "A domain without the practice has
-> an adoption gap; that is not a counterexample". Each C-rule names a
+> an adoption gap; that is not a counterexample". Each conditional rule names a
 > counterexample, and P53 (late work and added people) shows the pattern: its
 > counterexample is work that can be split into independent parts without
 > communication, such as harvesting a field. The content states that the
@@ -379,8 +379,10 @@ counterexample, and the checklist has five to nine items.
 > five-to-nine checklist size, and the content cites Mann's notes on Gawande's book
 > [@mann-checklist-manifesto-notes], not Gawande directly, for the limit of
 > working memory. The
-> content does not show a consolidation step, the number of rules before and
-> after classification, or an old-to-new ID map.
+> content does not show a consolidation step or the number of rules before and
+> after classification. The edition-9 IDs were re-keyed to P1–P83 before
+> 1.0.0; the map is `sources/import/id-map.yaml`, which is provenance and not
+> an edition change. Within the content no ID map is needed yet.
 
 ## Phase 6: Source upgrade
 
@@ -478,14 +480,25 @@ The data-format rows follow the compatibility rule of Semantic Versioning
 and a backward-compatible addition is minor. Mapping "existing users" onto
 readers and tools of the dataset is the author's judgment.
 
-Every edition adds a section to [history.md](history.md) and an entry to
+Every edition adds a section to [the history page](history.md) and an entry to
 `data/history.yaml`, including the old-to-new ID map when a major change
 moves IDs. Edition 1.0.0 is the first edition.
 
 ## Running a round
 
 A future round (a coverage loop, a source upgrade or a review) is run with
-the `taxonomy-research` skill, which is not yet written. Until it exists,
-follow the phases above by hand, record every finding with one of the three
-decisions of phase 3, and finish with the version bump from "Versioning".
+the `taxonomy-research` skill (`.claude/skills/taxonomy-research/`). The
+skill walks through these steps:
+
+1. Pick the phase of the round (coverage, classification review or source
+   upgrade) and write down its scope before searching.
+2. Sweep the sources in that scope, treating any search report as a list of
+   leads, not as evidence.
+3. Record every finding with one of the decisions of phase 3: a new rule, a
+   change, supports only, or a null result with its reason.
+4. Add sources and verbatim quotes, and label every judgment as the
+   author's.
+5. Run the checks and regenerate the published files, then finish with the
+   version bump from "Versioning" and a new entry in the history.
+
 The checks of phase 4 must pass before a round counts as done.

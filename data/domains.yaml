@@ -1010,7 +1010,7 @@ checked_without_row:
 - domain: Material characterization
   reason: covered-elsewhere
   note: the checked source has no statement on calibration; P58 covers it
-  applicable: U-rules only; P58 is the central one
+  applicable: universal rules only; P58 is the central one
 - domain: Sports engineering
   reason: no-source
   note: no distinct principle found; equipment safety standards fit P60
@@ -1022,7 +1022,7 @@ checked_without_row:
 - domain: Surface engineering, industrial plant, power plant, project, information, facilities
   reason: covered-elsewhere
   note: not researched separately; they overlap covered domains (P28, P24, P45, P74, P67, P77)
-  applicable: 'plants: P45, P59, P48, P78; information: P33, P77; project: U-rules only'
+  applicable: 'plants: P45, P59, P48, P78; information: P33, P77; project: universal rules only'
 - domain: Applied engineering, electromechanics, mechatronics
   reason: umbrella
   note: umbrella terms that combine other branches
@@ -1058,7 +1058,7 @@ checked_without_row:
 - domain: Non-profit management
   reason: no-source
   note: no distinct principle found
-  applicable: U-rules and MU-rules only
+  applicable: universal rules and the rules from management sources only
 - domain: Self-management and time management
   reason: out-of-scope
   note: out of scope (one person, see section 1)
