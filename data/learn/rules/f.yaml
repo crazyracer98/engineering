@@ -1,2 +1,74 @@
 # Rule examples, category F. Schema: schema/learn-rules.schema.json.
-[]
+# Every example is illustrative, not evidence.
+- rule: P54
+  scenario: A team builds a customer billing portal. Its CI run is green, and the finance owner is waiting for it.
+  applying: The CI results are on record (verification). The finance owner has signed that the portal meets their requirements (validation). Before handover, the team runs one end-to-end test of DNS, certificates, monitoring and backup together. Both a test result and a stakeholder acceptance exist.
+  violating: The team marks the portal done because CI is green. Nobody asks the finance owner to accept it, and nobody tests the parts together. On launch day the certificate service rejects the new DNS name.
+  management:
+    scenario: A company launches a developer portal to cut the time new teams spend on setup.
+    applying: The portal is accepted against its specification (verification). Six months later the company measures adoption and checks that the business case still holds (validation).
+    violating: The portal passes its acceptance checklist and the project closes. Nobody measures whether teams use it, and the business case is never revisited.
+- rule: P55
+  scenario: A team adds a feature to a service that many other teams call.
+  applying: Lint, type checks and unit tests run on every pull request before merge. Each check runs at the first stage where it can run, so a type error stops the change before review.
+  violating: Lint and tests run nightly after the release branch is cut. A type error reaches production and is found at 2 am by a customer.
+  management:
+    scenario: A product lead wants to start a quarter of work for twelve people on a new initiative.
+    applying: A one-page proposal and its business case are reviewed before any people or money are committed. The review finds a missing dependency, and the plan changes before work starts.
+    violating: The lead commits the team first and reviews the business case at the end of the quarter, when the money is already spent.
+- rule: P56
+  scenario: A payments team changes the code that authorizes card transactions.
+  applying: A second engineer approves every pull request, and the author never merges their own change. Because a failure here is costly, the team also commissions an external penetration test. The checker's independence matches the rigor matrix.
+  violating: The author reads their change twice, approves it and merges it. Nobody else sees it before release.
+  management:
+    scenario: A company checks its internal budgets and its yearly accounts.
+    applying: Finance checks a team lead's budget. An external auditor checks the company's accounts, and the firm rotates its long-serving external auditors.
+    violating: The head of a department prepares the budget and approves it. The same audit firm has checked the accounts for twenty years.
+- rule: P57
+  scenario: A team must show that a new release of its web service is ready.
+  applying: Staging runs the same image digest and Helm values as production. The team lists the few differences, such as a smaller database, and justifies each one. After fixing a failed test, it runs the test again.
+  violating: Staging runs an image built separately from the release, with TLS switched off. The test passes, and the different build is deployed. After a fix, the team ships without running the test again.
+  management:
+    scenario: A company plans a new on-call model for its engineering teams.
+    applying: One team pilots the model for one month under real conditions before full rollout. The company exercises its continuity plan once a year.
+    violating: The company announces the new on-call model to all teams at once. The continuity plan has never been exercised.
+- rule: P58
+  scenario: A team claims that a new cache makes its service faster.
+  applying: Both versions run on the same instance type with a fixed load and a warm-up period. The report states these reference conditions and the spread over five runs. A reader can see whether the difference is larger than the spread.
+  violating: The team compares one run on a laptop with one run on a CI runner. The report gives a single number for each and no spread.
+  management:
+    scenario: Two directors want to compare lead time across teams.
+    applying: Lead time is defined once, with its formula, period, population and data source. The report shows how much lead time normally varies before it compares teams.
+    violating: One team measures lead time from ticket creation and another from the first commit. The directors rank the teams on these numbers.
+- rule: P59
+  scenario: A company writes firmware for an infusion pump, which is safety-critical and regulated.
+  applying: Each requirement links to its design element and to a test ID in the ticket system, and each test links back to a requirement. The traceability report shows no requirement without a test and no test without a requirement.
+  violating: The report shows three requirements with no test and five tests that link to no requirement. The team points to its 97 percent line coverage.
+  management:
+    scenario: A company must show that it meets its data protection obligations.
+    applying: Each obligation in the register points to an owner, a control and an audit test of that control.
+    violating: The register lists the obligations, but several have no control. One control has never been tested.
+- rule: P60
+  scenario: A team runs a Kubernetes cluster, and a published benchmark (the CIS Benchmark for Kubernetes) applies to it.
+  applying: The team runs the compliance scan, and it passes. The team treats this as the minimum and then applies the other rules, such as failure analysis of its own design.
+  violating: The scan passes, and the team lead says the cluster is secure and no further analysis is needed.
+  management:
+    scenario: A company must follow working-time law for its on-call staff.
+    applying: The company meets the law as the floor. It then applies the other rules, such as psychological safety (P5) and accumulated degradation (P28), which go further.
+    violating: The company schedules on-call shifts to the legal limit and treats that as proof that the schedule is fair and sustainable.
+- rule: P61
+  scenario: A team depends on database backups, and a restore is the only way to know that a backup works.
+  applying: The restore procedure is proven by a real restore, and the test record is filed. Only engineers who have completed a restore drill run production restores, and each has a qualification record.
+  violating: The backup procedure was written in 2022 and has never been restored. Any on-call engineer may run it during an outage.
+  management:
+    scenario: A company wants consistent hiring interviews, and the quality of an interview cannot be checked afterwards.
+    applying: The interview procedure is proven by a pilot. Only interviewers who have completed the training run structured interviews (P62).
+    violating: Any manager runs interviews in their own way. Nobody has tested the procedure or trained the interviewers.
+- rule: P62
+  scenario: A company hires a platform engineer.
+  applying: Every candidate answers the same six job-related questions. Two raters score the answers on scales anchored to job requirements, each before the discussion. Every candidate also does the same debugging exercise.
+  violating: Each interviewer holds a 'culture fit' chat with different questions for each candidate. The raters discuss first and score afterwards.
+- rule: P63
+  scenario: An engineer deploys a service, and the runbook is missing the rollback step.
+  applying: The lead says, "The runbook is missing the rollback step. Add it and test it." The feedback record names the task and the improvement. At the next review the lead checks whether the runbook now has a tested rollback step.
+  violating: The lead says, "You are careless," and ranks the engineer last on the team. The record names no task and no improvement, and nobody checks later.
