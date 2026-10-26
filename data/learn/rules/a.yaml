@@ -1,2 +1,49 @@
 # Rule examples, category A. Schema: schema/learn-rules.schema.json.
-[]
+- rule: P1
+  scenario: A payments team plans to release on Friday. A late test shows that a rare timeout exposes one customer's card details to another customer.
+  applying: The release checklist has a safety and security sign-off item. The security reviewer marks it open, and the gate stays shut until the leak is fixed. The date moves.
+  violating: The team knows about the leak and ships on Friday anyway, because the launch date was promised to a client. They plan to patch it next week.
+  management:
+    scenario: A product manager learns that a new feature would process personal data without a legal basis. The launch is due in two days.
+    applying: The manager stops the launch and puts the legal basis review on the launch plan. People's rights rank above the date.
+    violating: The manager lets the launch go ahead and plans to sort out the legal basis later, because the campaign budget is already spent.
+- rule: P2
+  scenario: A backend team designs the access rules for a cloud account. Nobody on the team has deep identity and access management (IAM) experience.
+  applying: Each design names a checker with IAM expertise. The team asks a security engineer from another group, and she reviews the design before it is approved.
+  violating: A senior developer approves the IAM design alone. He has never worked with IAM, but he is the most senior person in the room.
+  management:
+    scenario: A team lead wants to change the on-call rules. She has no knowledge of labour law.
+    applying: She asks HR before the change. HR points out rest-time limits, and she adjusts the rota to fit them.
+    violating: She changes the on-call rules on her own and assigns weekend shifts back to back. Nobody with the knowledge sees the change.
+- rule: P3
+  scenario: A team runs a test environment for every feature branch. Most of them sit unused for weeks.
+  applying: The team measures the resource use of each environment and reviews it monthly. Idle environments scale to zero and are deleted after the branch merges.
+  violating: The environments run all day and all night. Nobody measures their use, so nobody sees the waste.
+  management:
+    scenario: A department buys cloud services and pays the bills each month.
+    applying: Cloud cost and energy reports are reviewed together with the budget. Procurement asks suppliers for their environmental impact.
+    violating: The department reviews only the price. Nobody asks about energy use or supplier practices before signing.
+- rule: P4
+  scenario: A release pipeline deploys to production through automatic sync. An engineer sees error rates rise on the first canary.
+  applying: A deploy freeze overrides the auto-sync in every mode, and the engineer sets it without asking anyone. Lifting it needs an explicit sync, and a reset does not restart the rollout. The use is reviewed without blame.
+  violating: The engineer raises the problem in the channel while the release continues. Management asks the team to discuss it first, and the rollout reaches all users.
+  management:
+    scenario: A company has an anonymous channel for legal and ethical concerns. An engineer sees an unsafe shortcut in a release.
+    applying: Any engineer may pause the release without permission. The company follows up on the report and does not retaliate.
+    violating: Only a director can pause a release. An engineer who stops work on their own is warned for missing the deadline.
+- rule: P5
+  scenario: A pipeline breaks in the middle of the night. A junior engineer reports that she caused it by merging a bad config.
+  applying: Her team lead thanks her for the quick report. In the retrospective he names his own mistake from last month. A regular anonymous survey asks about safety to speak up, and near-miss reports do not fall after the incident.
+  violating: The team lead blames her in front of the group and puts the incident in her review. Reports of near misses stop within a month.
+- rule: P6
+  scenario: A company picks a monitoring vendor. One reviewer on the panel holds shares in one of the bidders.
+  applying: The reviewer's interest is in the register of declared interests. The register is checked before vendor selection, and she leaves the evaluation.
+  violating: She keeps the interest to herself and scores the bidders. Her favourite wins, and nobody learns about the shares.
+- rule: P7
+  scenario: A platform lead delegates a migration of the logging stack to a team.
+  applying: The epic states why (cut cost and risk), when it is done (all services log to the new stack) and what must not happen (no gaps in audit logs). The team picks the steps.
+  violating: The epic is a list of commands with no purpose. When one step fails, the work stops because nobody knows what the plan was for.
+- rule: P8
+  scenario: A department head plans to change the on-call model from one fixed team to a rotation across teams.
+  applying: She asks the teams for input and for challenges before deciding. Then she announces the decision with the reasons and writes down the new rules. The decision is hers; it is not a vote.
+  violating: She announces the new rotation by email on Friday. It contains no reasons and no input round, and the new rules are unclear.

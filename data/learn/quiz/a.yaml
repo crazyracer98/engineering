@@ -1,2 +1,284 @@
 # Quiz questions, category A. Schema: schema/learn-quiz.schema.json.
-[]
+- id: q-a-01
+  rules: [P1]
+  stem: A team finds a defect that exposes one user's data to another user. The release date is fixed by a contract. Which actions fit the rules of category A?
+  options:
+    - text: Block the release until the defect is fixed, and move the date.
+      correct: true
+      feedback: "P1 puts public safety above cost, schedule and convenience. A known data leak blocks the release."
+    - text: Add a safety and security sign-off item to the release gate, so the check cannot be skipped.
+      correct: true
+      feedback: "P1 is checked by a release gate that contains a safety and security sign-off item."
+    - text: Ship on time and promise a patch next week.
+      correct: false
+      feedback: "P1 names this as a violation: shipping a known safety defect to meet a deadline."
+    - text: Ship on time, but only to a few users first, and keep the defect secret.
+      correct: false
+      feedback: "P1 still applies. Limiting the exposure does not change that a known defect goes out for the sake of the date."
+    - text: Ask the client whether the contract date can slip, and ship only once the sign-off is done.
+      correct: true
+      feedback: "P1 ranks safety above schedule. Telling the client about the change of date is consistent with it."
+- id: q-a-02
+  rules: [P1, P37]
+  stem: A safety lead wants to apply P1 in a new product. Which statements describe P1, and not a neighbouring rule?
+  options:
+    - text: P1 asks that safety outranks cost, schedule and convenience in every decision.
+      correct: true
+      feedback: "P1 is the priority rule. It applies always."
+    - text: P1 asks that the system is designed to fail into a defined safe state.
+      correct: false
+      feedback: "That is P37 (fail-safe), which P1 strengthens. P1 sets the priority; P37 sets a design measure."
+    - text: P1 asks that the highest possible control level (eliminate before engineering control) is used.
+      correct: false
+      feedback: "That is P38 (hierarchy of controls). It is a way to act on P1, not P1 itself."
+    - text: A release gate with a safety sign-off item is evidence that P1 is applied.
+      correct: true
+      feedback: "This is the P1 check: every release gate contains a safety and security sign-off item."
+    - text: P1 applies only when a regulator requires it.
+      correct: false
+      feedback: "P1's condition is always. It does not wait for a regulator."
+- id: q-a-03
+  rules: [P2]
+  stem: A security engineer is asked to approve a design for a database cluster. She works in network security and has never run databases. What does P2 ask her to do?
+  options:
+    - text: Name a checker who knows databases, and involve that person before approval.
+      correct: true
+      feedback: "P2 asks to involve an expert outside your competence. Each design needs a named checker with expertise in its domain."
+    - text: Approve it, because her seniority covers the review.
+      correct: false
+      feedback: "P2 names approving work in a domain you do not know as the violation. Seniority is not competence."
+    - text: Review the parts she knows, such as network access, and say which parts she did not check.
+      correct: true
+      feedback: "P2 asks her to work within her competence. A review limited to her domain, with the gap stated, stays within it."
+    - text: Ask a colleague on her own team to co-sign, since they work together.
+      correct: false
+      feedback: "P2 needs expertise in the design's domain. A co-signer from the same field adds no database competence. P56 asks for independence; P2 asks for competence."
+- id: q-a-04
+  rules: [P2, P56]
+  stem: A team wants a design reviewed. Which proposed reviewers satisfy P2 for a design on payment card processing?
+  options:
+    - text: A payments specialist from another team, who knows card processing.
+      correct: true
+      feedback: "P2 needs a named checker with expertise in the domain. P56 also asks for a checker who is independent of the author."
+    - text: The author's manager, who is senior but has no payments background.
+      correct: false
+      feedback: "P2 is about competence in the domain. Rank does not supply it."
+    - text: The author, who has built three payment systems.
+      correct: false
+      feedback: "The author may be competent, so P2 holds for the work, but the author is not a checker. P56 asks for a separate checker."
+    - text: An external auditor who specialises in payment systems.
+      correct: true
+      feedback: "She has the domain expertise P2 asks for, and she is independent as P56 asks for high-consequence work."
+    - text: A new hire who has time this week.
+      correct: false
+      feedback: "P2 does not accept free time as a substitute for expertise in the domain."
+- id: q-a-05
+  rules: [P3]
+  stem: A team runs an environment for each branch, and many sit idle. Which actions meet the check of P3?
+  options:
+    - text: Measure the resource use of every environment and review the numbers each month.
+      correct: true
+      feedback: "P3's check is that resource use is measured and reviewed."
+    - text: Scale idle environments to zero and delete them after merge.
+      correct: true
+      feedback: "This is the P3 example. It reduces resource use over the lifecycle."
+    - text: Add capacity so that developers never wait for an environment.
+      correct: false
+      feedback: "More capacity raises resource use. P49 (induced demand) also warns that demand grows into new capacity."
+    - text: Keep the environments running, and decide later whether to retire them.
+      correct: false
+      feedback: "P3 names unused resources running all the time as a violation. P24 asks to plan retirement at design time."
+- id: q-a-06
+  rules: [P3, P24]
+  stem: A team designs a new service. Which plan follows P3 and its neighbour P24?
+  options:
+    - text: The design states the retirement of the service and its data, and the team reviews the energy use every quarter.
+      correct: true
+      feedback: "P24 asks to plan decommissioning at design time. P3 asks that resource use is measured and reviewed across the lifecycle."
+    - text: The team plans only the build and the launch, and handles retirement when the time comes.
+      correct: false
+      feedback: "P24 asks to plan operation, maintenance and decommissioning at design time. Leaving it out also weakens P3."
+    - text: The team picks the cheapest hosting and does not measure what it uses.
+      correct: false
+      feedback: "Without measurement, P3's check cannot be met."
+    - text: The team measures resource use only during the load test before launch.
+      correct: false
+      feedback: "P3 covers the whole lifecycle. A single measurement before launch does not review use in operation."
+    - text: The team sets a quota on environments per team and reviews the usage reports.
+      correct: true
+      feedback: "This reduces use and keeps it under review (P3). It also manages demand, as P49 asks."
+- id: q-a-07
+  rules: [P4]
+  stem: An engineer sees error rates rise during an automatic rollout and wants to stop it. Which features must the stop mechanism have under P4?
+  options:
+    - text: Anyone can use it without asking permission.
+      correct: true
+      feedback: "P4 lets the person who finds the problem stop the work without permission and without blame."
+    - text: It overrides auto-sync and all other functions.
+      correct: true
+      feedback: "P4 says the stop must override all other functions."
+    - text: It restarts the rollout when it is reset.
+      correct: false
+      feedback: "P4 says resetting it must not restart the system. Lifting the freeze needs an explicit sync."
+    - text: It works in normal mode, but a maintenance mode ignores it.
+      correct: false
+      feedback: "P4's check asks that the stop works in every operating mode."
+    - text: Every use is reviewed without blame.
+      correct: true
+      feedback: "This is part of the P4 check. A blame-free review also supports P5 and P80."
+- id: q-a-08
+  rules: [P4, P5]
+  stem: An engineer stops a release because of a worrying metric. It turns out to be a false alarm. How should the lead respond?
+  options:
+    - text: Thank the engineer and review the stop, looking at the system and at what the metric showed.
+      correct: true
+      feedback: "P4 asks for a review of every use without blame. P5 asks that honest reports are thanked."
+    - text: Ask the engineer to get approval from a manager before stopping a release again.
+      correct: false
+      feedback: "P4 requires the stop to work without needing permission."
+    - text: Note the false alarm in the engineer's review as a lack of judgment.
+      correct: false
+      feedback: "P5 names punishing an honest report as a violation. It also teaches the team not to stop work."
+    - text: Track whether near-miss reports go down after the incident, and act if they do.
+      correct: true
+      feedback: "This is the P5 check: the number of reported near misses does not fall after an incident."
+    - text: Disable the stop mechanism for the next release to avoid false alarms.
+      correct: false
+      feedback: "P4 requires the stop to always be available."
+- id: q-a-09
+  rules: [P5]
+  stem: A junior engineer says she broke the build with a bad config. Which responses by the team lead apply P5?
+  options:
+    - text: Thank her for the quick report in front of the team.
+      correct: true
+      feedback: "P5 asks leaders to thank people for bad news."
+    - text: Name a mistake of his own from last month in the retrospective.
+      correct: true
+      feedback: "The P5 example: the lead names their own mistake, which makes it safe for others to do the same."
+    - text: Ask who approved the config, to find the person responsible.
+      correct: false
+      feedback: "Looking for a person to blame is what P80 rejects. P80 asks for the root cause in the system."
+    - text: Tell her that she is careless and should be more careful.
+      correct: false
+      feedback: "This turns the report into a comment on her character. P63 asks for feedback on the task, and P5 asks never to punish an honest report."
+- id: q-a-10
+  rules: [P6]
+  stem: A panel scores three vendors for a monitoring tool. One panelist holds shares in vendor B. Which actions satisfy P6?
+  options:
+    - text: The panelist declares the shares and leaves the scoring.
+      correct: true
+      feedback: "P6 asks to disclose the interest and step out."
+    - text: The panelist declares the shares and scores the other two vendors only.
+      correct: false
+      feedback: "P6 asks to step out of the decision or review. Scoring a subset still influences the ranking."
+    - text: The panelist stays and scores, since her score is only one of five.
+      correct: false
+      feedback: "P6 does not make an exception for a small vote."
+    - text: The company checks the register of declared interests before the selection starts.
+      correct: true
+      feedback: "This is the P6 check: a register exists and is checked before each vendor selection."
+    - text: Two panelists review each other's scores, with no declaration.
+      correct: false
+      feedback: "That is P56 (independent checker). It does not replace the disclosure P6 asks for."
+- id: q-a-11
+  rules: [P6, P43]
+  stem: An approver in a purchasing process owns a company that bids for the contract. Which statements are true?
+  options:
+    - text: P6 asks the approver to disclose the interest and step out of the approval.
+      correct: true
+      feedback: "P6 covers a person who decides on work in which they have a personal interest."
+    - text: P43 would also be met if the same person requests, approves, executes and records the purchase.
+      correct: false
+      feedback: "P43 (segregation of duties) asks that no single person does all four steps."
+    - text: A register of declared interests checked before approvals is a check for P6.
+      correct: true
+      feedback: "This is the P6 check."
+    - text: P6 is met if the approver tells a friend about the interest and still approves.
+      correct: false
+      feedback: "P6 requires stepping out, not just telling someone."
+- id: q-a-12
+  rules: [P7]
+  stem: A lead delegates a database migration to a team. Which parts should the task description contain under P7?
+  options:
+    - text: The purpose of the migration.
+      correct: true
+      feedback: "P7 asks to state the purpose."
+    - text: The desired end state ("done when").
+      correct: true
+      feedback: "P7 asks to state the end state."
+    - text: The constraints, such as what must not happen.
+      correct: true
+      feedback: "P7 asks to state the constraints."
+    - text: The exact list of commands to run, in order.
+      correct: false
+      feedback: "P7 leaves the method to the people who do the work. A step list with no purpose is the violation."
+    - text: A rule that the team asks the lead before any deviation.
+      correct: false
+      feedback: "That takes the method back from the team. P7 relies on P2: competent people choose the method."
+- id: q-a-13
+  rules: [P7, P61]
+  stem: A task has a step list, and one step fails in production. The team has no purpose or end state. Which statements are true?
+  options:
+    - text: The team cannot adapt, because P7's purpose, end state and constraints are missing.
+      correct: true
+      feedback: "P7's violation: a step list with no purpose, where work stops when the plan no longer fits."
+    - text: P61 makes a fixed step list enough, so the purpose can be left out.
+      correct: false
+      feedback: "P61 asks to prove a procedure by a test and qualify the person. It does not remove the need for purpose in P7. P7 conflicts with P61, P71 and P72, so the lead decides where a fixed procedure fits and states the purpose anyway."
+    - text: Adding more steps to the list fixes the problem.
+      correct: false
+      feedback: "P7 does not ask for more steps. It asks for purpose, end state and constraints."
+    - text: Rewriting the task with purpose, end state and constraints lets the team find another route.
+      correct: true
+      feedback: "This is how P7 is applied."
+- id: q-a-14
+  rules: [P8]
+  stem: A head of department decides to change the on-call model. Which steps follow P8?
+  options:
+    - text: Ask the affected people for input and for challenges before deciding.
+      correct: true
+      feedback: "P8 asks to engage people affected by the decision."
+    - text: Explain the final decision and its reasons in writing.
+      correct: true
+      feedback: "P8 asks to explain the decision and its reasons."
+    - text: State the new expectations clearly.
+      correct: true
+      feedback: "P8 asks to state the new expectations."
+    - text: Hold a vote and follow the majority.
+      correct: false
+      feedback: "P8 says this is not consensus. The decision stays with the decider."
+    - text: Announce the decision on a Friday afternoon with no reasons.
+      correct: false
+      feedback: "P8 names announcing a change without reasons as a violation."
+- id: q-a-15
+  rules: [P8, P69]
+  stem: A company reorganizes its teams. Which action is P8 and which is the wider P69?
+  options:
+    - text: Before deciding on the new team structure, ask the teams for input and challenges.
+      correct: true
+      feedback: "This is P8. It covers the decision that affects people."
+    - text: Form a group that leads the change and communicate the vision often.
+      correct: false
+      feedback: "This is P69 (guided change). It strengthens P8 but does not replace the input round."
+    - text: Skip the input round because the change leads the company's vision.
+      correct: false
+      feedback: "P8 asks for input on any decision that affects people, whatever the vision."
+    - text: Write the reasons and new expectations down for everyone affected.
+      correct: true
+      feedback: "P8's check asks for a written explanation and stated expectations."
+- id: q-a-16
+  rules: [P5, P8]
+  stem: Which situations show the distinction between P5 (psychological safety) and P8 (fair process)?
+  options:
+    - text: A team member reports a mistake, and the lead thanks them. This is P5.
+      correct: true
+      feedback: "P5 covers how leaders respond to errors, questions and disagreement."
+    - text: A department is asked for input, then told the decision with reasons. This is P8.
+      correct: true
+      feedback: "P8 covers how a decision that affects people is made and explained."
+    - text: A department is told the decision with no reasons. This is a violation of P5 only.
+      correct: false
+      feedback: "It violates P8. P5 is about reporting and disagreeing safely."
+    - text: A reorganization is decided by a vote of everyone. This meets P8.
+      correct: false
+      feedback: "P8 says engagement is not consensus. It asks for input, then a decision with reasons."
