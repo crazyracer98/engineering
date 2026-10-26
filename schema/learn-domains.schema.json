@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/crazyracer98/engineering/schema/learn-domains.schema.json",
+  "title": "Learning hub: domain examples",
+  "description": "data/learn/domains/<branch>.yaml: one illustrative example per data/domains.yaml row of that branch. `branch` + `domain` must match a row; `shows[].rule` must be among that row's rules.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "branch": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Branch heading, verbatim from data/domains.yaml."
+      },
+      "domain": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Domain name, verbatim from data/domains.yaml."
+      },
+      "scenario": {
+        "type": "string",
+        "minLength": 1,
+        "description": "A scenario from the domain. Illustrative, not evidence."
+      },
+      "shows": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "properties": {
+            "rule": {
+              "type": "string",
+              "pattern": "^(P[1-9][0-9]*|Master)$",
+              "description": "A rule ID of the row, or `Master`."
+            },
+            "how": {
+              "type": "string",
+              "minLength": 1,
+              "description": "How the scenario shows the rule."
+            }
+          },
+          "required": [
+            "rule",
+            "how"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "branch",
+      "domain",
+      "scenario",
+      "shows"
+    ],
+    "additionalProperties": false
+  }
+}

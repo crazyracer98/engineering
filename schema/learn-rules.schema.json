@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/crazyracer98/engineering/schema/learn-rules.schema.json",
+  "title": "Learning hub: rule examples",
+  "description": "data/learn/rules/<cat>.yaml: one illustrative example per rule of category <cat>. `management` is present exactly when the rule has a management form (checked by `taxonomy check`).",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "rule": {
+        "type": "string",
+        "pattern": "^P[1-9][0-9]*$",
+        "description": "Rule ID (data/rules.yaml)."
+      },
+      "scenario": {
+        "type": "string",
+        "minLength": 1,
+        "description": "A short illustrative scenario. Illustrative, not evidence."
+      },
+      "applying": {
+        "type": "string",
+        "minLength": 1,
+        "description": "What applying the rule looks like: its `check` is satisfied."
+      },
+      "violating": {
+        "type": "string",
+        "minLength": 1,
+        "description": "What violating the rule looks like."
+      },
+      "management": {
+        "type": "object",
+        "properties": {
+          "scenario": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A short illustrative scenario. Illustrative, not evidence."
+          },
+          "applying": {
+            "type": "string",
+            "minLength": 1,
+            "description": "What applying the rule looks like: its `check` is satisfied."
+          },
+          "violating": {
+            "type": "string",
+            "minLength": 1,
+            "description": "What violating the rule looks like."
+          }
+        },
+        "required": [
+          "scenario",
+          "applying",
+          "violating"
+        ],
+        "additionalProperties": false,
+        "description": "Example for the rule's management form."
+      }
+    },
+    "required": [
+      "rule",
+      "scenario",
+      "applying",
+      "violating"
+    ],
+    "additionalProperties": false
+  }
+}

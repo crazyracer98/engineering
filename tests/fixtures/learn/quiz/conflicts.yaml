@@ -1,0 +1,17 @@
+# Authored for tests.
+- id: q-k-01
+  rules: [K2]
+  stem: Which statements hold?
+  options:
+  - text: One
+    correct: true
+    feedback: Right, see K2.
+  - text: Two
+    correct: false
+    feedback: Wrong, see K2.
+  - text: Three
+    correct: false
+    feedback: Wrong, see K2.
+  - text: Four
+    correct: false
+    feedback: Wrong, see K2.

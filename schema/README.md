@@ -6,6 +6,14 @@ One JSON Schema (draft 2020-12) per data file:
 (`paper/references-extra.yaml`, `docs/methodology-references.yaml`).
 Each field's `description` says what it holds.
 
+The learning hub has four more schemas, `learn-<kind>.schema.json`, each
+validating every file in `../data/learn/<dir>/`: `learn-rules` (`rules/`),
+`learn-domains` (`domains/`), `learn-quiz` (`quiz/`) and `learn-cases`
+(`cases/`). `../data/learn/sources/*.yaml` use `sources.schema.json`. The
+schemas fix the shape; `taxonomy check` adds the references to the live rules,
+domains and registry (see
+[NFR-0001](../docs/nfrs/NFR-0001-dataset-integrity.md)).
+
 Optional override fields keep the published Markdown reproducible byte for
 byte from the structured data (round-trip fidelity):
 
