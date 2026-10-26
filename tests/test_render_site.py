@@ -87,6 +87,19 @@ def test_build_raises_on_mkdocs_failure(
         render_site.build(tmp_path / "out", tmp_path)  # no mkdocs.yml there
 
 
+def _stub_root(tmp_path: Path) -> Path:
+    """A repo copy with every learning file emptied, whatever content is live."""
+    root = tmp_path / "stub"
+    for name in ("data", "publication", "docs", "paper"):
+        shutil.copytree(
+            REPO / name, root / name, ignore=shutil.ignore_patterns("plans")
+        )
+    shutil.copyfile(REPO / "mkdocs.yml", root / "mkdocs.yml")
+    for path in (root / "data" / "learn").glob("*/*.yaml"):
+        path.write_text("[]\n", encoding="utf-8")
+    return root
+
+
 def _fixture_root(tmp_path: Path, assets: bool = False) -> Path:
     """A repo copy whose ``data/learn`` holds the learn fixtures."""
     root = tmp_path / "repo"
@@ -141,7 +154,7 @@ def test_assemble_writes_learn_quiz_bank_and_assets(tmp_path: Path) -> None:
 
 
 def test_assemble_without_site_assets_or_learn_data(tmp_path: Path) -> None:
-    src = render_site.assemble(REPO)
+    src = render_site.assemble(_stub_root(tmp_path))
     assert json.loads((src / "assets/quiz/quiz-bank.json").read_text("utf-8")) == []
     assert "[Learn](" not in (src / "07-rules.md").read_text("utf-8")
     assert len(list((src / "learn").glob("*.md"))) == 1 + 9 + 20
