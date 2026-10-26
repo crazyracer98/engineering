@@ -141,6 +141,10 @@ unchanged across every instance), then drives these targets:
 | `publish-packages` | once, after the GitHub release exists, **only if** `PYPI_PUBLISH`, `NPM_PUBLISH` or `CARGO_PUBLISH` is set | host runner (own job, with `id-token: write`) | `RELEASE_VERSION`, `RELEASE_TAG`, `PYPI_PUBLISH`, `NPM_PUBLISH`, `CARGO_PUBLISH`, all `GITHUB_*`, the OIDC token, `NPM_TOKEN` and `CARGO_REGISTRY_TOKEN` (bootstrap secrets; empty when unset, so treat empty as absent); `dist/` holds every arch leg's files |
 | `verify-published` | once, after `publish-packages` succeeded, **only if** a `*_PUBLISH` variable is set | host runner (own job, no secrets, no OIDC token) | `RELEASE_VERSION`, `RELEASE_TAG`, `PYPI_PUBLISH`, `NPM_PUBLISH`, `CARGO_PUBLISH`; `dist/` as for `publish-packages` |
 
+The base `Makefile` needs `uv` for `build` and, when it is not on `PATH` (the bare
+release runner), installs the version pinned in `.devcontainer/Dockerfile` into
+`build/.tools/uv`; an instance that reimplements `build` must provision its own tools.
+
 What each target is for: `build` produces the release artifact(s) (an
 image, `cargo build --release`, `npm pack`, `helm package`, ...); `sbom`
 writes an SBOM for what `build` produced; `release-assets` populates
