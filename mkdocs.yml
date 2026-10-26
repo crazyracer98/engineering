@@ -51,6 +51,13 @@ markdown_extensions:
   - admonition
   - md_in_html
 
+extra_css:
+  - assets/quiz/quiz.css
+
+extra_javascript:
+  - path: assets/quiz/quiz.js
+    type: module
+
 nav:
 - Home: index.md
 - Chapters:
@@ -66,5 +73,51 @@ nav:
     - "10. Management form of each rule": 10-management-forms.md
     - "11. Direct quotes": 11-quotes.md
     - "12. Method and limits": 12-method.md
+- Learn:
+    - Overview: learn/index.md
+    - Rules by category:
+        - "A. Responsibility": learn/a.md
+        - "B. Knowledge and decisions": learn/b.md
+        - "C. Design": learn/c.md
+        - "D. Protection": learn/d.md
+        - "E. Capacity and continuity": learn/e.md
+        - "F. Verification and review": learn/f.md
+        - "G. Change": learn/g.md
+        - "H. Operation and maintenance": learn/h.md
+        - "I. Learning": learn/i.md
+    - Domains by branch:
+        - "Civil": learn/branch-civil.md
+        - "Mechanical": learn/branch-mechanical.md
+        - "Materials": learn/branch-materials.md
+        - "Electrical": learn/branch-electrical.md
+        - "Chemical": learn/branch-chemical.md
+        - "Nuclear": learn/branch-nuclear.md
+        - "Mining": learn/branch-mining.md
+        - "Biomedical": learn/branch-biomedical.md
+        - "Agricultural": learn/branch-agricultural.md
+        - "Industrial": learn/branch-industrial.md
+        - "Computing": learn/branch-computing.md
+        - "Cross-cutting": learn/branch-cross-cutting.md
+        - "Management: Governance and assurance": learn/branch-management-governance-and-assurance.md
+        - "Management: Strategy and decisions": learn/branch-management-strategy-and-decisions.md
+        - "Management: Portfolio, programme and project": learn/branch-management-portfolio-programme-and-project.md
+        - "Management: Product and innovation": learn/branch-management-product-and-innovation.md
+        - "Management: Operations, quality and supply": learn/branch-management-operations-quality-and-supply.md
+        - "Management: Risk, resilience and legal": learn/branch-management-risk-resilience-and-legal.md
+        - "Management: People and organization": learn/branch-management-people-and-organization.md
+        - "Management: Finance": learn/branch-management-finance.md
+- Quiz:
+    - Overview: quiz/index.md
+    - Mixed test: quiz/mixed.md
+    - "A. Responsibility": quiz/a.md
+    - "B. Knowledge and decisions": quiz/b.md
+    - "C. Design": quiz/c.md
+    - "D. Protection": quiz/d.md
+    - "E. Capacity and continuity": quiz/e.md
+    - "F. Verification and review": quiz/f.md
+    - "G. Change": quiz/g.md
+    - "H. Operation and maintenance": quiz/h.md
+    - "I. Learning": quiz/i.md
+    - Conflict rules: quiz/conflicts.md
 - Methodology: methodology.md
 - History: history.md

@@ -6,6 +6,7 @@ history and an index page); ``build`` then runs ``mkdocs build --strict``.
 
 from __future__ import annotations
 
+import json
 import os
 import re
 import shutil
@@ -13,11 +14,16 @@ import subprocess
 import sys
 from pathlib import Path
 
-from taxonomy.load import find_root, load_dataset, load_registry
+from taxonomy import render_learn
+from taxonomy.load import find_root, load_dataset, load_learn, load_registry
+from taxonomy.model import Dataset, Learn, Source
 from taxonomy.render_markdown import number_citations
 
 REPO_URL = "https://github.com/crazyracer98/engineering"
 SITE_SRC = Path("build") / "site-src"
+#: Quiz engine files (written by the quiz-engine item) copied to ``assets/quiz/``.
+SITE_ASSETS = Path("site-assets")
+QUIZ_ASSETS = Path("assets") / "quiz"
 #: Release assets the index links to, named by the release contract.
 ASSETS = (
     ("engineering-best-practices.pdf", "PDF paper"),
@@ -56,6 +62,11 @@ def index_page(edition: str, chapters: list[tuple[str, str]]) -> str:
         "",
         *(f"- [{title}]({name})" for name, title in chapters),
         "",
+        "## Learn and test yourself",
+        "",
+        "- [Learn](learn/index.md): worked examples for every rule and domain",
+        "- [Quiz](quiz/index.md): self-check quizzes and a mixed test",
+        "",
         "## About",
         "",
         "- [Methodology](methodology.md)",
@@ -69,10 +80,33 @@ def index_page(edition: str, chapters: list[tuple[str, str]]) -> str:
     return "\n".join(lines)
 
 
+def write_learn(
+    root: Path, src: Path, ds: Dataset, learn: Learn, registry: dict[str, Source]
+) -> None:
+    """Write the Learn and Quiz pages, ``quiz-bank.json`` and the quiz assets."""
+    for name, text in render_learn.pages(ds, learn, registry).items():
+        target = src / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(text, encoding="utf-8")
+    assets = src / QUIZ_ASSETS
+    assets.mkdir(parents=True)
+    bank = render_learn.bank(learn, ds.all_ids())
+    (assets / "quiz-bank.json").write_text(
+        json.dumps(bank, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+    # Copy whatever the quiz engine provides; a missing directory is not an error.
+    source = root / SITE_ASSETS
+    if source.is_dir():
+        for path in sorted(source.iterdir()):
+            if path.is_file():
+                shutil.copyfile(path, assets / path.name)
+
+
 def assemble(root: Path) -> Path:
     """Write ``build/site-src`` and return it."""
     ds = load_dataset(root)
     registry = load_registry(root)
+    learn = load_learn(root)
     src = root / SITE_SRC
     if src.exists():
         shutil.rmtree(src)
@@ -80,6 +114,8 @@ def assemble(root: Path) -> Path:
     chapters: list[tuple[str, str]] = []
     for path in sorted((root / "publication" / "chapters").glob("[0-9][0-9]-*.md")):
         text = path.read_text(encoding="utf-8")
+        if path.name == "07-rules.md":
+            text = render_learn.add_learn_links(text, learn, ds)
         (src / path.name).write_text(text, encoding="utf-8")
         chapters.append((path.name, chapter_title(text) or path.stem))
     if not chapters:
@@ -90,6 +126,7 @@ def assemble(root: Path) -> Path:
         text = (root / "docs" / name).read_text(encoding="utf-8")
         text = repo_links(number_citations(text, registry))
         (src / name).write_text(text, encoding="utf-8")
+    write_learn(root, src, ds, learn, registry)
     (src / "index.md").write_text(
         index_page(str(ds.meta["edition"]), chapters), encoding="utf-8"
     )
