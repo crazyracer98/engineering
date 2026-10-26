@@ -1,2 +1,106 @@
 # Domain examples, branch Industrial. Schema: schema/learn-domains.schema.json.
-[]
+- branch: Industrial
+  domain: Manufacturing
+  scenario: >-
+    On an assembly line, workers sometimes fit a bracket the wrong way round.
+    Postmortems show the same error each month. The team redesigns the bracket
+    so it fits only one way. A jig that cannot close with a wrong part would
+    make the error visible at once. Any worker who sees a defect can press a
+    stop button on the line. The stop works in every mode, and resetting it does
+    not restart the line.
+  shows:
+    - rule: P39
+      how: >-
+        A person makes the same error repeatedly, so the team makes the error
+        impossible, with a bracket that fits one way. If that cannot be done,
+        they would make it visible at once, and then limit its consequence.
+    - rule: P4
+      how: >-
+        Anyone who finds a problem that could cause harm can stop the line
+        without permission or blame. The stop works in every operating mode and
+        does not restart on reset. Each use is reviewed without blame.
+- branch: Industrial
+  domain: Quality engineering
+  scenario: >-
+    A plant makes plastic housings, and the count of cracked parts rises. The
+    team plans a change to the mould temperature, runs it on one shift, checks
+    the crack rate, and acts by adopting or dropping the change. They also test
+    the process with varied inputs, such as resin batches and room
+    temperature, so that the result changes little. Open actions from earlier
+    cycles are tracked until they are completed.
+  shows:
+    - rule: P81
+      how: >-
+        The team repeats Plan, Do, Check, Act, and tracks actions from earlier
+        cycles until they are completed.
+    - rule: P27
+      how: >-
+        The team designs the process so the result changes little when inputs
+        vary, and tests it with varied resin batches and room temperatures
+        to show stable results.
+- branch: Industrial
+  domain: Occupational and industrial safety
+  scenario: >-
+    A worker can be hurt by a press that crushes parts. The team asks first
+    whether the hazard can be removed, for example by changing the process so
+    no hand enters the press. It next adds a light curtain, an engineering
+    control, and only then training and gloves. Before cleaning or repair, a
+    technician isolates the press from power and locks the isolation with a
+    personal lock, so nobody can restart it. The maintenance procedure starts
+    with an isolation step and ends with a release step.
+  shows:
+    - rule: P38
+      how: >-
+        A risk is found, so the team uses the highest possible control level,
+        starting with elimination, and acts first at the source. A record states
+        why a higher level was not possible.
+    - rule: P66
+      how: >-
+        People work on the press, so it is isolated from all inputs and energy,
+        and the isolation is locked so that nobody can restart it unexpectedly.
+- branch: Industrial
+  domain: Fire protection
+  scenario: >-
+    A warehouse stores packed goods that burn. The team estimates how fast a
+    fire can grow to a size that blocks the exits. It then adds up the time for
+    a detector to sense smoke, for the alarm to sound, for staff to get out and
+    for the sprinklers to act. The team measures this total time in a drill.
+    It is shorter than the time until harm, with a margin.
+  shows:
+    - rule: P73
+      how: >-
+        Harm develops over time after a fault starts. The time to detect, alert,
+        respond and recover is measured and is shorter than the time until
+        harm, with a margin.
+- branch: Industrial
+  domain: Industrial engineering and operations research
+  scenario: >-
+    A distribution centre wants to ship more orders a day. A model shows that
+    packing stations are the constraint, and the team measures and names it
+    before it buys anything. It adds packing capacity first. The packing queue
+    is kept well below full utilization, and the new capacity is sized above the
+    expected peak order load.
+  shows:
+    - rule: P50
+      how: >-
+        The team wants more throughput, so it finds and names the constraint,
+        the packing stations, and improves that first.
+    - rule: P44
+      how: >-
+        The team designs capacity above the expected load and keeps the queue
+        well below full utilization. A load test shows capacity at least the
+        design load times the chosen factor.
+- branch: Industrial
+  domain: Supply chain engineering
+  scenario: >-
+    A retailer, a wholesaler and a factory each order from the stage below
+    them. Each stage only sees the orders of its direct customer. Small changes
+    in shop sales grow into large swings in factory orders. The firms agree to
+    share the real shop sales data with every stage, so each stage can see
+    the end demand.
+  shows:
+    - rule: P51
+      how: >-
+        Several stages pass demand signals along a chain, so the real end demand
+        is shared with every stage instead of each stage reacting only to the
+        stage below it.

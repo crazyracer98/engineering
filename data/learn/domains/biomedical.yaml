@@ -1,2 +1,129 @@
 # Domain examples, branch Biomedical. Schema: schema/learn-domains.schema.json.
-[]
+- branch: Biomedical
+  domain: Medical devices and human factors
+  scenario: >-
+    A team designs a portable infusion pump for nurses on a busy night ward. The
+    pump is safety-critical and regulated. The team writes each requirement so it
+    can be tested. One example is that the dose entry screen must be readable
+    in dim light. Each requirement is linked to a user need, to the design
+    element that meets it and to a test. Nurses use a prototype in a dim,
+    noisy ward while interrupted, and the team watches how they enter doses.
+  shows:
+    - rule: P25
+      how: >-
+        A person operates the pump, so the team designs the interface for real
+        nurses in the real ward, with stress and interruptions. Critical tasks,
+        such as entering a dose, are tested with real users.
+    - rule: P59
+      how: >-
+        The pump is safety-critical and regulated, so every requirement is
+        linked in both directions to design and test. A traceability report
+        shows no requirement without a test and no test without a requirement.
+- branch: Biomedical
+  domain: Surgery
+  scenario: >-
+    A surgical team in an operating theatre prepares to start a planned
+    operation. The step is rare for some staff and is done under time pressure.
+    Before the first incision, a nurse reads a short checklist that covers
+    patient identity, the site and the equipment count. Each item is confirmed
+    by pointing at it and saying its status aloud. After a near miss, the
+    team adds one item to the list.
+  shows:
+    - rule: P71
+      how: >-
+        The procedure is critical and done under time pressure, so the team
+        uses a short checklist and confirms each item by pointing and saying its
+        status aloud. The list is updated after the near miss, as the check
+        requires.
+- branch: Biomedical
+  domain: Clinical engineering
+  scenario: >-
+    A hospital's clinical engineering team monitors patient monitors and
+    infusion pumps. The alarm system raises thousands of alerts a week. Staff
+    stop reacting to the most frequent ones. The team gives each alert type
+    an owner and a runbook action. It measures the share of alerts that lead to
+    no action, and it removes or changes the alerts that nobody acts on.
+  shows:
+    - rule: P75
+      how: >-
+        The system raises alerts to people, so each alert gets an owner and a
+        runbook action. The team measures the share of alerts with no action,
+        keeps it low and removes or changes alerts that nobody acts on.
+- branch: Biomedical
+  domain: Bioinformatics
+  scenario: >-
+    A lab reports which gene variants appear in a group of samples. The report
+    must be reproducible. The analysis runs as a recorded pipeline. The
+    pipeline records the version of the reference genome, the input data, the
+    code and each tool. A reviewer re-runs it with one command and gets the
+    same variant list.
+  shows:
+    - rule: P13
+      how: >-
+        The result must be reproducible, so it is produced only by automated,
+        recorded steps with versions of data, code and tools. It can be
+        regenerated from recorded inputs and versions with one command.
+- branch: Biomedical
+  domain: Biomaterials
+  scenario: >-
+    A team designs a hip implant with a metal stem and a polymer cup. The
+    parts touch each other and the body's fluids. The team does not assume
+    they fit together. It tests each pair of materials in a fluid that
+    imitates body conditions, to check for wear and corrosion. A pair that
+    fails the test is separated by a coating or replaced. Passing pairs go on
+    a compatibility list.
+  shows:
+    - rule: P29
+      how: >-
+        Parts of different kinds touch, so the team verifies each pair in the
+        real environment, here simulated body fluid. Pairs that are not
+        compatible are separated, and each tested pair is on the compatibility
+        list.
+- branch: Biomedical
+  domain: Biomechanics
+  scenario: >-
+    A company designs a prosthetic knee. A person walks on it, climbs stairs
+    and stumbles on uneven ground. The company does not design for an average
+    user. It recruits users who differ in weight, gait and age. They test the
+    knee in the places where it will really be used, such as stairs, wet
+    floors and a hurried walk to a bus.
+  shows:
+    - rule: P25
+      how: >-
+        A person uses the system, so the design fits real users in real
+        environments, including stress, and the full range of users, not an
+        average user. Critical tasks, such as a step on stairs, are tested with
+        real users.
+- branch: Biomedical
+  domain: Medical imaging (radiation protection)
+  scenario: >-
+    A hospital plans a new CT scanner room. A scan with a higher dose can give
+    a clearer image, but it exposes the patient to more radiation. The
+    consequence of an error is high, and the staff are new to the scanner. For
+    each scan type, the team sets the dose as low as the clinical question
+    allows. It applies stricter checks to the high-dose protocols than to
+    low-dose ones.
+  shows:
+    - rule: Master
+      how: >-
+        The master rule scales the rigor of every rule to the consequence of
+        failure times the uncertainty. A new scanner and a high dose get
+        stricter checks than a familiar, low-dose protocol. The team keeps
+        reducing dose until the cost of the next reduction is grossly
+        disproportionate to the benefit (ALARP).
+- branch: Biomedical
+  domain: Neural engineering
+  scenario: >-
+    A team makes a deep brain stimulator, which is implanted and delivers
+    pulses. The process repeated for each unit is manufacture and sterilization.
+    The team names the few steps where control is essential, such as the seal
+    of the casing and the sterilization cycle. It ranks them by consequence.
+    Each has a limit, monitoring, a corrective action, a record and a recent
+    check that the control works.
+  shows:
+    - rule: P72
+      how: >-
+        The process is repeated and a few steps need control. The team defines
+        those critical control points, ranks them by consequence and gives
+        each one a limit, monitoring, a predefined corrective action, a record
+        and regular verification in practice.
