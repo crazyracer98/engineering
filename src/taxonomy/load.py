@@ -2,12 +2,15 @@
 
 ``load_registry`` is the public citation resolver input: it merges the three
 registries (``data/sources.yaml``, ``paper/references-extra.yaml`` and
-``docs/methodology-references.yaml``) into one ``slug -> Source`` mapping.
+``docs/methodology-references.yaml``) and the case-source fragments
+``data/learn/sources/*.yaml`` into one ``slug -> Source`` mapping.
+``load_learn`` loads the learning content under ``data/learn/``.
 """
 
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any, cast
 
@@ -18,6 +21,7 @@ from taxonomy.model import (
     Category,
     Conflict,
     Dataset,
+    Learn,
     Quote,
     Rule,
     Source,
@@ -29,6 +33,15 @@ REGISTRY_FILES = (
     "paper/references-extra.yaml",
     "docs/methodology-references.yaml",
 )
+
+#: Learning-hub directories under ``data/learn/`` and the ``Learn`` field each fills.
+LEARN_DIR = "data/learn"
+LEARN_KINDS = {
+    "rules": "rule_examples",
+    "domains": "domain_examples",
+    "quiz": "questions",
+    "cases": "cases",
+}
 
 #: Data files (stems) and the dataset field they fill.
 DATA_STEMS = (
@@ -44,6 +57,16 @@ DATA_STEMS = (
     "method",
     "history",
 )
+
+
+def branch_slug(branch: str) -> str:
+    """The file stem of a ``domains.yaml`` branch.
+
+    Lower case, each run of other characters becomes ``-``:
+    ``Management: Risk, resilience and legal`` is
+    ``management-risk-resilience-and-legal``.
+    """
+    return re.sub(r"[^a-z0-9]+", "-", branch.lower()).strip("-")
 
 
 def find_root(start: Path | None = None) -> Path:
@@ -108,11 +131,42 @@ def load_registry_files(root: Path) -> list[tuple[str, list[Source]]]:
             raise FileNotFoundError(f"required registry {rel} is missing under {root}")
         if path.is_file():
             out.append((rel, cast("list[Source]", load_yaml(path) or [])))
+    # Case-source fragments: data/learn/sources/<n>.yaml, sorted.
+    for path in learn_files(root, "sources"):
+        rel = path.relative_to(root).as_posix()
+        out.append((rel, cast("list[Source]", load_yaml(path) or [])))
     return out
 
 
+def _as_list(value: Any) -> list[Any]:
+    """A loaded file as a list; empty or a non-list is ``[]`` (schema reports it)."""
+    return value if isinstance(value, list) else []
+
+
+def learn_files(root: Path, kind: str) -> list[Path]:
+    """The YAML files in ``data/learn/<kind>/``, sorted; none if it is absent."""
+    base = root / LEARN_DIR / kind
+    return sorted(base.glob("*.yaml")) if base.is_dir() else []
+
+
+def load_learn(root: Path) -> Learn:
+    """Load the learning content under ``data/learn/`` (not the case sources).
+
+    Absent directories and empty files give empty lists. A file that cannot be
+    parsed raises ``ValueError`` naming it.
+    """
+    learn = Learn()
+    for kind, attr in LEARN_KINDS.items():
+        flat: list[Any] = getattr(learn, attr)
+        for path in learn_files(root, kind):
+            entries = _as_list(load_yaml(path))
+            learn.files[path.relative_to(root).as_posix()] = entries
+            flat.extend(entries)
+    return learn
+
+
 def load_registry(root: Path) -> dict[str, Source]:
-    """Merge the three registries into ``slug -> Source``.
+    """Merge the registries into ``slug -> Source``.
 
     Raises ``FileNotFoundError`` when ``data/sources.yaml`` is missing and
     ``ValueError`` listing every slug that is defined twice (``taxonomy check``

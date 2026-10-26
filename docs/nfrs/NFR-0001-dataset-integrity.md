@@ -24,7 +24,7 @@ written as `[@slug]`; citations inside code spans and fenced code are ignored.
 | `domain-count` | the domain-index intro sentence "N domains in B branches (E engineering branches, M management branches)" matches `domains.yaml` | `validate.check_domain_count` | `test_domain_count_mismatch` |
 | `management-count` | the sentence "Section 10 states N of the M rules in management form … the other K (IDs)" in `meta` matches `rules.yaml`: N rules have a `management` form, M rules in all, and the K listed IDs (ranges such as `P5–P8, P18–P21, P35`, en dash or hyphen, for any prefix in `meta.id_prefixes`) are exactly the rules whose `management` is null | `validate.check_management_count` | `test_management_count_wrong_n`, `test_management_count_wrong_id_list`, `test_management_count_sentence_missing`, `test_parse_id_list_is_prefix_generic` |
 | `slug-references` | every structured slug (rule and management `sources`, domain `references`, quote `source` and `extra_sources`, `master_rule.sources`) is in the merged registry; `taxonomy build` stops with exit 1 and a message naming the slug and where it is used | `validate.check_slug_references`, `cli.main` | `test_slug_reference_typo` |
-| `source-used` | every source of `data/sources.yaml`, `paper/references-extra.yaml` and `docs/methodology-references.yaml` is used by data, or cited in `paper/` or `docs/`; a citation inside a registry (a title, note or `via`) does not count | `validate.check_source_used` | `test_unused_source`, `test_unused_paper_source`, `test_source_cited_only_by_itself_is_unused` |
+| `source-used` | every source of `data/sources.yaml`, `paper/references-extra.yaml`, `docs/methodology-references.yaml` and `data/learn/sources/*.yaml` is used by data (a case quote counts), or cited in `paper/` or `docs/`; a citation inside a registry (a title, note or `via`) does not count | `validate.check_source_used` | `test_unused_source`, `test_unused_paper_source`, `test_source_cited_only_by_itself_is_unused` |
 | `table-columns` | every table of the rendered single file has the header's column count (escaped `\|` does not count) | `validate.check_table_columns` | `test_table_column_count`, `test_escaped_pipe_is_not_a_column` |
 | `relation-contradictions` | see below | `validate.check_relation_contradictions` | `test_relation_contradiction_*`, `test_relation_self_reference`, `test_missing_inverse_is_not_a_contradiction`, `test_contradiction_found_when_edges_run_from_larger_to_smaller_id` |
 | `inverse-complete` | A `strengthens` B needs B `strengthened_by` A and the reverse; the same for `checks`/`checked_by`. `depends_on` and `scaled_by` have no inverse type and stay one-way | `validate.check_inverse_complete` | `test_missing_inverse_strengthened_by`, `test_missing_inverse_strengthens`, `test_missing_inverse_checked_by` |
@@ -39,12 +39,20 @@ written as `[@slug]`; citations inside code spans and fenced code are ignored.
 | `quick-view` | the quick view has 5 to 9 questions, one per category | `validate.check_quick_view` | `test_quick_view_count` |
 | `id-map` | every `history.id_map` entry points at an existing rule | `validate.check_id_map` | `test_id_map_target_missing` |
 | `citations` | every citation in data, `paper/` and `docs/` resolves in the merged registry and is well formed | `validate.check_citations` | `test_unresolved_citation_*`, `test_citation_in_code_is_ignored` |
-| `registry-unique` | slugs and URLs are unique across the three registries | `validate.check_registry_unique` | `test_duplicate_slug_across_registries`, `test_duplicate_url_across_registries` |
-| `schema` | every data file, and the two extra registries, validate against their JSON Schema with `jsonschema` and a `FormatChecker`; a missing or invalid schema, or an extra registry that fails to load, is a finding for that file and the other files are still validated | `validate.check_schema` | `test_schema_violation`, `test_schema_format_checker_is_enforced`, `test_schema_covers_extra_registries`, `test_schema_findings_are_per_file` |
+| `registry-unique` | slugs and URLs are unique across the registries (the three registry files and `data/learn/sources/*.yaml`) | `validate.check_registry_unique` | `test_duplicate_slug_across_registries`, `test_duplicate_url_across_registries` |
+| `schema` | every data file, the two extra registries and every file below `data/learn/` (`learn-rules`, `learn-domains`, `learn-quiz`, `learn-cases` and, for `sources/`, `sources`) validate against their JSON Schema with `jsonschema` and a `FormatChecker`; a missing or invalid schema, or an extra registry that fails to load, is a finding for that file and the other files are still validated | `validate.check_schema` | `test_schema_violation`, `test_schema_format_checker_is_enforced`, `test_schema_covers_extra_registries`, `test_schema_findings_are_per_file` |
+| `learn-layout` | `data/learn/` holds only `rules/`, `domains/`, `quiz/`, `cases/` and `sources/`; file names are a category letter (`rules/`, `quiz/`, plus `quiz/conflicts.yaml`), a branch slug (`domains/`) or `1` to `3` (`cases/`, `sources/`) | `validate.check_learn_layout` | `test_layout_unknown_file`, `test_all_domain_branches_have_a_stub` |
+| `learn-rule-examples` | each rule example is for an existing rule, once, in the file of the rule's category; `management` is present exactly when the rule has a management form | `validate.check_learn_rule_examples` | `test_rule_example_*` |
+| `learn-domain-examples` | each domain example matches one `domains.yaml` row (branch and domain), once, in that branch's file; `shows[].rule` is among the row's rules, without repeats | `validate.check_learn_domain_examples` | `test_domain_example_*` |
+| `learn-questions` | question IDs are unique across the bank; the category in the ID equals the file (`conflicts.yaml` is `k`); every rule named exists (a P or K rule); at least one option is correct and one incorrect | `validate.check_learn_questions` | `test_question_*` |
+| `learn-cases` | case IDs are unique; case and lesson rules exist; lesson rules are among the case's rules; every quote source is in the merged registry; at most one case per rule across all case files | `validate.check_learn_cases` | `test_case_*` |
+| `learn-sources` | case-source slugs in `data/learn/sources/` start with `case-` (`author` is required by the `sources` schema, ADR 0007) | `validate.check_learn_sources` | `test_case_source_slug_needs_prefix` |
 | generated files current | `publication/` equals what `data/` renders | `taxonomy build --check`, prek hook `taxonomy-generated` | `test_build_check_detects_stale_files`, `test_publication_is_up_to_date` |
 
 `test_every_check_has_a_seeded_test` fails when a check is added to `CHECKS`
-without being listed here. Edition 9 is not an oracle: since the G1 decision
+without being listed here. The `learn-*` checks live in `validate.LEARN_CHECKS`,
+run with the others by `run_checks`, and `test_every_learn_check_is_listed_in_the_nfr`
+holds them to the same rule. Edition 9 is not an oracle: since the G1 decision
 (ADR 0003, "G1 delta") `data/` deliberately differs from it, and no test
 compares the rendered file with the imported edition-9 text.
 
@@ -54,6 +62,14 @@ crashes on malformed data is reported as a finding of its own. When a data file
 fails to load, the other checks cannot run, but the `schema` check still
 validates every other file one by one. The CLI exits 1
 with that message and no traceback.
+
+### Learning content coverage
+
+`taxonomy check` validates the learning content that exists; it never requires
+that it be complete, so the empty stubs under `data/learn/` pass. Completeness is
+the separate, opt-in report of [FR-0001](../frs/FR-0001-learning-coverage.md)
+(`uv run python -m taxonomy.validate --learn-coverage [--scope S]`), tested by
+`test_coverage_*`.
 
 ### Relation contradictions
 
@@ -76,7 +92,8 @@ uses a `FormatChecker`, and since the user's G1 decision a missing inverse, a
 one-sided `conflicts_with`, an unordered `related` list, a `related_text`
 override that disagrees with `related` and a secondary source listed before a
 primary one are errors. Related: [ADR 0003](../adrs/0003-dataset-single-source-of-truth.md),
-[ADR 0004](../adrs/0004-edition-equals-release-version.md).
+[ADR 0004](../adrs/0004-edition-equals-release-version.md),
+[ADR 0008](../adrs/0008-learning-hub-in-the-dataset-repo.md) (learning-content checks).
 
 ## Verification
 

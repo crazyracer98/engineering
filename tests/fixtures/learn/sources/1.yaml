@@ -1,0 +1,7 @@
+- slug: case-demo-report
+  title: A made-up investigation report for tests
+  author:
+  - literal: Test Board
+  url: https://example.org/case-demo-report
+  kind: primary
+  paid: false

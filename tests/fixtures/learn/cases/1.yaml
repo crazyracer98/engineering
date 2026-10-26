@@ -1,0 +1,11 @@
+- id: case-demo
+  title: A demo case
+  year: 1999
+  summary: Something happened in a test.
+  rules: [P1]
+  lessons:
+  - rule: P1
+    text: The check was never run.
+  quotes:
+  - source: case-demo-report
+    text: a made-up quote

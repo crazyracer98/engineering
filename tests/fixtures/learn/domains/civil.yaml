@@ -1,0 +1,7 @@
+# Authored for tests; illustrative, not evidence.
+- branch: Civil
+  domain: Structural and building
+  scenario: A bridge design is reviewed.
+  shows:
+  - rule: P56
+    how: An independent engineer checks the design.
