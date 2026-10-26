@@ -1,2 +1,756 @@
 # Quiz questions, category B. Schema: schema/learn-quiz.schema.json.
-[]
+# Every question is select-all-that-apply. Scenarios are invented.
+- id: q-b-01
+  rules: [P9]
+  stem: >-
+    A team reviews the requirements for a new search service. Which
+    requirements meet P9? Select all that apply.
+  options:
+    - text: '"p95 search latency is under 200 ms", linked to a ticket from support staff'
+      correct: true
+      feedback: >-
+        Right. P9 wants a measurable acceptance criterion and a link to a user
+        need. This one has both.
+    - text: '"Search shall be fast and easy to use"'
+      correct: false
+      feedback: >-
+        P9 says an unmeasurable requirement cannot be verified. "Fast" has no
+        criterion to test against.
+    - text: '"At least 95 % of test queries return a relevant hit in the top 5", linked to need N-14'
+      correct: true
+      feedback: >-
+        Right. It can be tested, and it links to a stated need, so the P9 check
+        passes.
+    - text: '"Availability is 99.9 % per month", with no link to any user need'
+      correct: false
+      feedback: >-
+        The criterion is measurable, but P9 also requires a link to a user
+        need. Without the link the check fails.
+    - text: '"The system shall scale well", to be judged by the architect'
+      correct: false
+      feedback: >-
+        P9 asks for a criterion anyone can check. A judgment by one person is
+        not an acceptance criterion.
+- id: q-b-02
+  rules: [P9, P21]
+  stem: >-
+    A director sets a goal for the platform group. Which goal statements meet
+    the management form of P9? Select all that apply.
+  options:
+    - text: >-
+        "Cut median namespace provisioning from 3 days to 1 hour by Q2";
+        owner named; linked to the teams' self-service request
+      correct: true
+      feedback: >-
+        Right. P9 (management form) wants a measure, a target, a deadline, one
+        owner and a link to a stakeholder need. All five are present.
+    - text: '"Do your best to make provisioning faster"'
+      correct: false
+      feedback: >-
+        This has no measure, deadline or owner, so it fails P9. P21 also says
+        "do your best" is weaker than a specific, challenging goal.
+    - text: >-
+        "Reduce change failure rate to under 10 % by year end"; owned by the
+        release manager; linked to incident reviews
+      correct: true
+      feedback: >-
+        Right. It has a measure, a target, a deadline, one owner and a link to
+        a need. It satisfies P9 and is also a specific goal in the sense of P21.
+    - text: >-
+        "Reduce provisioning time to 1 hour by Q2", owned jointly by all five
+        platform teams
+      correct: false
+      feedback: >-
+        P9 asks for one owner. A goal that five teams share has no single
+        person who answers for it.
+- id: q-b-03
+  rules: [P10]
+  stem: >-
+    A team chooses a message queue for a new order service. Which records meet
+    P10? Select all that apply.
+  options:
+    - text: >-
+        A decision record stating the choice, the reason and the two rejected
+        queues with why each lost
+      correct: true
+      feedback: >-
+        Right. P10 wants the decision, why it was made and the rejected
+        alternatives.
+    - text: A chat message saying "we agreed on Queue X"
+      correct: false
+      feedback: >-
+        The decision is written down, but without the reason or alternatives.
+        P10 says later teams cannot judge whether it still holds.
+    - text: >-
+        A decision record with the reason but no mention of any alternative
+      correct: false
+      feedback: >-
+        P10 also asks for the rejected alternatives. Without them a later team
+        cannot see what was weighed.
+    - text: >-
+        An ADR in the repository with the choice, the reasons and the rejected
+        options
+      correct: true
+      feedback: >-
+        Right. An Architecture Decision Record in the repository is the
+        example P10 gives, and it holds all three items.
+- id: q-b-04
+  rules: [P10, P18]
+  stem: >-
+    Two decisions come up this month: trying a new linter rule, and moving the
+    product to a different cloud provider. For which does P10 call for a
+    decision record? Select all that apply.
+  options:
+    - text: Moving the product to a different cloud provider
+      correct: true
+      feedback: >-
+        Right. It is a significant design decision, so P10 applies. P18 also
+        calls it irreversible, which needs a slow, reviewed decision.
+    - text: Trying the new linter rule for two weeks
+      correct: false
+      feedback: >-
+        P10 applies to significant decisions. A two-week trial is reversible
+        and minor, which P18 says to decide quickly.
+    - text: Choosing the primary database engine for the new service
+      correct: true
+      feedback: >-
+        Right. A hard-to-change choice is a significant design decision, and
+        P10 asks for a record of the reason and the alternatives.
+    - text: Renaming a local variable in one function
+      correct: false
+      feedback: >-
+        This is not a significant decision. P10 asks for records only where the
+        decision matters.
+- id: q-b-05
+  rules: [P10]
+  stem: >-
+    A manager reorganizes on-call duty across three teams. Which entries in the
+    decision log meet the management form of P10? Select all that apply.
+  options:
+    - text: >-
+        "Shared rotation chosen; per-team rotation rejected because it leaves
+        small teams on call every other week; owner: J. Rivera"
+      correct: true
+      feedback: >-
+        Right. P10 (management form) wants the reason, the alternatives
+        considered and the owner.
+    - text: '"New on-call rotation starts on Monday."'
+      correct: false
+      feedback: >-
+        This announces the result only. P10 wants the reason and the
+        alternatives, so the next manager can judge it.
+    - text: >-
+        "Shared rotation chosen because it cuts night calls per person; owner:
+        L. Okafor"
+      correct: false
+      feedback: >-
+        It has a reason and an owner, but no alternative. P10 asks for the
+        alternatives considered.
+    - text: >-
+        "Shared rotation chosen to cut night calls; per-team rotation
+        considered and rejected for uneven load; owner: L. Okafor"
+      correct: true
+      feedback: >-
+        Right. Reason, rejected alternative and owner are all recorded.
+- id: q-b-06
+  rules: [P11]
+  stem: >-
+    An audit finds that a test report was changed after the run. Which practices
+    keep records trustworthy under P11? Select all that apply.
+  options:
+    - text: >-
+        A correction is a new entry that keeps the original visible and records
+        who, when and why
+      correct: true
+      feedback: >-
+        Right. P11 requires changes to keep the original entry visible and to
+        record who, when and why.
+    - text: Editing the report in place and adding "updated" to the file name
+      correct: false
+      feedback: >-
+        The original entry is lost. P11 says evidence that can be changed
+        silently proves nothing.
+    - text: CI results stored with the commit SHA in an immutable log
+      correct: true
+      feedback: >-
+        Right. This makes the record attributable, recorded at the time and
+        original, which is what P11 asks for.
+    - text: >-
+        Letting the test lead fix typos in the report without a trace, as long
+        as the figures stay the same
+      correct: false
+      feedback: >-
+        P11 allows no silent edits, even small ones. Every change must show
+        who made it, when and why.
+    - text: Signed commits that tie each change to a named author
+      correct: true
+      feedback: >-
+        Right. Signed commits make each change attributable, one of the P11
+        properties.
+- id: q-b-07
+  rules: [P11, P13]
+  stem: >-
+    A finance team keeps the project budget in a shared ledger. Under the
+    management form of P11, which handling of a budget change is right? Select
+    all that apply.
+  options:
+    - text: A new entry with author, date and reason, keeping the old figure visible
+      correct: true
+      feedback: >-
+        Right. P11 (management form) says no change may hide the original
+        entry, so the organization can show compliance.
+    - text: Overwriting the cell with the new number
+      correct: false
+      feedback: >-
+        The old figure is lost. P11 says changes must not hide the original
+        entry.
+    - text: Deleting the old row and adding a corrected row without a note
+      correct: false
+      feedback: >-
+        The original entry is gone and the reason is missing. This fails P11.
+    - text: >-
+        Regenerating the ledger from recorded inputs, so any state can be
+        rebuilt
+      correct: true
+      feedback: >-
+        Right. This helps trust in the numbers. P13 asks for results from
+        recorded steps, which supports P11.
+- id: q-b-08
+  rules: [P12]
+  stem: >-
+    A team benchmarks its service on 3 nodes and must decide how many nodes to
+    run for next year's load. Which actions follow P12? Select all that apply.
+  options:
+    - text: >-
+        State the validated range (3 to 6 nodes) and keep the decision inside
+        it
+      correct: true
+      feedback: >-
+        Right. P12 says to use a model only inside the range it was validated
+        for.
+    - text: Multiply the 3-node result by 17 to predict 50 nodes
+      correct: false
+      feedback: >-
+        This extrapolates far beyond the tested load. P12's own example warns
+        that a 3-node test does not prove behavior on 50 nodes.
+    - text: >-
+        Check the predicted figure against an independent rough estimate to
+        confirm it has the right order of magnitude
+      correct: true
+      feedback: >-
+        Right. P12 asks for a check of each result against an independent
+        rough estimate.
+    - text: Trust the benchmark because it ran without errors
+      correct: false
+      feedback: >-
+        A clean run does not show the model is valid for the decision. P12
+        wants validation for the intended use.
+- id: q-b-09
+  rules: [P12]
+  stem: >-
+    A programme office reviews the estimate for a platform migration. Which
+    steps follow the management form of P12? Select all that apply.
+  options:
+    - text: >-
+        Compare the estimate with the last five migrations, which overran by 40
+        % on average
+      correct: true
+      feedback: >-
+        Right. P12 (management form) checks an estimate against a reference
+        class of similar past projects.
+    - text: Accept the team's own plan because the team knows the work best
+      correct: false
+      feedback: >-
+        The management form of P12 asks for more than the own plan. The outside
+        view catches the usual optimism.
+    - text: >-
+        Adjust the schedule and budget for the average overrun of similar
+        projects
+      correct: true
+      feedback: >-
+        Right. Using the real outcomes of the reference class is the point of
+        the outside view in P12.
+    - text: Ask the team to re-check its own numbers a second time
+      correct: false
+      feedback: >-
+        A second pass over the same plan is still an inside view. P12 wants
+        the comparison with past outcomes.
+- id: q-b-10
+  rules: [P13]
+  stem: >-
+    A data team publishes a monthly capacity report. Which practices follow
+    P13? Select all that apply.
+  options:
+    - text: One command regenerates the report from pinned data, code and tool versions
+      correct: true
+      feedback: >-
+        Right. P13 requires automated, recorded steps with versions, and a
+        result that one command can regenerate.
+    - text: An analyst copies numbers from dashboards into a spreadsheet by hand
+      correct: false
+      feedback: >-
+        P13 says manual steps are error-prone and cannot be reproduced.
+    - text: The pipeline records inputs and tool versions with each run
+      correct: true
+      feedback: >-
+        Right. P13 asks for versions of data, code and tools, so a run can be
+        reproduced.
+    - text: >-
+        A senior analyst writes the steps in a wiki page, and others follow them
+        by hand
+      correct: false
+      feedback: >-
+        Documented steps are better than none, but P13 requires the steps to be
+        automated and recorded, not performed by hand.
+- id: q-b-11
+  rules: [P13, P11]
+  stem: >-
+    A delivery lead reports DORA metrics to executives each quarter. Which
+    practices meet the management form of P13? Select all that apply.
+  options:
+    - text: A documented job generates the dashboard from named pipeline data
+      correct: true
+      feedback: >-
+        Right. P13 (management form) wants management figures produced by
+        automated, documented steps from named data sources.
+    - text: The lead types the figures into a spreadsheet each quarter
+      correct: false
+      feedback: >-
+        A hand-edited spreadsheet cannot be reproduced. This fails P13.
+    - text: >-
+        The job keeps each quarter's output unchanged and logs any rerun, so
+        past figures stay visible
+      correct: true
+      feedback: >-
+        Right. This adds to P13 the record-keeping that P11 asks for.
+    - text: >-
+        The dashboard refreshes automatically but its data sources are not
+        named anywhere
+      correct: false
+      feedback: >-
+        Automation alone is not enough. P13 (management form) also asks for
+        named data sources.
+- id: q-b-12
+  rules: [P14]
+  stem: >-
+    A team deploys container images to production. Which practices meet P14?
+    Select all that apply.
+  options:
+    - text: Images are signed and carry build provenance and an SBOM
+      correct: true
+      feedback: >-
+        Right. P14 wants origin, build and certificate shown for each deployed
+        artifact.
+    - text: The team runs an unsigned image from an unknown registry
+      correct: false
+      feedback: >-
+        Origin and certificate cannot be shown. This is the violation P14
+        names.
+    - text: Deployments pin each image by digest
+      correct: true
+      feedback: >-
+        Right. A pinned digest ties the deployment to one known artifact. That
+        is how the team finds every affected deployment after a defect.
+    - text: Images are pulled by the tag "latest" from the team's own registry
+      correct: false
+      feedback: >-
+        The registry is known, but the tag moves, so the exact artifact cannot
+        be traced. P14 needs origin, build and certificate per artifact.
+    - text: The team scans each image for known flaws before release
+      correct: false
+      feedback: >-
+        Scanning is useful but is not provenance. P14 asks where each part
+        came from, and a scan does not show that.
+- id: q-b-13
+  rules: [P14, P78]
+  stem: >-
+    A procurement team is about to sign with a SaaS vendor. Which actions meet
+    the management form of P14? Select all that apply.
+  options:
+    - text: >-
+        List the vendor's sub-processors and where each stores data before
+        signing
+      correct: true
+      feedback: >-
+        Right. P14 (management form) asks you to know the supplier and the
+        risks in its own supply chain.
+    - text: Rely on the vendor's sales material for its supply chain
+      correct: false
+      feedback: >-
+        P14 asks you to know and act on the supply chain risks. A sales claim
+        is not that knowledge.
+    - text: Require data to stay in one region after finding sub-processors abroad
+      correct: true
+      feedback: >-
+        Right. The management form says to act on what you find, not only to
+        collect it.
+    - text: >-
+        Add the vendor to the list of company assets, with an owner and a
+        lifecycle stage
+      correct: false
+      feedback: >-
+        That is an inventory (P78), a different rule. It does not show the
+        vendor's own supply chain, which P14 asks about.
+- id: q-b-14
+  rules: [P15]
+  stem: >-
+    A database team sees odd checksum errors on a storage volume. The cause is
+    unknown, but lasting data loss is possible. Which actions follow P15?
+    Select all that apply.
+  options:
+    - text: Take a snapshot and stop writes to the volume now
+      correct: true
+      feedback: >-
+        Right. P15 asks for a proportionate protective step without waiting
+        for full proof. This is the rule's own example.
+    - text: Keep writing until the root cause is proven
+      correct: false
+      feedback: >-
+        The harm is irreversible, and P15 says it cannot be undone once the
+        proof arrives.
+    - text: Record the measure taken and why it is proportionate to the risk
+      correct: true
+      feedback: >-
+        Right. The P15 check looks for a record of the protective measure, or
+        of why none was taken.
+    - text: Shut down the whole data centre until the cause is found
+      correct: false
+      feedback: >-
+        P15 asks for proportionate, cost-effective measures. Shutting down
+        everything is far out of scale with the risk.
+- id: q-b-15
+  rules: [P15]
+  stem: >-
+    Finance receives a credible but unproven fraud warning about a supplier's
+    new bank details. Which responses fit the management form of P15? Select
+    all that apply.
+  options:
+    - text: Pause payments to that supplier while the warning is checked
+      correct: true
+      feedback: >-
+        Right. P15 (management form) calls for a proportionate protective step
+        now when harm is credible but unproven.
+    - text: Continue paying until the fraud is confirmed
+      correct: false
+      feedback: >-
+        Paid money may be unrecoverable. P15 says not to wait for full proof
+        when harm is serious or irreversible.
+    - text: Freeze payments to every supplier for a month
+      correct: false
+      feedback: >-
+        P15 asks for a proportionate measure. Freezing all suppliers costs far
+        more than the risk justifies.
+    - text: Pay a small test amount first to check the new account
+      correct: false
+      feedback: >-
+        A test payment still sends money to a possibly fraudulent account.
+        P15 asks for a step that avoids the harm, not one that risks it.
+- id: q-b-16
+  rules: [P16]
+  stem: >-
+    A team must pick an ingress controller. Nobody knows yet which one will meet
+    the latency goal. Which actions follow P16? Select all that apply.
+  options:
+    - text: Prototype two controllers in parallel and let load tests decide
+      correct: true
+      feedback: >-
+        Right. P16 says to develop several alternatives and drop weak ones as
+        evidence arrives.
+    - text: Choose the most popular controller on day one and refine it
+      correct: false
+      feedback: >-
+        This is point-based design. P16 warns that early commitment risks
+        expensive rework if the option fails.
+    - text: >-
+        Record the alternatives kept and the evidence that removed each
+        rejected one
+      correct: true
+      feedback: >-
+        Right. This is the P16 check. It also gives the decision record that
+        P10 asks for.
+    - text: Prototype both, but commit to one after a week without test results
+      correct: false
+      feedback: >-
+        P16 says to commit only after feasibility is shown. A deadline without
+        evidence is a guess.
+- id: q-b-17
+  rules: [P16, P20]
+  stem: >-
+    A company needs a new monitoring vendor, and leadership is unsure which
+    will fit. Which approaches follow the management form of P16? Select all
+    that apply.
+  options:
+    - text: Run a paid pilot with two vendors and drop the weaker one
+      correct: true
+      feedback: >-
+        Right. P16 (management form) evaluates several options in parallel and
+        drops weak ones as evidence arrives.
+    - text: Sign a three-year contract with the first vendor that presents
+      correct: false
+      feedback: >-
+        This commits before any evidence. It is the early lock-in P16 warns
+        about.
+    - text: >-
+        Write the pilot's stop criteria and gate dates before it starts, with
+        the board deciding at each gate
+      correct: true
+      feedback: >-
+        Right. This is P20 at work, and it supports P16: the pilot stops on
+        evidence, not on sunk cost.
+    - text: Run a pilot with one vendor and call the comparison done
+      correct: false
+      feedback: >-
+        One vendor is no set of alternatives. P16 needs several options kept
+        open at once.
+- id: q-b-18
+  rules: [P17]
+  stem: >-
+    A team wants a young open-source project in the control plane of its
+    platform. Which actions follow P17? Select all that apply.
+  options:
+    - text: Record a maturity assessment for the project before using it
+      correct: true
+      feedback: >-
+        Right. P17 asks for a recorded maturity assessment for each technology
+        in a critical path.
+    - text: Adopt it for the production control plane to learn fast
+      correct: false
+      feedback: >-
+        P17 says to keep immature technology out of critical paths, because it
+        carries unknown failures.
+    - text: Use a graduated, proven project on the critical path instead
+      correct: true
+      feedback: >-
+        Right. P17's example contrasts a sandbox project with a graduated one
+        for a core platform component.
+    - text: >-
+        Prototype two young projects at once and pick the faster one for the
+        control plane
+      correct: false
+      feedback: >-
+        Comparing options is P16. It does not replace the maturity assessment
+        P17 requires for a critical path.
+- id: q-b-19
+  rules: [P17]
+  stem: >-
+    A company considers a two-person start-up as vendor for its payroll
+    process. Which actions fit the management form of P17? Select all that
+    apply.
+  options:
+    - text: Assess the vendor's maturity before payroll depends on it
+      correct: true
+      feedback: >-
+        Right. P17 (management form) asks for a maturity check before a new
+        vendor carries a critical process.
+    - text: Plan how to leave the vendor if it fails
+      correct: true
+      feedback: >-
+        Right. The rule's example ties a start-up vendor to an exit plan.
+    - text: Choose the vendor because its demo was convincing
+      correct: false
+      feedback: >-
+        A demo is not a maturity assessment. P17 asks for the assessment
+        before a critical process depends on the vendor.
+    - text: Move payroll in one step, since the contract can be cancelled later
+      correct: false
+      feedback: >-
+        Cancelling does not undo a failed payroll run. P17 keeps immature
+        providers off critical processes until assessed.
+- id: q-b-20
+  rules: [P18]
+  stem: >-
+    A team classifies this week's decisions. Which handling follows P18? Select
+    all that apply.
+  options:
+    - text: A new linter rule is reversible, so the team decides it today
+      correct: true
+      feedback: >-
+        Right. P18 says to make reversible decisions quickly at the lowest
+        competent level.
+    - text: A cloud provider move goes through consultation and a red team
+      correct: true
+      feedback: >-
+        Right. P18 says irreversible decisions are made slowly, with
+        consultation and review.
+    - text: Every decision gets the same three-week approval, to be safe
+      correct: false
+      feedback: >-
+        P18 says heavy process on reversible decisions causes slowness and too
+        little experimentation.
+    - text: A lock-in contract is signed in one meeting to keep momentum
+      correct: false
+      feedback: >-
+        Irreversible decisions need slow, reviewed handling under P18. Light
+        process here causes lasting harm.
+- id: q-b-21
+  rules: [P18, P10]
+  stem: >-
+    A reviewer checks the decision records of a team against P18. Which
+    findings are a pass? Select all that apply.
+  options:
+    - text: Each record states reversible or irreversible and the matching process
+      correct: true
+      feedback: >-
+        Right. This is the P18 check, which builds on the records P10 asks for.
+    - text: Records state the reason and alternatives but not the class
+      correct: false
+      feedback: >-
+        This meets P10, but the P18 check needs the class stated in each
+        record.
+    - text: >-
+        An irreversible database deletion is recorded with consultation and
+        review
+      correct: true
+      feedback: >-
+        Right. The class and the matching slow process are shown, as P18 and
+        its link to P42 expect.
+    - text: >-
+        A reversible tool trial is recorded with an executive sign-off and a
+        month of review
+      correct: false
+      feedback: >-
+        The class is stated, but the process does not match. P18 pairs
+        reversible decisions with fast, low-level handling.
+- id: q-b-22
+  rules: [P19]
+  stem: >-
+    A manager wants to reward engineers using one number. Which designs follow
+    P19? Select all that apply.
+  options:
+    - text: Deployment frequency is paired with change failure rate
+      correct: true
+      feedback: >-
+        Right. P19 asks for a counter-indicator beside every rewarded
+        indicator.
+    - text: Closed ticket count is the only measure of on-call quality
+      correct: false
+      feedback: >-
+        This is the violation P19 names. People will close tickets early to
+        raise the number.
+    - text: The team reviews each year whether its indicators still track the objective
+      correct: true
+      feedback: >-
+        Right. P19 says to change an indicator when it drifts from the real
+        objective.
+    - text: Restore time is set as a bonus target, with a stretch goal each year
+      correct: false
+      feedback: >-
+        P19's example keeps restore time out of bonuses. A rewarded indicator
+        without a counter-indicator invites gaming.
+- id: q-b-23
+  rules: [P19, P21]
+  stem: >-
+    A lead sets "halve build time" as the team goal and ties the bonus to it.
+    Which changes bring the setup closer to P19? Select all that apply.
+  options:
+    - text: Add a counter-indicator, such as test coverage, that must not drop
+      correct: true
+      feedback: >-
+        Right. P19 pairs a rewarded indicator with a counter-measure. P21
+        still supports the goal itself.
+    - text: Drop the goal and set "do your best" instead
+      correct: false
+      feedback: >-
+        P21 says specific, hard goals beat "do your best". P19 asks for guards
+        around the indicator, not for removing the goal.
+    - text: Compare the number with direct observation of how builds feel to users
+      correct: true
+      feedback: >-
+        Right. P19 asks to compare the indicator with direct observation, so
+        gaming shows up.
+    - text: Raise the bonus so the incentive is stronger
+      correct: false
+      feedback: >-
+        A stronger reward increases the pressure to game. P19 says the more an
+        indicator drives decisions, the more it is corrupted.
+- id: q-b-24
+  rules: [P20]
+  stem: >-
+    A sponsor launches a service-mesh pilot whose outcome is uncertain. Which
+    set-ups follow P20? Select all that apply.
+  options:
+    - text: >-
+        Before the start, the team writes: stop if p99 latency rises by more
+        than 5 ms after 4 weeks
+      correct: true
+      feedback: >-
+        Right. P20 asks for the evidence and decision points written down
+        before the work begins.
+    - text: The sponsor alone decides at each gate whether to continue
+      correct: false
+      feedback: >-
+        P20 says someone who did not start the project decides. The sponsor is
+        committed to it and is prone to escalating commitment.
+    - text: The architecture board decides at gates fixed in advance
+      correct: true
+      feedback: >-
+        Right. Gate dates are set up front and the decision sits with someone
+        other than the sponsor.
+    - text: The team will review progress when it feels the results are clear
+      correct: false
+      feedback: >-
+        No gate dates or stop evidence are written down. P20 requires both
+        before the work starts.
+- id: q-b-25
+  rules: [P20, P16]
+  stem: >-
+    A prototype misses its target at the first review. The team says "we have
+    invested too much to stop now". Which responses follow P20? Select all that
+    apply.
+  options:
+    - text: Apply the stop criteria written before the start
+      correct: true
+      feedback: >-
+        Right. P20 exists so that a negative result is met with a rule agreed
+        before the money was spent.
+    - text: Add more staff to catch up, then review again next quarter
+      correct: false
+      feedback: >-
+        This is escalation of commitment, which P20 aims to prevent.
+    - text: >-
+        Let a reviewer who did not start the project make the continue-or-stop
+        call
+      correct: true
+      feedback: >-
+        Right. P20 puts the gate decision with someone other than the sponsor.
+    - text: >-
+        Drop the prototype and pick the one other design that had been set
+        aside earlier
+      correct: false
+      feedback: >-
+        Keeping alternatives is P16, but P20 asks first for a stop decision
+        against written criteria, made by someone independent.
+- id: q-b-26
+  rules: [P21, P9]
+  stem: >-
+    A lead sets goals for a platform team for the quarter. Which goals follow
+    P21? Select all that apply.
+  options:
+    - text: >-
+        "Cut median build time from 12 to 6 minutes this quarter", with a weekly
+        progress chart
+      correct: true
+      feedback: >-
+        Right. P21 wants a specific, challenging goal with regular feedback.
+        It has a measure, a deadline and a chart.
+    - text: '"Do your best to improve the build"'
+      correct: false
+      feedback: >-
+        P21 says specific, difficult goals beat "do your best". This goal also
+        has no feedback.
+    - text: >-
+        For a new technology: "run three spikes and document what we learned"
+      correct: true
+      feedback: >-
+        Right. P21 says to set learning goals first for new or complex work.
+    - text: >-
+        Twelve goals for each engineer, so nothing is left out
+      correct: false
+      feedback: >-
+        P21 asks for few goals. Too many dilute the focus.
+    - text: >-
+        "Cut build time by half", with no deadline and no progress feedback
+      correct: false
+      feedback: >-
+        The goal is specific, but P21 also requires regular feedback, and the
+        check asks for a deadline. A measure alone is not enough.
