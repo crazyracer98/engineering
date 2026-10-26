@@ -206,13 +206,13 @@
   options:
     - text: P27 asks for stable results when inputs vary in ways like latency and order.
       correct: true
-      feedback: Right. P27 covers variation in timing and ordering, not malformed data.
+      feedback: Right. P27 tolerates variation within the specification, such as timing, order or any format the schema allows. Malformed data lies outside it.
     - text: P33 asks the service to reject and log input that violates the specification.
       correct: true
       feedback: Right. P33 rejects and reports invalid input instead of silently accepting it.
     - text: Guessing the meaning of malformed fields is robustness under P27.
       correct: false
-      feedback: P27 tolerates variation in inputs. P33 conflicts with it here, and silent acceptance of defects is what P33 rules out.
+      feedback: K3 draws the line between the two rules. P27 tolerates variation within the specification, and P33 rejects and reports input outside it. Guessing at malformed fields is the silent acceptance that P33 rules out.
     - text: P33 allows silent acceptance of unknown fields if the sender is a trusted team.
       correct: false
       feedback: P33 says to reject and report violations instead of silently accepting them.
@@ -279,7 +279,7 @@
       feedback: P29 names this as the violation. A good part can still break another that was never tested with it.
     - text: Put the plugin in one chart with the storage driver to reduce parts.
       correct: false
-      feedback: P29 separates parts that are not compatible. Merging them hides the problem, and P23's modules point the other way.
+      feedback: Packaging the two together does not test whether they work together, which P29 asks for. It also goes against the modules of P23.
 - id: q-c-18
   rules: [P29]
   stem: Two platform teams will merge. Which step follows the management form of P29?
@@ -290,9 +290,9 @@
     - text: Merge on a fixed date and sort out the differences later.
       correct: false
       feedback: P29 checks compatibility before merging, not after.
-    - text: Keep the two release processes and ask both to follow them for the same service.
+    - text: Keep both release processes, and have both teams apply them to the same service.
       correct: false
-      feedback: Two incompatible processes on one service also over-constrain it, which P30 warns about.
+      feedback: P29 asks to plan how the differences are integrated. Leaving both processes in force on one service skips that plan, and the two processes then fight over the same releases, much like two owners of one property under P30.
     - text: Choose the larger team's culture for everyone without comparison.
       correct: false
       feedback: P29 asks for a comparison and an integration plan, not a decision with no check.
@@ -327,7 +327,7 @@
       feedback: Two owners for one property over-constrain the team, against P30.
     - text: Give the component to four teams so that all managers are represented.
       correct: false
-      feedback: P35 wants one owning team for each component boundary. Four teams that do not talk to each other are its violation.
+      feedback: P35 wants one owning team for each component boundary, and P30 one accountable owner per objective. Four owning teams do the opposite.
 - id: q-c-21
   rules: [P31]
   stem: A team must pick autoscaler settings, and no model predicts good values. Which approaches follow P31?
@@ -420,7 +420,7 @@
       feedback: Right. P33 requires rejection and reporting of invalid input.
     - text: Let each receiver guess the unit from the size of the value.
       correct: false
-      feedback: Guessing is silent tolerance. P33 rejects instead, even though P27 tolerates variation in timing.
+      feedback: Guessing is silent tolerance of an unstated unit. P33 asks to state the unit and to reject what does not match. P27 tolerates variation only within the specification (K3).
     - text: Make receivers retry with jitter until the value looks right.
       correct: false
       feedback: Retries with jitter are P27 and help with timing variation. They do not remove an unstated unit.

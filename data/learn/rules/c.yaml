@@ -102,7 +102,7 @@
   management:
     scenario: A company grows from 50 to 500 people.
     applying: The company expects rare events, such as fraud or the loss of a key person, to happen regularly. It scales its controls with its size.
-    violating: The company keeps the controls of a 50-person firm. At 500 people, a once-in-a-lifetime event happens about every year, and no control catches it.
+    violating: The company keeps the controls of a 50-person firm. At 500 people, an event that happens once in 500 person-years now happens about every year, and no control catches it.
 - rule: P35
   scenario: A company builds a system from several components and has several teams.
   applying: Each major component boundary has one owning team. The company counts cross-team dependencies and reshapes the teams when the intended structure changes.
