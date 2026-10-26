@@ -1,2 +1,349 @@
 # Cases. Schema: schema/learn-cases.schema.json.
-[]
+- id: case-knight-capital-2012-deployment
+  title: Knight Capital trading loss (2012)
+  year: 2012
+  summary: >-
+    Knight Capital deployed new code to the eight servers of its order router. A
+    technician missed one server, and nobody reviewed the deployment. On 1 August
+    2012 that server ran old, unused code. It sent millions of orders into the
+    market over 45 minutes. Before the market opened, an internal system had sent
+    97 e-mails that pointed at the fault, but they were not treated as alerts.
+    Knight had no procedure for when to disconnect the system. It lost over $460
+    million.
+  rules: [P64, P73, P75]
+  lessons:
+  - rule: P64
+    text: >-
+      The deployed state did not match the intended change. One of eight servers
+      kept the old code, and no second person checked the deployment. A check that
+      the deployed state matches the approved change would have found the missed
+      server.
+  - rule: P73
+    text: >-
+      Harm grew every minute while staff searched for the cause. There was no
+      planned action, such as disconnecting the system, that could act faster than
+      the harm. The regulator found that staff needed clear guidance on when to
+      disconnect.
+  - rule: P75
+    text: >-
+      The system sent 97 messages that named the fault before the market opened.
+      They were not designed as alerts and nobody acted on them. A message that
+      nobody acts on does not protect anyone.
+  quotes:
+  - source: case-sec-knight-capital-order
+    text: SMARS routed millions of orders into the market over a 45-minute period
+  - source: case-sec-knight-capital-order
+    text: On August 1, 2012, Knight Capital Americas LLC (“Knight”) experienced a significant error in the operation of its automated routing system for equity orders, known as SMARS.
+  - source: case-sec-knight-capital-order
+    text: This unused code previously had been used for functionality called “Power Peg,” which Knight had discontinued using many years earlier.
+  - source: case-sec-knight-capital-order
+    text: Ultimately, Knight lost over $460 million from these unwanted positions.
+  - source: case-sec-knight-capital-order
+    text: one of Knight’s technicians did not copy the new code to one of the eight SMARS computer servers.
+  - source: case-sec-knight-capital-order
+    text: Knight did not have a second technician review this deployment and no one at Knight realized that the Power Peg code had not been removed from the eighth server, nor the new RLP code added.
+  - source: case-sec-knight-capital-order
+    text: Knight’s system sent 97 of these e-mail messages to a group of Knight personnel before the 9:30 a.m. market open.
+  - source: case-sec-knight-capital-order
+    text: Knight did not design these types of messages to be system alerts, and Knight personnel generally did not review them when they were received.
+  - source: case-sec-knight-capital-order
+    text: Knight’s system continued to send millions of child orders while its personnel attempted to identify the source of the problem.
+  - source: case-sec-knight-capital-order
+    text: Knight needed clear guidance for its technology personnel as to when to disconnect a malfunctioning system from the market.
+- id: case-cloudflare-2019-waf-rollout
+  title: Cloudflare global outage from a firewall rule (2019)
+  year: 2019
+  summary: >-
+    On 2 July 2019 Cloudflare deployed a new rule to its web application firewall.
+    The rule exhausted the CPUs that serve HTTP and HTTPS traffic across its whole
+    network, and visitors saw 502 errors. The procedure for rule changes allowed a
+    global push without a staged rollout, so the change went global in seconds.
+    Synthetic tests paged the team three minutes later, but the alert for the
+    global traffic drop was slow.
+  rules: [P65, P70]
+  lessons:
+  - rule: P65
+    text: >-
+      Software at Cloudflare went out in stages, but firewall rules went to every
+      site at once. The fix was to roll out rules in stages too, and keep a global
+      push only for emergencies.
+  - rule: P70
+    text: >-
+      Tests that act like users, run from outside the network, caught the fault
+      within minutes. The alert on the drop in user traffic took too long, and the
+      postmortem lists it as a weakness.
+  quotes:
+  - source: case-cloudflare-outage-2019-07-02
+    text: On July 2, we deployed a new rule in our WAF Managed Rules that caused CPUs to become exhausted on every CPU core that handles HTTP/HTTPS traffic on the Cloudflare network worldwide.
+  - source: case-cloudflare-outage-2019-07-02
+    text: This resulted in our customers (and their customers) seeing a 502 error page when visiting any Cloudflare domain.
+  - source: case-cloudflare-outage-2019-07-02
+    text: The SOP allowed a non-emergency rule change to go globally into production without a staged rollout.
+  - source: case-cloudflare-outage-2019-07-02
+    text: However, in this case, that speed meant that a change to the rules went global in seconds.
+  - source: case-cloudflare-outage-2019-07-02
+    text: Changing the SOP to do staged rollouts of rules in the same manner used for other software at Cloudflare while retaining the ability to do emergency global deployment for active attacks.
+  - source: case-cloudflare-outage-2019-07-02
+    text: Three minutes later the first PagerDuty page went out indicating a fault with the WAF. This was a synthetic test that checks the functionality of the WAF (we have hundreds of such tests) from outside Cloudflare to ensure that it is working correctly.
+  - source: case-cloudflare-outage-2019-07-02
+    text: The first alert for the global traffic drop took too long to fire.
+- id: case-dupont-yerkes-2010-tank-isolation
+  title: DuPont Yerkes tank explosion (2010)
+  year: 2010
+  summary: >-
+    At the DuPont Yerkes plant in Buffalo, New York, a contract welder repaired an
+    agitator support on top of a storage tank. Flammable vapor flowed into the tank
+    from connected tanks that were still in service, and it ignited. The welder
+    died. The overflow line between the tanks was never blinded, and DuPont did
+    not isolate the tank before it authorized the hot work.
+  rules: [P66]
+  lessons:
+  - rule: P66
+    text: >-
+      Closing the valves on the tank was not enough. An open overflow line still
+      joined it to the tanks in service. Isolation has to cover every input,
+      including vent and overflow lines, and the energy control procedure has to
+      list each one.
+  quotes:
+  - source: case-csb-dupont-yerkes-case-study
+    text: The welder died instantly from blunt force trauma
+  - source: case-csb-dupont-yerkes-case-study
+    text: when a contract welder and foreman were repairing the agitator support atop an atmospheric storage tank containing flammable vinyl fluoride.
+  - source: case-csb-dupont-yerkes-case-study
+    text: flammable vinyl fluoride (VF) vapor from interconnected, in-service process tanks flowed undetected into the tank and ignited when the welder was repairing the agitator support assembly.
+  - source: case-csb-dupont-yerkes-case-study
+    text: The overflow line to all three tanks was never blinded, which provided a direct flow path from the vapor space in tanks 2 and 3 to the out-of-service tank 1.
+  - source: case-csb-dupont-yerkes-case-study
+    text: DuPont did not properly isolate and lockout tank 1 from in-service tanks 2 and 3 prior to authorizing hot work on tank 1.
+  - source: case-csb-dupont-yerkes-case-study
+    text: DuPont was fined for not including steps to isolate the slurry tank overflow line in their energy control procedure, and for not installing blinds in the overflow line.
+- id: case-nicoll-highway-2004-monitoring
+  title: Nicoll Highway collapse, Singapore (2004)
+  year: 2004
+  summary: >-
+    On 20 April 2004 the temporary retaining wall of a deep excavation for a
+    metro line collapsed next to the Nicoll Highway in Singapore. Four people
+    died. The interim report of the Committee of Inquiry found that the
+    instrument monitoring was not effective, and that critical strut load
+    readings were wrong.
+  rules: [P68]
+  lessons:
+  - rule: P68
+    text: >-
+      Monitoring only works if the readings are right and someone acts on them.
+      The inquiry asked for reliable monitoring data, and for senior managers who
+      stop the work when readings exceed the pre-set levels.
+  quotes:
+  - source: case-coi-nicoll-highway-interim-report
+    text: At about 3.30pm on 20 April 2004, the temporary retaining wall system for a deep excavation adjacent to the Nicoll Highway collapsed.
+  - source: case-coi-nicoll-highway-interim-report
+    text: to construct a cut and cover tunnel for the Mass Rapid Transit (MRT) Circle Line project C824
+  - source: case-coi-nicoll-highway-interim-report
+    text: Among them, four persons died (including an LTA technical officer), and several others were injured in the accident.
+  - source: case-coi-nicoll-highway-interim-report
+    text: Instrument-based performance monitoring systems must be effective, adequately resourced and maintained unlike in C824.
+  - source: case-coi-nicoll-highway-interim-report
+    text: The strut load readings provided by one of the ‘specialist’ personnel were critical to the safety monitoring of the retaining wall system. These were relied on extensively by the main contractor and LTA, but were subsequently found to be erroneous at the COI.
+  - source: case-coi-nicoll-highway-interim-report
+    text: These senior managers must be experienced enough to make the right judgement call either to suspend or to stop the work when instrumentation data exceed the pre-determined risk levels.
+- id: case-bedford-g4-2014-checklists
+  title: Gulfstream G-IV runway overrun at Bedford (2014)
+  year: 2014
+  summary: >-
+    A Gulfstream G-IV tried to take off from Bedford, Massachusetts, with its gust
+    lock still on, so the flight controls were locked. The crew had not done the
+    flight control check before takeoff. Seven people died. Recorded data showed
+    the pilots had skipped complete flight control checks before 98% of their
+    previous 175 takeoffs.
+  rules: [P71]
+  lessons:
+  - rule: P71
+    text: >-
+      The checklist existed, but the crew did not use it, and the skipped check
+      had become a habit. A checklist only protects when every item is done and
+      confirmed, every time.
+  quotes:
+  - source: case-ntsb-aar-15-03-bedford
+    text: The two pilots, a flight attendant, and four passengers died.
+  - source: case-ntsb-aar-15-03-bedford
+    text: their attempt to take off with the gust lock system engaged
+  - source: case-ntsb-aar-15-03-bedford
+    text: During the engine start process, the flight crew neglected to disengage the airplane’s gust lock system
+  - source: case-ntsb-aar-15-03-bedford
+    text: before initiating takeoff, the pilots neglected to perform a flight control check that would have alerted them of the locked flight controls.
+  - source: case-ntsb-aar-15-03-bedford
+    text: the pilots had neglected to perform complete flight control checks before 98% of their previous 175 takeoffs in the airplane, indicating that this oversight was habitual and not an anomaly.
+  - source: case-ntsb-aar-15-03-bedford
+    text: Contributing to the accident were the flight crew’s habitual noncompliance with checklists
+- id: case-colgan-3407-2009-sterile-cockpit
+  title: Colgan Air flight 3407 (2009)
+  year: 2009
+  summary: >-
+    Colgan Air flight 3407 stalled on approach to Buffalo, New York, and crashed
+    into a house. Everyone on board and one person on the ground died. The NTSB
+    found that the captain responded wrongly to the stick shaker. One contributing
+    factor was that the crew did not follow sterile cockpit procedures. They
+    talked about unrelated things during the final minutes of the descent.
+  rules: [P76]
+  lessons:
+  - rule: P76
+    text: >-
+      The sterile cockpit rule keeps attention on the task during critical
+      phases. Here the pilots chatted through the descent, and the NTSB found the
+      talk distracted them from their operational tasks.
+  quotes:
+  - source: case-ntsb-aar-10-01-colgan-3407
+    text: The 2 pilots, 2 flight attendants, and 45 passengers aboard the airplane were killed, one person on the ground was killed
+  - source: case-ntsb-aar-10-01-colgan-3407
+    text: was on an instrument approach to Buffalo-Niagara International Airport, Buffalo, New York, when it crashed into a residence in Clarence Center, New York
+  - source: case-ntsb-aar-10-01-colgan-3407
+    text: the probable cause of this accident was the captain’s inappropriate response to the activation of the stick shaker, which led to an aerodynamic stall from which the airplane did not recover.
+  - source: case-ntsb-aar-10-01-colgan-3407
+    text: the flight crew’s failure to adhere to sterile cockpit procedures
+  - source: case-ntsb-aar-10-01-colgan-3407
+    text: The pilots were involved in nonpertinent conversation during all phases of flight, including those that are defined as critical by the sterile cockpit rule.
+  - source: case-ntsb-aar-10-01-colgan-3407
+    text: the pilots’ nonpertinent conversation during the final minutes of the descent (which included a discussion of their previous experiences flying in icing conditions) distracted them from their operational tasks.
+  - source: case-ntsb-aar-10-01-colgan-3407
+    text: The primary reason for 14 CFR 121.542, otherwise known as the sterile cockpit rule, is to ensure that a pilot’s attention is directed to operational concerns during critical phases of flight and is not redirected or degraded because of nonessential activities or conversation.
+- id: case-alaska-261-2000-maintenance-intervals
+  title: Alaska Airlines flight 261 (2000)
+  year: 2000
+  summary: >-
+    Alaska Airlines flight 261 lost pitch control and crashed into the Pacific
+    Ocean. Everyone on board died. The acme nut threads in the stabilizer trim
+    jackscrew failed from excessive wear. The lubrication and end play check
+    intervals had been extended without a task-by-task analysis.
+  rules: [P74]
+  lessons:
+  - rule: P74
+    text: >-
+      The acme nut wears with use, so its lubrication and wear checks must follow
+      how fast it wears. The intervals were stretched without an analysis of each
+      task, and the absence of past problems was taken as proof. Each maintenance
+      task needs to rest on how its part actually fails.
+  quotes:
+  - source: case-ntsb-aar-02-01-alaska-261
+    text: The 2 pilots, 3 cabin crewmembers, and 83 passengers on board were killed
+  - source: case-ntsb-aar-02-01-alaska-261
+    text: crashed into the Pacific Ocean about 2.7 miles north of Anacapa Island, California
+  - source: case-ntsb-aar-02-01-alaska-261
+    text: the probable cause of this accident was a loss of airplane pitch control resulting from the in-flight failure of the horizontal stabilizer trim system jackscrew assembly
+  - source: case-ntsb-aar-02-01-alaska-261
+    text: The thread failure was caused by excessive wear
+  - source: case-ntsb-aar-02-01-alaska-261
+    text: nut threads to wear to failure without the opportunity for detection
+  - source: case-ntsb-aar-02-01-alaska-261
+    text: In general, the absence of maintenance history should not be considered adequate justification to extend the interval for the performance of a critical maintenance task.
+  - source: case-ntsb-aar-02-01-alaska-261
+    text: the escalation of C-check intervals in the MSG-3 MD-80 MRB did not involve a task-by-task analysis of each task
+  - source: case-ntsb-aar-02-01-alaska-261
+    text: resulted in significant extensions of both the lubrication and end play check intervals without any such analysis or support.
+  - source: case-ntsb-aar-02-01-alaska-261
+    text: the existing process by which manufacturers revise recommended maintenance task intervals and by which airlines establish and revise these intervals does not include task-by-task engineering analysis and justification
+- id: case-equifax-2017-asset-inventory
+  title: Equifax data breach (2017)
+  year: 2017
+  summary: >-
+    In 2017 attackers stole the personal data of about 148 million people from
+    Equifax. They entered through an Apache Struts vulnerability in a legacy application. Equifax
+    did not have a complete, up-to-date inventory of its IT assets or the
+    software on them. The executive responsible for the application did not know
+    it ran Apache Struts.
+  rules: [P78]
+  lessons:
+  - rule: P78
+    text: >-
+      You cannot patch what you do not know you run. Equifax kept several partial
+      lists instead of one complete inventory. An inventory with each asset, its
+      software and its owner would show where a new vulnerability applies.
+  quotes:
+  - source: case-house-oversight-equifax-report
+    text: On September 7, 2017, Equifax announced a cybersecurity incident affecting 143 million consumers.
+  - source: case-house-oversight-equifax-report
+    text: This number eventually grew to 148 million
+  - source: case-house-oversight-equifax-report
+    text: Attackers enter the Equifax network through the Apache Struts vulnerability located
+  - source: case-house-oversight-equifax-report
+    text: The company’s lack of knowledge about the software used within its legacy IT environment was a key factor leading to the 2017 data breach.
+  - source: case-house-oversight-equifax-report
+    text: As of July 2017, the company did not have a comprehensive and up-to-date inventory of its IT assets or the software operating on its systems.
+  - source: case-house-oversight-equifax-report
+    text: If an organization does not know what is on its networks, it will not know where patching is needed.
+  - source: case-house-oversight-equifax-report
+    text: at the time that the breach was announced, I wasn’t even aware that we were running Apache Struts in the particular environment.
+  - source: case-house-oversight-equifax-report
+    text: inventories existed, but they weren’t comprehensive.
+  - source: case-house-oversight-equifax-report
+    text: Payne, who had ultimate responsibility for the ACIS environment, stated
+- id: case-columbia-2003-organizational-causes
+  title: Space Shuttle Columbia (2003)
+  year: 2003
+  summary: >-
+    Foam struck the orbiter Columbia during launch, and the Shuttle was lost. The
+    Columbia Accident Investigation Board did not stop at the part that broke or
+    the people closest to it. It looked for causes in the organization. It found
+    that the causes behind the Challenger accident in 1986 had not been fixed.
+  rules: [P80, P81]
+  lessons:
+  - rule: P80
+    text: >-
+      The board warns against naming a broken part and a person as the cause.
+      That leads to the false belief that the problem is solved. It treated the
+      organization as a whole as part of the cause.
+  - rule: P81
+    text: >-
+      The same kind of failure came back 17 years after Challenger, because the
+      institutional causes had not been fixed. Actions from an investigation only
+      help when they are carried out and checked.
+  quotes:
+  - source: case-caib-report-vol1-ch7
+    text: Even after it was clear from the launch videos that foam had struck the Orbiter in a manner never before seen
+  - source: case-caib-report-vol1-ch7
+    text: were largely silent during the events leading up to the loss of Columbia.
+  - source: case-caib-report-vol1-ch7
+    text: Many accident investigations make the same mistake in defining causes. They identify the widget that broke or malfunctioned, then locate the person most closely connected with the technical failure
+  - source: case-caib-report-vol1-ch7
+    text: Such corrections lead to a misguided and potentially disastrous belief that the underlying problem has been solved.
+  - source: case-caib-report-vol1-ch7
+    text: A central piece of our expanded cause model involves NASA as an organizational whole.
+  - source: case-caib-report-vol1-ch7
+    text: That silence was not merely a failure of safety, but a failure of the entire organization.
+  - source: case-caib-report-vol1-ch8
+    text: the causes of the institutional failure responsible for Challenger have not been fixed.
+  - source: case-caib-report-vol1-ch8
+    text: Seventeen years separated the two accidents.
+  - source: case-caib-report-vol1-ch8
+    text: problems cannot be solved simply by retirements, resignations, or transferring personnel.
+  - source: case-caib-report-vol1-ch8
+    text: The Board had a hard time understanding how, after the bitter lessons of Challenger, NASA could have failed to identify a similar trend.
+- id: case-challenger-1986-o-ring-anomalies
+  title: Space Shuttle Challenger (1986)
+  year: 1986
+  summary: >-
+    Challenger was lost when a joint of its right solid rocket motor failed. The
+    joint's O-rings had shown erosion and blow-by on earlier flights. NASA and
+    its contractor Thiokol did not solve the problem. Instead they came to accept
+    it as an acceptable flight risk, and raised the amount of damage they
+    considered acceptable.
+  rules: [P82]
+  lessons:
+  - rule: P82
+    text: >-
+      Each flight with O-ring damage and no accident made the damage look normal.
+      The anomaly tracking only kept problems that were outside past experience,
+      so a recurring problem dropped out of view. A recurring anomaly needs an
+      investigation and a decision, not quiet acceptance.
+  quotes:
+  - source: case-rogers-commission-ch6
+    text: The genesis of the Challenger accident-the failure of the joint of the right Solid Rocket Motor-began with decisions made in the design of the joint
+  - source: case-rogers-commission-ch6
+    text: Morton Thiokol, Inc., the contractor
+  - source: case-rogers-commission-ch6
+    text: as tests and then flights confirmed damage to the sealing rings, the reaction by both NASA and Thiokol was to increase the amount of damage considered “acceptable.”
+  - source: case-rogers-commission-ch6
+    text: Neither organization developed a solution to the unexpected occurrences of O-ring erosion and blow-by even though this problem was experienced frequently during the Shuttle flight history. Instead, Thiokol and NASA management came to accept erosion and blow-by as unavoidable and an acceptable flight risk.
+  - source: case-rogers-commission-ch6
+    text: NASA and Thiokol accepted escalating risk apparently because they “got away with it last time.”
+  - source: case-rogers-commission-ch6
+    text: Tracking and continuing only anomalies that are “outside the data base” of prior flight allowed major problems to be removed from, and lost by, the reporting system.
