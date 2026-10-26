@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/crazyracer98/engineering/schema/learn-quiz.schema.json",
+  "title": "Learning hub: quiz questions",
+  "description": "data/learn/quiz/<cat>.yaml (a..i) and quiz/conflicts.yaml: select-all-that-apply questions, scored by exact match. 4 to 6 options with at least one correct and one incorrect (the latter is checked by `taxonomy check`); the category in `id` equals the file (conflicts.yaml is `k`).",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^q-([a-i]|k)-[0-9]{2}$",
+        "description": "Question ID, unique across the bank."
+      },
+      "rules": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {
+          "type": "string",
+          "pattern": "^[PK][1-9][0-9]*$",
+          "description": "A rule ID (P) or conflict-rule ID (K)."
+        },
+        "description": "Rules the question tests."
+      },
+      "stem": {
+        "type": "string",
+        "minLength": 1,
+        "description": "The scenario and question."
+      },
+      "options": {
+        "type": "array",
+        "minItems": 4,
+        "maxItems": 6,
+        "items": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The option text."
+            },
+            "correct": {
+              "type": "boolean",
+              "description": "True when the reader must select this option."
+            },
+            "feedback": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Shown after checking; names the rule or rules behind the option."
+            }
+          },
+          "required": [
+            "text",
+            "correct",
+            "feedback"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "id",
+      "rules",
+      "stem",
+      "options"
+    ],
+    "additionalProperties": false
+  }
+}

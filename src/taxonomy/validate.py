@@ -1,4 +1,4 @@
-"""Dataset integrity checks (NFR-0001).
+"""Dataset integrity checks (NFR-0001) and learning-content coverage (FR-0001).
 
 ``run_checks(root)`` returns a list of ``Finding``; an empty list means the
 dataset is clean. Every check is a function ``(Context) -> list[str]`` of
@@ -19,13 +19,17 @@ from jsonschema import Draft202012Validator, FormatChecker
 from taxonomy.ids import expand_ids, id_key, id_pattern, prefix_alt
 from taxonomy.load import (
     DATA_STEMS,
+    LEARN_DIR,
     REGISTRY_FILES,
+    branch_slug,
+    learn_files,
     load_dataset,
+    load_learn,
     load_registry_files,
     load_schema,
     load_yaml,
 )
-from taxonomy.model import Dataset, Source
+from taxonomy.model import Dataset, Learn, Source
 from taxonomy.render_markdown import (
     build_sections,
     citation_slugs,
@@ -65,6 +69,8 @@ class Context:
     registries: list[tuple[str, list[Source]]]
     #: Merged slug -> Source (first wins; duplicates are reported separately).
     registry: dict[str, Source] = field(default_factory=dict)
+    #: The learning content under ``data/learn/`` (``load_learn``).
+    learn: Learn = field(default_factory=Learn)
 
 
 # -- text sources for citations ---------------------------------------------------
@@ -118,6 +124,25 @@ def cited_texts(ctx: Context) -> list[tuple[str, str]]:
 # -- checks ----------------------------------------------------------------------------
 
 
+#: ``data/learn/<kind>/`` -> the schema stem that validates its files.
+LEARN_SCHEMAS = {
+    "rules": "learn-rules",
+    "domains": "learn-domains",
+    "quiz": "learn-quiz",
+    "cases": "learn-cases",
+    "sources": "sources",
+}
+
+
+def learn_schema_targets(root: Path) -> list[tuple[str, str]]:
+    """``(relative path, schema stem)`` for every file below ``data/learn/``."""
+    return [
+        (path.relative_to(root).as_posix(), stem)
+        for kind, stem in LEARN_SCHEMAS.items()
+        for path in learn_files(root, kind)
+    ]
+
+
 def schema_findings(root: Path) -> list[str]:
     """Validate each data file and extra registry on its own.
 
@@ -129,6 +154,7 @@ def schema_findings(root: Path) -> list[str]:
     targets += [
         (rel, stem) for rel, stem in EXTRA_REGISTRIES.items() if (root / rel).is_file()
     ]
+    targets += learn_schema_targets(root)
     for rel, stem in targets:
         try:
             schema = load_schema(root, stem)
@@ -355,6 +381,9 @@ def _in_registry(location: str) -> bool:
 def _used_slugs(ctx: Context) -> set[str]:
     """Slugs used by data or cited in prose; a registry citing itself is no use."""
     used = {slug for _, slug in structured_slugs(ctx.ds)}
+    used.update(
+        q.get("source", "") for c in ctx.learn.cases for q in c.get("quotes", [])
+    )
     for where, text in cited_texts(ctx):
         if _in_registry(where):
             continue
@@ -678,6 +707,297 @@ def check_registry_unique(ctx: Context) -> list[str]:
     return msgs
 
 
+# -- learning hub (data/learn/, FR-0001) ---------------------------------------------
+
+#: Files allowed in each ``data/learn/<kind>/`` directory, as stems.
+CASE_FILE_NUMBERS = ("1", "2", "3")
+QUIZ_ID = re.compile(r"^q-([a-i]|k)-\d{2}$")
+
+
+def _stem(rel: str) -> str:
+    return Path(rel).stem
+
+
+def _learn_stems(ctx: Context) -> dict[str, set[str]]:
+    """The allowed file stems per ``data/learn/`` kind."""
+    cats = {c["id"].lower() for c in ctx.ds.categories}
+    return {
+        "rules": cats,
+        "domains": {branch_slug(d["branch"]) for d in ctx.ds.domains["domains"]},
+        "quiz": {*cats, "conflicts"},
+        "cases": set(CASE_FILE_NUMBERS),
+        "sources": set(CASE_FILE_NUMBERS),
+    }
+
+
+def check_learn_layout(ctx: Context) -> list[str]:
+    """Only the files of the layout exist: rules/quiz by category, domains by branch."""
+    msgs: list[str] = []
+    allowed = _learn_stems(ctx)
+    base = ctx.root / LEARN_DIR
+    if not base.is_dir():
+        return msgs
+    for entry in sorted(base.iterdir()):
+        if entry.name not in allowed:
+            msgs.append(
+                f"{entry.relative_to(ctx.root)} is not part of the layout "
+                f"(allowed: {', '.join(sorted(allowed))})"
+            )
+    for kind, stems in allowed.items():
+        directory = base / kind
+        if not directory.is_dir():
+            continue
+        for path in sorted(directory.iterdir()):
+            rel = path.relative_to(ctx.root)
+            if path.suffix != ".yaml":
+                msgs.append(f"{rel} is not a .yaml file")
+            elif path.stem not in stems:
+                msgs.append(
+                    f"{rel}: unknown file name {path.stem!r} for data/learn/{kind}/ "
+                    f"(expected one of {', '.join(sorted(stems))})"
+                )
+    return msgs
+
+
+def check_learn_rule_examples(ctx: Context) -> list[str]:
+    msgs: list[str] = []
+    rules = ctx.ds.rule_by_id()
+    seen: dict[str, str] = {}
+    for rel, entries in ctx.learn.files.items():
+        if not rel.startswith(f"{LEARN_DIR}/rules/"):
+            continue
+        cat = _stem(rel).upper()
+        for e in entries:
+            rid = e.get("rule")
+            if rid not in rules:
+                msgs.append(f"{rel}: example for unknown rule {rid}")
+                continue
+            if rid in seen:
+                msgs.append(f"{rel}: second example for {rid} (also in {seen[rid]})")
+            seen.setdefault(rid, rel)
+            if rules[rid]["category"] != cat:
+                msgs.append(
+                    f"{rel}: {rid} is in category {rules[rid]['category']}, "
+                    f"so it belongs in rules/{rules[rid]['category'].lower()}.yaml"
+                )
+            has_form = bool(rules[rid].get("management"))
+            if has_form and "management" not in e:
+                msgs.append(f"{rel}: {rid} has a management form; add `management`")
+            if not has_form and "management" in e:
+                msgs.append(f"{rel}: {rid} has no management form; remove `management`")
+    return msgs
+
+
+def check_learn_domain_examples(ctx: Context) -> list[str]:
+    msgs: list[str] = []
+    rows = {(d["branch"], d["domain"]): d for d in ctx.ds.domains["domains"]}
+    seen: dict[tuple[str, str], str] = {}
+    for rel, entries in ctx.learn.files.items():
+        if not rel.startswith(f"{LEARN_DIR}/domains/"):
+            continue
+        for e in entries:
+            key = (e.get("branch"), e.get("domain"))
+            if key not in rows:
+                msgs.append(f"{rel}: no domains.yaml row for {key[0]!r} / {key[1]!r}")
+                continue
+            if key in seen:
+                msgs.append(
+                    f"{rel}: second example for {key[0]} / {key[1]} (also {seen[key]})"
+                )
+            seen.setdefault(key, rel)
+            if branch_slug(key[0]) != _stem(rel):
+                msgs.append(
+                    f"{rel}: {key[1]!r} is in branch {key[0]!r}; it belongs in "
+                    f"domains/{branch_slug(key[0])}.yaml"
+                )
+            row_rules = set(rows[key]["rules"])
+            shown: set[str] = set()
+            for s in e.get("shows", []):
+                if s.get("rule") not in row_rules:
+                    msgs.append(
+                        f"{rel}: {key[1]!r} shows {s.get('rule')}, which is not among "
+                        f"the row's rules ({', '.join(sorted(row_rules))})"
+                    )
+                if s.get("rule") in shown:
+                    msgs.append(f"{rel}: {key[1]!r} shows {s.get('rule')} twice")
+                shown.add(s.get("rule"))
+    return msgs
+
+
+def check_learn_questions(ctx: Context) -> list[str]:
+    msgs: list[str] = []
+    ids = ctx.ds.all_ids()
+    seen: dict[str, str] = {}
+    for rel, entries in ctx.learn.files.items():
+        if not rel.startswith(f"{LEARN_DIR}/quiz/"):
+            continue
+        expected = "k" if _stem(rel) == "conflicts" else _stem(rel)
+        for q in entries:
+            qid = q.get("id", "?")
+            if qid in seen:
+                msgs.append(f"{rel}: duplicate question ID {qid} (also in {seen[qid]})")
+            seen.setdefault(qid, rel)
+            if QUIZ_ID.match(qid) and qid.split("-")[1] != expected:
+                msgs.append(
+                    f"{rel}: {qid} has category {qid.split('-')[1]!r} but sits in the "
+                    f"file for {expected!r}"
+                )
+            msgs.extend(
+                f"{rel}: {qid} names unknown rule {r}"
+                for r in q.get("rules", [])
+                if r not in ids
+            )
+            flags = [o.get("correct") for o in q.get("options", [])]
+            if flags and not any(f is True for f in flags):
+                msgs.append(f"{rel}: {qid} has no correct option")
+            if flags and not any(f is False for f in flags):
+                msgs.append(f"{rel}: {qid} has no incorrect option")
+    return msgs
+
+
+def check_learn_cases(ctx: Context) -> list[str]:
+    msgs: list[str] = []
+    ids = {r["id"] for r in ctx.ds.rules}
+    seen: dict[str, str] = {}
+    by_rule: dict[str, str] = {}
+    for rel, entries in ctx.learn.files.items():
+        if not rel.startswith(f"{LEARN_DIR}/cases/"):
+            continue
+        for c in entries:
+            cid = c.get("id", "?")
+            if cid in seen:
+                msgs.append(f"{rel}: duplicate case ID {cid} (also in {seen[cid]})")
+            seen.setdefault(cid, rel)
+            case_rules = c.get("rules", [])
+            for r in case_rules:
+                if r not in ids:
+                    msgs.append(f"{rel}: {cid} names unknown rule {r}")
+                elif r in by_rule and by_rule[r] != cid:
+                    msgs.append(
+                        f"{rel}: {cid} is a second case for {r} (see {by_rule[r]}); "
+                        "at most one case per rule"
+                    )
+                by_rule.setdefault(r, cid)
+            msgs.extend(
+                f"{rel}: {cid} has a lesson for {le.get('rule')}, not in its `rules`"
+                for le in c.get("lessons", [])
+                if le.get("rule") not in case_rules
+            )
+            msgs.extend(
+                f"{rel}: {cid} quotes unknown source slug {q.get('source')!r}"
+                for q in c.get("quotes", [])
+                if q.get("source") not in ctx.registry
+            )
+    return msgs
+
+
+def check_learn_sources(ctx: Context) -> list[str]:
+    """Case sources are registered under a ``case-`` slug (author: schema, ADR 0007)."""
+    return [
+        f"{rel}: case source slug {s['slug']!r} must start with 'case-'"
+        for rel, entries in ctx.registries
+        if rel.startswith(f"{LEARN_DIR}/sources/")
+        for s in entries
+        if not s["slug"].startswith("case-")
+    ]
+
+
+def learn_coverage(ctx: Context, scope: str | None = None) -> list[str]:
+    """Coverage gaps of the learning content (FR-0001); empty means complete.
+
+    ``scope`` is ``None`` (everything), a category letter (``a``..``i``: its rule
+    examples and quiz), ``k`` or ``conflicts`` (the conflict quiz) or a branch slug
+    (its domain examples). Cases are not a coverage requirement.
+    """
+    scope = scope.lower() if scope else None
+    if scope == "conflicts":
+        scope = "k"
+    cats = {c["id"].lower(): c for c in ctx.ds.categories}
+    branches = {branch_slug(d["branch"]) for d in ctx.ds.domains["domains"]}
+    if scope is not None and scope not in {*cats, "k", *branches}:
+        raise ValueError(
+            f"unknown scope {scope!r}; use a category ({', '.join(sorted(cats))}), "
+            f"k, or a branch slug ({', '.join(sorted(branches))})"
+        )
+    msgs: list[str] = []
+    examples = {e.get("rule") for e in ctx.learn.rule_examples}
+    for r in ctx.ds.rules:
+        if scope in (None, r["category"].lower()) and r["id"] not in examples:
+            msgs.append(
+                f"{r['id']} has no rule example "
+                f"(data/learn/rules/{r['category'].lower()}.yaml)"
+            )
+    done = {(e.get("branch"), e.get("domain")) for e in ctx.learn.domain_examples}
+    for d in ctx.ds.domains["domains"]:
+        slug = branch_slug(d["branch"])
+        if scope in (None, slug) and (d["branch"], d["domain"]) not in done:
+            msgs.append(
+                f"domain {d['branch']} / {d['domain']} has no domain example "
+                f"(data/learn/domains/{slug}.yaml)"
+            )
+    asked: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
+    for rel, entries in ctx.learn.files.items():
+        if rel.startswith(f"{LEARN_DIR}/quiz/"):
+            for q in entries:
+                for rid in q.get("rules", []):
+                    asked[_stem(rel)][rid] += 1
+    for cat, c in cats.items():
+        if scope not in (None, cat):
+            continue
+        for rid in c["rules"]:
+            n = asked[cat][rid]
+            if n < 2:
+                msgs.append(
+                    f"{rid} has {n} question(s) in quiz/{cat}.yaml; it needs at least 2"
+                )
+    if scope in (None, "k"):
+        for k in ctx.ds.conflicts:
+            if asked["conflicts"][k["id"]] < 1:
+                msgs.append(f"{k['id']} has no question in quiz/conflicts.yaml")
+    return msgs
+
+
+LEARN_CHECKS: dict[str, Callable[[Context], list[str]]] = {
+    "learn-layout": check_learn_layout,
+    "learn-rule-examples": check_learn_rule_examples,
+    "learn-domain-examples": check_learn_domain_examples,
+    "learn-questions": check_learn_questions,
+    "learn-cases": check_learn_cases,
+    "learn-sources": check_learn_sources,
+}
+
+
+def main(argv: list[str] | None = None) -> int:
+    """``python -m taxonomy.validate --learn-coverage [--scope S] [--root DIR]``.
+
+    Reports the learning-content gaps of FR-0001 for one scope; exit 1 on any gap.
+    The default ``taxonomy check`` does not require coverage.
+    """
+    import argparse
+    import sys
+
+    from taxonomy.load import find_root
+
+    parser = argparse.ArgumentParser(prog="python -m taxonomy.validate")
+    parser.add_argument("--learn-coverage", action="store_true", required=True)
+    parser.add_argument("--scope", help="a..i, k, or a branch slug (default: all)")
+    parser.add_argument(
+        "--root", type=Path, help="repository root (default: from the cwd)"
+    )
+    args = parser.parse_args(argv)
+    try:
+        ctx = make_context(args.root.resolve() if args.root else find_root())
+        gaps = learn_coverage(ctx, args.scope)
+    except (OSError, ValueError) as exc:
+        print(f"learn coverage: {exc}", file=sys.stderr)
+        return 2
+    for gap in gaps:
+        print(gap)
+    where = f"scope {args.scope}" if args.scope else "all scopes"
+    print(f"learn coverage ({where}): {len(gaps)} gap(s)")
+    return 1 if gaps else 0
+
+
 CHECKS: dict[str, Callable[[Context], list[str]]] = {
     "schema": check_schema,
     "unique-ids": check_unique_ids,
@@ -713,7 +1033,7 @@ def make_context(root: Path) -> Context:
     for _, entries in registries:
         for s in entries:
             registry.setdefault(s["slug"], s)
-    return Context(root, ds, registries, registry)
+    return Context(root, ds, registries, registry, load_learn(root))
 
 
 def run_checks(root: Path) -> list[Finding]:
@@ -738,7 +1058,7 @@ def run_checks(root: Path) -> list[Finding]:
             ]
         return [load, *schema]
     findings: list[Finding] = []
-    for name, fn in CHECKS.items():
+    for name, fn in {**CHECKS, **LEARN_CHECKS}.items():
         try:
             findings.extend(Finding(name, m) for m in fn(ctx))
         except Exception as exc:
@@ -749,3 +1069,7 @@ def run_checks(root: Path) -> list[Finding]:
                 )
             )
     return findings
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

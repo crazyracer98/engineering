@@ -19,6 +19,36 @@ Schema in [`../schema/`](../schema/).
 | `method.yaml` | method and limits, as prose blocks |
 | `history.yaml` | released editions and the old-to-new ID map |
 
+## `learn/`
+
+The learning hub's content ([ADR 0008](../docs/adrs/0008-learning-hub-in-the-dataset-repo.md)),
+validated by `taxonomy check` against the rules, domains and sources above.
+Schemas: `../schema/learn-*.schema.json`. Rendered on the site only.
+
+| Path | Holds |
+|---|---|
+| `learn/rules/<cat>.yaml` | `a` to `i`: one illustrative example per rule of the category (`management` exactly when the rule has a management form) |
+| `learn/domains/<branch>.yaml` | one example per `domains.yaml` row of the branch (table below) |
+| `learn/quiz/<cat>.yaml` | `a` to `i`: select-all-that-apply questions (IDs `q-a-01`); `quiz/conflicts.yaml` holds the conflict-rule questions (IDs `q-k-01`, `rules` name K IDs) |
+| `learn/cases/<n>.yaml` | `1` to `3`: real, sourced cases, at most one per rule |
+| `learn/sources/<n>.yaml` | `1` to `3`: the cases' sources, merged into the registry; slugs start with `case-` and each needs `author` |
+
+Branch file names are the branch heading in lower case with each run of other
+characters turned into `-` (`taxonomy.load.branch_slug`): `civil`,
+`mechanical`, `materials`, `electrical`, `chemical`, `nuclear`, `mining`,
+`biomedical`, `agricultural`, `industrial`, `computing`, `cross-cutting`, and
+for the management branches `management-governance-and-assurance`,
+`management-strategy-and-decisions`, `management-portfolio-programme-and-project`,
+`management-product-and-innovation`, `management-operations-quality-and-supply`,
+`management-risk-resilience-and-legal`, `management-people-and-organization`
+and `management-finance`.
+
+Examples are illustrative, not evidence; only a case with a registered source
+is evidence. Check gaps per scope with
+`uv run python -m taxonomy.validate --learn-coverage [--scope a..i|k|<branch>]`
+([FR-0001](../docs/frs/FR-0001-learning-coverage.md)); `taxonomy check` does
+not require coverage.
+
 ## Do
 
 - Edit the taxonomy here, then run `uv run taxonomy check` and

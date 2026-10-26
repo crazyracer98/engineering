@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/crazyracer98/engineering/schema/learn-cases.schema.json",
+  "title": "Learning hub: cases",
+  "description": "data/learn/cases/<n>.yaml: real, documented incidents. Quotes are verbatim and verified like rule quotes (ADR 0006); their sources are registered in data/learn/sources/ (ADR 0007). At most one case per rule across all files.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^case-[a-z0-9]+(-[a-z0-9]+)*$",
+        "description": "Case ID."
+      },
+      "title": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Case title."
+      },
+      "year": {
+        "type": "integer",
+        "description": "Year of the incident."
+      },
+      "summary": {
+        "type": "string",
+        "minLength": 1,
+        "description": "What happened, in plain English."
+      },
+      "rules": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {
+          "type": "string",
+          "pattern": "^P[1-9][0-9]*$",
+          "description": "Rule ID (data/rules.yaml)."
+        },
+        "description": "Rules the case illustrates."
+      },
+      "lessons": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "properties": {
+            "rule": {
+              "type": "string",
+              "pattern": "^P[1-9][0-9]*$",
+              "description": "Rule ID (data/rules.yaml)."
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "description": "What the case shows about the rule."
+            }
+          },
+          "required": [
+            "rule",
+            "text"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "quotes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "description": "Source slug in the merged registry."
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Verbatim quote from the source."
+            }
+          },
+          "required": [
+            "source",
+            "text"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "id",
+      "title",
+      "year",
+      "summary",
+      "rules",
+      "lessons",
+      "quotes"
+    ],
+    "additionalProperties": false
+  }
+}

@@ -125,6 +125,71 @@ class Category(TypedDict):
     rules: list[str]
 
 
+class RuleExample(TypedDict, total=False):
+    rule: str
+    scenario: str
+    applying: str
+    violating: str
+    management: dict[str, str]
+
+
+class DomainShow(TypedDict):
+    rule: str
+    how: str
+
+
+class DomainExample(TypedDict):
+    branch: str
+    domain: str
+    scenario: str
+    shows: list[DomainShow]
+
+
+class QuestionOption(TypedDict):
+    text: str
+    correct: bool
+    feedback: str
+
+
+class Question(TypedDict):
+    id: str
+    rules: list[str]
+    stem: str
+    options: list[QuestionOption]
+
+
+class CaseLesson(TypedDict):
+    rule: str
+    text: str
+
+
+class CaseQuote(TypedDict):
+    source: str
+    text: str
+
+
+class Case(TypedDict):
+    id: str
+    title: str
+    year: int
+    summary: str
+    rules: list[str]
+    lessons: list[CaseLesson]
+    quotes: list[CaseQuote]
+
+
+@dataclass
+class Learn:
+    """Everything under ``data/learn/`` except the case sources, as plain values."""
+
+    rule_examples: list[RuleExample] = field(default_factory=list)
+    domain_examples: list[DomainExample] = field(default_factory=list)
+    questions: list[Question] = field(default_factory=list)
+    cases: list[Case] = field(default_factory=list)
+    #: Entries per file, by path relative to the root (``data/learn/quiz/a.yaml``).
+    files: dict[str, list[Any]] = field(default_factory=dict)
+
+
 @dataclass
 class Dataset:
     """Everything under ``data/``, loaded as plain Python values."""

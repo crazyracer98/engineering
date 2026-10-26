@@ -1,0 +1,13 @@
+# Authored for tests; illustrative, not evidence.
+- rule: P1
+  scenario: A team plans a release.
+  applying: The team writes the check first and runs it.
+  violating: The team ships without running any check.
+  management:
+    scenario: A manager plans a quarter.
+    applying: The manager states a measurable check.
+    violating: The manager sets a goal with no check.
+- rule: P5
+  scenario: A service has no management form.
+  applying: The rule is applied as written.
+  violating: The rule is ignored.
