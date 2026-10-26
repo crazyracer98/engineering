@@ -10,6 +10,7 @@ ignore:
   - sources/
   - mkdocs.yml
   - site-overrides/
+  - site-assets/
   - pyproject.toml
   - uv.lock
   - docs/methodology.md
