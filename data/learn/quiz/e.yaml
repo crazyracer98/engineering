@@ -1,2 +1,368 @@
 # Quiz questions, category E. Schema: schema/learn-quiz.schema.json.
-[]
+- id: q-e-01
+  rules: [P44, P46]
+  stem: A team sizes a worker pool for the average load of 500 jobs per second. Peak days reach 900 jobs per second. Which changes follow the margin rule? Select all that apply.
+  options:
+    - text: State the design load as a probability per period, such as the 1-in-100-day peak, and size above it.
+      correct: true
+      feedback: Right. P44 asks for the design load as a probability per time period, with capacity above it.
+    - text: Keep the average utilization of the pool well below 100 %, for example under 70 %.
+      correct: true
+      feedback: Right. P44 keeps queued resources well below 100 % utilization because delay rises sharply near it.
+    - text: Size the pool exactly to the average, so that no capacity sits idle.
+      correct: false
+      feedback: Wrong. Sizing exactly to the average load is the violation named in P44. Real load exceeds the estimate.
+    - text: Run a second pool at a different provider, and keep both sized to the average.
+      correct: false
+      feedback: Wrong. Different providers are diversity (P46), which protects against a common cause. It adds no margin to the load (P44).
+    - text: Skip the load test, because the margin is already stated in the design.
+      correct: false
+      feedback: Wrong. The P44 check is a load test that shows capacity at or above the design load times the chosen factor.
+- id: q-e-02
+  rules: [P44, P45]
+  stem: A service has 30 % headroom on paper and runs in three availability zones. Which evidence shows that the margin rule is met?
+  options:
+    - text: Last week's average CPU use was 40 %.
+      correct: false
+      feedback: Wrong. An average does not show capacity at the design load. P44 needs a load test at that load.
+    - text: The service survives the removal of any one node in a test.
+      correct: false
+      feedback: Wrong. That test shows N-1 redundancy (P45). It does not show capacity above the design load (P44).
+    - text: A load test at the stated design load times the factor, with queue delay within its target.
+      correct: true
+      feedback: Right. This is the P44 check, capacity at or above the design load times the chosen factor, with queue delay within target.
+    - text: The design document says that headroom is 30 %.
+      correct: false
+      feedback: Wrong. A stated figure is not a measurement. P44 requires a load test to confirm it.
+- id: q-e-03
+  rules: [P44, P52]
+  stem: A team lead plans each person at 100 % for the sprint, because the team also handles unplanned support requests. Every sprint misses its goal. Which changes follow the rules? Select all that apply.
+  options:
+    - text: Plan about 70 % of capacity and keep the rest free for unplanned work.
+      correct: true
+      feedback: Right. The management form of P44 keeps free capacity and does not plan people near 100 % utilization.
+    - text: Start more work items in parallel, so that nobody waits for work.
+      correct: false
+      feedback: Wrong. More parallel work lengthens lead time for every item (P52), and it removes slack (P44).
+    - text: Set a visible limit on items in progress, and finish items before starting new ones.
+      correct: true
+      feedback: Right. P52 limits work in progress. It shortens lead time and fits with keeping slack under P44.
+    - text: Keep planning at 100 %, but add a stretch goal to each sprint.
+      correct: false
+      feedback: Wrong. A stretch goal adds load. P44 says to keep slack and not to plan near 100 %.
+- id: q-e-04
+  rules: [P45, P46]
+  stem: A critical service must survive the loss of any single node. Which designs meet the redundancy rule? Select all that apply.
+  options:
+    - text: Three replicas in three zones behind a tested load balancer with health checks.
+      correct: true
+      feedback: Right. P45 needs copies and a reliable switch-over mechanism, so that the loss of one element does not stop the function.
+    - text: One large replica with a very high hardware specification.
+      correct: false
+      feedback: Wrong. A single replica is the P45 violation. Better hardware does not remove the single point of failure.
+    - text: Two replicas, with a failover script that nobody has ever run.
+      correct: false
+      feedback: Wrong. P45 requires that each copy and the switch-over mechanism are reliable enough for the redundancy to help.
+    - text: Two replicas on separate nodes, with a switch-over that is tested in practice.
+      correct: true
+      feedback: Right. Two copies and a tested switch-over keep the function running after one loss (P45). P46 may add further diversity.
+- id: q-e-05
+  rules: [P45]
+  stem: A team wants to prove that its service meets the N-1 rule. Which tests do that? Select all that apply.
+  options:
+    - text: Remove each node in turn in a test and check that requests keep succeeding.
+      correct: true
+      feedback: Right. The P45 check is that removing any single element in a test keeps the function running.
+    - text: Count the replicas in the deployment file.
+      correct: false
+      feedback: Wrong. The count shows copies exist. P45 asks for a test that the function survives the loss of an element.
+    - text: Remove the load balancer in a test and check that requests keep succeeding.
+      correct: true
+      feedback: Right. The switch-over mechanism is an element too. P45 says any single element, so it must be tested as well.
+    - text: Raise the load to twice the design load and check the response times.
+      correct: false
+      feedback: Wrong. That is a margin test (P44). It does not test the loss of a single element.
+- id: q-e-06
+  rules: [P46, P45]
+  stem: Three replicas of a login service run in different zones, but all use one TLS certificate that expires next week. What does the diversity rule say? Select all that apply.
+  options:
+    - text: The replicas share a dependency that can hit all copies at once, so the copies should differ there.
+      correct: true
+      feedback: Right. P46 applies when one cause can hit all copies at once. A shared certificate is such a cause.
+    - text: Three replicas already meet the redundancy rule, so no further change is needed.
+      correct: false
+      feedback: Wrong. Identical copies fail together. P45 needs reliable copies, and P46 deals with the shared cause.
+    - text: Add a fourth replica that uses the same certificate.
+      correct: false
+      feedback: Wrong. Another identical copy fails with the others (P46). More copies do not help against a common cause.
+    - text: List the shared dependencies and justify each one that stays.
+      correct: true
+      feedback: Right. The P46 check is a list of shared dependencies of redundant copies, with each one justified.
+    - text: Move all replicas into one zone to simplify the certificate.
+      correct: false
+      feedback: Wrong. That adds a shared dependency and removes zone redundancy (P45, P46).
+- id: q-e-07
+  rules: [P46]
+  stem: An engineer reviews a design with two DNS providers, two regions and one shared container base image. Which statements fit the diversity rule? Select all that apply.
+  options:
+    - text: The base image is a shared dependency, so it must be listed.
+      correct: true
+      feedback: Right. P46 lists the shared dependencies of redundant copies.
+    - text: Having two providers means no shared dependency needs a justification.
+      correct: false
+      feedback: Wrong. Each remaining shared dependency needs a justification (P46), not only the DNS and regions.
+    - text: The shared image stays only if the team justifies it.
+      correct: true
+      feedback: Right. P46 allows a shared dependency if it is justified.
+    - text: The two DNS providers are an example of diversity.
+      correct: true
+      feedback: Right. Different providers for the same function are the P46 example for DNS.
+- id: q-e-08
+  rules: [P47, P44]
+  stem: A shop expects demand to exceed capacity during a sale. Which plans follow the degradation rule? Select all that apply.
+  options:
+    - text: Switch off recommendations first and keep checkout running for as long as possible.
+      correct: true
+      feedback: Right. P47 defines in advance which lower-priority functions switch off first, so that critical functions keep running.
+    - text: Let every function slow down evenly, so that nobody is treated unfairly.
+      correct: false
+      feedback: Wrong. All functions slowing together until everything fails is the P47 violation.
+    - text: Add rate limiting for low-priority endpoints.
+      correct: true
+      feedback: Right. Rate limiting is a P47 example of limiting low-priority load.
+    - text: Raise the margin, and assume demand never exceeds it.
+      correct: false
+      feedback: Wrong. Margin (P44) helps, but P47 applies exactly when demand can exceed capacity.
+- id: q-e-09
+  rules: [P47]
+  stem: A team writes a plan for an overload test. Which result shows that the degradation rule is met?
+  options:
+    - text: Response times grow for all functions evenly, and none fails.
+      correct: false
+      feedback: Wrong. Even slowing is the P47 violation pattern. The check is that low-priority functions stop first.
+    - text: Low-priority functions stop first, and critical functions keep running.
+      correct: true
+      feedback: Right. This is the P47 check, shown in an overload test.
+    - text: Critical functions stop first, so that the cause is easy to see.
+      correct: false
+      feedback: Wrong. P47 keeps critical functions running. They switch off last.
+    - text: All functions stop together and restart after a minute.
+      correct: false
+      feedback: Wrong. A full stop is the cascading failure that P47 is meant to prevent.
+- id: q-e-10
+  rules: [P48, P51]
+  stem: An autoscaler scales up above 60 % CPU and down below 60 % CPU. It adds and removes workers every minute. Which fixes follow the damping rule? Select all that apply.
+  options:
+    - text: Add a cooldown of several minutes between scaling actions.
+      correct: true
+      feedback: Right. P48 adds a delay or cooldown so that the loop does not switch back and forth.
+    - text: Add a deadband, for example up above 75 % and down below 45 %.
+      correct: true
+      feedback: Right. A deadband is a P48 remedy for oscillation.
+    - text: Shorten the measurement interval, so that it reacts faster.
+      correct: false
+      feedback: Wrong. Faster reaction increases the switching. P48 asks for damping.
+    - text: Give every downstream stage the end demand signal.
+      correct: false
+      feedback: Wrong. That is P51. It reduces amplification along a chain, but this loop's problem is missing damping (P48).
+- id: q-e-11
+  rules: [P48]
+  stem: A team reviews the control loops in its platform. Which findings meet the damping check? Select all that apply.
+  options:
+    - text: Each automatic loop has a documented deadband, delay or cooldown.
+      correct: true
+      feedback: Right. This is the first part of the P48 check.
+    - text: A test with noisy input shows no repeated switching.
+      correct: true
+      feedback: Right. The P48 check includes a test that shows no repeated switching.
+    - text: The loops react as fast as possible to every measurement.
+      correct: false
+      feedback: Wrong. Reacting to every measurement without damping causes oscillation (P48).
+    - text: Loops that change state on every measurement are accepted, if they scale back the same minute.
+      correct: false
+      feedback: Wrong. Repeated on-off cycles waste resources and destabilize the system (P48).
+    - text: An autoscaler that scales up and down every minute is reported as a finding.
+      correct: true
+      feedback: Right. This is the P48 violation, so a review should flag it.
+- id: q-e-12
+  rules: [P49, P44]
+  stem: A CI cluster is congested. The team doubles its size, and it is full again a month later. What should the team have done? Select all that apply.
+  options:
+    - text: Forecast that demand grows into the new capacity before the increase.
+      correct: true
+      feedback: Right. P49 expects demand to grow into new capacity, and the check requires a forecast.
+    - text: Add a quota per team or a priority scheme with the capacity.
+      correct: true
+      feedback: Right. P49 also manages demand, with quotas, priorities or pricing.
+    - text: Double the cluster again, because the margin was too small.
+      correct: false
+      feedback: Wrong. Margin (P44) does not fix induced demand. P49 says more capacity lowers the cost of use and use grows.
+    - text: Conclude that the first doubling was not enough and stop measuring.
+      correct: false
+      feedback: Wrong. Without a forecast and a demand control, P49 predicts the same result again.
+    - text: Charge teams for runner minutes.
+      correct: true
+      feedback: Right. Pricing is one of the demand controls named in P49.
+- id: q-e-13
+  rules: [P49]
+  stem: A department receives a larger budget for a late project, with the instruction to do more of the same. Which response follows the rule on added capacity?
+  options:
+    - text: Spend the budget as work comes up, and review at the end.
+      correct: false
+      feedback: Wrong. Work and spending expand to fill the budget. This is Parkinson's law, the management form of P49.
+    - text: Agree an explicit scope and end date with the budget.
+      correct: true
+      feedback: Right. The management form of P49 manages demand as well as capacity, here by an explicit scope.
+    - text: Add people to the project to use the budget quickly.
+      correct: false
+      feedback: Wrong. Adding people to late work is limited by P53, and it does not manage demand (P49).
+    - text: Refuse the budget, because extra capacity never helps.
+      correct: false
+      feedback: Wrong. P49 does not reject capacity. It says to manage demand along with it.
+- id: q-e-14
+  rules: [P50, P52]
+  stem: Releases take three days from merge. Lint takes 2 minutes, tests take 40 minutes, and changes wait two days in the review queue. Which actions follow the bottleneck rule? Select all that apply.
+  options:
+    - text: Measure and name the review queue as the constraint first.
+      correct: true
+      feedback: Right. The P50 check is that the current constraint is measured and named before an improvement.
+    - text: Halve the lint time, because it is the easiest to change.
+      correct: false
+      feedback: Wrong. Speeding up a step that is not the constraint does not raise output (P50).
+    - text: Add review capacity at the review queue.
+      correct: true
+      feedback: Right. P50 improves the constraint first.
+    - text: Limit the number of changes waiting for review.
+      correct: true
+      feedback: Right. A limit on work in progress (P52) keeps the queue short, and it supports P50.
+    - text: Run the tests on faster machines.
+      correct: false
+      feedback: Wrong. Tests are not the constraint here, so P50 does not support this first.
+- id: q-e-15
+  rules: [P50, P49]
+  stem: A company wants faster launches. Every launch needs a review by the one security specialist. Which responses follow the management form of the bottleneck rule? Select all that apply.
+  options:
+    - text: Hire more developers to produce more launch candidates.
+      correct: false
+      feedback: Wrong. More developers do not raise output when the security review is the limit (P50).
+    - text: Add review capacity at the security review step first.
+      correct: true
+      feedback: Right. P50 improves the step that limits output, often an approval or a specialist.
+    - text: Start measuring how long launches wait for the review.
+      correct: true
+      feedback: Right. P50 needs the constraint to be measured and named.
+    - text: Skip the review for small launches without a risk assessment.
+      correct: false
+      feedback: Wrong. P50 improves the constraint, and it does not remove a control. Skipping review is not a P50 remedy.
+- id: q-e-16
+  rules: [P51, P48]
+  stem: A request passes through a front end, an API and a worker service. Each autoscaler reacts to its own queue, and swings grow along the chain. Which changes follow the rule on shared demand? Select all that apply.
+  options:
+    - text: Publish the front-end traffic as an end-demand signal.
+      correct: true
+      feedback: Right. P51 shares the real end demand with every stage.
+    - text: Let the API and worker scale on that signal as well as on their own queue.
+      correct: true
+      feedback: Right. The P51 example scales upstream services on front-end traffic, not only on their own delayed queue.
+    - text: Make each stage react faster to its own queue.
+      correct: false
+      feedback: Wrong. Faster reaction to the stage below amplifies the swings (P51), and it may cause oscillation (P48).
+    - text: Give each stage a longer cooldown and nothing else.
+      correct: false
+      feedback: Wrong. A cooldown (P48) reduces switching in one loop, but the stages still cannot see the end demand (P51).
+- id: q-e-17
+  rules: [P51]
+  stem: A platform team supports several product teams and sees only the tickets that arrive. Its workload swings with every launch. What follows the rule?
+  options:
+    - text: Hire people for each swing, and release them afterwards.
+      correct: false
+      feedback: Wrong. This reacts to the swings. P51 removes their cause by sharing the real end demand.
+    - text: Ask product teams to submit tickets earlier.
+      correct: false
+      feedback: Wrong. Earlier tickets still show only the next stage's orders. P51 asks for the real end demand.
+    - text: Give the platform team the product teams' roadmaps.
+      correct: true
+      feedback: Right. The management form of P51 gives every stage the real end demand, not only the order of the next stage.
+    - text: Add a buffer of unused capacity.
+      correct: false
+      feedback: Wrong. A buffer is margin (P44). It does not give the stage the demand signal (P51).
+- id: q-e-18
+  rules: [P52, P50]
+  stem: A team has 23 epics open and six people. Nothing finishes, and every epic waits weeks. Which steps follow the work-in-progress rule? Select all that apply.
+  options:
+    - text: Set a visible limit, such as four epics in progress.
+      correct: true
+      feedback: Right. The P52 check is a visible limit on work in progress.
+    - text: Finish items before starting new ones.
+      correct: true
+      feedback: Right. P52 says to finish items before starting new ones.
+    - text: Start work on every epic at once, so that all of them progress.
+      correct: false
+      feedback: Wrong. Everything in progress and nothing finished is the P52 violation.
+    - text: Speed up the first step of the process, whatever it is.
+      correct: false
+      feedback: Wrong. Without finding the constraint (P50) this may add only more waiting items. P52 limits work in progress.
+- id: q-e-19
+  rules: [P52]
+  stem: A manager asks why a change to the process should shorten waiting times when the team's throughput stays the same. Which explanations are correct? Select all that apply.
+  options:
+    - text: At a given throughput, average lead time is proportional to average work in progress.
+      correct: true
+      feedback: Right. This is Little's law, the reason given in P52.
+    - text: Less work in progress lowers the average lead time for every item.
+      correct: true
+      feedback: Right. P52 follows from the proportion, so fewer parallel items means shorter waits.
+    - text: More parallel work shortens waiting, because nobody is idle.
+      correct: false
+      feedback: Wrong. More parallel work means longer waiting for every item (P52).
+    - text: Lead time does not depend on work in progress.
+      correct: false
+      feedback: Wrong. P52 gives the dependency, the proportion in Little's law.
+- id: q-e-20
+  rules: [P53, P45]
+  stem: A cluster migration is two weeks late, with a deadline two weeks away. The lead considers adding five engineers. Which actions follow the rule on late work? Select all that apply.
+  options:
+    - text: Cut or move scope first.
+      correct: true
+      feedback: Right. P53 cuts or moves scope before expecting a recovery from added people.
+    - text: Add the five engineers now, since more hands finish sooner.
+      correct: false
+      feedback: Wrong. New people need training and add communication paths, so output drops at first (P53, Brooks's law).
+    - text: Add people at the start of the next migration, where work can be split.
+      correct: true
+      feedback: Right. P53 adds people early, and only where the work can be split.
+    - text: Add two engineers, as a spare in case someone is absent.
+      correct: false
+      feedback: Wrong. Spare people for redundancy are P45 for a standing function. They do not rescue late coordinated work (P53).
+- id: q-e-21
+  rules: [P53]
+  stem: A lead must decide on adding people to late work. Which evidence meets the check of the rule on late work?
+  options:
+    - text: A record of the expected training and coordination cost, made before the people are added.
+      correct: true
+      feedback: Right. This is the P53 check.
+    - text: A promise by the new people to work extra hours.
+      correct: false
+      feedback: Wrong. This does not address training and coordination cost (P53).
+    - text: A chart showing that the team needed fewer people last year.
+      correct: false
+      feedback: Wrong. P53 asks for the cost of adding people to this work now.
+    - text: A schedule that shows the old team finishing at the same speed.
+      correct: false
+      feedback: Wrong. P53 expects the existing team's output to fall at first, not stay the same.
+- id: q-e-22
+  rules: [P45, P53]
+  stem: Only one person knows how to restore the billing batch job. A manager wants to remove this single point of failure. Which actions fit the rules? Select all that apply.
+  options:
+    - text: Name a deputy and train a successor for the function.
+      correct: true
+      feedback: Right. The management form of P45 keeps every critical function alive after the loss of one person.
+    - text: Document the knowledge so that others can act on it.
+      correct: true
+      feedback: Right. Documented knowledge is part of the management form of P45.
+    - text: Wait until a failure happens, then hire an extra person at once.
+      correct: false
+      feedback: Wrong. Adding people to late work is limited by P53, and it does not replace redundancy in advance (P45).
+    - text: Ask the one person never to take leave.
+      correct: false
+      feedback: Wrong. This keeps the single point of failure. P45 needs the function to survive the loss of one person.

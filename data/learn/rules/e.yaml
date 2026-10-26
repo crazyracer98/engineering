@@ -1,2 +1,74 @@
 # Rule examples, category E. Schema: schema/learn-rules.schema.json.
-[]
+# Every example is illustrative: invented, not evidence.
+- rule: P44
+  scenario: "A ticketing service averages 400 requests per second. The busiest day in 100 reaches 900 requests per second. The team sizes its worker pool."
+  applying: "The team states the design load as 900 requests per second, the 1-in-100-day peak, and adds 30 % headroom, so 1,170. It sizes the pool to stay below 70 % average utilization. A load test at 1,170 requests per second shows queue delay within the 200 ms target."
+  violating: "The team sizes the pool exactly to the average of 400 requests per second. On the first busy day the queue grows, delay climbs sharply, and requests time out."
+  management:
+    scenario: "A team lead plans the next sprint for a team that also handles unplanned support work."
+    applying: "The lead plans 70 % of the team's capacity and keeps 30 % free for unplanned work. When two urgent bugs arrive, the sprint goal still holds."
+    violating: "The lead plans every person at 100 %. Each urgent bug pushes planned work out, and the sprint misses its goal."
+- rule: P45
+  scenario: "A payments API is a critical service. One failed node must not stop it."
+  applying: "The API runs on three nodes in three availability zones. The switch-over is a load balancer with health checks, and it is tested too. In a test the team removes one node at a time, and requests keep succeeding each time."
+  violating: "The queue service behind the API runs as a single replica. When its node is replaced during maintenance, payments stop until it restarts."
+  management:
+    scenario: "A team runs an on-call rota. Some skills are needed for every incident."
+    applying: "Each on-call skill is held by at least two named people, and each has a trained successor. If one person leaves or falls ill, the function continues."
+    violating: "Only one person knows how to restore the billing batch job, and nothing is documented. When that person is on leave, a failure stays unfixed for days."
+- rule: P46
+  scenario: "A team runs three replicas of a login service. They must survive causes that hit all replicas at once."
+  applying: "The team lists the shared dependencies of the replicas: the cloud region, the base image, the TLS certificate and the DNS provider. Each one is either made different or justified in writing. The certificate is issued separately for each replica, and two DNS providers serve the zone."
+  violating: "All three replicas use the same TLS certificate. It expires on a Sunday, and all three fail together although there are three copies."
+  management:
+    scenario: "An operations manager plans a status page and a review of a risky decision."
+    applying: "The status page runs in two regions from two different providers. The risk review team includes people from another department who hold different views."
+    violating: "The status page has two copies, but both run at the same provider in the same region. A review team of colleagues who think alike signs off the plan."
+- rule: P47
+  scenario: "An online shop expects demand to exceed capacity during a sale."
+  applying: "Before the sale, the team defines the order in which functions switch off. Product recommendations go first, then search suggestions, and checkout runs last. An overload test shows low-priority functions stop first while checkout keeps working."
+  violating: "Nothing is prioritized. Under sale traffic, every function slows down together, queues fill everywhere, and the whole shop fails, checkout included."
+  management:
+    scenario: "A support organization can be hit by more requests than it can handle after an outage."
+    applying: "The team decides in advance that feature requests stop first and that incident response and security patches continue. It also states the minimum capacity at which stopped activities resume."
+    violating: "Every request type is handled in arrival order. During the outage, security patches wait behind feature requests."
+- rule: P48
+  scenario: "An autoscaler adds and removes workers based on CPU load measurements."
+  applying: "The autoscaler has a deadband (scale up above 75 %, down below 45 %) and a five-minute cooldown. It is documented. A test with noisy load shows no repeated switching."
+  violating: "The autoscaler scales up when CPU passes 60 % and down when it drops below 60 %. It adds and removes workers every minute and wastes capacity."
+  management:
+    scenario: "A product organization reacts to customer feedback and market news."
+    applying: "Priorities change on a fixed cadence, at sprint boundaries. A new signal waits for the next planning session unless it is a real emergency."
+    violating: "Priorities change every day with each new signal. Teams start and drop work repeatedly and finish little."
+- rule: P49
+  scenario: "A platform team's CI cluster is congested, and builds wait in a queue."
+  applying: "The team doubles the runners. Before doing so it forecasts that demand will grow into the new capacity. It adds a quota per team and a lower priority for nightly builds. Both demand controls are in place with the capacity increase."
+  violating: "The team doubles the cluster and changes nothing else. Faster CI leads to more CI runs, and the cluster is full again a month later."
+  management:
+    scenario: "A department asks for more budget for a project that is behind."
+    applying: "The extra budget comes with an explicit scope and a stated end date. The work is not allowed to grow to use up the money."
+    violating: "The budget is raised with the words more of the same. The work expands to fill it, and the project is still not finished."
+- rule: P50
+  scenario: "A team wants to ship changes faster. A change takes three days from merge to release."
+  applying: "Before choosing an improvement, the team measures each step. Lint takes 2 minutes, integration tests take 40 minutes, and changes wait about two days in the review queue. It names the review queue as the constraint and improves it first."
+  violating: "The team spends a sprint making lint twice as fast. Work still piles up in front of the review queue, and the release time does not change."
+  management:
+    scenario: "A company wants products to launch sooner. Every launch needs a security review."
+    applying: "The security review queue is measured and named as the constraint. Review capacity is added there first."
+    violating: "The company adds more developers, but the single security reviewer is the limit. Launches do not get faster."
+- rule: P51
+  scenario: "A request passes through a front end, an API and a worker service. Each has its own autoscaler."
+  applying: "The front end publishes its real traffic. The API and the worker service scale on that end-demand signal as well as on their own queue length. Every stage in the chain can see the end demand."
+  violating: "Each autoscaler reacts only to its own queue. A small traffic bump grows into a large swing at the API and a larger one at the worker service."
+  management:
+    scenario: "A platform team supports several product teams."
+    applying: "The platform team sees the product teams' roadmaps and expected launches. It plans capacity for the real end demand."
+    violating: "The platform team sees only the tickets that arrive. It reacts late to each launch, and its workload swings."
+- rule: P52
+  scenario: "A team handles a flow of feature requests. It sets up a board."
+  applying: "The board has a visible limit of four epics in progress. A new epic starts only when one finishes. The team tracks work in progress and lead time, and lead time falls."
+  violating: "Everything is in progress and nothing is finished. There are 23 open epics for a team of six, and each waits weeks for attention."
+- rule: P53
+  scenario: "A cluster migration is two weeks late, and a deadline is two weeks away."
+  applying: "The lead cuts scope first, by moving two low-value services to the next migration. A record states the expected training and coordination cost of new people. New engineers join the next migration from its start, where the work can be split."
+  violating: "The lead adds five engineers to the migration two weeks before the deadline. The existing team spends its time training them and the migration slips further."
