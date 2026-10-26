@@ -1,2 +1,39 @@
 # Domain examples, branch Management: Strategy and decisions. Schema: schema/learn-domains.schema.json.
-[]
+- branch: 'Management: Strategy and decisions'
+  domain: Enterprise risk management
+  scenario: A retailer decides how to enter a new market. The board scales the rigor of its analysis to the consequence of failure times the uncertainty, so a small pilot gets light checks and a major acquisition gets deep ones. Early on, uncertainty is high, so the team keeps three entry options alive in parallel and drops the weak ones as evidence arrives. For each option it lists how it can fail and how parts could interact badly.
+  shows:
+  - rule: Master
+    how: The rigor of the analysis follows consequence times uncertainty. The pilot and the acquisition get different depth.
+  - rule: P16
+    how: Uncertainty is high early, so several options run in parallel. Weak ones are eliminated as evidence arrives, and the team commits only after feasibility is shown.
+  - rule: P22
+    how: Before committing, the team lists how each option can fail and how its parts can interact unsafely.
+- branch: 'Management: Strategy and decisions'
+  domain: Decision making
+  scenario: A leadership team sorts its decisions. Changing the price of a trial plan is reversible, so a team lead decides it the same day. Selling a business unit cannot be undone, so it is slow and the board consults experts and reviews it. Each decision record states its class and the process used.
+  shows:
+  - rule: P18
+    how: Each decision is classed as reversible or irreversible. Reversible ones are made quickly at the lowest competent level. Irreversible ones are made slowly, with consultation and review. The record states the class.
+- branch: 'Management: Strategy and decisions'
+  domain: Red teaming and challenge
+  scenario: Before a board approves a new strategy, a group outside the planning team is asked to attack it. The group is told to find weak assumptions. The strategy's author does not review it. Because the planning team and the red team would share the same data sources and the same advisors, the board has them draw on different ones.
+  shows:
+  - rule: P56
+    how: A checker who is not the author reviews the strategy. The checker sits outside the planning team, so independence rises with the consequence of failure.
+  - rule: P46
+    how: The two groups are made different in their sources and advisors, so that one shared cause does not affect both.
+- branch: 'Management: Strategy and decisions'
+  domain: Military command and control
+  scenario: A regional director gives a team a task to open a depot. She states the purpose, the end state (serving customers by month end) and the limits (budget, no new hires). She does not say how to do it. She also asks for an expert on customs rules, because nobody on the team knows them.
+  shows:
+  - rule: P7
+    how: The task states purpose, end state and constraints, and leaves the method to the people who do the work.
+  - rule: P2
+    how: The team works within its competence and involves an expert for the customs rules outside it.
+- branch: 'Management: Strategy and decisions'
+  domain: Pre-mortem risk identification
+  scenario: Before launching a new subscription service, the team imagines it is a year later and the launch has failed. Each member writes down why. The team collects the reasons by component, such as billing, support and partner contracts. It also lists how parts that work alone could clash. The list is reviewed before work starts.
+  shows:
+  - rule: P22
+    how: Before building, the team lists how each part can fail and how parts can interact unsafely. The list is reviewed.
