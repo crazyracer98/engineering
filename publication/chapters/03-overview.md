@@ -20,7 +20,7 @@ A checklist works best with five to nine items, so the taxonomy can be used as o
 
 ## Analogy map: engineering object → management object
 
-The left column is the engineering term used in this file. The right column is the thing that plays the same role in an organization.
+The left column is the engineering term used in this taxonomy. The right column is the thing that plays the same role in an organization.
 
 | Engineering | Management | Same role |
 | --- | --- | --- |

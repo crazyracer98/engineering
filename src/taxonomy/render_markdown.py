@@ -99,7 +99,11 @@ def resolve_citations(
     def replace(match: re.Match[str]) -> str:
         return "; ".join(link(s, loc) for s, loc in parse_citation(match.group(1)))
 
-    # Only touch text outside code: split on code, resolve the rest.
+    return _outside_code(text, replace)
+
+
+def _outside_code(text: str, replace: Callable[[re.Match[str]], str]) -> str:
+    """``text`` with every citation outside code passed through ``replace``."""
     pieces: list[str] = []
     last = 0
     spans = [(m.start(), m.end()) for m in _FENCE.finditer(text)]
@@ -114,6 +118,38 @@ def resolve_citations(
         last = end
     pieces.append(_CITATION.sub(replace, text[last:]))
     return "".join(pieces)
+
+
+def number_citations(text: str, registry: Mapping[str, Source]) -> str:
+    """Turn Pandoc citations into numbered links and add a reference list.
+
+    Each ``[@slug]`` becomes ``[[n]](#ref-n)``, numbered per page in order of
+    first citation (``[@a; @b]`` becomes ``[1], [2]``; a locator follows the
+    number: ``[@a, p. 3]`` becomes ``[1], p. 3``). When the text cites
+    anything, a ``## References`` list ends it, one entry per number with the
+    anchor ``ref-n`` and the source title linked to its URL. Citations inside
+    code are left alone. An unknown slug raises ``UnknownSlugError``.
+    """
+    numbers: dict[str, int] = {}
+
+    def link(slug: str, locator: str | None) -> str:
+        lookup(registry, slug)
+        n = numbers.setdefault(slug, len(numbers) + 1)
+        out = f"[\\[{n}\\]](#ref-{n})"
+        return f"{out}, {locator}" if locator else out
+
+    def replace(match: re.Match[str]) -> str:
+        return ", ".join(link(s, loc) for s, loc in parse_citation(match.group(1)))
+
+    body = _outside_code(text, replace)
+    if not numbers:
+        return body
+    entries = [
+        f'- <a id="ref-{n}"></a>\\[{n}\\] '
+        f"[{registry[slug]['title']}]({registry[slug]['url']})"
+        for slug, n in numbers.items()
+    ]
+    return body.rstrip("\n") + "\n\n## References\n\n" + "\n".join(entries) + "\n"
 
 
 @dataclass

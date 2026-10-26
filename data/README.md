@@ -10,7 +10,7 @@ Schema in [`../schema/`](../schema/).
 | `meta.yaml` | title, edition (= release tag), master rule, reading guide, known exceptions, section prose and table layout |
 | `categories.yaml` | categories A–I and the rule order in each |
 | `rules.yaml` | the 83 rules (P1 to P83; the class U, R or C is a field) with checks, relations, evidence, sources and management form |
-| `conflicts.yaml` | the K-rules and the rules each one mentions |
+| `conflicts.yaml` | the conflict rules and the rules each one mentions |
 | `sources.yaml` | the source registry: one entry per URL, primary or secondary |
 | `quotes.yaml` | verbatim direct quotes and the rules they support |
 | `domains.yaml` | the domain index and the domains checked without a row |
@@ -26,6 +26,8 @@ Schema in [`../schema/`](../schema/).
 - Cite sources in prose only as Pandoc citations, `[@slug]`.
 - Add a new source to `sources.yaml` under a new slug matching
   `^[a-z0-9]+(-[a-z0-9]+)*$`.
+- Give every source an `author` list of CSL-JSON names: `{family, given}` for a person, `{literal}` for an organization or
+  collective (the issuing body of a standard or regulation, `Wikipedia contributors`); never a guessed person.
 - Bump `meta.edition` and add a `history.yaml` entry per
   [`docs/methodology.md`](../docs/methodology.md) "Versioning".
 

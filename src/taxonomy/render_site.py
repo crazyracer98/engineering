@@ -14,7 +14,7 @@ import sys
 from pathlib import Path
 
 from taxonomy.load import find_root, load_dataset, load_registry
-from taxonomy.render_markdown import resolve_citations
+from taxonomy.render_markdown import number_citations
 
 REPO_URL = "https://github.com/crazyracer98/engineering"
 SITE_SRC = Path("build") / "site-src"
@@ -88,7 +88,7 @@ def assemble(root: Path) -> Path:
         )
     for name in ("methodology.md", "history.md"):
         text = (root / "docs" / name).read_text(encoding="utf-8")
-        text = repo_links(resolve_citations(text, registry))
+        text = repo_links(number_citations(text, registry))
         (src / name).write_text(text, encoding="utf-8")
     (src / "index.md").write_text(
         index_page(str(ds.meta["edition"]), chapters), encoding="utf-8"

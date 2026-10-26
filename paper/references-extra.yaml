@@ -3,6 +3,10 @@
 # data/sources.yaml slug and are not repeated here.
 - slug: iso-iec-ieee-15288-2023
   title: "ISO/IEC/IEEE 15288:2023 Systems and software engineering — System life cycle processes"
+  author:
+  - literal: International Organization for Standardization
+  - literal: International Electrotechnical Commission
+  - literal: Institute of Electrical and Electronics Engineers
   url: https://www.iso.org/standard/81702.html
   kind: primary
   publisher: ISO
@@ -19,6 +23,8 @@
     published, not marked "to be revised".
 - slug: incose-se-handbook-5
   title: "INCOSE Systems Engineering Handbook, 5th Edition"
+  author:
+  - literal: International Council on Systems Engineering
   url: https://www.wiley.com/en-us/INCOSE+Systems+Engineering+Handbook%2C+5th+Edition-p-9781119814290
   kind: primary
   publisher: Wiley
@@ -31,6 +37,8 @@
     elaboration of the ISO/IEC/IEEE 15288:2023 processes).
 - slug: nasa-se-handbook-rev2
   title: "NASA Systems Engineering Handbook (NASA/SP-2016-6105 Rev2)"
+  author:
+  - literal: NASA
   url: https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf
   kind: primary
   publisher: NASA
@@ -44,6 +52,8 @@
     https://www.nasa.gov/reference/systems-engineering-handbook/.
 - slug: swebok-v4
   title: "Guide to the Software Engineering Body of Knowledge (SWEBOK Guide), Version 4.0"
+  author:
+  - literal: IEEE Computer Society
   url: https://www.computer.org/education/bodies-of-knowledge/software-engineering
   kind: primary
   publisher: IEEE Computer Society
@@ -56,6 +66,9 @@
     from that page.
 - slug: gawande-2009-checklist-manifesto
   title: "The Checklist Manifesto: How to Get Things Right"
+  author:
+  - family: Gawande
+    given: Atul
   url: https://us.macmillan.com/books/9780805091748/thechecklistmanifesto/
   kind: primary
   publisher: Metropolitan Books
@@ -69,6 +82,37 @@
     (mann-checklist-manifesto-notes).
 - slug: haynes-2009-surgical-checklist
   title: "A Surgical Safety Checklist to Reduce Morbidity and Mortality in a Global Population"
+  author:
+  - family: Haynes
+    given: Alex B.
+  - family: Weiser
+    given: Thomas G.
+  - family: Berry
+    given: William R.
+  - family: Lipsitz
+    given: Stuart R.
+  - family: Breizat
+    given: Abdel-Hadi S.
+  - family: Dellinger
+    given: E. Patchen
+  - family: Herbosa
+    given: Teodoro
+  - family: Joseph
+    given: Sudhir
+  - family: Kibatala
+    given: Pascience L.
+  - family: Lapitan
+    given: Marie Carmela M.
+  - family: Merry
+    given: Alan F.
+  - family: Moorthy
+    given: Krishna
+  - family: Reznick
+    given: Richard K.
+  - family: Taylor
+    given: Bryce
+  - family: Gawande
+    given: Atul A.
   url: https://doi.org/10.1056/NEJMsa0810119
   kind: primary
   publisher: New England Journal of Medicine
@@ -85,6 +129,17 @@
     from the abstract's Results and Conclusions.
 - slug: urbach-2014-ontario-checklists
   title: "Introduction of Surgical Safety Checklists in Ontario, Canada"
+  author:
+  - family: Urbach
+    given: David R.
+  - family: Govindarajan
+    given: Anand
+  - family: Saskin
+    given: Refik
+  - family: Wilton
+    given: Andrew S.
+  - family: Baxter
+    given: Nancy N.
   url: https://doi.org/10.1056/NEJMsa1308261
   kind: primary
   publisher: New England Journal of Medicine
@@ -101,6 +156,9 @@
     Conclusions.
 - slug: miller-1956-magical-number-seven
   title: "The magical number seven, plus or minus two: Some limits on our capacity for processing information"
+  author:
+  - family: Miller
+    given: George A.
   url: https://doi.org/10.1037/h0043158
   kind: primary
   publisher: Psychological Review
@@ -113,6 +171,9 @@
     phrase; its content is characterized through Cowan (2001).
 - slug: cowan-2001-magical-number-four
   title: "The magical number 4 in short-term memory: A reconsideration of mental storage capacity"
+  author:
+  - family: Cowan
+    given: Nelson
   url: https://doi.org/10.1017/S0140525X01003922
   kind: primary
   publisher: Behavioral and Brain Sciences
@@ -124,6 +185,21 @@
     abstract was read (via Europe PMC); quotes are from the abstract.
 - slug: guyatt-2008-grade
   title: "GRADE: an emerging consensus on rating quality of evidence and strength of recommendations"
+  author:
+  - family: Guyatt
+    given: Gordon H
+  - family: Oxman
+    given: Andrew D
+  - family: Vist
+    given: Gunn E
+  - family: Kunz
+    given: Regina
+  - family: Falck-Ytter
+    given: Yngve
+  - family: Alonso-Coello
+    given: Pablo
+  - family: Schünemann
+    given: Holger J
   url: https://doi.org/10.1136/bmj.39489.470347.AD
   kind: primary
   publisher: BMJ
@@ -140,6 +216,59 @@
     the GRADE system classify quality of evidence?".
 - slug: page-2021-prisma
   title: "The PRISMA 2020 statement: an updated guideline for reporting systematic reviews"
+  author:
+  - family: Page
+    given: Matthew J
+  - family: McKenzie
+    given: Joanne E
+  - family: Bossuyt
+    given: Patrick M
+  - family: Boutron
+    given: Isabelle
+  - family: Hoffmann
+    given: Tammy C
+  - family: Mulrow
+    given: Cynthia D
+  - family: Shamseer
+    given: Larissa
+  - family: Tetzlaff
+    given: Jennifer M
+  - family: Akl
+    given: Elie A
+  - family: Brennan
+    given: Sue E
+  - family: Chou
+    given: Roger
+  - family: Glanville
+    given: Julie
+  - family: Grimshaw
+    given: Jeremy M
+  - family: Hróbjartsson
+    given: Asbjørn
+  - family: Lalu
+    given: Manoj M
+  - family: Li
+    given: Tianjing
+  - family: Loder
+    given: Elizabeth W
+  - family: Mayo-Wilson
+    given: Evan
+  - family: McDonald
+    given: Steve
+  - family: McGuinness
+    given: Luke A
+  - family: Stewart
+    given: Lesley A
+  - family: Thomas
+    given: James
+  - family: Tricco
+    given: Andrea C
+  - family: Welch
+    given: Vivian A
+  - family: Whiting
+    given: Penny
+  - family: Moher
+    given: David
   url: https://doi.org/10.1136/bmj.n71
   kind: primary
   publisher: BMJ
@@ -155,6 +284,23 @@
     (Table 1).
 - slug: saunders-2018-saturation
   title: "Saturation in qualitative research: exploring its conceptualization and operationalization"
+  author:
+  - family: Saunders
+    given: Benjamin
+  - family: Sim
+    given: Julius
+  - family: Kingstone
+    given: Tom
+  - family: Baker
+    given: Shula
+  - family: Waterfield
+    given: Jackie
+  - family: Bartlam
+    given: Bernadette
+  - family: Burroughs
+    given: Heather
+  - family: Jinks
+    given: Clare
   url: https://doi.org/10.1007/s11135-017-0574-8
   kind: primary
   publisher: Quality & Quantity

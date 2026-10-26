@@ -33,8 +33,8 @@ written as `[@slug]`; citations inside code spans and fenced code are ignored.
 | `override-agreement` | a `related_text` override names exactly the rule IDs of the rule's structured `related`, each as often; non-rule text ("accountability", "(see K7)", qualifiers) is ignored | `validate.check_override_agreement` | `test_override_disagrees_with_related`, `test_override_ignores_non_rule_text` |
 | `sources-primary-first` | every rule's `sources`, and every management form's `sources`, list all primary sources before any secondary one | `validate.check_sources_primary_first` | `test_secondary_source_before_primary`, `test_management_secondary_source_before_primary` |
 | `primary-source` | every rule has at least one `primary` source unless `meta.known_exceptions` lists it (today only P53) | `validate.check_primary_source` | `test_primary_source_missing`, `test_known_exception_is_allowed` |
-| `counterexamples` | every C-rule has a non-empty `counterexample` | `validate.check_counterexamples` | `test_c_rule_without_counterexample` |
-| `conflict-rules` | every K-rule names at least 2 distinct, existing rules | `validate.check_conflict_rules` | `test_k_rule_names_too_few_rules`, `test_k_rule_names_unknown_rule` |
+| `counterexamples` | every conditional rule has a non-empty `counterexample` | `validate.check_counterexamples` | `test_c_rule_without_counterexample` |
+| `conflict-rules` | every conflict rule names at least 2 distinct, existing rules | `validate.check_conflict_rules` | `test_k_rule_names_too_few_rules`, `test_k_rule_names_unknown_rule` |
 | `category-membership` | each rule is listed in exactly one category, the one in its `category` field | `validate.check_category_membership` | `test_category_membership_mismatch` |
 | `quick-view` | the quick view has 5 to 9 questions, one per category | `validate.check_quick_view` | `test_quick_view_count` |
 | `id-map` | every `history.id_map` entry points at an existing rule | `validate.check_id_map` | `test_id_map_target_missing` |

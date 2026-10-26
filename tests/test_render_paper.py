@@ -18,6 +18,7 @@ from taxonomy.render_paper import (
     csl_type,
     method_markdown,
     paper_sections,
+    typographic_apostrophes,
     write_csl_json,
 )
 
@@ -49,6 +50,7 @@ def test_csl_item_fields(repo: Path) -> None:
         item = items[slug]
         assert item["title"] == source["title"]
         assert item["URL"] == source["url"]
+        assert item["author"] == source["author"], slug
         if source.get("year"):
             assert item["issued"] == {"date-parts": [[source["year"]]]}
         else:
@@ -140,6 +142,39 @@ def test_assembled_markdown_structure(repo: Path) -> None:
     assert "](https://" not in md.split("# Glossary", 1)[1].split("# References", 1)[0]
 
 
+def test_management_rows_without_sources_print_their_text(repo: Path) -> None:
+    md = assemble(repo)
+    appendix = md.split("# Management form of each rule", 1)[1].split("# Direct", 1)[0]
+    assert "cross-reference only. Evidence: " in appendix
+    assert "the Sources line of each rule card (theory of constraints). Evidence:" in (
+        appendix
+    )
+    assert "|. Evidence:" not in appendix and "| . Evidence:" not in appendix
+    # form name and form are joined by a colon, not a full stop
+    assert re.search(r"\*\*[^*|]+\*\*: [A-Za-z]", appendix)
+    assert not re.search(r"\*\*[^*|]+\.\*\* ", appendix)
+
+
+def test_rule_card_labels_and_typographic_apostrophes(repo: Path) -> None:
+    md = assemble(repo)
+    assert "\nClass (why)\n:   " in md and "\nClass\n:   " not in md
+
+
+def test_apostrophe_after_a_digit_or_link_is_typographic() -> None:
+    # Typst would typeset the straight apostrophe after a digit as a prime.
+    fix = typographic_apostrophes
+    assert fix("rates P71's and #link(<p1>)[P1]'s and the rule's") == (
+        "rates P71\u2019s and #link(<p1>)[P1]\u2019s and the rule's"
+    )
+
+
+def test_ranges_keep_their_text_with_both_ends_linked(repo: Path) -> None:
+    md = assemble(repo)
+    assert "[P1](#p1)–[P83](#p83)" in md
+    assert "[K1](#k1)–[K8](#k8)" in md
+    assert "P1, P2, P3" not in md
+
+
 def test_placeholder_quotes_are_skipped_and_see_rows_stay(repo: Path) -> None:
     md = assemble(repo)
     ds = load_dataset(repo)
@@ -225,7 +260,8 @@ def test_relative_links_reduced_images_to_alt_text() -> None:
         "[anchor](#sec) ![diagram](img/d.png) ![web](https://x.org/i.png)\n"
     )
     out = method_markdown(text)
-    assert "doc " in out and "](history.md)" not in out
+    assert "doc " not in out and "](history.md)" not in out
+    assert "[doc](https://crazyracer98.github.io/engineering/history/)" in out
     assert "[mail](mailto:a@b.org)" in out
     assert "[web](https://x.org/a)" in out
     assert "[anchor](#sec)" in out

@@ -534,7 +534,7 @@
   then: 'develop several alternatives in parallel, eliminate weak ones as evidence arrives, and commit only after feasibility is shown (set-based design; opposite: point-based design)'
   because: committing early to one option risks expensive rework when it fails
   example: prototype two ingress controllers until load tests decide
-  check: early design records list the alternatives kept and the evidence that eliminated each other one
+  check: early design records list the alternatives kept and the evidence that eliminated each rejected one
   violation: choosing one design at the start and discovering at the end that it cannot meet a requirement
   related:
     depends_on:

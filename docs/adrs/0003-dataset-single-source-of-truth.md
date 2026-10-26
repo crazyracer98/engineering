@@ -118,6 +118,10 @@ single-file Markdown. The rule IDs in this list are the edition-9 IDs
 - **Source URLs.** The hosts of `staw-knee-deep-big-muddy` and
   `sackett-zhang-berry-lievens-revisiting` are lowercased to
   `www.gwern.net`. The paths are unchanged.
+- **Wording fix (patch, added at G2, 2026-10-26).** The check of P16 (edition
+  9's R8) read "the evidence that eliminated each other one"; it now reads
+  "the evidence that eliminated each rejected one". The error is inherited
+  from edition 9 and the meaning is unchanged.
 
 `related_text` overrides are kept only where a cell carries text that isn't
 a rule ID: U47, U49, U50, U55, C15 and R1. NFR-0001's `override-agreement`

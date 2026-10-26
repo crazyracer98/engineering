@@ -4,7 +4,7 @@ Version 1.0.0 · 2026-10-14 · 83 rules (58 universal, 9 risk-scaled, 16 conditi
 
 ## Contents
 
-1. How to read this file
+1. How to read the rules
 2. Master rule
 3. Taxonomy overview
 4. Domain index (engineering and management domains, their rules and references)
@@ -17,14 +17,14 @@ Version 1.0.0 · 2026-10-14 · 83 rules (58 universal, 9 risk-scaled, 16 conditi
 11. Direct quotes
 12. Method and limits
 
-## 1. How to read this file
+## 1. How to read the rules
 
 - **Sentence structure:** every rule reads as **IF** \[condition\], **THEN** \[action\], **BECAUSE** \[reason\].
 - **Rule classes.** The IF field does a different job in each class:
   - **U = universal.** The condition is true, or the trigger occurs, in every engineered system. IF is either "always" or a trigger such as "a failure has happened". Every system applies these rules; the master rule scales how strictly.
   - **R = risk-scaled.** The rule applies only above a consequence or uncertainty threshold. The rigor matrix (section 6) says where.
-  - **C = conditional.** The rule applies only when the system has a property that a common class of systems lacks. IF names that property. Each C-rule names a counterexample system.
-  - **K = conflict rule.** It decides between two rules that pull in opposite directions.
+  - **C = conditional.** The rule applies only when the system has a property that a common class of systems lacks. IF names that property. Each conditional rule names a counterexample system.
+  - **K = conflict rule.** It decides between rules that pull in opposite directions.
 - **Classification test:** "Is there a common class of engineered systems in which this condition can never be true during the whole life cycle?" No → U (or R, if only the strength of the need varies with risk). Yes → C.
 - **Applicability, not adoption:** the test asks whether a rule *can* apply, not whether a domain already practices it. A domain without the practice has an adoption gap; that is not a counterexample. Rules therefore apply across domains by cross-reference, even where no source from that domain exists.
 - **IDs:** each rule has a stable, opaque ID (P1–P83, numbered in category order) that carries no meaning. Its class (U, R or C) and its category are shown next to it. A new rule gets the next free number. Conflict rules are K1–K8.
@@ -87,7 +87,7 @@ A checklist works best with five to nine items, so the taxonomy can be used as o
 
 ### Analogy map: engineering object → management object
 
-The left column is the engineering term used in this file. The right column is the thing that plays the same role in an organization.
+The left column is the engineering term used in this taxonomy. The right column is the thing that plays the same role in an organization.
 
 | Engineering | Management | Same role |
 | --- | --- | --- |
@@ -210,7 +210,7 @@ The left column is the engineering term used in this file. The right column is t
 
 Each row names an engineering domain, the rules **found** in it, and the references that support those rules. A rule can appear under several domains. "Supports" in the rule list means the domain confirms an existing rule but added nothing new.
 
-**Found is not the same as applicable.** All U-rules apply to every domain in this index, the R-rules apply wherever the rigor matrix requires them, and the C-rules apply wherever their condition is true. That holds even where the domain has no published practice yet (adoption gap).
+**Found is not the same as applicable.** All universal rules apply to every domain in this index, the risk-scaled rules apply wherever the rigor matrix requires them, and the conditional rules apply wherever their condition is true. That holds even where the domain has no published practice yet (adoption gap).
 
 130 domains in 20 branches (12 engineering branches, 8 management branches).
 
@@ -446,17 +446,17 @@ Each row names an engineering domain, the rules **found** in it, and the referen
 
 ### Checked without a separate row
 
-These domains produced no sourced rule. The last column shows which rules apply anyway by cross-reference, in addition to all U-rules. This column is the author's judgment, not a sourced finding.
+These domains produced no sourced rule. The last column shows which rules apply anyway by cross-reference, in addition to all universal rules. This column is the author's judgment, not a sourced finding.
 
-| Domain | Reason | Applicable by cross-reference (besides all U-rules) |
+| Domain | Reason | Applicable by cross-reference (besides all universal rules) |
 | --- | --- | --- |
 | Regenerative medicine | searched; no source found for a distinct principle | P59 (regulated), P15 (irreversible harm), P17 (new technology), P61 (results that cannot be fully inspected) |
 | Composite materials | the source for barely visible impact damage could not be fetched; not included | P61 (hidden damage that inspection cannot fully find) |
 | Computational materials | the checked source has no statement on model validation; P12 covers model validity | P31 (weak models), P77 (data-driven models) |
-| Material characterization | the checked source has no statement on calibration; P58 covers it | U-rules only; P58 is the central one |
+| Material characterization | the checked source has no statement on calibration; P58 covers it | universal rules only; P58 is the central one |
 | Sports engineering | no distinct principle found; equipment safety standards fit P60 | P60 (equipment standards exist) |
 | Thermal engineering | the checked source states only that heat must be managed for reliability; covered by P44 (derating) and P28 | P48 (thermal control loops) |
-| Surface engineering, industrial plant, power plant, project, information, facilities | not researched separately; they overlap covered domains (P28, P24, P45, P74, P67, P77) | plants: P45, P59, P48, P78; information: P33, P77; project: U-rules only |
+| Surface engineering, industrial plant, power plant, project, information, facilities | not researched separately; they overlap covered domains (P28, P24, P45, P74, P67, P77) | plants: P45, P59, P48, P78; information: P33, P77; project: universal rules only |
 | Applied engineering, electromechanics, mechatronics | umbrella terms that combine other branches | P33 (data interfaces), P48 (control loops) |
 | Geomatics | only the units and reference-frame principle (P33) applies; no geomatics-specific source | P33 (data interfaces), P77 (data-driven results) |
 | Explosives and military engineering | out of scope beyond organizational practice (P42 two-person rule) | not assessed (out of scope) |
@@ -465,12 +465,12 @@ These domains produced no sourced rule. The last column shows which rules apply 
 | Facility management (ISO 41001), energy management (ISO 50001) | catalogue pages not checked | P78, P74, P3 |
 | Treasury, tax, legal departments | covered by finance and compliance rows | P43, P42, P60, P59 |
 | Public administration | covered by procurement, governance and records rows | P6, P11, P60, P59 |
-| Non-profit management | no distinct principle found | U-rules and MU-rules only |
+| Non-profit management | no distinct principle found | universal rules and the rules from management sources only |
 | Self-management and time management | out of scope (one person, see section 1) | P76 and P52 apply to one person as advice, not as organizational rules |
 
 ## 5. Glossary
 
-Each term has exactly one meaning in this file. No other word is used for the same meaning.
+Each term has exactly one meaning in this taxonomy. No other word is used for the same meaning.
 
 | Term | Meaning | Not the same as / opposite |
 | --- | --- | --- |
@@ -550,12 +550,12 @@ Each term has exactly one meaning in this file. No other word is used for the sa
 
 ## 6. Rigor matrix
 
-Find the cell that matches your system. U-rules apply in every cell; the master rule scales how strictly. C-rules apply in every cell where their condition is true. R-rules apply only in the cells listed. MUST rules apply whenever their IF-condition is true.
+Find the cell that matches your system. Universal rules apply in every cell; the master rule scales how strictly. Conditional rules apply in every cell where their condition is true. Risk-scaled rules apply only in the cells listed. MUST rules apply whenever their IF-condition is true.
 
 |  | **Low uncertainty** | **High uncertainty** |
 | --- | --- | --- |
-| **Low consequence** | all U-rules, C-rules whose condition is true. Checker level: peer (P56). | all U-rules, C-rules whose condition is true, P16, P31, P68. Checker level: peer (P56). |
-| **High consequence** | all U-rules, C-rules whose condition is true, P42, P43, P45, P46, P59. Checker level: external (P56). | all U-rules, C-rules whose condition is true, all R-rules. Checker level: external (P56). |
+| **Low consequence** | all universal rules, conditional rules whose condition is true. Checker level: peer (P56). | all universal rules, conditional rules whose condition is true, P16, P31, P68. Checker level: peer (P56). |
+| **High consequence** | all universal rules, conditional rules whose condition is true, P42, P43, P45, P46, P59. Checker level: external (P56). | all universal rules, conditional rules whose condition is true, all risk-scaled rules. Checker level: external (P56). |
 
 ## 7. Rules by category
 
@@ -614,7 +614,7 @@ How requirements, decisions, models and evidence are recorded and trusted.
 | P13 | universal (U), category B: every engineering result must be checkable by someone else (P56) | each result can be regenerated from recorded inputs and versions with one command | a report built by copying numbers by hand | depends on P64; strengthens P11 | moderate | bioinformatics (reproducible computational research) |
 | P14 | universal (U), category B: almost every system uses parts or software from suppliers | for each deployed artifact, origin, build and certificate can be shown | running an unsigned image from an unknown registry | strengthens P11, P78 | moderate | metallurgical engineering (mill test certificates) |
 | P15 | risk-scaled (R), category B: only for serious or irreversible harm with incomplete evidence | for each serious or irreversible risk with incomplete evidence, a record states which protective measure was taken, or why none was | writes continue while the team waits for proof of data corruption | strengthens P37, P82; strengthened by P18 | moderate (contested: critics call it vague and say strong versions block beneficial technology; this rule uses the weak, proportionate version) | environmental engineering (precautionary principle) |
-| P16 | risk-scaled (R), category B: only where uncertainty is high early; for a repeat design, one option is enough | early design records list the alternatives kept and the evidence that eliminated each other one | choosing one design at the start and discovering at the end that it cannot meet a requirement | depends on P58; strengthens P10, P17; strengthened by P20 | moderate | design engineering (Toyota set-based concurrent engineering) |
+| P16 | risk-scaled (R), category B: only where uncertainty is high early; for a repeat design, one option is enough | early design records list the alternatives kept and the evidence that eliminated each rejected one | choosing one design at the start and discovering at the end that it cannot meet a requirement | depends on P58; strengthens P10, P17; strengthened by P20 | moderate | design engineering (Toyota set-based concurrent engineering) |
 | P17 | conditional (C), category B: counterexample: a system built only from proven technology | each technology in a critical path has a recorded maturity assessment | adopting an untested tool for the production control plane without an assessment | depends on P10; strengthens P22; strengthened by P16, P20 | strong (standardized as ISO 16290:2013; NASA defines TRL 1 to 9) | aerospace (NASA TRL), EU, DoD |
 | P18 | universal (U), category B: trigger that occurs in the life cycle of every system | each decision record (P10) states the class (reversible or irreversible) and the matching process | a three-week approval for a reversible tool trial; a lock-in contract signed in one meeting | strengthens P10, P15, P42; conflicts with P56, P64 (see K5) | moderate (practitioner source: a CEO's shareholder letter; consistent with P15 and P42) | management (decision making) |
 | P19 | universal (U), category B: every system and every team whose performance is measured (P70, P58) | each rewarded indicator has a counter-indicator and a yearly review of whether it still tracks the objective | ticket count as the only measure of on-call quality | strengthens P58, P70, P82; conflicts with P21 | strong (Campbell; the same pattern is known as Goodhart's law) | management (performance measurement) |
@@ -1116,10 +1116,10 @@ Quotes were checked against the linked page on 2026-10-14. "…" marks text left
 
 ### Method
 
-INCOSE requires a systems engineering principle to "Transcend life cycle", "Transcend system type" and "Transcend context". It describes heuristics as guidance "emerging from practice in a given context or area". SEBoK adds that the application of principles is specific to stakeholders and context. This file follows that split: U-rules transcend system type and context, and the master rule adapts how strictly they apply; C-rules are context-specific; R-rules are universal in principle but needed only above a risk threshold.
+INCOSE requires a systems engineering principle to "Transcend life cycle", "Transcend system type" and "Transcend context". It describes heuristics as guidance "emerging from practice in a given context or area". SEBoK adds that the application of principles is specific to stakeholders and context. This taxonomy follows that split: universal rules transcend system type and context, and the master rule adapts how strictly they apply; conditional rules are context-specific; risk-scaled rules are universal in principle but needed only above a risk threshold.
 
 - **Adoption gaps are not counterexamples.** A rule that a domain does not practice yet still applies there by cross-reference (see section 4).
-- **Practices, not principles:** INCOSE says principles must "Not be how-to statements". The rules here are practices with actions, so U-rules are universal practices, not principles in the INCOSE sense.
+- **Practices, not principles:** INCOSE says principles must "Not be how-to statements". The rules here are practices with actions, so the universal rules are universal practices, not principles in the INCOSE sense.
 - **Size:** 83 rules are too many for a checklist. A checklist works best with five to nine items, "the limit of working memory" (Gawande, via book notes); section 3 therefore offers nine questions, one per category.
 - **Supporting quotes:** "all models are wrong, but some are useful" (Box and Draper, 1987) supports P44 and P12; "everything fails all the time" (Werner Vogels) supports P37.
 - **Selection of management rules:** management rules are included when they change how a system is designed, checked, changed or operated, or how the people who build it are organized, selected, given feedback and led through change.
@@ -1135,7 +1135,7 @@ INCOSE requires a systems engineering principle to "Transcend life cycle", "Tran
 ### Limits
 
 - **Current standard editions (checked 2026-10-14).** ISO 9001:2015 is withdrawn; ISO 9001:2026 was published on 16 September 2026, and the CQI describes a planned three-year transition. ISO 14001:2015 is withdrawn and replaced by ISO 14001:2026. ISO 22301:2019, ISO 21502:2020, ISO 30401:2018 and ISO 45001:2018 are current but marked "to be revised". ISO 30414:2018 is withdrawn (a 2025 edition exists; its catalogue page was not checked).
-- **Paid documents.** The texts of ISO standards, PRINCE2 and PMBOK are paid. This file quotes only official summaries, press releases or secondary pages for them, and says so. Check the original before quoting a requirement in an audit.
+- **Paid documents.** The texts of ISO standards, PRINCE2 and PMBOK are paid. This taxonomy quotes only official summaries, press releases or secondary pages for them, and says so. Check the original before quoting a requirement in an audit.
 - **Strong on a summary only.** Rules P58, P61 and P34, and the management forms of P3, P67, P59, P60 and P78, are rated strong on a paid standard: the standard text is paid; only the official summary was read. The rating reflects that the standard requires the practice, which its official summary confirms.
 - **Not fetched in full.** The text of Article 19 (prohibition of retaliation) of Directive (EU) 2019/1937 could not be retrieved; recital 88 is quoted instead. The OECD Due Diligence Guidance PDF could not be retrieved; only its abstract is quoted. The HBR article by Klein was only available as a summary.
 - **Secondary only.** Rule P53 (Brooks's law) rests on the Jargon File and a trade article; the primary source is a book that is not online. In section 10, the management forms of P49 (a copy of Parkinson's essay that could not be compared with The Economist's archive), P70 (go and see) and P38 (ISO 45001 clause text) rest on secondary pages; the rules themselves have primary engineering sources in section 9.

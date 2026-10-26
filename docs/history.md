@@ -25,8 +25,8 @@ The numbers are the counts in the imported Markdown source
 (`sources/import/engineering-best-practices.md`), which is the starting
 point of the dataset in `data/`.
 
-The way the method of [the methodology](methodology.md) was applied to this
-content is described in the "Applied in this taxonomy" boxes of that page.
+[The methodology](methodology.md) shows how its method was applied to this
+content in the "Applied in this taxonomy" boxes of that page.
 Those boxes describe what the 1.0.0 content shows and say where it does not
 show how a step was done.
 
@@ -36,4 +36,4 @@ Later editions are numbered by SemVer, and the version equals the release
 tag (see "Versioning" in [the methodology](methodology.md)). Each one is
 recorded in two places: `data/history.yaml` (the machine-readable record,
 including the map from old rule IDs to new ones) and a new section at the top
-of the list of editions in this file (newest first).
+of the list of editions on this page (newest first).

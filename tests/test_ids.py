@@ -7,7 +7,7 @@ from pathlib import Path
 
 from ruamel.yaml import YAML
 
-from taxonomy.ids import id_finder, id_key, link_ids
+from taxonomy.ids import expand_ids, id_finder, id_key, link_ids
 from taxonomy.load import load_dataset, load_registry
 from taxonomy.render_markdown import _link_block, render_chapters
 from taxonomy.render_paper import _Paper
@@ -80,6 +80,8 @@ def test_id_finder_does_not_match_inside_words_or_urls() -> None:
         "P33",
     ]
     assert not found.findall("see ISO-P1 or /P1 or #P1 or XP1 or P01")
+    # The end of a hyphen-written range is found; a hyphenated word's tail is not.
+    assert [m.group(0) for m in found.finditer("P3-P5 and ISO-P1")] == ["P3", "P5"]
 
 
 def _href(rid: str) -> str:
@@ -92,26 +94,46 @@ def test_link_ids_links_p_and_k_ids() -> None:
     assert link_ids("P99 stays", {"P1"}, ["P", "K"], _href) == "P99 stays"
 
 
-def test_link_ids_links_every_id_of_a_range() -> None:
+def test_link_ids_keeps_a_range_and_links_both_ends() -> None:
     known = {"P3", "P4", "P5", "K1", "K2", "K3"}
-    for dash in ("–", "-"):
+    for dash in ("–", "-", " – ", " - "):
         out = link_ids(f"see P3{dash}P5 now", known, ["P", "K"], _href)
-        assert out == ("see [P3](x.md#p3), [P4](x.md#p4), [P5](x.md#p5) now"), dash
-    out = link_ids("K1-K3", known, ["P", "K"], _href)
-    assert out.count("](") == 3
+        assert out == "see [P3](x.md#p3)–[P5](x.md#p5) now", dash
+    assert link_ids("K1-K3", known, ["P", "K"], _href) == (
+        "[K1](x.md#k1)–[K3](x.md#k3)"
+    )
+    # Not expanded: P4 is in the range but is not written, so it is not linked.
+    assert "P4" not in link_ids("P3–P5", known, ["P", "K"], _href)
+    # The range's end links even when a hyphen precedes it.
+    assert link_ids("P3, P4-P5", known, ["P", "K"], _href) == (
+        "[P3](x.md#p3), [P4](x.md#p4)–[P5](x.md#p5)"
+    )
 
 
 def test_link_ids_leaves_non_ranges_alone() -> None:
     known = {"P3", "P4", "K2"}
-    # Mixed prefixes and descending pairs are not ranges: each end links alone.
+    # Mixed prefixes and descending pairs are not ranges: each end links alone,
+    # as written (no dash normalisation).
     assert link_ids("P3–K2", known, ["P", "K"], _href) == (
         "[P3](x.md#p3)–[K2](x.md#k2)"
     )
-    assert link_ids("P4–P3", known, ["P", "K"], _href) == (
-        "[P4](x.md#p4)–[P3](x.md#p3)"
+    assert link_ids("P4-P3", known, ["P", "K"], _href) == (
+        "[P4](x.md#p4)-[P3](x.md#p3)"
     )
-    # A gap that is not a known ID: the ends link, nothing is invented.
+    # An unknown end: the known end links, nothing is invented.
     assert link_ids("P3–P9", known, ["P", "K"], _href) == "[P3](x.md#p3)–P9"
+
+
+def test_expand_ids_expands_ranges_for_the_agreement_check() -> None:
+    assert expand_ids("P3-P5, K1 and P7 – P8", ["P", "K"]) == [
+        "P3",
+        "P4",
+        "P5",
+        "K1",
+        "P7",
+        "P8",
+    ]
+    assert expand_ids("P5-P3 and ISO-P1", ["P", "K"]) == ["P5", "P3"]
 
 
 def test_chapter_linking_covers_p_k_and_ranges() -> None:
@@ -119,16 +141,20 @@ def test_chapter_linking_covers_p_k_and_ranges() -> None:
     lines = _link_block("P1, K3 and P3-P5.", ds, 5)
     assert lines == [
         "[P1](07-rules.md#p1), [K3](08-conflicts.md#k3) and "
-        "[P3](07-rules.md#p3), [P4](07-rules.md#p4), [P5](07-rules.md#p5)."
+        "[P3](07-rules.md#p3)–[P5](07-rules.md#p5)."
     ]
     here = _link_block("P1 and K3", ds, 7)[0]
     assert here == "[P1](#p1) and [K3](08-conflicts.md#k3)"
+    # The IDs paragraph of the reading guide keeps "P1–P83" and "K1–K8".
+    text = _link_block("(P1–P83) and K1–K8", ds, 1)[0]
+    assert "P2" not in text and "[P83](07-rules.md#p83)" in text
+    assert "[K8](08-conflicts.md#k8)" in text
 
 
 def test_paper_links_p_k_and_ranges() -> None:
     ds = load_dataset(REPO)
     out = _Paper(ds).link_ids("P1, K3, P3–P4")
-    assert out == "[P1](#p1), [K3](#k3), [P3](#p3), [P4](#p4)"
+    assert out == "[P1](#p1), [K3](#k3), [P3](#p3)–[P4](#p4)"
 
 
 def test_class_comes_from_the_field_not_the_id(repo: Path, edit: Edit) -> None:
