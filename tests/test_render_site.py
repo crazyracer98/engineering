@@ -153,6 +153,14 @@ def test_assemble_writes_learn_quiz_bank_and_assets(tmp_path: Path) -> None:
     assert 'data-qid="q-a-01"' in snippet
 
 
+def test_assets_cannot_replace_the_generated_bank(tmp_path: Path) -> None:
+    root = _fixture_root(tmp_path, assets=True)
+    (root / "site-assets" / "quiz-bank.json").write_text("[]\n", encoding="utf-8")
+    src = render_site.assemble(root)
+    bank = json.loads((src / "assets/quiz/quiz-bank.json").read_text("utf-8"))
+    assert [q["id"] for q in bank] == ["q-a-01", "q-k-01"]
+
+
 def test_assemble_without_site_assets_or_learn_data(tmp_path: Path) -> None:
     src = render_site.assemble(_stub_root(tmp_path))
     assert json.loads((src / "assets/quiz/quiz-bank.json").read_text("utf-8")) == []
