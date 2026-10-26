@@ -111,7 +111,8 @@ def csl_type(source: Source) -> str:
 
 def csl_item(source: Source) -> dict[str, Any]:
     """One CSL-JSON item: ``id`` (the slug), ``type``, ``title``, ``URL``,
-    ``author`` (CSL name objects), ``issued`` (from ``year``), ``publisher`` and ``accessed`` when present."""
+    ``author`` (CSL name objects), ``issued`` (from ``year``), ``publisher``
+    and ``accessed`` when present."""
     item: dict[str, Any] = {
         "id": source["slug"],
         "type": csl_type(source),

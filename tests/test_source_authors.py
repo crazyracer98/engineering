@@ -21,7 +21,9 @@ AUTHOR = Draft202012Validator(SCHEMA["items"]["properties"]["author"])
 
 
 def _entries(path: str) -> list[dict[str, Any]]:
-    entries: list[dict[str, Any]] = YAML(typ="safe").load((REPO / path).read_text("utf-8"))
+    entries: list[dict[str, Any]] = YAML(typ="safe").load(
+        (REPO / path).read_text("utf-8")
+    )
     return entries
 
 
@@ -37,12 +39,20 @@ def test_every_entry_has_valid_nonempty_author(path: str) -> None:
 
 @pytest.mark.parametrize("path", REGISTRIES)
 def test_registry_is_schema_valid(path: str) -> None:
-    errors = [e.message for e in Draft202012Validator(SCHEMA).iter_errors(_entries(path))]
+    errors = [
+        e.message for e in Draft202012Validator(SCHEMA).iter_errors(_entries(path))
+    ]
     assert not errors
 
 
 def test_author_is_required_by_schema() -> None:
-    entry = {"slug": "x", "title": "X", "url": "https://x.example", "kind": "primary", "paid": False}
+    entry = {
+        "slug": "x",
+        "title": "X",
+        "url": "https://x.example",
+        "kind": "primary",
+        "paid": False,
+    }
     assert list(Draft202012Validator(SCHEMA).iter_errors([entry]))
     entry["author"] = [{"literal": ""}]
     assert list(Draft202012Validator(SCHEMA).iter_errors([entry]))

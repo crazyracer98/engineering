@@ -43,6 +43,7 @@ class Source(TypedDict, total=False):
     paid: bool
     accessed: str | None
     notes: str | None
+    author: list[dict[str, str]]
 
 
 class Management(TypedDict, total=False):
