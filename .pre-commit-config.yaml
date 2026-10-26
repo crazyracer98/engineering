@@ -107,6 +107,14 @@ repos:
         always_run: true
         stages: [pre-commit, manual]
 
+      - id: js-tests
+        name: js tests (quiz core, NFR-0002)
+        entry: node --test "tests/js/**/*.test.js"
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-commit, manual]
+
       - id: taxonomy-check
         name: taxonomy check (dataset integrity, NFR-0001)
         entry: uv run --locked taxonomy check
