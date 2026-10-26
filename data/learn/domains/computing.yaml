@@ -1,2 +1,93 @@
 # Domain examples, branch Computing. Schema: schema/learn-domains.schema.json.
-[]
+- branch: Computing
+  domain: Software engineering
+  scenario: >-
+    A team builds a billing service. It runs linting on each commit, unit
+    tests on each pull request, and integration tests before release. Early
+    on, it also had to choose between a message queue and direct calls.
+  shows:
+    - rule: P55
+      how: >-
+        Each check runs at the first stage where it can run. A type error is
+        caught by the linter on commit, not in the integration tests days
+        later.
+    - rule: P23
+      how: >-
+        The team picks the simplest design that meets the requirements, and
+        splits the service into modules. Each module has one stated purpose,
+        and unused code is removed.
+    - rule: P10
+      how: >-
+        The choice of direct calls over a message queue is written down with
+        its reason and the rejected alternative, so a later engineer can see
+        why.
+- branch: Computing
+  domain: Security engineering
+  scenario: >-
+    A company runs a customer database. A batch job only needs to read one
+    table. The database also sits behind a firewall, an access gateway and
+    audit logging.
+  shows:
+    - rule: P36
+      how: >-
+        The batch job gets read access to that one table and nothing else. A
+        review removes any role holding a permission that was unused for a set
+        period.
+    - rule: P40
+      how: >-
+        The database has at least two independent control layers, such as the
+        gateway and the audit logging, and each layer is tested. A breach of
+        the firewall alone does not expose the data.
+- branch: Computing
+  domain: Site reliability engineering
+  scenario: >-
+    An online shop has an outage after a bad deploy. Users see slow checkout
+    pages for an hour. The team writes up the incident afterwards.
+  shows:
+    - rule: P80
+      how: >-
+        The postmortem looks for the root cause in the system, such as a
+        missing deploy check, and not for a person to blame. It ends in
+        system-level actions.
+    - rule: P70
+      how: >-
+        The service has dashboards and alerts for what users feel, such as
+        checkout latency and error rate. An alert on slow checkout would have
+        fired within minutes of the deploy.
+- branch: Computing
+  domain: Simulation and computational engineering
+  scenario: >-
+    A team uses a flow simulation to size a cooling fan. The model was
+    validated against wind-tunnel tests at low air speeds. Someone wants to
+    use it at much higher speeds.
+  shows:
+    - rule: P12
+      how: >-
+        The model states its validated range, which is the low air speeds
+        tested. The team uses it only inside that range and checks each result
+        against an independent order-of-magnitude estimate. The high-speed
+        case lies outside the range, so it needs new validation first.
+- branch: Computing
+  domain: Data and ML engineering
+  scenario: >-
+    A company runs a model that predicts delivery times. After a new
+    customer segment joins, the input data changes and the predictions get
+    worse.
+  shows:
+    - rule: P77
+      how: >-
+        The data and the model have versions, the inputs are validated, and
+        drift is monitored with an alert. When the alert fires, the team
+        re-evaluates and retrains the model.
+- branch: Computing
+  domain: Quantum engineering and computing theory
+  scenario: >-
+    A team builds a control system for a quantum computer. A single failed
+    control line would stop a running computation, so the team adds a spare
+    for each critical line.
+  shows:
+    - rule: P45
+      how: >-
+        The team adds redundancy so the function survives the loss of any
+        single control line. In a test it removes each line in turn, and the
+        computation keeps running. It also tests the switch-over to the spare.

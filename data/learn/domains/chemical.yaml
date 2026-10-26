@@ -1,2 +1,101 @@
 # Domain examples, branch Chemical. Schema: schema/learn-domains.schema.json.
-[]
+- branch: Chemical
+  domain: Chemical process safety
+  scenario: >-
+    A plant plans to change the solvent in a reactor to a more volatile one.
+    A hazard is found: the new solvent can form a flammable vapour in the
+    vessel headspace.
+  shows:
+    - rule: P64
+      how: >-
+        The change is a versioned record. Before go-live, the team reviews its
+        technical basis, its safety impact and the procedures it affects,
+        approves it, and informs the operators. The deployed state matches the
+        approved change.
+    - rule: P38
+      how: >-
+        The team looks first at eliminating the hazard or substituting a less
+        volatile solvent. It then considers an engineering control, such as
+        an inert gas blanket, before any procedure or protective equipment.
+        The record states why a higher level was not possible.
+- branch: Chemical
+  domain: Oil and gas
+  scenario: >-
+    An operator runs a gas processing facility. A relief valve protects a
+    vessel from overpressure. Gas detectors and an emergency shutdown system
+    also act on the same hazard.
+  shows:
+    - rule: P40
+      how: >-
+        The vessel has several independent and verified control layers: the
+        process control loop, the relief valve and the shutdown system. Each
+        layer is tested on its own, so the loss of one does not leave the
+        vessel unprotected.
+- branch: Chemical
+  domain: Food safety
+  scenario: >-
+    A dairy pasteurizes milk. The team lists the process steps and finds that
+    heating is the step where control is essential.
+  shows:
+    - rule: P72
+      how: >-
+        The dairy defines pasteurization as a critical control point, with a
+        temperature and hold-time limit. It monitors the temperature
+        continuously, has a predefined corrective action for a low reading,
+        keeps records, and regularly verifies in practice that the control
+        works.
+- branch: Chemical
+  domain: Pharma and clinical trials
+  scenario: >-
+    A clinical trial records patient blood pressure readings in an
+    electronic system. A reading is later found to be wrong and is corrected.
+  shows:
+    - rule: P11
+      how: >-
+        Each record shows who entered it and when, and it was recorded at the
+        time of measurement. The correction keeps the original entry visible
+        and records who changed it, when and why, so a sample of records shows
+        author, time and full change history.
+- branch: Chemical
+  domain: Textile
+  scenario: >-
+    A lab tests the colour fastness of two dyed fabrics from different
+    suppliers. The two reports used different light sources and different
+    humidity.
+  shows:
+    - rule: P58
+      how: >-
+        The lab repeats both tests under stated, controlled reference
+        conditions and reports the uncertainty with each result. It calibrates
+        the instrument against a traceable reference, so the two fabrics can
+        be compared fairly.
+- branch: Chemical
+  domain: Electrochemical (batteries)
+  scenario: >-
+    A battery pack for a tool is built from many cells. One cell can fail and
+    heat up. The design keeps heat and failure from spreading to the
+    neighbouring cells.
+  shows:
+    - rule: P41
+      how: >-
+        The pack is divided into isolated compartments, each with its own
+        barrier and fuse. In a failure test, one cell is forced to fail, and
+        the other compartments keep working.
+- branch: Chemical
+  domain: Molecular and biomolecular engineering
+  scenario: >-
+    A lab wants an enzyme that works at a higher temperature. No model
+    predicts which changes help. The team makes thousands of variants and
+    tests them in rounds.
+  shows:
+    - rule: P31
+      how: >-
+        No model is good enough to design the enzyme analytically, so the lab
+        generates many variants, tests them, keeps the best and repeats. Each
+        round has a defined activity test and records which variants were
+        kept.
+    - rule: P81
+      how: >-
+        The lab repeats the cycle plan, do, check, act. After each round it
+        records the follow-up actions, such as changing the screening
+        temperature, and tracks them until they are completed.

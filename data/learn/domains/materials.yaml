@@ -1,2 +1,101 @@
 # Domain examples, branch Materials. Schema: schema/learn-domains.schema.json.
-[]
+- branch: Materials
+  domain: Fatigue and corrosion
+  scenario: >-
+    A bracket on a coastal crane is made of steel fastened to aluminium
+    plates. It sees small load cycles every day for decades, in salt air. The
+    largest single lift is well inside its strength.
+  shows:
+    - rule: P28
+      how: >-
+        The designers do not stop at the largest single lift. They design for
+        the damage that builds up over the whole life, with a fatigue test
+        that represents real use and measures crack growth.
+    - rule: P29
+      how: >-
+        Steel and aluminium touch in a wet environment, so the designers
+        verify compatibility in the real environment. They find a galvanic
+        corrosion risk and separate the metals with an insulating washer.
+- branch: Materials
+  domain: Forensic engineering
+  scenario: >-
+    A steel hook fails at a work site. A crew wants to straighten the bent
+    parts and put the equipment back to work the same day.
+  shows:
+    - rule: P83
+      how: >-
+        The investigators document and preserve the as-found state before any
+        repair, with photos and the fracture surface kept clean. They record
+        who handled the parts, forming a chain of custody. The incident record
+        lists the evidence captured before the first repair.
+- branch: Materials
+  domain: Welding
+  scenario: >-
+    A fabricator welds pressure vessel seams. A weld's internal quality
+    cannot be fully checked by looking at it afterwards.
+  shows:
+    - rule: P61
+      how: >-
+        The fabricator proves the welding procedure by a test before using it
+        on the vessel. Each welder is qualified, and a test record exists for
+        the procedure and a qualification record for each welder.
+- branch: Materials
+  domain: Ceramics and brittle materials
+  scenario: >-
+    A maker of ceramic tiles tests a small sample and finds no failures
+    under load. The product then ships by the million, and some tiles crack.
+  shows:
+    - rule: P34
+      how: >-
+        As the number of parts grows, rare failures become frequent. The maker
+        estimates a failure rate per tile and multiplies it by the planned
+        volume, then designs and tests for that scale, not for the small
+        sample.
+- branch: Materials
+  domain: Metallurgical
+  scenario: >-
+    A forge buys steel bars from several mills for a safety-critical part. An
+    audit asks where one failed part's steel came from.
+  shows:
+    - rule: P14
+      how: >-
+        The forge traces each bar to its origin, melt batch and mill
+        certificate. For any deployed part it can show origin, build and
+        certificate.
+- branch: Materials
+  domain: Electronic materials
+  scenario: >-
+    A maker of solder joints on circuit boards heats and cools the board each
+    day in service. The joints pass a single strength test when new.
+  shows:
+    - rule: P28
+      how: >-
+        The maker designs for damage that builds up over the whole life, not
+        for one load. A thermal cycling soak test runs for a period that
+        represents real use, and the growth of cracks in the joints is
+        measured.
+- branch: Materials
+  domain: Polymers
+  scenario: >-
+    A plastic housing holds a clip under steady load. Over years in sunlight
+    and heat, the plastic slowly creeps and becomes brittle.
+  shows:
+    - rule: P28
+      how: >-
+        The designers account for creep and ageing over the design life, not
+        only for the largest single load. An endurance test at raised
+        temperature and UV exposure represents real use, and the growth of
+        deformation is measured.
+- branch: Materials
+  domain: Nanotechnology
+  scenario: >-
+    A company wants to use a new nanoparticle in a sunscreen. Early tests
+    hint that it might harm aquatic life, but the data is incomplete. Harm
+    to a river would be hard to undo.
+  shows:
+    - rule: P15
+      how: >-
+        The possible harm is serious and irreversible, and the evidence is
+        incomplete. The company takes proportionate protective measures
+        without waiting for full proof, such as containing wastewater, and a
+        record states the measure taken.
