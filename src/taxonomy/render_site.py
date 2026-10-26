@@ -98,7 +98,8 @@ def write_learn(
     source = root / SITE_ASSETS
     if source.is_dir():
         for path in sorted(source.iterdir()):
-            if path.is_file():
+            # The generated bank is authoritative; an asset must not replace it.
+            if path.is_file() and path.name != "quiz-bank.json":
                 shutil.copyfile(path, assets / path.name)
 
 
