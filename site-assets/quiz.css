@@ -1,0 +1,80 @@
+/* Quiz styles. Uses Material's variables; state is also shown as text and borders. */
+.quiz-q {
+  margin: 1.5em 0;
+  padding: 0.8em 1em;
+  border: 1px solid var(--md-default-fg-color--lightest, #ccc);
+  border-left-width: 0.3rem;
+  border-radius: 0.2rem;
+}
+.quiz-q fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.quiz-q legend {
+  padding: 0;
+  font-weight: 700;
+}
+.quiz-q label {
+  display: block;
+  margin: 0.4em 0 0;
+  cursor: pointer;
+}
+.quiz-q input[type="checkbox"] {
+  margin-right: 0.4em;
+}
+.quiz-q input:focus-visible,
+.quiz-q button:focus-visible,
+.quiz-q summary:focus-visible,
+.quiz-reset:focus-visible,
+.quiz-result:focus-visible {
+  outline: 0.15rem solid var(--md-accent-fg-color, currentColor);
+  outline-offset: 0.15rem;
+}
+.quiz-fb {
+  margin: 0.2em 0 0.4em 1.6em;
+  font-size: 0.9em;
+  color: var(--md-default-fg-color--light, inherit);
+}
+.quiz-mark {
+  font-weight: 700;
+}
+.quiz-opt-right {
+  text-decoration: underline;
+  text-decoration-thickness: 0.12rem;
+}
+.quiz-opt-wrong {
+  text-decoration: line-through;
+}
+.quiz-right {
+  border-left-style: solid;
+  border-left-color: var(--md-typeset-ins-color, #2e7d32);
+}
+.quiz-wrong {
+  border-left-style: double;
+  border-left-width: 0.5rem;
+  border-left-color: var(--md-typeset-del-color, #c62828);
+}
+.quiz-result {
+  min-height: 1.5em;
+  margin: 0.6em 0 0;
+  font-weight: 700;
+}
+.quiz-right .quiz-result::before {
+  content: "\2713  ";
+}
+.quiz-wrong .quiz-result::before {
+  content: "\2717  ";
+}
+.quiz-q button,
+.quiz-reset {
+  cursor: pointer;
+}
+.quiz-score {
+  font-weight: 700;
+}
+.quiz-error {
+  border: 1px solid currentColor;
+  padding: 0.5em 0.8em;
+}

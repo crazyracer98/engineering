@@ -21,6 +21,9 @@
   `pytest`; deselect it with `-m "not slow"`).
 - `test_verify_sources.py`: `taxonomy verify-sources` offline (fake transport and
   clock; fixtures in `fixtures/verify/`, authored here, never third-party text).
+- `js/quiz-core.test.js`: `node --test` unit tests for the quiz core in `../site-assets/quiz-core.js`
+  (scoring, seeded drawing, progress storage that never throws;
+  [NFR-0002](../docs/nfrs/NFR-0002-quiz-accessibility.md)), run by the `js-tests` prek hook.
 
 ## Do
 
