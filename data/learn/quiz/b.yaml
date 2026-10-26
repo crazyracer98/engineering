@@ -151,7 +151,8 @@
         considered and rejected for uneven load; owner: L. Okafor"
       correct: true
       feedback: >-
-        Right. Reason, rejected alternative and owner are all recorded.
+        Right. Reason, rejected alternative and owner are all recorded, as P10
+        (management form) asks.
 - id: q-b-06
   rules: [P11]
   stem: >-
@@ -349,8 +350,9 @@
     - text: Deployments pin each image by digest
       correct: true
       feedback: >-
-        Right. A pinned digest ties the deployment to one known artifact. That
-        is how the team finds every affected deployment after a defect.
+        Right. A pinned digest ties the deployment to one known artifact, as in
+        the P14 example. That is how the team finds every affected deployment
+        after a defect.
     - text: Images are pulled by the tag "latest" from the team's own registry
       correct: false
       feedback: >-
@@ -382,8 +384,8 @@
     - text: Require data to stay in one region after finding sub-processors abroad
       correct: true
       feedback: >-
-        Right. The management form says to act on what you find, not only to
-        collect it.
+        Right. The management form of P14 says to act on what you find, not
+        only to collect it.
     - text: >-
         Add the vendor to the list of company assets, with an owner and a
         lifecycle stage
@@ -545,7 +547,8 @@
     - text: Plan how to leave the vendor if it fails
       correct: true
       feedback: >-
-        Right. The rule's example ties a start-up vendor to an exit plan.
+        Right. The example of P17 (management form) ties a start-up vendor to
+        an exit plan.
     - text: Choose the vendor because its demo was convincing
       correct: false
       feedback: >-
@@ -685,7 +688,7 @@
       correct: true
       feedback: >-
         Right. Gate dates are set up front and the decision sits with someone
-        other than the sponsor.
+        other than the sponsor, as P20 asks.
     - text: The team will review progress when it feels the results are clear
       correct: false
       feedback: >-
