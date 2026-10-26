@@ -1,2 +1,226 @@
 # Quiz questions, category G. Schema: schema/learn-quiz.schema.json.
-[]
+- id: q-g-01
+  rules: [P64]
+  stem: A developer must raise a timeout in a production service. Which parts of the change process satisfy P64 (Versioning and change review)?
+  options:
+    - text: The change is a pull request that states why the timeout changes.
+      correct: true
+      feedback: Correct. P64 asks for a review of the technical basis before each change, so the reason is part of the change record.
+    - text: A second engineer reviews the safety impact and approves the change.
+      correct: true
+      feedback: Correct. P64 asks for an impact review and an approval for each change.
+    - text: The teams that run the service are told before go-live.
+      correct: true
+      feedback: Correct. P64 says to inform the affected people before go-live.
+    - text: The developer edits the live setting and commits it afterwards.
+      correct: false
+      feedback: Wrong. A manual change in production is the P64 violation (drift). The deployed state must match an approved commit, not the other way round.
+    - text: The change is split into three smaller steps with a check between them.
+      correct: false
+      feedback: Wrong. Small steps with checks belong to P65 (Small verified steps). P64 does not ask for them, and they do not replace a change review.
+- id: q-g-02
+  rules: [P64]
+  stem: An audit compares a production server with its repository. Which findings break P64 (Versioning and change review)?
+  options:
+    - text: The running configuration matches no approved commit.
+      correct: true
+      feedback: Correct. P64 requires that the deployed state matches an approved commit.
+    - text: The runbook changed in production, but no version of it exists.
+      correct: true
+      feedback: Correct. P64 says to version every artifact, and a runbook is an artifact.
+    - text: A change record lists its basis and approval but no impact review.
+      correct: true
+      feedback: Correct. P64 needs basis, impact review and approval in every change record.
+    - text: The latest release went to 5 % of users before it went to everyone.
+      correct: false
+      feedback: Wrong. A staged rollout is P65 (Small verified steps) and it does not breach P64.
+    - text: The release has no trigger level that starts an automatic rollback.
+      correct: false
+      feedback: Wrong. A missing trigger level is a P68 (Observational method) gap. P64 asks about versions, review and approval.
+- id: q-g-03
+  rules: [P65]
+  stem: A team replaces the payment service. The change carries risk for every customer. Which plans apply P65 (Small verified steps)?
+  options:
+    - text: Send 1 % of traffic to the new service and check errors, then 10 %, then 100 %.
+      correct: true
+      feedback: Correct. P65 asks for small steps and a check of each result before the next step.
+    - text: Mark the check before 100 % as a hold point that a lead must approve.
+      correct: true
+      feedback: Correct. P65 asks for each check to be marked as a hold point or a witness point.
+    - text: Switch all traffic at once and keep the old service as a backup.
+      correct: false
+      feedback: Wrong. Switching all traffic at once is the P65 violation. A backup does not limit how much harm the one big step can do.
+    - text: Review the change once and then deploy it in one step.
+      correct: false
+      feedback: Wrong. One review is P64 (Versioning and change review). P65 adds small steps with a check between them.
+    - text: Roll out in steps, but decide whether to check only after step three.
+      correct: false
+      feedback: Wrong. P65 asks for a check of each step before the next one starts.
+- id: q-g-04
+  rules: [P65, P68]
+  stem: A rollout plan has two checks. At check A, work stops until a lead approves. At check B, an engineer watches the metrics while the rollout continues. Which statements are right?
+  options:
+    - text: Check A is a hold point under P65.
+      correct: true
+      feedback: Correct. P65 defines a hold point as a check where work stops until the check is approved.
+    - text: Check B is a witness point under P65.
+      correct: true
+      feedback: Correct. P65 defines a witness point as a check where work continues while the check is observed.
+    - text: Check B is a hold point, because someone watches it.
+      correct: false
+      feedback: Wrong. Under P65 a hold point stops work. Watching while work continues is a witness point.
+    - text: Check A is a trigger level under P68.
+      correct: false
+      feedback: Wrong. A P68 trigger level is a measured value that starts a planned backup action. A hold point is an approval that stops work.
+    - text: Both checks need no marking if the steps are small.
+      correct: false
+      feedback: Wrong. P65 asks for each check between steps to be marked as a hold point or a witness point.
+- id: q-g-05
+  rules: [P66]
+  stem: An engineer must repair a pump that feeds a production line and that restarts itself on a signal from a controller. Which actions apply P66 (Isolation before work)?
+  options:
+    - text: Cut the power and the input flow to the pump before work starts.
+      correct: true
+      feedback: Correct. P66 asks to isolate the part from all inputs and energy.
+    - text: Lock the isolation, so nobody can restart the pump while the engineer works.
+      correct: true
+      feedback: Correct. P66 asks to lock the isolation against an unexpected restart.
+    - text: End the procedure with a step that releases the isolation.
+      correct: true
+      feedback: Correct. P66 checks that a maintenance procedure starts with an isolation step and ends with a release step.
+    - text: Tell the line operators that the engineer starts work at noon.
+      correct: false
+      feedback: Wrong. Informing people is part of P64 (Versioning and change review). It does not stop the pump from restarting, so it is not isolation under P66.
+    - text: Repair the pump in small steps and check each one.
+      correct: false
+      feedback: Wrong. Small verified steps are P65. P66 asks to isolate first, so a restart cannot injure the engineer.
+- id: q-g-06
+  rules: [P66]
+  stem: A product team is in week one of a two-week sprint. A senior stakeholder asks for a new feature right now. Which responses fit the management form of P66 (Isolation before work)?
+  options:
+    - text: The request waits for the next sprint.
+      correct: true
+      feedback: Correct. In the management form of P66, new requests wait while the team works on its committed goal.
+    - text: Only the Product Owner may cancel the sprint if the request is more urgent.
+      correct: true
+      feedback: Correct. In the management form of P66, only the accountable owner may cancel the goal.
+    - text: The stakeholder adds the feature to the sprint without discussion.
+      correct: false
+      feedback: Wrong. This removes the protection of the committed goal, which the management form of P66 asks for.
+    - text: The team pilots the feature with one customer first.
+      correct: false
+      feedback: Wrong. A pilot is the management form of P65 (Small verified steps). It does not protect the current goal from interruption.
+    - text: The team plans the feature on its critical path.
+      correct: false
+      feedback: Wrong. A critical path is P67. It shapes the plan, but it does not protect the team's committed goal.
+- id: q-g-07
+  rules: [P67]
+  stem: A cluster migration has five tasks. Data sync leads to DNS cutover. Documentation, a new dashboard and a load test have slack. The date is at risk. Which actions apply P67 (Critical path)?
+  options:
+    - text: Mark data sync and DNS cutover as the longest chain of dependent tasks.
+      correct: true
+      feedback: Correct. P67 asks to identify the longest chain of dependent tasks.
+    - text: Write down how much slack the other tasks have.
+      correct: true
+      feedback: Correct. P67 checks that the plan marks the critical path and the slack of the other tasks.
+    - text: Add extra people to data sync before the other tasks.
+      correct: true
+      feedback: Correct. P67 asks to protect the critical path first.
+    - text: Add extra people to the documentation to finish it early.
+      correct: false
+      feedback: Wrong. Documentation has slack. Speeding up tasks with slack while the critical path slips is the P67 violation.
+    - text: Run data sync in three small steps with a check after each.
+      correct: false
+      feedback: Wrong. Small verified steps are P65. They limit harm, but they do not tell the team which tasks decide the date.
+- id: q-g-08
+  rules: [P67, P65]
+  stem: A company moves its office. Network installation must finish before the badge setup, and furniture has two weeks of slack. A supplier offers to deliver furniture earlier. What does P67 (Critical path) say?
+  options:
+    - text: The early delivery gains nothing, because furniture has slack.
+      correct: true
+      feedback: Correct. P67 says a delay on the critical path delays everything, while other tasks have slack.
+    - text: Protect the network installation first.
+      correct: true
+      feedback: Correct. P67 asks to protect the critical path first, and the network installation is on it.
+    - text: Take the early delivery, because every task should finish early.
+      correct: false
+      feedback: Wrong. Finishing a task with slack early does not move the end date. This is the P67 violation.
+    - text: Move one department first and decide at the end of the stage whether to continue.
+      correct: false
+      feedback: Wrong. This is the management form of P65 (Small verified steps). It is a different way to limit risk and does not tell you what to protect.
+    - text: Drop the critical path and plan each task on its own.
+      correct: false
+      feedback: Wrong. P67 asks for the longest chain of dependent tasks to be identified, not dropped.
+- id: q-g-09
+  rules: [P68]
+  stem: A team ships a service whose real load is unknown until it runs in production. Which parts of a plan apply P68 (Observational method)?
+  options:
+    - text: The design fits the most probable load.
+      correct: true
+      feedback: Correct. P68 asks to design for the most probable conditions.
+    - text: The real error rate is monitored in production.
+      correct: true
+      feedback: Correct. P68 asks to monitor the real values.
+    - text: The error rate has a trigger level that starts an automatic rollback.
+      correct: true
+      feedback: Correct. P68 checks that each monitored value has a trigger level and a planned backup action.
+    - text: The team designs for the worst conceivable load and monitors nothing.
+      correct: false
+      feedback: Wrong. P68 asks to measure the real values instead of guessing them in advance.
+    - text: The team watches the error rate and decides on a rollback after go-live.
+      correct: false
+      feedback: Wrong. Discovering at go-live that no rollback plan exists is the P68 violation. The backup action is planned in advance.
+- id: q-g-10
+  rules: [P68, P65]
+  stem: A programme has set a time tolerance for a data migration. It is 10 % past that tolerance. Which responses fit the management form of P68 (Observational method)?
+  options:
+    - text: The steering group decides on scope, as planned in advance.
+      correct: true
+      feedback: Correct. In the management form of P68, the programme escalates and applies a planned response when a tolerance will be breached.
+    - text: The programme monitors progress against its tolerances.
+      correct: true
+      feedback: Correct. The management form of P68 asks to monitor and to escalate when a tolerance will be breached.
+    - text: The programme invents a response now, because none was planned.
+      correct: false
+      feedback: Wrong. P68 asks for tolerances and planned responses in advance, before the work starts.
+    - text: The programme ends the stage and decides whether to continue.
+      correct: false
+      feedback: Wrong. A decision at the end of each stage is the management form of P65 (Small verified steps). P68 reacts to a tolerance breach, whenever it happens.
+    - text: The programme removes the tolerance, so it is no longer breached.
+      correct: false
+      feedback: Wrong. A tolerance is set in advance and monitored. Removing it hides the measurement that P68 depends on.
+- id: q-g-11
+  rules: [P69]
+  stem: An organization moves 30 teams to a new CI system. Which plans apply P69 (Guided change)?
+  options:
+    - text: A written reason, a named leading group and a communication plan.
+      correct: true
+      feedback: Correct. P69 checks that a large change has a written reason, a named leading group and a communication plan.
+    - text: A pilot team provides early wins that are planned and visible.
+      correct: true
+      feedback: Correct. P69 asks to plan early visible wins.
+    - text: The old system is switched off only when all teams use the new one.
+      correct: true
+      feedback: Correct. P69 asks to continue until the new way is part of daily routine, and the end criterion is that the old way is switched off.
+    - text: A manager announces the change by email and declares it done.
+      correct: false
+      feedback: Wrong. Announcing a change by email and declaring it done is the P69 violation.
+    - text: Each team receives a reviewed pull request for its pipeline change.
+      correct: false
+      feedback: Wrong. A reviewed change is P64 (Versioning and change review). It covers the technical change, not how people adopt the new way of working.
+- id: q-g-12
+  rules: [P69, P64]
+  stem: A company will replace its ticket tool for all staff. A pipeline change moves the tool's configuration into git. Which statements are right?
+  options:
+    - text: P64 covers the reviewed, versioned configuration change.
+      correct: true
+      feedback: Correct. P64 asks for each change to be versioned, reviewed and approved.
+    - text: P69 covers making the need visible and leading the people through the change.
+      correct: true
+      feedback: Correct. P69 applies where many people change how they work, and it asks for a leading group and communication.
+    - text: P64 replaces P69, because an approved change needs no communication plan.
+      correct: false
+      feedback: Wrong. P64 only requires informing the affected people before go-live. P69 adds a plan that continues until the change is routine.
+    - text: P69 replaces P64, because a leading group approves the configuration.
+      correct: false
+      feedback: Wrong. A leading group does not replace the P64 record of basis, impact review and approval for each change.
