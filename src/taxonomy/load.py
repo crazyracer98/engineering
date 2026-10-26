@@ -134,7 +134,7 @@ def load_registry_files(root: Path) -> list[tuple[str, list[Source]]]:
     # Case-source fragments: data/learn/sources/<n>.yaml, sorted.
     for path in learn_files(root, "sources"):
         rel = path.relative_to(root).as_posix()
-        out.append((rel, cast("list[Source]", _as_list(load_yaml(path)))))
+        out.append((rel, cast("list[Source]", load_yaml(path) or [])))
     return out
 
 

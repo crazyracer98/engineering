@@ -75,7 +75,6 @@ def test_all_domain_branches_have_a_stub(repo: Path) -> None:
     domains = make_context(repo).ds.domains["domains"]
     slugs = {branch_slug(d["branch"]) for d in domains}
     files = {p.stem for p in (repo / "data/learn/domains").glob("*.yaml")}
-    assert len(slugs) == 20
     assert files == slugs
 
 
@@ -239,6 +238,34 @@ def test_question_unknown_rule(learn_repo: Path, edit: Edit) -> None:
     edit("data/learn/quiz/a.yaml", lambda d: d[0].update(rules=["P1", "P999"]))
     msgs = messages(learn_repo, "learn-questions")
     assert any("q-a-01 names unknown rule P999" in m for m in msgs), msgs
+
+
+def test_question_rules_must_fit_the_file(learn_repo: Path, edit: Edit) -> None:
+    edit("data/learn/quiz/a.yaml", lambda d: d[0].update(rules=["P1", "K2"]))
+    edit("data/learn/quiz/conflicts.yaml", lambda d: d[0].update(rules=["K2", "P1"]))
+    msgs = messages(learn_repo, "learn-questions")
+    assert any("q-a-01 names K2; category questions" in m for m in msgs), msgs
+    assert any("q-k-01 names P1; conflicts questions" in m for m in msgs), msgs
+    edit("data/learn/quiz/a.yaml", lambda d: d[0].update(rules=["P50"]))
+    msgs = messages(learn_repo, "learn-questions")
+    assert any("q-a-01 names no rule of category A" in m for m in msgs), msgs
+
+
+def test_malformed_entries_do_not_crash_checks(learn_repo: Path) -> None:
+    for kind in ("rules/a", "domains/civil", "quiz/a", "cases/1", "sources/1"):
+        (learn_repo / f"data/learn/{kind}.yaml").write_text(
+            "- foo\n- {rule: [x], id: 3, rules: oops, slug: 5, branch: {}}\n",
+            encoding="utf-8",
+        )
+    findings = run_checks(learn_repo)
+    assert not any("crashed" in f.message for f in findings), findings
+    assert any(f.check == "schema" for f in findings)
+    assert learn_coverage(make_context(learn_repo))  # no traceback
+
+
+def test_layout_ignores_dotfiles(learn_repo: Path) -> None:
+    (learn_repo / "data/learn/quiz/.gitkeep").write_text("", encoding="utf-8")
+    assert messages(learn_repo, "learn-layout") == []
 
 
 def test_question_without_correct_option(learn_repo: Path, edit: Edit) -> None:

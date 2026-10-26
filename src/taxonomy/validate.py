@@ -718,6 +718,41 @@ def _stem(rel: str) -> str:
     return Path(rel).stem
 
 
+def _well_formed(e: Any) -> bool:
+    """True for an entry whose key fields have the right JSON types.
+
+    Malformed entries are reported by the ``schema`` check; the learn checks skip
+    them rather than crash on an unhashable or missing value.
+    """
+    if not isinstance(e, dict):
+        return False
+    for key in ("id", "rule", "branch", "domain"):
+        if key in e and not isinstance(e[key], str):
+            return False
+    if "rules" in e and not (
+        isinstance(e["rules"], list) and all(isinstance(r, str) for r in e["rules"])
+    ):
+        return False
+    for key, attr in (("shows", "rule"), ("lessons", "rule"), ("quotes", "source")):
+        items = e.get(key, [])
+        if not isinstance(items, list) or not all(
+            isinstance(i, dict) and isinstance(i.get(attr), str) for i in items
+        ):
+            return False
+    opts = e.get("options", [])
+    return isinstance(opts, list) and all(isinstance(o, dict) for o in opts)
+
+
+def _learn_entries(ctx: Context, kind: str) -> list[tuple[str, list[dict[str, Any]]]]:
+    """The well-formed entries of each ``data/learn/<kind>/`` file."""
+    prefix = f"{LEARN_DIR}/{kind}/"
+    return [
+        (rel, [e for e in entries if _well_formed(e)])
+        for rel, entries in ctx.learn.files.items()
+        if rel.startswith(prefix)
+    ]
+
+
 def _learn_stems(ctx: Context) -> dict[str, set[str]]:
     """The allowed file stems per ``data/learn/`` kind."""
     cats = {c["id"].lower() for c in ctx.ds.categories}
@@ -749,6 +784,8 @@ def check_learn_layout(ctx: Context) -> list[str]:
             continue
         for path in sorted(directory.iterdir()):
             rel = path.relative_to(ctx.root)
+            if path.name.startswith("."):
+                continue  # .gitkeep, .DS_Store
             if path.suffix != ".yaml":
                 msgs.append(f"{rel} is not a .yaml file")
             elif path.stem not in stems:
@@ -763,9 +800,7 @@ def check_learn_rule_examples(ctx: Context) -> list[str]:
     msgs: list[str] = []
     rules = ctx.ds.rule_by_id()
     seen: dict[str, str] = {}
-    for rel, entries in ctx.learn.files.items():
-        if not rel.startswith(f"{LEARN_DIR}/rules/"):
-            continue
+    for rel, entries in _learn_entries(ctx, "rules"):
         cat = _stem(rel).upper()
         for e in entries:
             rid = e.get("rule")
@@ -792,9 +827,7 @@ def check_learn_domain_examples(ctx: Context) -> list[str]:
     msgs: list[str] = []
     rows = {(d["branch"], d["domain"]): d for d in ctx.ds.domains["domains"]}
     seen: dict[tuple[str, str], str] = {}
-    for rel, entries in ctx.learn.files.items():
-        if not rel.startswith(f"{LEARN_DIR}/domains/"):
-            continue
+    for rel, entries in _learn_entries(ctx, "domains"):
         for e in entries:
             key = (e.get("branch"), e.get("domain"))
             if key not in rows:
@@ -827,10 +860,9 @@ def check_learn_domain_examples(ctx: Context) -> list[str]:
 def check_learn_questions(ctx: Context) -> list[str]:
     msgs: list[str] = []
     ids = ctx.ds.all_ids()
+    cats = {c["id"].lower(): c["rules"] for c in ctx.ds.categories}
     seen: dict[str, str] = {}
-    for rel, entries in ctx.learn.files.items():
-        if not rel.startswith(f"{LEARN_DIR}/quiz/"):
-            continue
+    for rel, entries in _learn_entries(ctx, "quiz"):
         expected = "k" if _stem(rel) == "conflicts" else _stem(rel)
         for q in entries:
             qid = q.get("id", "?")
@@ -847,6 +879,24 @@ def check_learn_questions(ctx: Context) -> list[str]:
                 for r in q.get("rules", [])
                 if r not in ids
             )
+            qrules = q.get("rules", [])
+            if _stem(rel) == "conflicts":
+                msgs.extend(
+                    f"{rel}: {qid} names {r}; conflicts questions name K rules"
+                    for r in qrules
+                    if r in ids and not r.startswith("K")
+                )
+            else:
+                own = set(cats.get(_stem(rel), []))
+                msgs.extend(
+                    f"{rel}: {qid} names {r}; category questions name P rules"
+                    for r in qrules
+                    if r in ids and r.startswith("K")
+                )
+                if own and not own.intersection(qrules):
+                    msgs.append(
+                        f"{rel}: {qid} names no rule of category {_stem(rel).upper()}"
+                    )
             flags = [o.get("correct") for o in q.get("options", [])]
             if flags and not any(f is True for f in flags):
                 msgs.append(f"{rel}: {qid} has no correct option")
@@ -860,9 +910,7 @@ def check_learn_cases(ctx: Context) -> list[str]:
     ids = {r["id"] for r in ctx.ds.rules}
     seen: dict[str, str] = {}
     by_rule: dict[str, str] = {}
-    for rel, entries in ctx.learn.files.items():
-        if not rel.startswith(f"{LEARN_DIR}/cases/"):
-            continue
+    for rel, entries in _learn_entries(ctx, "cases"):
         for c in entries:
             cid = c.get("id", "?")
             if cid in seen:
@@ -898,7 +946,9 @@ def check_learn_sources(ctx: Context) -> list[str]:
         for rel, entries in ctx.registries
         if rel.startswith(f"{LEARN_DIR}/sources/")
         for s in entries
-        if not s["slug"].startswith("case-")
+        if isinstance(s, dict)
+        and isinstance(s.get("slug"), str)
+        and not s["slug"].startswith("case-")
     ]
 
 
@@ -920,14 +970,18 @@ def learn_coverage(ctx: Context, scope: str | None = None) -> list[str]:
             f"k, or a branch slug ({', '.join(sorted(branches))})"
         )
     msgs: list[str] = []
-    examples = {e.get("rule") for e in ctx.learn.rule_examples}
+    examples = {e.get("rule") for e in ctx.learn.rule_examples if _well_formed(e)}
     for r in ctx.ds.rules:
         if scope in (None, r["category"].lower()) and r["id"] not in examples:
             msgs.append(
                 f"{r['id']} has no rule example "
                 f"(data/learn/rules/{r['category'].lower()}.yaml)"
             )
-    done = {(e.get("branch"), e.get("domain")) for e in ctx.learn.domain_examples}
+    done = {
+        (e.get("branch"), e.get("domain"))
+        for e in ctx.learn.domain_examples
+        if _well_formed(e)
+    }
     for d in ctx.ds.domains["domains"]:
         slug = branch_slug(d["branch"])
         if scope in (None, slug) and (d["branch"], d["domain"]) not in done:
@@ -936,11 +990,10 @@ def learn_coverage(ctx: Context, scope: str | None = None) -> list[str]:
                 f"(data/learn/domains/{slug}.yaml)"
             )
     asked: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
-    for rel, entries in ctx.learn.files.items():
-        if rel.startswith(f"{LEARN_DIR}/quiz/"):
-            for q in entries:
-                for rid in q.get("rules", []):
-                    asked[_stem(rel)][rid] += 1
+    for rel, entries in _learn_entries(ctx, "quiz"):
+        for q in entries:
+            for rid in q.get("rules", []):
+                asked[_stem(rel)][rid] += 1
     for cat, c in cats.items():
         if scope not in (None, cat):
             continue
@@ -988,7 +1041,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         ctx = make_context(args.root.resolve() if args.root else find_root())
         gaps = learn_coverage(ctx, args.scope)
-    except (OSError, ValueError) as exc:
+    except (OSError, ValueError, TypeError, KeyError, AttributeError) as exc:
         print(f"learn coverage: {exc}", file=sys.stderr)
         return 2
     for gap in gaps:
@@ -1032,7 +1085,8 @@ def make_context(root: Path) -> Context:
     registry: dict[str, Source] = {}
     for _, entries in registries:
         for s in entries:
-            registry.setdefault(s["slug"], s)
+            if isinstance(s, dict) and isinstance(s.get("slug"), str):
+                registry.setdefault(s["slug"], s)  # malformed: the schema check
     return Context(root, ds, registries, registry, load_learn(root))
 
 
