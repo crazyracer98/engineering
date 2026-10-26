@@ -92,7 +92,7 @@ systematic search.
 
 ## Checklist research {#sec-rw-checklists}
 
-Checklists are both one of the taxonomy's rules (U32) and the format of its
+Checklists are both one of the taxonomy's rules (P71) and the format of its
 quick view, so the evidence on them matters twice. Gawande's *The Checklist
 Manifesto* made the case for short checklists across aviation, construction
 and medicine [@gawande-2009-checklist-manifesto]. Notes on the book record
@@ -114,7 +114,7 @@ comparison, not a randomized trial. A later population-level study of
 mandatory adoption in Ontario, covering 101 hospitals, found that
 implementation "was not associated with significant reductions in operative
 mortality or complications" [@urbach-2014-ontario-checklists]. The
-taxonomy lists both studies among the sources for U32, and rates U32's
+taxonomy lists both studies among the sources for P71, and rates P71's
 evidence as moderate, not strong.
 
 The five-to-nine range itself rests on older and contested ground. Miller's

@@ -51,24 +51,14 @@ def test_check_command(repo: Path, capsys: pytest.CaptureFixture[str]) -> None:
     assert "[citations]" in capsys.readouterr().err
 
 
-def test_site_and_paper_stubs(capsys: pytest.CaptureFixture[str]) -> None:
-    assert cli.main(["site", "--out", "build/site"]) == 2
-    err = capsys.readouterr().err
-    assert "taxonomy site: taxonomy site is implemented by work item" in err
-    assert cli.main(["paper", "--out", "build/paper.pdf"]) == 2
-    err = capsys.readouterr().err
-    assert err.startswith("taxonomy paper: ")
-    assert "Traceback" not in err
-
-
 def test_chapters_have_anchors_and_relative_links() -> None:
     ds = load_dataset(REPO)
     chapters = render_chapters(ds, load_registry(REPO))
     rules = chapters["07-rules.md"]
-    assert '<a id="u1"></a>U1' in rules
+    assert '<a id="p1"></a>P1' in rules
     assert '<a id="k1"></a>K1' in chapters["08-conflicts.md"]
     assert "[section 6](06-rigor-matrix.md)" in chapters["01-how-to-read.md"]
-    assert "[U8](07-rules.md#u8)" in chapters["06-rigor-matrix.md"]
+    assert "[P56](07-rules.md#p56)" in chapters["06-rigor-matrix.md"]
     assert len([n for n in chapters if n[:2].isdigit()]) == 12
 
 
@@ -152,7 +142,7 @@ def test_yaml_sources_text_uses_per_use_titles_like_markdown() -> None:
     doc = build_document(ds, reg)
     md = render_single(ds, reg)
     quote = next(q for q in doc["quotes"] if q["id"] == "Q9")
-    form = next(r for r in doc["rules"] if r["id"] == "U17")["management"]
+    form = next(r for r in doc["rules"] if r["id"] == "P57")["management"]
     assert f"| {quote['sources_text']} |" in md
     assert f"| {form['sources_text']} |" in md
     assert form["sources_text"].startswith("[ISO 22301:2019](")

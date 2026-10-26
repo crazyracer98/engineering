@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/crazyracer98/engineering/schema/rigor_matrix.schema.json",
   "title": "Rigor matrix",
-  "description": "data/rigor_matrix.yaml: as in edition 6. Rendered cell: `<apply joined by \", \">. Checker level: <checker_level> (U8).`; rows by consequence (low, high), columns by uncertainty (low, high).",
+  "description": "data/rigor_matrix.yaml: as in edition 6. Rendered cell: `<apply joined by \", \">. Checker level: <checker_level> (P56).`; rows by consequence (low, high), columns by uncertainty (low, high).",
   "type": "array",
   "minItems": 4,
   "maxItems": 4,

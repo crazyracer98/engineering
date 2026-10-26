@@ -8,9 +8,19 @@
 - `test_checks.py`: one seeded violation per integrity check
   ([NFR-0001](../docs/nfrs/NFR-0001-dataset-integrity.md)), each asserting the
   check fails with a clear message, plus the clean-dataset test.
+- `test_ids.py`: the edition-9 -> P1-P83 map (`sources/import/id-map.yaml`),
+  category order, prefix-generic ID matching and linking (ranges link every
+  ID), and the class coming from the `class` field.
 - `test_publication.py`: `publication/` freshness, chapters, the flattened
   YAML, citation resolution and the CLI. There is no round trip against the
   edition-9 Markdown any more (ADR 0003, "G1 delta").
+- `test_render_site.py`: the assembled site tree and a real `--strict` MkDocs build.
+- `test_render_paper.py`: CSL-JSON, the assembled paper Markdown, Pandoc
+  failure on a missing citation, and one real PDF build marked `slow`
+  (registered in `conftest.py`; a few seconds, so it runs in the default
+  `pytest`; deselect it with `-m "not slow"`).
+- `test_verify_sources.py`: `taxonomy verify-sources` offline (fake transport and
+  clock; fixtures in `fixtures/verify/`, authored here, never third-party text).
 
 ## Do
 

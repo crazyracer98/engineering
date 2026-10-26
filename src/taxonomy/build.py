@@ -20,7 +20,7 @@ these files are stale.
 - `engineering-best-practices.yaml`: the same content as flattened YAML, with
   citations resolved to links and the source registry included.
 - `chapters/`: the same Markdown split by numbered section, with stable rule
-  anchors (`#u1`); start at [`chapters/README.md`](chapters/README.md).
+  anchors (`#p1`); start at [`chapters/README.md`](chapters/README.md).
 """
 
 

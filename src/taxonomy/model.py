@@ -13,8 +13,10 @@ from dataclasses import dataclass, field
 from typing import Any, TypedDict
 
 # Rule ID shapes, as in the schemas.
-RULE_ID = re.compile(r"^[URC][1-9][0-9]*$")
+RULE_ID = re.compile(r"^P[1-9][0-9]*$")
 CONFLICT_ID = re.compile(r"^K[1-9][0-9]*$")
+#: The rule named in every rigor-matrix cell ("Checker level: peer (P56)").
+CHECKER_LEVEL_RULE = "P56"
 SLUG = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 
 #: Relation keys of ``rules.related``, in the order edition 9 prints them,

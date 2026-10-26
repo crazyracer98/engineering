@@ -2,15 +2,15 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/crazyracer98/engineering/schema/rules.schema.json",
   "title": "Rules",
-  "description": "data/rules.yaml: the U, R and C rules in ID order (sections 7, 9 and 10 of edition 9).",
+  "description": "data/rules.yaml: the rules (P1 to P83, in category order; the class is a field), covering sections 7, 9 and 10 of edition 9.",
   "type": "array",
   "items": {
     "type": "object",
     "properties": {
       "id": {
         "type": "string",
-        "pattern": "^[URC][1-9][0-9]*$",
-        "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+        "pattern": "^P[1-9][0-9]*$",
+        "description": "Rule ID: P plus number (opaque; the class is the `class` field)."
       },
       "former_id": {
         "type": "string",
@@ -81,8 +81,8 @@
             "type": "array",
             "items": {
               "type": "string",
-              "pattern": "^[URC][1-9][0-9]*$",
-              "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+              "pattern": "^P[1-9][0-9]*$",
+              "description": "Rule ID: P plus number (opaque; the class is the `class` field)."
             },
             "minItems": 1
           },
@@ -90,8 +90,8 @@
             "type": "array",
             "items": {
               "type": "string",
-              "pattern": "^[URC][1-9][0-9]*$",
-              "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+              "pattern": "^P[1-9][0-9]*$",
+              "description": "Rule ID: P plus number (opaque; the class is the `class` field)."
             },
             "minItems": 1
           },
@@ -99,8 +99,8 @@
             "type": "array",
             "items": {
               "type": "string",
-              "pattern": "^[URC][1-9][0-9]*$",
-              "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+              "pattern": "^P[1-9][0-9]*$",
+              "description": "Rule ID: P plus number (opaque; the class is the `class` field)."
             },
             "minItems": 1
           },
@@ -108,8 +108,8 @@
             "type": "array",
             "items": {
               "type": "string",
-              "pattern": "^[URC][1-9][0-9]*$",
-              "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+              "pattern": "^P[1-9][0-9]*$",
+              "description": "Rule ID: P plus number (opaque; the class is the `class` field)."
             },
             "minItems": 1
           },
@@ -117,8 +117,8 @@
             "type": "array",
             "items": {
               "type": "string",
-              "pattern": "^[URC][1-9][0-9]*$",
-              "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+              "pattern": "^P[1-9][0-9]*$",
+              "description": "Rule ID: P plus number (opaque; the class is the `class` field)."
             },
             "minItems": 1
           },
@@ -126,8 +126,8 @@
             "type": "array",
             "items": {
               "type": "string",
-              "pattern": "^[URC][1-9][0-9]*$",
-              "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+              "pattern": "^P[1-9][0-9]*$",
+              "description": "Rule ID: P plus number (opaque; the class is the `class` field)."
             },
             "minItems": 1
           },
@@ -135,14 +135,14 @@
             "type": "array",
             "items": {
               "type": "string",
-              "pattern": "^[URC][1-9][0-9]*$",
-              "description": "Rule ID: U (universal), R (risk-scaled) or C (conditional) plus number."
+              "pattern": "^P[1-9][0-9]*$",
+              "description": "Rule ID: P plus number (opaque; the class is the `class` field)."
             },
             "minItems": 1
           }
         },
         "additionalProperties": false,
-        "description": "Relations to other rules: keys in `meta.relation_types` order, IDs in U, R, C numeric order. Both directions are recorded: every `strengthens`/`checks` has its inverse `strengthened_by`/`checked_by` on the target rule and vice versa, and `conflicts_with` is stated on both rules. `depends_on` and `scaled_by` have no inverse type and stay one-way."
+        "description": "Relations to other rules: keys in `meta.relation_types` order, IDs in numeric order. Both directions are recorded: every `strengthens`/`checks` has its inverse `strengthened_by`/`checked_by` on the target rule and vice versa, and `conflicts_with` is stated on both rules. `depends_on` and `scaled_by` have no inverse type and stay one-way."
       },
       "related_text": {
         "type": "string",
@@ -289,7 +289,7 @@
               "evidence_note"
             ],
             "additionalProperties": false,
-            "description": "Section 10: the rule in management form. Null for rules that come from management sources (U47-U58, R9, C14-C16)."
+            "description": "Section 10: the rule in management form. Null for rules that come from management sources (P5-P8, P18-P21, P35, P43, P52, P53, P62, P63, P69, P79)."
           }
         ]
       }

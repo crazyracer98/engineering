@@ -36,7 +36,7 @@
   year: null
   paid: false
   accessed: null
-  notes: "Classification is the importer's judgment against section 1's definition: magazine of a professional body (SPE); edition 9 rates U29 and U14 as having primary sources."
+  notes: "Classification is the importer's judgment against section 1's definition: magazine of a professional body (SPE); edition 9 rates P40 and P24 as having primary sources."
 - slug: spe-design-decommissioning
   title: 'SPE: Design for decommissioning (basis of design)'
   url: https://onepetro.org/spe/general-information/1423/Design-for-decommissioning
@@ -144,7 +144,7 @@
   year: null
   paid: false
   accessed: null
-  notes: "Classification is the importer's judgment against section 1's definition: university course document; it is C1's only source and edition 9 says every rule except C15 has a primary source."
+  notes: "Classification is the importer's judgment against section 1's definition: university course document; it is P60's only source and edition 9 says every rule except P53 has a primary source."
 - slug: libretexts-peer-review-design
   title: 'LibreTexts: Peer review in design'
   url: https://eng.libretexts.org/Courses/Western_Technical_College/Inventor_Parametric_Design:_Level_1_%28Bahl%29/01:_Technical_Drawings/1.02:_Peer_Review_Process_and_Markup_Drawings/1.2.01:_The_Role_of_Peer_Review_in_Engineering_Design
@@ -587,7 +587,7 @@
   year: null
   paid: false
   accessed: null
-  notes: "Classification is the importer's judgment against section 1's definition: magazine of a professional body (SPE); edition 9 rates U29 and U14 as having primary sources."
+  notes: "Classification is the importer's judgment against section 1's definition: magazine of a professional body (SPE); edition 9 rates P40 and P24 as having primary sources."
 - slug: fda-haccp-principles-application-guidelines
   title: 'FDA: HACCP Principles & Application Guidelines'
   url: https://www.fda.gov/food/hazard-analysis-critical-control-point-haccp/haccp-principles-application-guidelines
@@ -1254,7 +1254,7 @@
   kind: primary
   publisher: Harvard Business Review
   year: 2007
-  paid: false
+  paid: true
   accessed: '2026-10-14'
   notes: 'Original article; edition 9 section 12: only available as a summary.'
 - slug: iso-21502-2020-guidance-project
@@ -1337,7 +1337,7 @@
   year: null
   paid: false
   accessed: '2026-10-14'
-  notes: 'Edition 9 section 12: C15 rests on the Jargon File (secondary only).'
+  notes: 'Edition 9 section 12: P53 rests on the Jargon File (secondary only).'
 - slug: kohavi-thomke-surprising-power-online
   title: 'Kohavi & Thomke: The Surprising Power of Online Experiments (HBR 2017)'
   url: https://web-docs.stern.nyu.edu/executive/The%20Surprising%20Power%20of%20Online%20Experiments.pdf
@@ -2043,7 +2043,7 @@
   year: null
   paid: false
   accessed: null
-  notes: "Classification is the importer's judgment against section 1's definition: edition 9 section 12 states every rule except C15 has a primary source; for C8 only this page can be it."
+  notes: "Classification is the importer's judgment against section 1's definition: edition 9 section 12 states every rule except P53 has a primary source; for P50 only this page can be it."
 - slug: asme-bpvc-section-ix-welding
   title: 'ASME BPVC Section IX: Welding, Brazing and Fusing Qualifications'
   url: https://www.asme.org/codes-standards/find-codes-standards/bpvc-ix-bpvc-section-ix-welding-brazing-fusing-qualifications
@@ -2088,7 +2088,7 @@
   year: 2000
   paid: false
   accessed: '2026-10-14'
-  notes: Trade article; edition 9 section 12 (C15 rests on the Jargon File and a trade article).
+  notes: Trade article; edition 9 section 12 (P53 rests on the Jargon File and a trade article).
 - slug: wikipedia-genchi-genbutsu
   title: 'Wikipedia: Genchi Genbutsu'
   url: https://en.wikipedia.org/wiki/Genchi_Genbutsu

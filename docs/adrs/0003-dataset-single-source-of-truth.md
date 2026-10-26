@@ -54,7 +54,7 @@ other registries cite those slugs, so renaming one is a breaking change.
 
 The integrity checks include "every rule has at least one primary source".
 Its only exceptions are the rules listed with a reason in
-`meta.known_exceptions`, which in 1.0.0 is just C15 (Brooks's law, whose
+`meta.known_exceptions`, which in 1.0.0 is just P53 (Brooks's law, whose
 primary source is a book that isn't online).
 
 ## Consequences
@@ -85,7 +85,9 @@ is no longer the oracle. The round-trip test against
 stays: `publication/` must still equal what `data/` renders.
 
 The accepted delta from edition 9 to 1.0.0 is 45 diff hunks in the
-single-file Markdown. Besides the version line ("Version 9" becomes
+single-file Markdown. The rule IDs in this list are the edition-9 IDs
+(U, R and C); 1.0.0 renamed them to P1–P83 before release, and
+`sources/import/id-map.yaml` maps each one. Besides the version line ("Version 9" becomes
 "Version 1.0.0"), it contains:
 
 - **(a) Primary sources first.** Edition 9's section 1 says "each rule lists

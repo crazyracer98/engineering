@@ -1,0 +1,102 @@
+# Fetches each quote's source and checks that the quote text appears in it
+# (`taxonomy verify-sources`; see sources/README.md, "Source verification").
+# Fetched third-party text is only ever cached (actions/cache), never committed.
+name: Verify sources
+
+on:
+  schedule:
+    # Weekly; also keeps the source cache from the 7-day eviction.
+    - cron: "23 5 * * 3"
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - data/quotes.yaml
+      - data/sources.yaml
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: verify-sources-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    # renovate: datasource=github-runners depName=ubuntu
+    runs-on: ${{ vars.CI_RUNNER || 'ubuntu-24.04' }}
+    timeout-minutes: 90
+    env:
+      ISSUE_TITLE: "Source verification: unverifiable sources"
+      ISSUE_LABEL: source-verification
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+
+      - name: Install dependencies
+        run: uv sync --locked
+
+      # Restore the latest cache; a fresh key per run saves a new one, so
+      # unchanged sources are revalidated (ETag / Last-Modified) instead of
+      # downloaded again. Saving is a separate `if: always()` step below so
+      # the cache survives a failing run.
+      - name: Restore source cache
+        id: cache
+        uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        with:
+          path: build/source-cache
+          key: source-cache-${{ hashFiles('data/sources.yaml') }}-${{ github.run_id }}
+          restore-keys: |
+            source-cache-
+
+      # Exit 1 only when a fetched source lacks its quote; fetch failures
+      # (blocked, timeout, paid) are reported but exit 0.
+      - name: Verify quotes against their sources
+        id: verify
+        run: |
+          set +e
+          uv run taxonomy verify-sources --report build/verify-report.md
+          status=$?
+          set -e
+          [ -f build/verify-report.md ] && cat build/verify-report.md >> "$GITHUB_STEP_SUMMARY"
+          if grep -Eq 'unchecked=[1-9]' build/verify-report.md 2>/dev/null; then
+            echo "unchecked=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "unchecked=false" >> "$GITHUB_OUTPUT"
+          fi
+          exit "$status"
+
+      - name: Save source cache
+        if: ${{ always() && steps.cache.outputs.cache-primary-key != '' }}
+        uses: actions/cache/save@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        with:
+          path: build/source-cache
+          key: ${{ steps.cache.outputs.cache-primary-key }}
+
+      # One tracking issue: updated while sources are unverifiable, closed
+      # once everything could be checked. Not on pull requests (read-only
+      # token for forks, and PR runs should not touch shared state).
+      - name: Update tracking issue
+        if: ${{ always() && github.event_name != 'pull_request' && hashFiles('build/verify-report.md') != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          UNCHECKED: ${{ steps.verify.outputs.unchecked }}
+        run: |
+          number=$(gh issue list --label "$ISSUE_LABEL" --state open \
+            --json number --jq '.[0].number // empty')
+          if [ "$UNCHECKED" = "true" ]; then
+            if [ -n "$number" ]; then
+              gh issue edit "$number" --body-file build/verify-report.md
+            else
+              gh label create "$ISSUE_LABEL" --force \
+                --description "Quote sources that could not be verified" >/dev/null
+              gh issue create --title "$ISSUE_TITLE" --label "$ISSUE_LABEL" \
+                --body-file build/verify-report.md
+            fi
+          elif [ -n "$number" ]; then
+            gh issue close "$number" --comment \
+              "All sources could be fetched and verified in $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID."
+          fi

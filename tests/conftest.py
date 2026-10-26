@@ -14,6 +14,13 @@ REPO = Path(__file__).resolve().parent.parent
 COPIED = ("data", "schema", "paper", "docs", "publication", "sources")
 
 
+def pytest_configure(config: pytest.Config) -> None:
+    """Register the ``slow`` marker (it still runs in the default invocation)."""
+    config.addinivalue_line(
+        "markers", "slow: builds the real PDF paper (a few seconds; runs by default)"
+    )
+
+
 @pytest.fixture
 def repo(tmp_path: Path) -> Path:
     """A copy of the data, schemas, prose and publication under a temp root."""

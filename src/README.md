@@ -12,6 +12,8 @@ Built with `uv_build` from `../pyproject.toml`; the console script
   `data/sources.yaml`, `paper/references-extra.yaml` and
   `docs/methodology-references.yaml` into `slug -> Source`) and
   `load_registry_files(root)`.
+- `ids.py`: rule-ID matching for any prefix in `meta.id_prefixes`
+  (`id_key`, `id_finder`, `link_ids`, which links every ID of a range).
 - `validate.py`: the integrity checks of
   [NFR-0001](../docs/nfrs/NFR-0001-dataset-integrity.md); `run_checks(root)`
   returns `Finding`s.
@@ -20,9 +22,15 @@ Built with `uv_build` from `../pyproject.toml`; the console script
   `render_single(ds, registry)` and `render_chapters(ds, registry)`.
 - `render_yaml.py`: `render_yaml(ds, registry)`, the flattened YAML.
 - `build.py`: `generate`, `stale` and `write` for `../publication/`.
-- `render_site.py`, `render_paper.py`: `build(out: Path) -> None`; stubs that
-  raise `NotImplementedError` until the site and paper work items land.
-- `cli.py`: `taxonomy check | build [--check] | site --out DIR | paper --out FILE`.
+- `render_paper.py`: `build(out: Path, root: Path | None = None) -> None` builds
+  the PDF paper (Pandoc with citeproc, then Typst) and `references.json` next
+  to it; `write_csl_json(root, out)`. See [`../paper/README.md`](../paper/README.md).
+- `render_site.py`: `build(out: Path, root: Path | None = None) -> None` builds
+  the Material for MkDocs site (`assemble(root)` stages the pages; `../mkdocs.yml`).
+- `verify_sources.py`: `run(...)` behind `taxonomy verify-sources`: fetches
+  each quote's source (cache, origin, `via`, Internet Archive), extracts
+  the text and checks the quote appears in it; see `../sources/README.md`.
+- `cli.py`: `taxonomy check | build [--check] | site --out DIR | paper --out FILE | verify-sources`.
 
 ## Do
 
