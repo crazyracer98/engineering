@@ -1,2 +1,83 @@
 # Domain examples, branch Management: Operations, quality and supply. Schema: schema/learn-domains.schema.json.
-[]
+- branch: 'Management: Operations, quality and supply'
+  domain: Quality management
+  scenario: A food producer runs its quality system on a yearly cycle. The purchase system refuses an
+    order without a contract number. Management reviews its defect rate but does not pay bonuses on it
+    alone.
+  shows:
+  - rule: P81
+    how: The company plans, does, checks and acts in a repeating cycle. Actions from earlier cycles are
+      tracked until they are completed.
+  - rule: P1
+    how: The manager stops a shipment with a known safety defect, even when the deadline is near. Safety
+      comes before cost and schedule.
+  - rule: P39
+    how: 'The purchase system makes the error impossible: it refuses an order without a contract number.
+      It does not rely on inspection later.'
+  - rule: P19
+    how: The defect rate is paired with a counter-indicator, such as customer complaints. A yearly review
+      checks that it still tracks the real objective.
+- branch: 'Management: Operations, quality and supply'
+  domain: Lean production
+  scenario: On an assembly line, any worker who sees a defect can pull a cord and stop the line. Every
+    stop is reviewed afterwards. Nobody is blamed for a stop.
+  shows:
+  - rule: P4
+    how: Any worker may stop the work without permission and without blame. The stop is always available,
+      and every use is reviewed.
+- branch: 'Management: Operations, quality and supply'
+  domain: Operations and queueing
+  scenario: A service desk gets a steady flow of requests. Management plans 70 % of staff capacity and
+    keeps 30 % free. It also limits the number of open tickets per agent.
+  shows:
+  - rule: P52
+    how: A WIP limit caps the items in progress. Agents finish tickets before they start new ones, and
+      lead time and WIP are tracked.
+  - rule: P44
+    how: The team plans 70 % of its capacity and keeps 30 % for unplanned work. It does not plan people
+      near 100 % utilization.
+- branch: 'Management: Operations, quality and supply'
+  domain: Supply chain management
+  scenario: A retailer shares its real sales data with its wholesaler and the factory. Before this, each
+    stage ordered only from the order of the stage below, and the swings grew along the chain.
+  shows:
+  - rule: P51
+    how: Every stage of the chain sees the real end demand, not only the order of the next stage. This
+      stops the swings growing.
+- branch: 'Management: Operations, quality and supply'
+  domain: Procurement
+  scenario: A public body buys a large IT system. Bidders must declare their interests. The tender also
+    scores the whole life cycle impact of each offer, including energy use.
+  shows:
+  - rule: P6
+    how: Anyone who evaluates a bid declares personal interests. The register is checked before the vendor
+      selection.
+  - rule: P3
+    how: The evaluation includes environmental impact across the whole life cycle, not only the price.
+- branch: 'Management: Operations, quality and supply'
+  domain: Responsible supply chains
+  scenario: A clothing brand asks its suppliers who their own suppliers are. It reviews the risks it finds
+    and acts on them before it signs a new contract.
+  shows:
+  - rule: P14
+    how: The brand knows each supplier and the risks in its supply chain, and it acts on what it finds.
+      Parts and materials are traced to their origin.
+- branch: 'Management: Operations, quality and supply'
+  domain: Asset management
+  scenario: A water utility keeps a register of its pumps and pipes. Each entry has an owner, a condition
+    and a life-cycle stage. A yearly walk-through compares the register with the real assets.
+  shows:
+  - rule: P78
+    how: The register is complete. Each asset has an owner, a condition and a life-cycle stage. Unknown
+      assets are found by comparing reality with the inventory.
+- branch: 'Management: Operations, quality and supply'
+  domain: IT service management
+  scenario: An IT service team runs changes through a reviewed process. The on-call policy is versioned.
+    A request without a cost centre is returned, not guessed.
+  shows:
+  - rule: P64
+    how: Policies are versioned and changed only by a reviewed change. The review covers the effects and
+      the affected people are informed before it takes effect.
+  - rule: P33
+    how: The service states what it needs from the requester. An incomplete request is returned, not silently
+      fixed.

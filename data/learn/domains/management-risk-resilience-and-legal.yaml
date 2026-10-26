@@ -1,2 +1,87 @@
 # Domain examples, branch Management: Risk, resilience and legal. Schema: schema/learn-domains.schema.json.
-[]
+- branch: 'Management: Risk, resilience and legal'
+  domain: Business continuity
+  scenario: A payroll team sets a recovery time objective of 3 days. The maximum tolerable disruption
+    is 5 days. If staff are short, optional reports stop first, and payroll continues.
+  shows:
+  - rule: P73
+    how: The recovery time objective of 3 days is shorter than the 5-day tolerable maximum, with a margin.
+  - rule: P47
+    how: The plan says in advance which work stops first when demand exceeds capacity. Payroll resumes
+      at a minimum capacity.
+- branch: 'Management: Risk, resilience and legal'
+  domain: Incident and crisis management
+  scenario: A company faces a data outage. One incident commander leads. Group leads manage teams of about
+    five. There is one crisis channel. If the commander is absent, a named deputy takes over.
+  shows:
+  - rule: P30
+    how: There is one accountable incident commander. Each person reports to one person for a given task.
+  - rule: P79
+    how: The commander directs a few group leads, not all responders. Each lead directs about five people.
+  - rule: P76
+    how: Communication during the crisis is limited to the response, in one crisis channel.
+  - rule: P37
+    how: 'The plan defines in advance what happens when the commander is absent: a deputy and a transfer
+      of command.'
+- branch: 'Management: Risk, resilience and legal'
+  domain: Information security management
+  scenario: A company limits each employee's access to the data their role needs. It keeps a register
+    of its information assets with owners.
+  shows:
+  - rule: P36
+    how: Each person gets only the information and decision authority their role needs, with written limits.
+  - rule: P78
+    how: The register of information assets has an owner, a condition and a life-cycle stage for each
+      asset.
+- branch: 'Management: Risk, resilience and legal'
+  domain: Data protection
+  scenario: A company collects customer data. Only the customer service team can see it. Each data set
+    has a purpose, a retention period and a deletion date. Changes to records keep the original entry.
+  shows:
+  - rule: P36
+    how: Personal data is visible only to the roles that need it.
+  - rule: P24
+    how: 'Data collection is planned with its end: a deletion date is set when collection starts.'
+  - rule: P11
+    how: A change to a record is a new entry with author, time and reason. The original stays visible,
+      so the company can show compliance.
+- branch: 'Management: Risk, resilience and legal'
+  domain: Records management and accounting
+  scenario: A finance team corrects a booking error. It does not overwrite the old entry. It adds a new
+    entry with the author, the date and the reason.
+  shows:
+  - rule: P11
+    how: Changes keep the original entry visible and record who, when and why. A sample shows the full
+      change history.
+- branch: 'Management: Risk, resilience and legal'
+  domain: Litigation and investigations
+  scenario: An employee files a complaint about a dismissal. The company expects a legal dispute. It stops
+    routine deletion of the related emails and chat channels, and records who handles them.
+  shows:
+  - rule: P83
+    how: Litigation is reasonably anticipated. Routine deletion stops and the relevant records are preserved
+      before anyone changes them, with a record of who handled the evidence.
+- branch: 'Management: Risk, resilience and legal'
+  domain: Occupational health and safety
+  scenario: A warehouse has forklifts and walkers on the same aisle. A sign tells walkers to take care.
+    The safety manager adds a separate walkway instead.
+  shows:
+  - rule: P38
+    how: The manager uses the highest possible control level. A separate walkway removes the shared path.
+      A sign is an administrative control, which ranks lower.
+- branch: 'Management: Risk, resilience and legal'
+  domain: Environmental management
+  scenario: A company reviews its energy and waste each quarter alongside the budget. It also looks at
+    the impact of its purchases over their whole life.
+  shows:
+  - rule: P3
+    how: Resource use is measured and reviewed. Environmental impact is part of decisions across the whole
+      life cycle.
+- branch: 'Management: Risk, resilience and legal'
+  domain: Organizational accident research
+  scenario: A hospital sees three projects in a row miss their deadline by two weeks. Nobody was harmed.
+    A review treats it as a pattern, not as normal.
+  shows:
+  - rule: P82
+    how: The deviation is recorded and investigated even though nothing went wrong. It is not accepted
+      as normal before the cause is known.

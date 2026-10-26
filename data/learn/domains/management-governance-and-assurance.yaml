@@ -1,2 +1,69 @@
 # Domain examples, branch Management: Governance and assurance. Schema: schema/learn-domains.schema.json.
-[]
+- branch: 'Management: Governance and assurance'
+  domain: Corporate governance
+  scenario: A mid-sized manufacturer's board meets to choose a new logistics provider. One director owns
+    shares in a bidder. The board also reviews how its own decisions get checked.
+  shows:
+  - rule: P6
+    how: The director has a personal interest in a bidder. She discloses it, it goes into the register
+      of declared interests, and she steps out of the vendor decision.
+  - rule: P56
+    how: The CEO's pay proposal is not approved by the CEO. The board's remuneration committee reviews
+      it. The checker is not the author, and independence rises with the consequence.
+- branch: 'Management: Governance and assurance'
+  domain: Internal audit and assurance
+  scenario: A retailer's online shop handles customer payment data. The shop team owns the access risk.
+    A security function monitors it. Each year internal audit tests both.
+  shows:
+  - rule: P40
+    how: Management owns the risk (first line). Security monitors it (second line). Internal audit tests
+      both (third line). The lines are independent, and each is verified.
+  - rule: P56
+    how: Internal audit is a checker that does not report to the team it checks. The checker's independence
+      matches the consequence of failure.
+- branch: 'Management: Governance and assurance'
+  domain: Statutory audit
+  scenario: A listed company has used the same audit firm for many years. Its audit committee decides
+    whether to keep the firm or change it. It also requires the firm to rotate the lead audit partner.
+  shows:
+  - rule: P56
+    how: The accounts are checked by an external auditor, the highest level of independence. Long-serving
+      external auditors are rotated, so the checker stays independent.
+- branch: 'Management: Governance and assurance'
+  domain: Internal control
+  scenario: A finance team at a distributor lets one clerk set up suppliers, approve invoices and release
+    payments. Internal control splits these steps between roles.
+  shows:
+  - rule: P43
+    how: No single person can request, approve, execute and record the same payment. A matrix lists the
+      incompatible roles. A small team would add a later independent review as a compensating control.
+  - rule: P42
+    how: A payment above a set threshold needs two authorized signatures at the moment of release. Payments
+      that cannot be undone get two people.
+- branch: 'Management: Governance and assurance'
+  domain: Compliance management
+  scenario: A services firm keeps a register of its legal obligations. Each entry points to an owner,
+    a control and a test of that control. The firm treats the legal minimum as the floor, not the goal.
+  shows:
+  - rule: P60
+    how: The firm meets the law as the minimum and then applies other rules, such as limits on overtime.
+      Compliance alone is not treated as proof of safety.
+  - rule: P59
+    how: Each legal or contractual obligation links to a control and to a test of that control. No obligation
+      lacks a test, and no test lacks an obligation.
+- branch: 'Management: Governance and assurance'
+  domain: Whistleblowing and speak-up
+  scenario: A warehouse employee sees that safety checks are signed off without being done. The company
+    runs a confidential reporting channel. Every report gets a follow-up.
+  shows:
+  - rule: P4
+    how: The employee can raise the concern without permission and without retaliation. A confidential
+      channel exists, every report is followed up, and each use is reviewed without blame.
+- branch: 'Management: Governance and assurance'
+  domain: Anti-bribery
+  scenario: A procurement officer is offered a gift by a bidder before a tender closes. The company requires
+    her to declare it and to step out of the award.
+  shows:
+  - rule: P6
+    how: A person who decides on a tender has a personal interest. She discloses it, it is recorded in
+      the register, and she leaves the decision.

@@ -1,2 +1,72 @@
 # Domain examples, branch Management: Portfolio, programme and project. Schema: schema/learn-domains.schema.json.
-[]
+- branch: 'Management: Portfolio, programme and project'
+  domain: Project management
+  scenario: A company moves its office to a new building. The project plan lists tasks and their dependencies.
+    Network installation is on the longest chain. Furniture delivery has slack. The sponsor sets gates,
+    and the plan is sized to the project.
+  shows:
+  - rule: P67
+    how: The plan marks the critical path. Network installation is critical, so it is protected first.
+      Furniture has slack and can move.
+  - rule: P65
+    how: The move is done floor by floor. Each step is checked before the next, and the team decides at
+      the end of each stage whether to continue.
+  - rule: P75
+    how: The weekly status shows only items outside tolerance. Reports that lead to no action are removed.
+  - rule: P20
+    how: Before the project starts, the team writes the evidence and the gate dates at which it stops.
+      The gate decision is made by someone other than the sponsor.
+  - rule: Master
+    how: A two-room office move gets a light plan. A hospital move gets a strict one. The method is adapted
+      to the size, risk and context of the work (tailoring).
+- branch: 'Management: Portfolio, programme and project'
+  domain: Portfolio management
+  scenario: A company holds twelve proposed projects and funds five. Every funded project has written
+    stop criteria. A review board that did not start the projects checks them at each gate.
+  shows:
+  - rule: P20
+    how: Each project has written stop criteria and gate dates. The review board decides to continue or
+      stop, not the sponsor.
+  - rule: P22
+    how: Before funding, the board assumes the portfolio has failed and lists the reasons. It also lists
+      how parallel projects can interfere, for example two projects that need the same team in the same
+      quarter.
+- branch: 'Management: Portfolio, programme and project'
+  domain: Forecasting of large projects
+  scenario: A city plans a large transit line. The planners compare the cost estimate with the outcomes
+    of similar past projects, not only with their own plan.
+  shows:
+  - rule: P12
+    how: The business case is checked against a reference class of similar past projects. If those projects
+      overran on average, the own plan is questioned.
+- branch: 'Management: Portfolio, programme and project'
+  domain: Agile and Scrum
+  scenario: A product team runs two-week sprints. New requests wait for the next sprint. The team keeps
+    one ranked backlog, and a retrospective ends every sprint.
+  shows:
+  - rule: P66
+    how: While the team works on the sprint goal, it is protected from unplanned changes. Only the Product
+      Owner may cancel the sprint.
+  - rule: P81
+    how: A retrospective runs at the end of every sprint. Its actions are tracked until they are completed.
+  - rule: P23
+    how: There is one team backlog with one ranked list, not three parallel priority lists. Work that
+      is not needed stops.
+  - rule: P28
+    how: The team reviews overtime and technical debt each month. Slow build-up is limited before it hurts.
+- branch: 'Management: Portfolio, programme and project'
+  domain: Software delivery management
+  scenario: A delivery team ships changes in small batches several times a week. Each batch is checked
+    before the next one goes out.
+  shows:
+  - rule: P65
+    how: The team delivers in small steps and checks each result before the next. A small step is easy
+      to check and to undo.
+- branch: 'Management: Portfolio, programme and project'
+  domain: Software project staffing
+  scenario: A software project is three weeks behind. A manager is asked to add six engineers. She first
+    cuts scope, and she records the expected training and coordination cost before anyone joins.
+  shows:
+  - rule: P53
+    how: The work is late and needs coordination. The manager does not expect added people to recover
+      the schedule soon. She cuts scope first and records the cost of adding people.
