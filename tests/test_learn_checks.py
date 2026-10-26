@@ -26,19 +26,27 @@ FIXTURES = Path(__file__).resolve().parent / "fixtures" / "learn"
 
 
 @pytest.fixture
-def learn_repo(repo: Path) -> Path:
-    """The repo copy with the small valid learning content of ``fixtures/learn``."""
-    shutil.copytree(FIXTURES, repo / "data" / "learn", dirs_exist_ok=True)
+def stub_repo(repo: Path) -> Path:
+    """The repo copy with every learning file emptied, whatever content is live."""
+    for path in (repo / "data" / "learn").glob("*/*.yaml"):
+        path.write_text("[]\n", encoding="utf-8")
     return repo
+
+
+@pytest.fixture
+def learn_repo(stub_repo: Path) -> Path:
+    """The stub layout plus the small valid learning content of ``fixtures/learn``."""
+    shutil.copytree(FIXTURES, stub_repo / "data" / "learn", dirs_exist_ok=True)
+    return stub_repo
 
 
 def messages(root: Path, check: str) -> list[str]:
     return [f.message for f in run_checks(root) if f.check == check]
 
 
-def test_stub_dataset_is_clean(repo: Path) -> None:
-    assert run_checks(repo) == []
-    learn = load_learn(repo)
+def test_stub_dataset_is_clean(stub_repo: Path) -> None:
+    assert run_checks(stub_repo) == []
+    learn = load_learn(stub_repo)
     assert learn.rule_examples == [] and learn.cases == []
     assert learn.questions == [] and learn.domain_examples == []
 
@@ -391,8 +399,8 @@ def question(qid: str, rule: str) -> dict[str, Any]:
     return {"id": qid, "rules": [rule], "stem": "Which?", "options": options}
 
 
-def test_coverage_reports_every_gap_on_stubs(repo: Path) -> None:
-    ctx = make_context(repo)
+def test_coverage_reports_every_gap_on_stubs(stub_repo: Path) -> None:
+    ctx = make_context(stub_repo)
     gaps = learn_coverage(ctx)
     assert sum("has no rule example" in g for g in gaps) == 83
     assert sum("has no domain example" in g for g in gaps) == 130
@@ -400,8 +408,8 @@ def test_coverage_reports_every_gap_on_stubs(repo: Path) -> None:
     assert sum("no question in quiz/conflicts.yaml" in g for g in gaps) == 8
 
 
-def test_coverage_scopes(repo: Path) -> None:
-    ctx = make_context(repo)
+def test_coverage_scopes(stub_repo: Path) -> None:
+    ctx = make_context(stub_repo)
     gaps_i = learn_coverage(ctx, "i")
     assert len(gaps_i) == 8  # 4 rules: one example and one quiz line each
     assert all("rules/i.yaml" in g or "quiz/i.yaml" in g for g in gaps_i)
@@ -412,8 +420,8 @@ def test_coverage_scopes(repo: Path) -> None:
         learn_coverage(ctx, "zz")
 
 
-def test_coverage_complete_scope_has_no_gaps(repo: Path) -> None:
-    ctx = make_context(repo)
+def test_coverage_complete_scope_has_no_gaps(stub_repo: Path) -> None:
+    ctx = make_context(stub_repo)
     cat = next(c for c in ctx.ds.categories if c["id"] == "I")
     rules = ctx.ds.rule_by_id()
     examples: list[dict[str, Any]] = []
@@ -429,13 +437,13 @@ def test_coverage_complete_scope_has_no_gaps(repo: Path) -> None:
             ex["management"] = {"scenario": "s", "applying": "a", "violating": "v"}
         examples.append(ex)
         questions += [question(f"q-i-{len(questions) + n:02d}", rid) for n in (1, 2)]
-    dump(repo / "data/learn/rules/i.yaml", examples)
-    dump(repo / "data/learn/quiz/i.yaml", questions)
-    assert run_checks(repo) == []
-    assert learn_coverage(make_context(repo), "i") == []
+    dump(stub_repo / "data/learn/rules/i.yaml", examples)
+    dump(stub_repo / "data/learn/quiz/i.yaml", questions)
+    assert run_checks(stub_repo) == []
+    assert learn_coverage(make_context(stub_repo), "i") == []
     # One question short for the last rule is a gap again.
-    dump(repo / "data/learn/quiz/i.yaml", questions[:-1])
-    gaps = learn_coverage(make_context(repo), "i")
+    dump(stub_repo / "data/learn/quiz/i.yaml", questions[:-1])
+    gaps = learn_coverage(make_context(stub_repo), "i")
     assert gaps == [
         f"{cat['rules'][-1]} has 1 question(s) in quiz/i.yaml; it needs at least 2"
     ]
@@ -447,11 +455,15 @@ def test_coverage_conflict_question_counts(learn_repo: Path) -> None:
     assert "K1 has no question in quiz/conflicts.yaml" in gaps
 
 
-def test_coverage_cli(repo: Path, capsys: pytest.CaptureFixture[str]) -> None:
-    assert validate.main(["--learn-coverage", "--scope", "i", "--root", str(repo)]) == 1
+def test_coverage_cli(stub_repo: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    assert (
+        validate.main(["--learn-coverage", "--scope", "i", "--root", str(stub_repo)])
+        == 1
+    )
     out = capsys.readouterr().out
     assert "I1 has no rule example" in out or "has no rule example" in out
     assert "learn coverage (scope i): 8 gap(s)" in out
     assert (
-        validate.main(["--learn-coverage", "--scope", "zz", "--root", str(repo)]) == 2
+        validate.main(["--learn-coverage", "--scope", "zz", "--root", str(stub_repo)])
+        == 2
     )
