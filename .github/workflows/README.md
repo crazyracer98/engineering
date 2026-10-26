@@ -15,6 +15,12 @@
   arch-specific runtime break (e.g. a C-extension dependency missing an
   arm64 wheel), since `checks.yml`'s test run uses `MODE=mock`
   in-process fakes for some paths rather than the built image.
+- `pages.yml` — (instance-owned) builds the site and PDF as artifacts on
+  pull requests and on manual runs without a `tag`; deploys the site to
+  GitHub Pages on `release: published`, after a successful `Release`
+  workflow run (`release.yml` creates its release with `GITHUB_TOKEN`,
+  which starts no `release` event), and on a manual run with a `tag` input
+  naming a published release.
 - `release.yml` — manually triggered. Takes a release channel
   (`alpha`/`beta`/`rc`/`full`) and a SemVer 2 bump
   (`major`/`minor`/`patch`/`none`), computes the next tag via
