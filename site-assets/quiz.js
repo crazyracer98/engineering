@@ -137,7 +137,10 @@ function initQuiz(root, storage) {
     });
   }
 
+  let run = 0; // sequence token: only the latest build() may touch the page
   async function build() {
+    const mine = ++run;
+    root.querySelectorAll(".quiz-error").forEach((e) => e.remove());
     if (!mixed) {
       forms().forEach(bind);
       restore();
@@ -150,9 +153,11 @@ function initQuiz(root, storage) {
       if (!res.ok) throw new Error(String(res.status));
       bank = await res.json();
     } catch {
+      if (mine !== run) return;
       root.prepend(el("p", { class: "quiz-error", role: "alert" }, "The question bank could not be loaded."));
       return;
     }
+    if (mine !== run) return;
     root.querySelectorAll("form.quiz-q").forEach((f) => f.remove());
     const n = Number(root.dataset.draw) || 10;
     for (const q of draw(bank, n, Math.random)) {
