@@ -1,13 +1,31 @@
-# Deploys the site to GitHub Pages on each published release. Pull requests
-# (and manual runs) only build the site and the PDF and upload them as
-# workflow artifacts for review; they never deploy.
+# Deploys the site to GitHub Pages for a published release. Pull requests
+# (and manual runs without a tag) only build the site and the PDF and upload
+# them as workflow artifacts for review; they never deploy.
+#
+# Three paths deploy, all through the `tag` job, which resolves the tag once:
+#   - release: published        -> that release's tag (releases made by people).
+#   - workflow_run: Release     -> the latest published release, once the
+#     Release workflow succeeded. release.yml creates its release with
+#     GITHUB_TOKEN, and GitHub starts no workflow runs for events that token
+#     creates, so `release: published` never fires for it.
+#   - workflow_dispatch + `tag` -> that tag, if it is a published release
+#     (a re-deploy, or the first deploy of a release made before this ran).
 name: Pages
 
 on:
   release:
     types: [published]
+  workflow_run:
+    workflows: [Release]
+    types: [completed]
   pull_request:
   workflow_dispatch:
+    inputs:
+      tag:
+        description: Published release tag to deploy; leave empty for a preview build only
+        required: false
+        default: ""
+        type: string
 
 permissions:
   contents: read
@@ -16,8 +34,64 @@ env:
   NO_MKDOCS_2_WARNING: "1"
 
 jobs:
+  # Resolves the tag to deploy, or leaves `tag` empty to skip the deploy.
+  tag:
+    if: >-
+      github.event_name == 'release'
+      || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
+      || (github.event_name == 'workflow_dispatch' && inputs.tag != '')
+    runs-on: ${{ vars.CI_RUNNER || 'ubuntu-24.04' }}
+    permissions:
+      actions: read
+      contents: read
+    outputs:
+      tag: ${{ steps.resolve.outputs.tag }}
+    steps:
+      - name: Resolve the release tag
+        id: resolve
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          EVENT: ${{ github.event_name }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          INPUT_TAG: ${{ inputs.tag }}
+        run: |
+          set -euo pipefail
+          case "$EVENT" in
+            release)
+              tag="$RELEASE_TAG"
+              ;;
+            workflow_run)
+              # The latest published (non-draft, non-prerelease) release.
+              if ! tag="$(gh api "repos/$GH_REPO/releases/latest" --jq .tag_name 2>/dev/null)"; then
+                echo "::notice::No published release yet; skipping the Pages deploy."
+                exit 0
+              fi
+              ;;
+            workflow_dispatch)
+              # Must be an existing, published (not draft) release.
+              if ! info="$(gh release view "$INPUT_TAG" --json tagName,isDraft --jq '[.tagName, .isDraft] | @tsv')"; then
+                echo "::error::'$INPUT_TAG' is not a release tag of $GH_REPO."
+                exit 1
+              fi
+              if [ "${info##*$'\t'}" != "false" ]; then
+                echo "::error::The release '$INPUT_TAG' is a draft, not published."
+                exit 1
+              fi
+              tag="${info%%$'\t'*}"
+              ;;
+            *)
+              echo "::error::Unexpected event $EVENT."
+              exit 1
+              ;;
+          esac
+          echo "Deploying release $tag"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
   preview:
-    if: github.event_name != 'release'
+    if: >-
+      github.event_name == 'pull_request'
+      || (github.event_name == 'workflow_dispatch' && inputs.tag == '')
     runs-on: ${{ vars.CI_RUNNER || 'ubuntu-24.04' }}
     steps:
       - name: Check out repository
@@ -55,13 +129,14 @@ jobs:
           if-no-files-found: error
 
   build:
-    if: github.event_name == 'release'
+    needs: tag
+    if: needs.tag.outputs.tag != ''
     runs-on: ${{ vars.CI_RUNNER || 'ubuntu-24.04' }}
     steps:
       - name: Check out the release tag
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ github.event.release.tag_name }}
+          ref: ${{ needs.tag.outputs.tag }}
 
       - name: Set up uv
         uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
@@ -79,6 +154,7 @@ jobs:
 
   deploy:
     needs: build
+    if: needs.build.result == 'success'
     runs-on: ${{ vars.CI_RUNNER || 'ubuntu-24.04' }}
     permissions:
       pages: write
