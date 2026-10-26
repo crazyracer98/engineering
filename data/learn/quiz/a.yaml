@@ -90,7 +90,7 @@
       feedback: "P3 names unused resources running all the time as a violation. P24 asks to plan retirement at design time."
 - id: q-a-06
   rules: [P3, P24]
-  stem: A team designs a new service. Which plan follows P3 and its neighbour P24?
+  stem: A team designs a new service. Which plans apply P3 or its neighbour P24?
   options:
     - text: The design states the retirement of the service and its data, and the team reviews the energy use every quarter.
       correct: true
@@ -106,7 +106,7 @@
       feedback: "P3 covers the whole lifecycle. A single measurement before launch does not review use in operation."
     - text: The team sets a quota on environments per team and reviews the usage reports.
       correct: true
-      feedback: "This reduces use and keeps it under review (P3). It also manages demand, as P49 asks."
+      feedback: "This reduces use and keeps it under review (P3). A quota is also the kind of demand control that P49 names."
 - id: q-a-07
   rules: [P4]
   stem: An engineer sees error rates rise during an automatic rollout and wants to stop it. Which features must the stop mechanism have under P4?
@@ -224,7 +224,7 @@
       feedback: "P7's violation: a step list with no purpose, where work stops when the plan no longer fits."
     - text: P61 makes a fixed step list enough, so the purpose can be left out.
       correct: false
-      feedback: "P61 asks to prove a procedure by a test and qualify the person. It does not remove the need for purpose in P7. P7 conflicts with P61, P71 and P72, so the lead decides where a fixed procedure fits and states the purpose anyway."
+      feedback: "P61 asks to prove a procedure by a test and qualify the person, where a result cannot be checked afterwards. It says nothing about leaving out the purpose. Where P7 conflicts with P61, P71 and P72, K6 prescribes the method only at critical points and in qualified procedures, and gives intent and constraints everywhere else."
     - text: Adding more steps to the list fixes the problem.
       correct: false
       feedback: "P7 does not ask for more steps. It asks for purpose, end state and constraints."
@@ -252,7 +252,7 @@
       feedback: "P8 names announcing a change without reasons as a violation."
 - id: q-a-15
   rules: [P8, P69]
-  stem: A company reorganizes its teams. Which action is P8 and which is the wider P69?
+  stem: A company reorganizes its teams. Which actions does P8 itself ask for, as distinct from the wider P69?
   options:
     - text: Before deciding on the new team structure, ask the teams for input and challenges.
       correct: true
