@@ -1,2 +1,450 @@
 # Cases. Schema: schema/learn-cases.schema.json.
-[]
+- id: case-challenger
+  title: Space Shuttle Challenger launch decision
+  year: 1986
+  summary: >-
+    The Space Shuttle Challenger was lost when the seals in a joint of the
+    right Solid Rocket Motor failed. The contractor's engineers had first
+    recommended against launch below 53 degrees Fahrenheit. Their management
+    reversed that position at the urging of NASA's Marshall center. The
+    Rogers Commission found the decision to launch flawed, and found that it
+    was based on incomplete and sometimes misleading information.
+  rules: [P1, P15]
+  lessons:
+  - rule: P1
+    text: >-
+      Safety must outrank the customer and the launch schedule. Here the
+      contractor's management reversed its engineers' no-launch advice to
+      accommodate a major customer. The Commission found that waiving launch
+      constraints came at the expense of flight safety. A release gate with a
+      binding safety sign-off would have kept the engineers' advice in force.
+  - rule: P15
+    text: >-
+      The harm was catastrophic and the evidence on cold seals was
+      incomplete. The meeting still asked the engineers to prove that launch
+      was unsafe, instead of asking for enough data to show it was safe.
+      Precaution turns that burden around: when the harm is irreversible, act
+      on the warning without waiting for full proof.
+  quotes:
+  - source: case-rogers-commission-ch4
+    text: >-
+      the loss of the Space Shuttle Challenger was caused by a failure in the
+      joint between the two lower segments of the right Solid Rocket Motor.
+  - source: case-rogers-commission-ch5
+    text: The decision to launch the Challenger was flawed.
+  - source: case-rogers-commission-ch5
+    text: >-
+      the initial written recommendation of the contractor advising against
+      the launch at temperatures below 53 degrees Fahrenheit
+  - source: case-rogers-commission-ch5
+    text: >-
+      a decision to launch 51-L based on incomplete and sometimes misleading
+      information
+  - source: case-rogers-commission-ch5
+    text: >-
+      The waiving of launch constraints appears to have been at the expense
+      of flight safety.
+  - source: case-rogers-commission-ch5
+    text: >-
+      the Thiokol Management reversed its position and recommended the launch
+      of 51-L, at the urging of Marshall and contrary to the views of its
+      engineers in order to accommodate a major customer.
+  - source: case-rogers-commission-ch5
+    text: >-
+      we were being put in a position to prove that we should not launch
+      rather than being put in the position and prove that we had enough data
+      to launch.
+- id: case-columbia
+  title: Space Shuttle Columbia foam strike
+  year: 2003
+  summary: >-
+    A piece of insulating foam from the External Tank struck Columbia's left
+    wing after launch. During re-entry, the breach it made in the Thermal
+    Protection System let superheated air in, and the orbiter and its crew
+    were lost. During the flight, engineers assessed the strike with Crater,
+    a model calibrated on far smaller debris. Program management cancelled a
+    request for images of the wing.
+  rules: [P4, P5, P12]
+  lessons:
+  - rule: P4
+    text: >-
+      A stop authority must work in practice, not only on paper. NASA told
+      the Board that any employee could stop an operation at the first sign
+      of a problem. The Board found that this view of its safety culture did
+      not reflect reality.
+  - rule: P5
+    text: >-
+      An engineer drafted an e-mail calling the decision not to seek images
+      of the wing wrong, then did not send it. He did not want to jump the
+      chain of command. When people hold back bad news, leaders lose the
+      warning they need.
+  - rule: P12
+    text: >-
+      Crater was calibrated and validated on small pieces of debris. Engineers
+      used it on a piece up to 640 times larger in volume, far outside that
+      range. A model result is only valid inside the range it was validated
+      for.
+  quotes:
+  - source: case-caib-ch3
+    text: >-
+      The physical cause of the loss of Columbia and its crew was a breach in
+      the Thermal Protection System on the leading edge of the left wing.
+  - source: case-caib-ch3
+    text: >-
+      The breach was initiated by a piece of insulating foam that separated
+      from the left bipod ramp of the External Tank and struck the wing in
+      the vicinity of the lower half of Reinforced Carbon-Carbon panel 8 at
+      81.9 seconds after launch.
+  - source: case-caib-ch3
+    text: >-
+      During re-entry, this breach in the Thermal Protection System allowed
+      superheated air to penetrate the leading-edge insulation
+  - source: case-caib-ch6
+    text: >-
+      When used within its validated limits, Crater provides conservative
+      predictions
+  - source: case-caib-ch6
+    text: >-
+      engineers used Crater during STS-107 to analyze a piece of debris that
+      was at maximum 640 times larger in volume than the pieces of debris used
+      to calibrate and validate the Crater model
+  - source: case-caib-ch6
+    text: >-
+      When asked why he did not send this e-mail, Rocha replied that he did
+      not want to jump the chain of command.
+  - source: case-caib-ch6
+    text: >-
+      this is the wrong (and bordering on irresponsible) answer from the SSP
+      and Orbiter not to request additional imaging help from any outside
+      source.
+  - source: case-caib-ch6
+    text: >-
+      Even after the imagery request had been cancelled by Program
+      management
+  - source: case-caib-ch7
+    text: >-
+      empowered any employee to stop an operation at the mere glimmer of a
+      problem.
+  - source: case-caib-ch7
+    text: >-
+      Unfortunately, NASAʼs views of its safety culture in those briefings did
+      not reflect reality.
+- id: case-therac-25
+  title: Therac-25 radiation overdoses
+  year: 1985
+  summary: >-
+    Between June 1985 and January 1987, six known accidents involved massive
+    overdoses by the Therac-25 radiation therapy machine. The machine relied
+    more on software for safety than earlier models, and its maker chose not
+    to duplicate all the old hardware interlocks. Its safety analysis, a fault
+    tree, apparently excluded the software. Operators saw cryptic messages
+    such as "Malfunction 54" that no manual explained.
+  rules: [P22, P25]
+  lessons:
+  - rule: P22
+    text: >-
+      The safety analysis left out the part that had taken over the safety
+      functions. The software replaced hardware interlocks, but the fault tree
+      apparently excluded it. A failure analysis must cover every part that
+      can cause harm, software included.
+  - rule: P25
+    text: >-
+      The machine often paused for minor faults, so operators learned to
+      resume it. Its error messages gave no meaning they could act on. An
+      interface for real operators under real conditions makes a dangerous
+      fault look different from a routine one.
+  quotes:
+  - source: case-leveson-turner-therac-25-part-1
+    text: >-
+      Between June 1985 and January 1987, six known accidents involved
+      massive overdoses by the Therac-25
+  - source: case-leveson-turner-therac-25-part-1
+    text: >-
+      the Therac-25 software has more responsibility for maintaining safety
+      than the software in the previous machines.
+  - source: case-leveson-turner-therac-25-part-1
+    text: >-
+      decided not to duplicate all the existing hardware safety mechanisms and
+      interlocks.
+  - source: case-leveson-turner-therac-25-part-1
+    text: >-
+      In March 1983, AECL performed a safety analysis on the Therac-25. This
+      analysis was in the form of a fault tree and apparently excluded the
+      software.
+  - source: case-leveson-turner-therac-25-part-2
+    text: >-
+      The ETCC did not have any other information available in its
+      instruction manual or other Therac-25 documentation to explain the
+      meaning of Malfunction 54.
+  - source: case-leveson-turner-therac-25-part-2
+    text: >-
+      The operator was accustomed to the quirks of the machine, which would
+      frequently stop or delay treatment. In the past, the only consequences
+      had been inconvenience.
+- id: case-mars-climate-orbiter
+  title: Mars Climate Orbiter units mismatch
+  year: 1999
+  summary: >-
+    The Mars Climate Orbiter was lost during its Mars Orbit Insertion
+    maneuver. Ground
+    software produced thruster data in English units, while the interface
+    specification required metric units. The trajectory modelers assumed the
+    data were metric.
+  rules: [P33]
+  lessons:
+  - rule: P33
+    text: >-
+      The interface specification stated the units, but nothing checked them
+      at the interface. One side sent pound-seconds and the other read them
+      as Newton-seconds. A strict interface states units and rejects data
+      that does not match the specification.
+  quotes:
+  - source: nasa-mars-climate-orbiter-mishap
+    text: >-
+      was lost sometime following the spacecraft's entry into Mars occultation
+      during the Mars Orbit Insertion (MOI) maneuver.
+  - source: nasa-mars-climate-orbiter-mishap
+    text: >-
+      the root cause for the loss of the MCO spacecraft was the failure to use
+      metric units in the coding of a ground software file
+  - source: nasa-mars-climate-orbiter-mishap
+    text: >-
+      Instead, the data was reported in English units of pound-seconds
+      (lbf-s).
+  - source: nasa-mars-climate-orbiter-mishap
+    text: >-
+      The data in the AMD file was required to be in metric units per existing
+      software interface documentation, and the trajectory modelers assumed
+      the data was provided in metric units per the requirements.
+- id: case-patriot-dhahran
+  title: Patriot missile clock drift at Dhahran
+  year: 1991
+  summary: >-
+    A Patriot missile battery at Dhahran failed to track and intercept an
+    incoming Scud missile. The Scud hit an Army barracks and killed 28
+    Americans. A software error made a tracking calculation less accurate the
+    longer the system ran. The battery had run continuously for over 100
+    hours.
+  rules: [P28]
+  lessons:
+  - rule: P28
+    text: >-
+      The error was small at first and grew with running time. The system was
+      not expected to run continuously for long periods, so the growth was
+      not designed for. Design and test for the full time in service, not
+      only for the first hours.
+  quotes:
+  - source: case-gao-patriot-dhahran
+    text: >-
+      failed to track and intercept an incoming Scud. This Scud subsequently
+      hit an Army barracks, killing 28 Americans.
+  - source: case-gao-patriot-dhahran
+    text: >-
+      This problem led to an inaccurate tracking calculation that became worse
+      the longer the system operated.
+  - source: case-gao-patriot-dhahran
+    text: >-
+      the battery had been operating continuously for over 100 hours.
+  - source: case-gao-patriot-dhahran
+    text: >-
+      nor was it expected to operate continuously for long periods of time.
+- id: case-knight-capital
+  title: Knight Capital trading loss
+  year: 2012
+  summary: >-
+    Knight Capital deployed new trading code that reused a flag once used by
+    an old function, Power Peg. Knight had stopped using Power Peg years
+    earlier, but its code was still present and callable. One of eight
+    servers did not get the new code. In about 45 minutes the old code sent
+    millions of orders, and Knight lost 460 million dollars.
+  rules: [P23]
+  lessons:
+  - rule: P23
+    text: >-
+      Unused code is not harmless while it can still run. Power Peg had no
+      purpose, but it stayed in production and its flag was reused. When the
+      flag was set, the dead code woke up. Remove parts that have no purpose.
+  quotes:
+  - source: case-sec-knight-capital
+    text: >-
+      Despite the lack of use, the Power Peg functionality remained present
+      and callable at the time of the RLP deployment.
+  - source: case-sec-knight-capital
+    text: >-
+      The new RLP code also repurposed a flag that was formerly used to
+      activate the Power Peg code.
+  - source: case-sec-knight-capital
+    text: >-
+      one of Knight's technicians did not copy the new code to one of the
+      eight SMARS computer servers.
+  - source: case-sec-knight-capital
+    text: >-
+      resulting in 4 million executions in 154 stocks for more than 397
+      million shares in approximately 45 minutes.
+  - source: case-sec-knight-capital
+    text: Ultimately, Knight realized a $460 million loss on these positions.
+- id: case-apollo-13
+  title: Apollo 13 oxygen tank heater switches
+  year: 1970
+  summary: >-
+    The Apollo 13 mission was aborted after oxygen tank no. 2 lost its
+    oxygen. The tank's heater switches were rated for the spacecraft's 28 V
+    dc supply. A revised specification had the heaters run on a 65 V dc
+    ground supply, but the switches were not changed to match. At 65 V the
+    switches failed to open, including during ground detanking at KSC. No
+    review of documentation and no test caught the mismatch.
+  rules: [P29]
+  lessons:
+  - rule: P29
+    text: >-
+      The switches were compatible with the spacecraft's power, but not with
+      the ground equipment they also met. No review and no test caught the
+      mismatch. Check every pair of parts that interact, in every environment
+      they meet, including ground support.
+  quotes:
+  - source: case-apollo-13-review-board
+    text: >-
+      The Apollo 13 mission was aborted as the direct result of the rapid
+      loss of oxygen from oxygen tank no. 2
+  - source: case-apollo-13-review-board
+    text: >-
+      the thermostatic switches used, while rated as satisfactory for the 28 V
+      dc spacecraft power supply, could not open properly at 65 V dc.
+  - source: case-apollo-13-review-board
+    text: >-
+      Beech ordered switches for the Block II tanks but did not change the
+      switch specifications to be compatible with 65 V dc.
+  - source: case-apollo-13-review-board
+    text: >-
+      The thermostatic switch discrepancy was not detected by NASA, NR, or
+      Beech in their review of documentation, nor did tests identify the
+      incompatibility of the switches with the ground support equipment (GSE)
+      at KSC
+  - source: case-apollo-13-review-board
+    text: >-
+      it was found that the switches failed to open when the heaters were
+      powered from a 65 V dc supply similar to the power used at KSC during
+      the detanking sequence.
+- id: case-wells-fargo-sales-goals
+  title: Wells Fargo sales goals and unauthorized accounts
+  year: 2016
+  summary: >-
+    Wells Fargo set sales goals and paid incentives to raise the number of
+    products its employees sold. Thousands of employees opened accounts and
+    credit card applications without customers' knowledge or consent to meet
+    the goals and earn rewards. Senior leaders kept the goals even when
+    regional leaders challenged them as too high.
+  rules: [P19]
+  lessons:
+  - rule: P19
+    text: >-
+      The bank rewarded the count of products sold, so employees inflated the
+      count with accounts nobody wanted. Some even moved customers' money to
+      make new accounts look funded. A rewarded indicator needs a
+      counter-indicator, such as account quality, and a check against what
+      customers really asked for.
+  quotes:
+  - source: case-cfpb-wells-fargo-consent-order
+    text: >-
+      Respondent set sales goals and implemented sales incentives, including
+      an incentive-compensation program, in part to increase the number of
+      banking products and services that its employees sold to its customers.
+  - source: case-cfpb-wells-fargo-consent-order
+    text: >-
+      Thousands of Respondent's employees engaged in Improper Sales Practices
+      to satisfy sales goals and earn financial rewards
+  - source: case-cfpb-wells-fargo-consent-order
+    text: >-
+      opened unauthorized deposit accounts for existing customers and
+      transferred funds to those accounts from their owners' other accounts,
+      all without their customers' knowledge or consent
+  - source: case-cfpb-wells-fargo-consent-order
+    text: >-
+      To qualify for incentives that rewarded bankers for opening new accounts
+      that were funded shortly after opening, Respondent's employees opened
+      deposit accounts without consumers' knowledge or consent
+  - source: case-wells-fargo-board-report
+    text: >-
+      Even when challenged by their regional leaders, the senior leadership of
+      the Community Bank failed to appreciate or accept that their sales goals
+      were too high and becoming increasingly untenable.
+  - source: case-wells-fargo-board-report
+    text: >-
+      They also failed to adequately consider that low quality accounts could
+      be indicative of unauthorized accounts.
+- id: case-ariane-501
+  title: Ariane 5 Flight 501 failure
+  year: 1996
+  summary: >-
+    About 40 seconds after the start of the flight sequence, the first Ariane
+    5 veered off its flight path, broke up and exploded. Both inertial
+    reference systems stopped on the same software error. A value tied to
+    horizontal velocity was far higher than on Ariane 4, and its conversion
+    was not protected. The error came from an alignment function that serves
+    no purpose after lift-off.
+  rules: [P27]
+  lessons:
+  - rule: P27
+    text: >-
+      Ariane 5's early trajectory gave much higher horizontal velocity than
+      Ariane 4's. One unprotected conversion turned that change in input into
+      the loss of both inertial systems. A robust design keeps working when
+      inputs move outside the old range, and tests with the new range.
+  quotes:
+  - source: case-ariane-501-inquiry-board
+    text: >-
+      Only about 40 seconds after initiation of the flight sequence, at an
+      altitude of about 3700 m, the launcher veered off its flight path, broke
+      up and exploded.
+  - source: case-ariane-501-inquiry-board
+    text: >-
+      The data conversion instructions (in Ada code) were not protected from
+      causing an Operand Error, although other conversions of comparable
+      variables in the same place in the code were protected.
+  - source: case-ariane-501-inquiry-board
+    text: >-
+      As soon as the launcher lifts off, this function serves no purpose.
+  - source: case-ariane-501-inquiry-board
+    text: >-
+      The value of BH was much higher than expected because the early part of
+      the trajectory of Ariane 5 differs from that of Ariane 4 and results in
+      considerably higher horizontal velocity values.
+  - source: case-ariane-501-inquiry-board
+    text: >-
+      the active inertial reference system, identical to the back-up system in
+      hardware and software, failed for the same reason.
+- id: case-goiania
+  title: Goiânia radiotherapy source
+  year: 1987
+  summary: >-
+    A private radiotherapy institute in Goiânia, Brazil, moved to new
+    premises and left a caesium-137 teletherapy unit behind. It did not
+    notify the licensing authority. People removed the strongly radioactive
+    source from the abandoned machine, and it ruptured. Four people died and
+    28 suffered radiation burns.
+  rules: [P24]
+  lessons:
+  - rule: P24
+    text: >-
+      The harm came after the machine's useful life, when nobody owned it.
+      The source still held its full hazard in an abandoned building. Plan the
+      end of life at design time, so a dangerous part is returned or disposed
+      of instead of left behind.
+  quotes:
+  - source: case-iaea-goiania
+    text: >-
+      moved to new premises, taking with it a cobalt-60 teletherapy unit
+  - source: case-iaea-goiania
+    text: >-
+      without notifying the licensing authority as required under the terms
+      of the institute's licence.
+  - source: case-iaea-goiania
+    text: >-
+      a shielded, strongly radioactive caesium-137 source (50.9 TBq, or 1375
+      Ci, at the time) was removed from its protective housing in a
+      teletherapy machine in an abandoned clinic in Goiania, Brazil, and
+      subsequently ruptured.
+  - source: case-iaea-goiania
+    text: >-
+      Four of the casualties ultimately died and 28 people suffered radiation
+      burns.

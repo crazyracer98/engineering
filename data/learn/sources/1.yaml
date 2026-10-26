@@ -1,2 +1,175 @@
 # Case sources (registry fragment, slugs start with `case-`). Schema: schema/sources.schema.json.
-[]
+- slug: case-rogers-commission-ch4
+  title: 'Presidential Commission on the Space Shuttle Challenger Accident: Report, Volume 1, Chapter IV, The Cause of the Accident (1986)'
+  author:
+  - literal: Presidential Commission on the Space Shuttle Challenger Accident
+  url: https://www.nasa.gov/history/rogersrep/v1ch4.htm
+  kind: primary
+  publisher: NASA
+  year: 1986
+  paid: false
+  accessed: '2026-10-26'
+  notes: Official investigation report (Rogers Commission), as hosted by NASA History.
+- slug: case-rogers-commission-ch5
+  title: 'Presidential Commission on the Space Shuttle Challenger Accident: Report, Volume 1, Chapter V, The Contributing Cause of the Accident (1986)'
+  author:
+  - literal: Presidential Commission on the Space Shuttle Challenger Accident
+  url: https://www.nasa.gov/history/rogersrep/v1ch5.htm
+  kind: primary
+  publisher: NASA
+  year: 1986
+  paid: false
+  accessed: '2026-10-26'
+  notes: Official investigation report (Rogers Commission), as hosted by NASA History.
+- slug: case-caib-ch3
+  title: 'Columbia Accident Investigation Board: Report, Volume I, Chapter 3, Accident Analysis (2003)'
+  author:
+  - literal: Columbia Accident Investigation Board
+  url: https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter3.pdf
+  kind: primary
+  publisher: Columbia Accident Investigation Board
+  year: 2003
+  via:
+    title: UNT Libraries CyberCemetery (archive of the Board's website)
+  paid: false
+  accessed: '2026-10-26'
+  notes: Official investigation report.
+- slug: case-caib-ch6
+  title: 'Columbia Accident Investigation Board: Report, Volume I, Chapter 6, Decision Making at NASA (2003)'
+  author:
+  - literal: Columbia Accident Investigation Board
+  url: https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter6.pdf
+  kind: primary
+  publisher: Columbia Accident Investigation Board
+  year: 2003
+  via:
+    title: UNT Libraries CyberCemetery (archive of the Board's website)
+  paid: false
+  accessed: '2026-10-26'
+  notes: Official investigation report.
+- slug: case-caib-ch7
+  title: 'Columbia Accident Investigation Board: Report, Volume I, Chapter 7, The Accident''s Organizational Causes (2003)'
+  author:
+  - literal: Columbia Accident Investigation Board
+  url: https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter7.pdf
+  kind: primary
+  publisher: Columbia Accident Investigation Board
+  year: 2003
+  via:
+    title: UNT Libraries CyberCemetery (archive of the Board's website)
+  paid: false
+  accessed: '2026-10-26'
+  notes: Official investigation report.
+- slug: case-leveson-turner-therac-25-part-1
+  title: 'Leveson & Turner: An Investigation of the Therac-25 Accidents, Part I (1993)'
+  author:
+  - family: Leveson
+    given: Nancy G.
+  - family: Turner
+    given: Clark S.
+  url: https://web.mit.edu/6.033/2004/wwwdocs/papers/Therac_1.html
+  kind: primary
+  publisher: IEEE Computer
+  year: 1993
+  via:
+    title: MIT 6.033 course site (reprinted with permission)
+  paid: false
+  accessed: '2026-10-26'
+  notes: Peer-reviewed accident analysis, IEEE Computer 26(7), 18-41; word-for-word reprint split into parts.
+- slug: case-leveson-turner-therac-25-part-2
+  title: 'Leveson & Turner: An Investigation of the Therac-25 Accidents, Part II (1993)'
+  author:
+  - family: Leveson
+    given: Nancy G.
+  - family: Turner
+    given: Clark S.
+  url: https://web.mit.edu/6.033/2004/wwwdocs/papers/Therac_2.html
+  kind: primary
+  publisher: IEEE Computer
+  year: 1993
+  via:
+    title: MIT 6.033 course site (reprinted with permission)
+  paid: false
+  accessed: '2026-10-26'
+  notes: Peer-reviewed accident analysis, IEEE Computer 26(7), 18-41; word-for-word reprint split into parts.
+- slug: case-gao-patriot-dhahran
+  title: 'GAO: Patriot Missile Defense, Software Problem Led to System Failure at Dhahran, Saudi Arabia, GAO/IMTEC-92-26 (1992)'
+  author:
+  - literal: United States General Accounting Office
+  url: https://www.gao.gov/assets/imtec-92-26.pdf
+  kind: primary
+  publisher: United States General Accounting Office
+  year: 1992
+  paid: false
+  accessed: '2026-10-26'
+  notes: Report of a government audit body to a House subcommittee.
+- slug: case-sec-knight-capital
+  title: 'SEC: In the Matter of Knight Capital Americas LLC, Release No. 34-70694 (2013)'
+  author:
+  - literal: U.S. Securities and Exchange Commission
+  url: https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf
+  kind: primary
+  publisher: U.S. Securities and Exchange Commission
+  year: 2013
+  paid: false
+  accessed: '2026-10-26'
+  notes: Regulator's administrative order with findings.
+- slug: case-apollo-13-review-board
+  title: 'NASA: Report of Apollo 13 Review Board (1970)'
+  author:
+  - literal: Apollo 13 Review Board
+  url: https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_13_review_board.txt
+  kind: primary
+  publisher: NASA
+  year: 1970
+  paid: false
+  accessed: '2026-10-26'
+  notes: Official investigation report, plain-text copy hosted by NASA's NSSDC.
+- slug: case-cfpb-wells-fargo-consent-order
+  title: 'CFPB: Consent Order, In the Matter of Wells Fargo Bank, N.A., 2016-CFPB-0015 (2016)'
+  author:
+  - literal: Consumer Financial Protection Bureau
+  url: https://files.consumerfinance.gov/f/documents/092016_cfpb_WFBconsentorder.pdf
+  kind: primary
+  publisher: Consumer Financial Protection Bureau
+  year: 2016
+  paid: false
+  accessed: '2026-10-26'
+  notes: Regulator's consent order with findings.
+- slug: case-wells-fargo-board-report
+  title: 'Wells Fargo & Company: Independent Directors of the Board, Sales Practices Investigation Report (2017)'
+  author:
+  - literal: Independent Directors of the Board of Wells Fargo & Company
+  url: https://assets.documentcloud.org/documents/3549312/Board-Report.pdf
+  kind: primary
+  publisher: Wells Fargo & Company
+  year: 2017
+  via:
+    title: DocumentCloud
+  paid: false
+  accessed: '2026-10-26'
+  notes: Original investigation report by the company's independent directors; the company's own copy is no longer online.
+- slug: case-ariane-501-inquiry-board
+  title: 'ESA and CNES: Ariane 5 Flight 501 Failure, Report by the Inquiry Board (1996)'
+  author:
+  - literal: Ariane 501 Inquiry Board
+  url: https://www-users.cse.umn.edu/~arnold/disasters/ariane5rep.html
+  kind: primary
+  publisher: European Space Agency
+  year: 1996
+  via:
+    title: University of Minnesota, School of Mathematics (Douglas N. Arnold)
+  paid: false
+  accessed: '2026-10-26'
+  notes: Official inquiry board report; word-for-word copy of the text ESA first published.
+- slug: case-iaea-goiania
+  title: 'IAEA: The Radiological Accident in Goiânia (1988)'
+  author:
+  - literal: International Atomic Energy Agency
+  url: https://www-pub.iaea.org/MTCD/publications/PDF/Pub815_web.pdf
+  kind: primary
+  publisher: International Atomic Energy Agency
+  year: 1988
+  paid: false
+  accessed: '2026-10-26'
+  notes: Official accident report of the regulator's international body.
