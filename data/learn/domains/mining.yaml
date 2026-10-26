@@ -1,2 +1,15 @@
 # Domain examples, branch Mining. Schema: schema/learn-domains.schema.json.
-[]
+- branch: Mining
+  domain: Mining
+  scenario: >-
+    A mine runs a repeated process of hoisting ore up a shaft. Among many steps,
+    the team picks the few where control is essential: the shaft brake test and
+    the cage overwind limit. It ranks them by the consequence of failure, not by
+    how often incidents occur. Each has a limit, monitoring, a predefined
+    corrective action, a record and a recent verification that it works.
+  shows:
+    - rule: P72
+      how: >-
+        The team defines the critical control points of a repeated process and
+        ranks them by consequence. Each point has a limit, monitoring, a
+        corrective action, records and a recent verification.

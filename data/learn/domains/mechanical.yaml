@@ -1,2 +1,211 @@
 # Domain examples, branch Mechanical. Schema: schema/learn-domains.schema.json.
-[]
+- branch: Mechanical
+  domain: Machine and pressure vessel design
+  scenario: >-
+    A team designs a compressed-air receiver. It first meets the applicable
+    pressure vessel code as the minimum and runs a compliance scan. It then
+    sets the design pressure above the expected working pressure and states the
+    load as a probability per time period. The wall thickness includes a factor
+    for this early design stage.
+  shows:
+    - rule: P60
+      how: >-
+        A code exists, so the team meets it as the minimum and then applies the
+        other rules. A compliance scan passes.
+    - rule: P44
+      how: >-
+        Capacity sits above the stated design load by a chosen factor that
+        reflects the design maturity.
+- branch: Mechanical
+  domain: Technical drawing
+  scenario: >-
+    A machinist receives a drawing for a bracket. The drafter drew it. A
+    colleague who is not the author checks dimensions and tolerances before the
+    drawing is released. For a part on a lifting device, the checker comes from
+    a separate design office.
+  shows:
+    - rule: P56
+      how: >-
+        Every drawing has a checker who is not the author. The checker is more
+        independent where the consequence of failure is higher.
+- branch: Mechanical
+  domain: Aerospace design
+  scenario: >-
+    An airframe team designs a flap actuator. It picks the simplest design that
+    meets the requirements and splits it into modules, each with one stated
+    purpose. It adds a second actuator channel so that the flap survives the
+    loss of either channel. The design relies on a new composite hinge, so the
+    team assesses its maturity and keeps it off the critical path until proven.
+  shows:
+    - rule: P23
+      how: >-
+        The team chooses the simplest design that meets the requirements and
+        splits it into modules with one stated purpose each.
+    - rule: P45
+      how: >-
+        The function survives the loss of any single channel, and removing one
+        channel in a test keeps the flap moving.
+    - rule: P17
+      how: >-
+        The design depends on a technology new to the team. Its maturity is
+        assessed, and the immature hinge stays out of the critical path.
+- branch: Mechanical
+  domain: Aerospace testing
+  scenario: >-
+    A test team qualifies a fuel pump. It runs the test in the same
+    configuration and conditions as real flight and lists each difference from
+    flight with a reason. After a seal is repaired, it tests again. During a
+    run, the pump shows an unexpected pressure ripple. Nobody is hurt, but the
+    team records the anomaly and investigates it before accepting it.
+  shows:
+    - rule: P57
+      how: >-
+        The test runs in the configuration and conditions of real operation.
+        Differences are listed and justified, and the test is repeated after
+        repair.
+    - rule: P82
+      how: >-
+        The system behaves differently from what was expected. The ripple is
+        recorded and investigated, with a decision to fix it or accept it with
+        a written reason.
+- branch: Mechanical
+  domain: Aviation operations and maintenance
+  scenario: >-
+    An airline plans maintenance for a fleet. For parts that wear with age, such
+    as brake pads, it replaces them on a schedule. For everything else it
+    monitors condition. Each maintenance task states which failure pattern it
+    addresses. During the final minutes before pushback, the crew keeps to
+    essential talk only.
+  shows:
+    - rule: P74
+      how: >-
+        The maintenance method follows how each part fails: scheduled
+        replacement only for what wears with age, condition monitoring for the
+        rest. Each task states its failure pattern.
+    - rule: P76
+      how: >-
+        Pushback is a critical phase. Only the activity and communication that
+        the phase needs are allowed, under written rules.
+- branch: Mechanical
+  domain: Automotive
+  scenario: >-
+    A carmaker develops a braking system. Two brake controllers share one
+    supplier, so a single defect could hit both. The team makes the second
+    controller from a different design. Every requirement links to design and
+    test, and back. Before building, the team lists how each part can fail and
+    how parts can interact unsafely.
+  shows:
+    - rule: P46
+      how: >-
+        One cause could hit all copies at once, so the copies are made
+        different. Shared dependencies are listed and justified.
+    - rule: P59
+      how: >-
+        The system is safety-critical. Each requirement links in both
+        directions to design and test, with no requirement lacking a test.
+    - rule: P22
+      how: >-
+        Before building, the team lists failure modes and unsafe interactions
+        per component, and the list is reviewed.
+- branch: Mechanical
+  domain: Naval architecture
+  scenario: >-
+    A shipyard designs a ferry hull. Watertight bulkheads divide the hull into
+    isolated compartments. In a damage test, one flooded compartment leaves the
+    other compartments dry and the ship afloat.
+  shows:
+    - rule: P41
+      how: >-
+        The system is divided into isolated compartments. A failure test in one
+        compartment leaves all others working.
+- branch: Mechanical
+  domain: Elevators
+  scenario: >-
+    A lift maker defines the safe state as the car stopped and held by the safety
+    gear. If the rope tension is lost or the controller fails, the brake and
+    safety gear move the car there. A test with cut power shows that the car
+    stops.
+  shows:
+    - rule: P37
+      how: >-
+        A safe state is defined and failure is designed to move there. Failure
+        injection shows that the system reaches the safe state.
+- branch: Mechanical
+  domain: Control engineering and machinery
+  scenario: >-
+    A press has an automatic temperature controller. The team adds a deadband
+    around the setpoint so the heater does not switch on and off repeatedly, and
+    a test shows no repeated switching. The press has a stop button. It works in
+    every mode, overrides all other functions, and does not restart the press
+    when it is reset. Any operator may press it without blame.
+  shows:
+    - rule: P48
+      how: >-
+        The control loop reacts automatically to measurements, so it gets a
+        documented deadband. A test shows no repeated switching.
+    - rule: P4
+      how: >-
+        The stop is always available, overrides other functions, works in every
+        mode and does not restart on reset. Anyone may use it without blame.
+- branch: Mechanical
+  domain: Acoustic
+  scenario: >-
+    A plant has a loud compressor. The team first removes the need for it by
+    changing the process, a higher control level. For the noise that remains,
+    it adds an enclosure at the source. It records why a quieter machine was not
+    possible. Tests with varied loads show that the noise stays within limits.
+  shows:
+    - rule: P38
+      how: >-
+        The team uses the highest possible control level and acts at the source
+        first. A record states why a higher level or a closer control was not
+        possible.
+    - rule: P27
+      how: >-
+        Tests with varied inputs, here different loads, show stable results.
+- branch: Mechanical
+  domain: Space systems
+  scenario: >-
+    A satellite team sizes its power budget with capacity above the expected
+    load, and a larger factor in the early design phase. The flight computer and
+    the thruster controller exchange data over an interface with a machine-
+    checked schema. It states units and reference frames explicitly. The
+    interface rejects and logs a message that sends thrust in the wrong frame.
+  shows:
+    - rule: P44
+      how: >-
+        Capacity sits above the expected load by a factor set by design
+        maturity, larger early and smaller as uncertainty falls.
+    - rule: P33
+      how: >-
+        The interface has a machine-checked schema and states units and
+        reference frames. Invalid input is rejected and logged, not silently
+        accepted.
+- branch: Mechanical
+  domain: Optomechanical and precision engineering
+  scenario: >-
+    A telescope mirror mount can be positioned by the kinematic mount and by
+    the clamp ring. If both set the same position, they fight and distort the
+    mirror. The designers constrain each degree of freedom exactly once. The
+    kinematic mount owns position and the ring only holds the mirror in place.
+  shows:
+    - rule: P30
+      how: >-
+        Several mechanisms could set the same property. Each property is
+        constrained exactly once, with one owner.
+- branch: Mechanical
+  domain: Energy engineering
+  scenario: >-
+    A utility adds a power line to relieve a congested grid corridor. It
+    forecasts that demand will grow into the new capacity and adds a demand
+    control: a time-of-use price. It measures and reviews resource use across
+    the plant's lifecycle.
+  shows:
+    - rule: P49
+      how: >-
+        The capacity increase comes with a demand growth forecast and a demand
+        control, here a price.
+    - rule: P3
+      how: >-
+        Environmental impact and resource use are reduced across the lifecycle.
+        Resource use is measured and reviewed.

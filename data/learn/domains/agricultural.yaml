@@ -1,2 +1,13 @@
 # Domain examples, branch Agricultural. Schema: schema/learn-domains.schema.json.
-[]
+- branch: Agricultural
+  domain: Agricultural and biosystems
+  scenario: >-
+    A grower designs a drip irrigation controller for a greenhouse. Soil
+    moisture, water pressure and supply temperature vary from day to day. The
+    team tests the controller with varied inputs: noisy sensors, low pressure,
+    a cold-water inlet. The yield result changes little across the tests.
+  shows:
+    - rule: P27
+      how: >-
+        The design aims at a result that changes little when inputs vary. Tests
+        with varied inputs show stable results.

@@ -1,2 +1,166 @@
 # Domain examples, branch Civil. Schema: schema/learn-domains.schema.json.
-[]
+- branch: Civil
+  domain: Structural and building
+  scenario: >-
+    A design team finishes the structural calculations for a four-storey office
+    building. The engineer who drew up the calculations does not sign them off.
+    A second engineer from the same firm reviews them. The foundation sits next
+    to a rail line, so the owner also hires an outside firm to check that part.
+  shows:
+    - rule: P56
+      how: >-
+        The checker is never the author. The review gets more independent as
+        the consequence of failure grows: a peer for the frame, an external
+        organization for the foundation beside the rail line.
+- branch: Civil
+  domain: Geotechnical
+  scenario: >-
+    A road embankment is built on soft clay. The ground cannot be measured fully
+    before construction, so the team designs for the most probable soil
+    conditions. Settlement gauges and pore-pressure sensors record the real
+    values as the fill goes up. The plan sets a trigger level for the settlement
+    rate and names the backup action in advance: add a stabilizing berm.
+  shows:
+    - rule: P68
+      how: >-
+        The key property can only be measured during construction. The design
+        uses the most probable conditions, the real values are monitored, and
+        each monitored value has a trigger level and a planned backup action.
+- branch: Civil
+  domain: Coastal and hydraulic
+  scenario: >-
+    A harbour authority designs a sea wall. It states the design wave load as a
+    probability per time period, a 1-in-100-year event. It then sets the crest
+    height above the height that load needs. Because the design is at an early
+    stage with poor wave data, the factor is large.
+  shows:
+    - rule: P44
+      how: >-
+        The design load is stated as a probability per time period. Capacity
+        sits above that load by a chosen factor, and the factor is larger at
+        this early stage and shrinks as the uncertainty falls.
+- branch: Civil
+  domain: Offshore and decommissioning
+  scenario: >-
+    A design team prepares a fixed offshore platform. The design document has a
+    maintenance section and a decommissioning section, written before the first
+    steel is cut. It covers how the jacket will be cut up and removed at end of
+    life. The team records why it chose a piecemeal removal and which
+    alternatives it rejected, such as removal in one lift.
+  shows:
+    - rule: P24
+      how: >-
+        Operation, maintenance and decommissioning are planned at design time.
+        The design document has a maintenance section and a decommissioning
+        section.
+    - rule: P10
+      how: >-
+        The removal method is a significant design decision. It has a record
+        with the reason for the choice and the rejected alternatives.
+- branch: Civil
+  domain: Construction management
+  scenario: >-
+    A contractor plans a bridge deck. The plan lists the tasks and their
+    dependencies and marks the longest chain: foundations, piers, girders, deck
+    pour. Other tasks, such as the parapets, show their slack. The deck pour
+    is a risky step, so the plan makes the rebar inspection a hold point. The
+    pour does not start until the inspector approves.
+  shows:
+    - rule: P67
+      how: >-
+        The plan identifies the longest chain of dependent tasks as the critical
+        path and marks the slack of the other tasks.
+    - rule: P65
+      how: >-
+        The risky pour is done in checked steps. The rebar inspection is defined
+        as a hold point, so work stops until the check is approved.
+- branch: Civil
+  domain: Transportation
+  scenario: >-
+    A city widens a congested arterial road. The business case includes a
+    forecast of how much extra traffic the new lanes will attract, and it adds a
+    demand control: a congestion charge on the corridor. Separately, a
+    pedestrian crossing sits where drivers often misjudge the signal. The
+    designers add a raised median so the unsafe move is physically impossible.
+  shows:
+    - rule: P49
+      how: >-
+        The capacity increase comes with a forecast that demand will grow into
+        the new lanes, and with a demand control, here a price.
+    - rule: P39
+      how: >-
+        A person can repeat the same error. The designers make the error
+        impossible with a physical guard, the highest level of error-proofing.
+- branch: Civil
+  domain: Environmental and water
+  scenario: >-
+    A water utility finds traces of a contaminant in a reservoir. Whether it
+    harms people is not yet proven, but the possible harm is serious. The
+    utility adds a carbon filter now and records that choice. It keeps the
+    existing chlorination and adds a UV stage, so that two independent,
+    separately tested treatment layers protect the supply.
+  shows:
+    - rule: P15
+      how: >-
+        The possible harm is serious and the evidence is incomplete. The utility
+        takes a proportionate protective measure without waiting for full proof
+        and records which measure it took.
+    - rule: P40
+      how: >-
+        The supply has at least two independent control layers, chlorination
+        and UV, and each layer is verified.
+- branch: Civil
+  domain: Railway operations
+  scenario: >-
+    A rail operator runs a track possession for maintenance. This is a rare,
+    complex procedure done under time pressure. The protection officer works
+    through a short checklist. For each item the officer points at it and says
+    its status aloud: "Signals blocked, confirmed." After a near miss, the
+    operator updates the checklist.
+  shows:
+    - rule: P71
+      how: >-
+        The procedure is critical and done under time pressure. It uses a short
+        checklist with each item pointed at and confirmed aloud, and the
+        checklist is updated after a postmortem.
+- branch: Civil
+  domain: Building services
+  scenario: >-
+    A new hospital wing is nearly complete. Each system passes its own test: the
+    ventilation, the fire alarm, the lifts. Before handover, the team tests all
+    systems together against the owner's requirements, for example that the
+    fire alarm shuts the air handlers. The file holds the test results and the
+    hospital's written acceptance.
+  shows:
+    - rule: P54
+      how: >-
+        Before handover the team tests that all parts work together against the
+        owner's requirements. Both a test result and a stakeholder acceptance
+        exist.
+- branch: Civil
+  domain: Municipal and infrastructure asset management
+  scenario: >-
+    A city runs thousands of culverts, pumps and street lights. It keeps one
+    inventory with owner, condition and lifecycle stage for each. A monthly
+    automated survey compares the real assets with the inventory. It finds a
+    pump station missing from the list, and the city adds it.
+  shows:
+    - rule: P78
+      how: >-
+        The operator keeps a complete inventory with owner, condition and
+        lifecycle stage. An automated discovery compares real assets with the
+        inventory and finds the unknown pump station.
+- branch: Civil
+  domain: Geological
+  scenario: >-
+    A tunnel crosses a fault zone. The rock quality cannot be known until the
+    face is open. The team designs for the most probable ground, installs
+    convergence monitoring in the tunnel, and sets a trigger level for
+    movement. If the trigger is reached, the planned backup action is heavier
+    support and shorter advances.
+  shows:
+    - rule: P68
+      how: >-
+        The ground can only be measured during construction. The team designs for
+        the most probable conditions, monitors real values, and plans the
+        trigger level and backup action in advance.
