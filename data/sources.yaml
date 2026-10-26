@@ -3,6 +3,9 @@
 # seeded once by sources/import/import_v9.py from edition 9.
 - slug: epcland-checking-design
   title: 'EPCLand: Checking of design'
+  author:
+  - family: Singla
+    given: Atul
   url: https://epcland.com/checking-of-design-engineering-checklist/
   kind: secondary
   publisher: EPCLand
@@ -12,6 +15,8 @@
   notes: Blog.
 - slug: ice-observational-method
   title: 'ICE: The observational method'
+  author:
+  - literal: Institution of Civil Engineers
   url: https://knowledgehub.ice.org.uk/cpd/delivery-exc/observational-method/
   kind: primary
   publisher: Institution of Civil Engineers
@@ -21,6 +26,8 @@
   notes: Professional body.
 - slug: wikipedia-return-period
   title: 'Wikipedia: Return period'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Return_period
   kind: secondary
   publisher: Wikipedia
@@ -30,6 +37,9 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: jpt-engineering-decommissioning
   title: 'JPT: Engineering for decommissioning'
+  author:
+  - family: Boschee
+    given: Pam
   url: https://jpt.spe.org/engineering-decommissioning-during-project-design-reduces-costs
   kind: primary
   publisher: SPE (Journal of Petroleum Technology)
@@ -39,6 +49,8 @@
   notes: "Classification is the importer's judgment against section 1's definition: magazine of a professional body (SPE); edition 9 rates P40 and P24 as having primary sources."
 - slug: spe-design-decommissioning
   title: 'SPE: Design for decommissioning (basis of design)'
+  author:
+  - literal: Society of Petroleum Engineers
   url: https://onepetro.org/spe/general-information/1423/Design-for-decommissioning
   kind: primary
   publisher: SPE (OnePetro)
@@ -48,6 +60,8 @@
   notes: Professional body.
 - slug: wikipedia-critical-path-method
   title: 'Wikipedia: Critical path method'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Critical_path_method
   kind: secondary
   publisher: Wikipedia
@@ -57,6 +71,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: quality-engineers-guide-hold-point
   title: 'Quality Engineers Guide: Hold point and witness point'
+  author:
+  - literal: Quality Engineers Guide
   url: https://www.qualityengineersguide.com/what-is-witness-point-and-hold-point
   kind: secondary
   publisher: Quality Engineers Guide
@@ -66,6 +82,8 @@
   notes: Blog.
 - slug: wikipedia-induced-demand
   title: 'Wikipedia: Induced demand'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Induced_demand
   kind: secondary
   publisher: Wikipedia
@@ -75,6 +93,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: fhwa-zero-deaths-safe-system
   title: 'FHWA: Zero deaths and the Safe System approach'
+  author:
+  - literal: US Federal Highway Administration
   url: https://highways.dot.gov/safety/zero-deaths
   kind: primary
   publisher: US FHWA
@@ -84,6 +104,8 @@
   notes: Agency.
 - slug: wikipedia-precautionary-principle
   title: 'Wikipedia: Precautionary principle'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Precautionary_principle
   kind: secondary
   publisher: Wikipedia
@@ -93,6 +115,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-multi-barrier-approach
   title: 'Wikipedia: Multi-barrier approach'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Multi-barrier_approach
   kind: secondary
   publisher: Wikipedia
@@ -102,6 +126,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-pointing-calling
   title: 'Wikipedia: Pointing and calling'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Pointing_and_calling
   kind: secondary
   publisher: Wikipedia
@@ -111,6 +137,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-building-commissioning
   title: 'Wikipedia: Building commissioning'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Building_commissioning
   kind: secondary
   publisher: Wikipedia
@@ -120,6 +148,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-asset-management
   title: 'Wikipedia: Asset management (incl. ISO 55000)'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Asset_management
   kind: secondary
   publisher: Wikipedia
@@ -129,6 +159,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-geological-engineering
   title: 'Wikipedia: Geological engineering'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Geological_engineering
   kind: secondary
   publisher: Wikipedia
@@ -138,6 +170,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: univ-portland-fail-safe-designs
   title: 'Univ. of Portland: Fail-safe designs and factor of safety'
+  author:
+  - literal: University of Portland
   url: https://faculty.up.edu/lulay/MEStudentPage/failsafe.pdf
   kind: primary
   publisher: University of Portland
@@ -147,6 +181,8 @@
   notes: "Classification is the importer's judgment against section 1's definition: university course document; it is P60's only source and edition 9 says every rule except P53 has a primary source."
 - slug: libretexts-peer-review-design
   title: 'LibreTexts: Peer review in design'
+  author:
+  - literal: LibreTexts
   url: https://eng.libretexts.org/Courses/Western_Technical_College/Inventor_Parametric_Design:_Level_1_%28Bahl%29/01:_Technical_Drawings/1.02:_Peer_Review_Process_and_Markup_Drawings/1.2.01:_The_Role_of_Peer_Review_in_Engineering_Design
   kind: secondary
   publisher: LibreTexts
@@ -156,6 +192,8 @@
   notes: "Classification is the importer's judgment against section 1's definition: open textbook compilation."
 - slug: grokipedia-kiss-principle
   title: 'Grokipedia: KISS principle'
+  author:
+  - literal: xAI
   url: https://grokipedia.com/page/KISS_principle
   kind: secondary
   publisher: Grokipedia
@@ -165,6 +203,9 @@
   notes: Encyclopedia.
 - slug: nasa-design-maintenance
   title: 'NASA: Design for maintenance'
+  author:
+  - family: Neeley
+    given: James R.
   url: https://ntrs.nasa.gov/api/citations/20240004739/downloads/Design%20for%20Maintenance%20DoD%20HFE%20TAG%2076%20041724.pdf
   kind: primary
   publisher: NASA
@@ -174,6 +215,8 @@
   notes: NASA technical report.
 - slug: sciencedirect-fail-safe-design
   title: 'ScienceDirect: Fail-safe design'
+  author:
+  - literal: Elsevier
   url: https://www.sciencedirect.com/topics/materials-science/fail-safe-design
   kind: secondary
   publisher: Elsevier (ScienceDirect Topics)
@@ -183,6 +226,8 @@
   notes: Topic aggregator page.
 - slug: wikipedia-technology-readiness-level
   title: 'Wikipedia: Technology readiness level'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Technology_readiness_level
   kind: secondary
   publisher: Wikipedia
@@ -192,6 +237,11 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: aerospace-corp-test-like-you
   title: 'Aerospace Corp: Test Like You Fly Process Guide'
+  author:
+  - family: White
+    given: Julia D.
+  - family: Tilney
+    given: Lindsay G.
   url: https://aerospace.org/sites/default/files/2024-06/TOR-2014-02537-REV%20A%20-%20The%20Test%20Like%20You%20Fly%20Process%20Guide%20for%20Space,%20Launch,%20and%20Ground%20Systems.pdf
   kind: primary
   publisher: The Aerospace Corporation
@@ -201,6 +251,8 @@
   notes: Original report.
 - slug: flight-test-fact-build-up
   title: 'Flight Test Fact: The build-up approach'
+  author:
+  - literal: Flight Test Fact
   url: https://flighttestfact.com/the-build-up-approach/
   kind: secondary
   publisher: Flight Test Fact
@@ -210,6 +262,8 @@
   notes: Blog.
 - slug: wikipedia-normalization-deviance
   title: 'Wikipedia: Normalization of deviance'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Normalization_of_deviance
   kind: secondary
   publisher: Wikipedia
@@ -219,6 +273,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: patsnap-fail-safe-design
   title: 'PatSnap: Fail-safe design'
+  author:
+  - literal: PatSnap
   url: https://eureka.patsnap.com/article/what-is-a-fail-safe-design-principles-and-best-practices
   kind: secondary
   publisher: PatSnap
@@ -228,6 +284,8 @@
   notes: Vendor page.
 - slug: wikipedia-reliability-centered-maintenance
   title: 'Wikipedia: Reliability-centered maintenance'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Reliability-centered_maintenance
   kind: secondary
   publisher: Wikipedia
@@ -237,6 +295,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-sterile-flight-deck-rule
   title: 'Wikipedia: Sterile flight deck rule'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Sterile_flight_deck_rule
   kind: secondary
   publisher: Wikipedia
@@ -246,6 +306,11 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: arxiv-safety-design-autonomous-vehicles
   title: 'arXiv: Safety design in autonomous vehicles'
+  author:
+  - family: Vyas
+    given: Vikas
+  - family: Xu
+    given: Zheyuan
   url: https://arxiv.org/pdf/2412.08862
   kind: primary
   publisher: arXiv
@@ -255,6 +320,8 @@
   notes: Original paper (preprint).
 - slug: stell-requirements-traceability
   title: 'Stell: Requirements traceability'
+  author:
+  - literal: Stell Engineering
   url: https://stell-engineering.com/blog/what-is-requirement-traceability
   kind: secondary
   publisher: Stell Engineering
@@ -264,6 +331,8 @@
   notes: Vendor blog.
 - slug: swift-navigation-what-sotif
   title: 'Swift Navigation: What is SOTIF (ISO 21448)?'
+  author:
+  - literal: Swift Navigation
   url: https://www.swiftnav.com/glossary/what-is-safety-of-the-intended-functionality-sotif
   kind: secondary
   publisher: Swift Navigation
@@ -273,6 +342,8 @@
   notes: Vendor glossary page.
 - slug: wikipedia-compartment
   title: 'Wikipedia: Compartment (ship)'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Compartment_%28ship%29
   kind: secondary
   publisher: Wikipedia
@@ -282,6 +353,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-deadband
   title: 'Wikipedia: Deadband'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Deadband
   kind: secondary
   publisher: Wikipedia
@@ -291,6 +364,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: iso-13850-2015-emergency-stop
   title: ISO 13850:2015 Emergency stop function (sample)
+  author:
+  - literal: International Organization for Standardization
   url: https://cdn.standards.iteh.ai/samples/59970/06ad76004ab746ff90b82cf44a8b0752/ISO-13850-2015.pdf
   kind: primary
   publisher: ISO
@@ -302,6 +377,8 @@
   notes: Sample pages of the standard; the full text is paid.
 - slug: osha-technical-manual-noise
   title: 'OSHA Technical Manual: Noise'
+  author:
+  - literal: US Occupational Safety and Health Administration
   url: https://www.osha.gov/otm/section-3-health-hazards/chapter-5
   kind: primary
   publisher: US OSHA
@@ -311,6 +388,8 @@
   notes: Regulator.
 - slug: wikipedia-mechanical-resonance
   title: 'Wikipedia: Mechanical resonance'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Mechanical_resonance
   kind: secondary
   publisher: Wikipedia
@@ -320,6 +399,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: nasa-gsfc-std-1000-rev
   title: NASA GSFC-STD-1000 Rev H (resource margins)
+  author:
+  - literal: NASA
   url: https://standards.nasa.gov/sites/default/files/standards/GSFC/H/0/GSFC-STD-1000RevH_Approved.pdf
   kind: primary
   publisher: NASA
@@ -329,6 +410,8 @@
   notes: Standard.
 - slug: wikipedia-mars-climate-orbiter
   title: 'Wikipedia: Mars Climate Orbiter'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Mars_Climate_Orbiter
   kind: secondary
   publisher: Wikipedia
@@ -338,6 +421,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-kinematic-coupling
   title: 'Wikipedia: Kinematic coupling (exact constraint)'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Kinematic_coupling
   kind: secondary
   publisher: Wikipedia
@@ -347,6 +432,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: enefirst-what-energy-efficiency-first
   title: 'ENEFIRST: What is Energy Efficiency First?'
+  author:
+  - literal: ENEFIRST project
   url: https://enefirst.eu/definitions/
   kind: primary
   publisher: ENEFIRST project
@@ -356,6 +443,8 @@
   notes: "Classification is the importer's judgment against section 1's definition: definitions page of the research project itself."
 - slug: wikipedia-fatigue
   title: 'Wikipedia: Fatigue (material)'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Fatigue_%28material%29
   kind: secondary
   publisher: Wikipedia
@@ -365,6 +454,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wermac-corrosion-allowance
   title: 'Wermac: Corrosion allowance'
+  author:
+  - literal: Wermac
   url: https://www.wermac.org/materials/corrosion_allowance.html
   kind: secondary
   publisher: Wermac
@@ -374,6 +465,8 @@
   notes: "Classification is the importer's judgment against section 1's definition: reference website, not a standard or original report."
 - slug: wikipedia-galvanic-corrosion
   title: 'Wikipedia: Galvanic corrosion'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Galvanic_corrosion
   kind: secondary
   publisher: Wikipedia
@@ -383,6 +476,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: phmsa-metallurgical-laboratory-failure-examination
   title: 'PHMSA: Metallurgical Laboratory Failure Examination Protocol'
+  author:
+  - literal: US Pipeline and Hazardous Materials Safety Administration
   url: https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/docs/incident-reporting/accident-investigation-division/70066/metallurgical-laboratory-failure-examination-protocol.pdf
   kind: primary
   publisher: US PHMSA
@@ -392,6 +487,8 @@
   notes: Regulator.
 - slug: wikipedia-forensic-engineering
   title: 'Wikipedia: Forensic engineering'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Forensic_engineering
   kind: secondary
   publisher: Wikipedia
@@ -401,6 +498,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-welding-procedure-specification
   title: 'Wikipedia: Welding Procedure Specification'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Welding_Procedure_Specification
   kind: secondary
   publisher: Wikipedia
@@ -410,6 +509,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-weibull-modulus
   title: 'Wikipedia: Weibull modulus'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Weibull_modulus
   kind: secondary
   publisher: Wikipedia
@@ -419,6 +520,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-size-effect-structural-strength
   title: 'Wikipedia: Size effect on structural strength'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Size_effect_on_structural_strength
   kind: secondary
   publisher: Wikipedia
@@ -428,6 +531,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-mill-test-report
   title: 'Wikipedia: Mill test report'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Mill_test_report
   kind: secondary
   publisher: Wikipedia
@@ -437,6 +542,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-electromigration
   title: 'Wikipedia: Electromigration'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Electromigration
   kind: secondary
   publisher: Wikipedia
@@ -446,6 +553,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-creep
   title: 'Wikipedia: Creep (deformation)'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Creep_%28deformation%29
   kind: secondary
   publisher: Wikipedia
@@ -455,6 +564,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-regulation-nanotechnology
   title: 'Wikipedia: Regulation of nanotechnology'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Regulation_of_nanotechnology
   kind: secondary
   publisher: Wikipedia
@@ -464,6 +575,16 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: uspto-materials-based-failure-analysis
   title: 'USPTO: Materials-based failure analysis in electronic devices'
+  author:
+  - family: Tryon
+    given: Robert G.
+    suffix: III
+  - family: Dey
+    given: Animesh
+  - family: Nasser
+    given: Loren A.
+  - family: Krishnan
+    given: Ganapathi
   url: https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/8285522
   kind: primary
   publisher: USPTO
@@ -473,6 +594,8 @@
   notes: Patent.
 - slug: wikipedia-derating
   title: 'Wikipedia: Derating'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Derating
   kind: secondary
   publisher: Wikipedia
@@ -482,6 +605,9 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: sintef-n-1-isnt-always
   title: "SINTEF: N-1 isn't always enough"
+  author:
+  - family: Gjerde
+    given: Oddbjørn
   url: https://blog.sintef.com/sintefenergy/energy-systems/electricity-supply-security-n-1-isnt-always-enough/
   kind: secondary
   publisher: SINTEF
@@ -491,6 +617,8 @@
   notes: "Classification is the importer's judgment against section 1's definition: blog post of a research institute."
 - slug: wikipedia-load-shedding
   title: 'Wikipedia: Load shedding'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Load_shedding
   kind: secondary
   publisher: Wikipedia
@@ -500,6 +628,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-end-end-principle
   title: 'Wikipedia: End-to-end principle'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/End-to-end_principle
   kind: secondary
   publisher: Wikipedia
@@ -509,6 +639,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-robustness-principle
   title: 'Wikipedia: Robustness principle (incl. RFC 9413 critique)'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Robustness_principle
   kind: secondary
   publisher: Wikipedia
@@ -518,6 +650,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-design-testing
   title: 'Wikipedia: Design for testing'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Design_for_testing
   kind: secondary
   publisher: Wikipedia
@@ -527,6 +661,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-amdahls-law
   title: "Wikipedia: Amdahl's law"
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Amdahl%27s_law
   kind: secondary
   publisher: Wikipedia
@@ -536,6 +672,9 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: tv-technology-confidence-monitors
   title: 'TV Technology: Confidence monitors'
+  author:
+  - family: Duvall
+    given: Richard
   url: https://www.tvtechnology.com/opinions/confidence-monitors
   kind: secondary
   publisher: TV Technology
@@ -545,6 +684,8 @@
   notes: Trade publication.
 - slug: wikipedia-impedance-matching
   title: 'Wikipedia: Impedance matching'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Impedance_matching
   kind: secondary
   publisher: Wikipedia
@@ -554,6 +695,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-laser-safety
   title: 'Wikipedia: Laser safety'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Laser_safety
   kind: secondary
   publisher: Wikipedia
@@ -563,6 +706,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: osha-29-cfr-1910-119
   title: OSHA 29 CFR 1910.119 (management of change)
+  author:
+  - literal: US Occupational Safety and Health Administration
   url: https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.119
   kind: primary
   publisher: US OSHA
@@ -572,6 +717,8 @@
   notes: Regulator.
 - slug: wikipedia-inherent-safety
   title: 'Wikipedia: Inherent safety'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Inherent_safety
   kind: secondary
   publisher: Wikipedia
@@ -581,6 +728,9 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: jpt-robust-well-barrier-well
   title: 'JPT: Robust well barrier and well integrity management'
+  author:
+  - family: Fjågesund
+    given: Tore
   url: https://jpt.spe.org/robust-well-barrier-and-well-integrity-management
   kind: primary
   publisher: SPE (Journal of Petroleum Technology)
@@ -590,6 +740,8 @@
   notes: "Classification is the importer's judgment against section 1's definition: magazine of a professional body (SPE); edition 9 rates P40 and P24 as having primary sources."
 - slug: fda-haccp-principles-application-guidelines
   title: 'FDA: HACCP Principles & Application Guidelines'
+  author:
+  - literal: US Food and Drug Administration
   url: https://www.fda.gov/food/hazard-analysis-critical-control-point-haccp/haccp-principles-application-guidelines
   kind: primary
   publisher: US FDA
@@ -599,6 +751,8 @@
   notes: Regulator.
 - slug: fda-electronic-source-data-guidance
   title: 'FDA: Electronic Source Data guidance (ALCOA)'
+  author:
+  - literal: US Food and Drug Administration
   url: https://www.fda.gov/media/85183/download
   kind: primary
   publisher: US FDA
@@ -608,6 +762,8 @@
   notes: Regulator.
 - slug: iso-139-2005-textiles-standard
   title: ISO 139:2005 Textiles - standard atmospheres (sample)
+  author:
+  - literal: International Organization for Standardization
   url: https://cdn.standards.iteh.ai/samples/35179/19d75d1dcdd147d4b630728954acc86d/ISO-139-2005.pdf
   kind: primary
   publisher: ISO
@@ -619,6 +775,8 @@
   notes: Sample pages of the standard; the full text is paid.
 - slug: chiuvention-why-fabric-test-results
   title: 'Chiuvention: Why fabric test results vary with weather'
+  author:
+  - literal: Chiuvention
   url: https://chiuvention.com/blog/why-fabric-test-results-vary-with-weather-solved-by-a-temperature-and-humidity-chamber
   kind: secondary
   publisher: Chiuvention
@@ -628,6 +786,13 @@
   notes: Vendor blog.
 - slug: nasa-can-cell-cell-thermal
   title: 'NASA: Can cell-to-cell thermal runaway propagation be prevented?'
+  author:
+  - family: Jeevarajan
+    given: Judith
+  - family: Lopez
+    given: Carlos
+  - family: Orieukwu
+    given: Josephat
   url: https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20140012758.pdf
   kind: primary
   publisher: NASA
@@ -637,6 +802,8 @@
   notes: NASA technical report.
 - slug: wikipedia-directed-evolution
   title: 'Wikipedia: Directed evolution'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Directed_evolution
   kind: secondary
   publisher: Wikipedia
@@ -646,6 +813,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: molecular-devices-design-build-test
   title: 'Molecular Devices: Design-build-test-learn cycle'
+  author:
+  - literal: Molecular Devices
   url: https://www.moleculardevices.com/applications/synthetic-biology/dbtl-approach
   kind: secondary
   publisher: Molecular Devices
@@ -655,6 +824,8 @@
   notes: Vendor page.
 - slug: iaea-decommissioning-design
   title: 'IAEA: Decommissioning by design'
+  author:
+  - literal: International Atomic Energy Agency
   url: https://www.iaea.org/bulletin/decommissioning-by-design-how-advanced-reactors-are-designed-with-disposal-in-mind
   kind: primary
   publisher: IAEA
@@ -664,6 +835,8 @@
   notes: Intergovernmental body (IAEA Bulletin).
 - slug: wikipedia-two-man-rule
   title: 'Wikipedia: Two-man rule'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Two-man_rule
   kind: secondary
   publisher: Wikipedia
@@ -673,6 +846,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: mining-weekly-icmm-critical-control
   title: 'Mining Weekly: ICMM critical control management guide'
+  author:
+  - literal: Mining Weekly
   url: https://www.miningweekly.com/article/icmm-updates-critical-control-management-guide-to-strengthen-mining-safety-2026-04-29
   kind: secondary
   publisher: Mining Weekly
@@ -682,6 +857,8 @@
   notes: News article.
 - slug: md-di-human-factors-engineering
   title: 'MD+DI: Human factors engineering'
+  author:
+  - literal: MD+DI
   url: https://www.mddionline.com/design-engineering/making-the-most-of-human-factors-usability-engineering
   kind: secondary
   publisher: MD+DI
@@ -691,6 +868,8 @@
   notes: Trade publication.
 - slug: egtechnology-usability-example
   title: 'egtechnology: Usability example'
+  author:
+  - literal: eg technology
   url: https://www.egtechnology.co.uk/human-factors-and-usability-engineering-a-must-or-a-good-to-have-part-1/
   kind: secondary
   publisher: eg technology
@@ -700,6 +879,8 @@
   notes: Vendor page.
 - slug: sciencedaily-who-surgical-checklist-study
   title: 'ScienceDaily: WHO surgical checklist study (2009)'
+  author:
+  - literal: Harvard School of Public Health
   url: https://www.sciencedaily.com/releases/2009/01/090114172304.htm
   kind: secondary
   publisher: ScienceDaily
@@ -709,6 +890,8 @@
   notes: News article about the study.
 - slug: ices-ontario-checklist-study
   title: 'ICES: Ontario checklist study (2014)'
+  author:
+  - literal: ICES
   url: https://www.ices.on.ca/news-releases/study-shows-introduction-of-surgical-safety-checklists-in-ontario-have-not-reduced-post-operative-mortality-or-complications/
   kind: primary
   publisher: ICES
@@ -718,6 +901,8 @@
   notes: "Classification is the importer's judgment against section 1's definition: news release of the institute that ran the study."
 - slug: wikipedia-alarm-fatigue
   title: 'Wikipedia: Alarm fatigue'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Alarm_fatigue
   kind: secondary
   publisher: Wikipedia
@@ -727,6 +912,15 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: sandve-et-al-ten-simple
   title: 'Sandve et al.: Ten Simple Rules for Reproducible Computational Research'
+  author:
+  - family: Sandve
+    given: Geir Kjetil
+  - family: Nekrutenko
+    given: Anton
+  - family: Taylor
+    given: James
+  - family: Hovig
+    given: Eivind
   url: https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285
   kind: primary
   publisher: PLOS
@@ -736,6 +930,8 @@
   notes: Original paper.
 - slug: wikipedia-biocompatibility
   title: 'Wikipedia: Biocompatibility'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Biocompatibility
   kind: secondary
   publisher: Wikipedia
@@ -745,6 +941,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-anthropometry
   title: 'Wikipedia: Anthropometry'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Anthropometry
   kind: secondary
   publisher: Wikipedia
@@ -754,6 +952,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-alarp-alara
   title: 'Wikipedia: ALARP / ALARA'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/ALARP
   kind: secondary
   publisher: Wikipedia
@@ -763,6 +963,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-shannon-criteria
   title: 'Wikipedia: Shannon criteria'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Shannon_criteria
   kind: secondary
   publisher: Wikipedia
@@ -772,6 +974,13 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: pmc-engineering-approach-sustainable-biological
   title: 'PMC: Engineering approach for sustainable biological systems'
+  author:
+  - family: Day
+    given: W.
+  - family: Audsley
+    given: E.
+  - family: Frost
+    given: A. R.
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC2610168/
   kind: primary
   publisher: NCBI PubMed Central
@@ -781,6 +990,8 @@
   notes: Original paper.
 - slug: wikipedia-andon
   title: 'Wikipedia: Andon (manufacturing)'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Andon_%28manufacturing%29
   kind: secondary
   publisher: Wikipedia
@@ -790,6 +1001,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: usersolutions-poka-yoke
   title: 'UserSolutions: Poka-yoke'
+  author:
+  - literal: User Solutions
   url: https://usersolutions.com/blog/poka-yoke-error-proofing
   kind: secondary
   publisher: User Solutions
@@ -799,6 +1012,8 @@
   notes: Vendor blog.
 - slug: iso-central-pdca
   title: 'ISO Central: PDCA'
+  author:
+  - literal: ISOCentral
   url: https://isocentral.org/resources/what-is-plan-do-check-act
   kind: secondary
   publisher: ISO Central
@@ -808,6 +1023,9 @@
   notes: Third-party page, not published by ISO.
 - slug: penn-state-taguchis-robust-design
   title: "Penn State: Taguchi's Robust Design Method"
+  author:
+  - family: Simpson
+    given: T. W.
   url: https://www.me.psu.edu/simpson/courses/ie466/ie466.robust.handout.pdf
   kind: primary
   publisher: Penn State University
@@ -817,6 +1035,8 @@
   notes: "Classification is the importer's judgment against section 1's definition: university course document (treated like the Portland handout)."
 - slug: cdc-niosh-hierarchy-controls
   title: 'CDC/NIOSH: Hierarchy of controls'
+  author:
+  - literal: National Institute for Occupational Safety and Health
   url: https://www.cdc.gov/niosh/hierarchy-of-controls/about/index.html
   kind: primary
   publisher: CDC/NIOSH
@@ -826,6 +1046,8 @@
   notes: Agency.
 - slug: osha-control-hazardous-energy
   title: 'OSHA: Control of hazardous energy (lockout/tagout)'
+  author:
+  - literal: US Occupational Safety and Health Administration
   url: https://www.osha.gov/control-hazardous-energy
   kind: primary
   publisher: US OSHA
@@ -835,6 +1057,8 @@
   notes: Regulator.
 - slug: fire-risk-assessment-network-aset
   title: 'Fire Risk Assessment Network: ASET and RSET'
+  author:
+  - literal: Fire Risk Assessment Network
   url: https://fire-risk-assessment-network.com/blog/aset-rset/
   kind: secondary
   publisher: Fire Risk Assessment Network
@@ -844,6 +1068,8 @@
   notes: Blog.
 - slug: wikipedia-theory-constraints
   title: 'Wikipedia: Theory of constraints'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Theory_of_constraints
   kind: secondary
   publisher: Wikipedia
@@ -853,6 +1079,9 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: linda-green-queueing-theory-modeling
   title: 'Linda Green: Queueing theory and modeling'
+  author:
+  - family: Green
+    given: Linda
   url: https://business.columbia.edu/sites/default/files-efs/pubfiles/5474/queueing%20theory%20and%20modeling.pdf
   kind: primary
   publisher: Columbia Business School
@@ -862,6 +1091,8 @@
   notes: Author's original paper.
 - slug: wikipedia-bullwhip-effect
   title: 'Wikipedia: Bullwhip effect'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Bullwhip_effect
   kind: secondary
   publisher: Wikipedia
@@ -871,6 +1102,13 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: lee-padmanabhan-whang-information-distortion
   title: 'Lee, Padmanabhan, Whang: Information Distortion in a Supply Chain (Management Science 1997)'
+  author:
+  - family: Lee
+    given: Hau L.
+  - family: Padmanabhan
+    given: V.
+  - family: Whang
+    given: Seungjin
   url: https://courses.ie.bilkent.edu.tr/ie102/wp-content/uploads/sites/12/2019/02/Lee-Padmanabhan-Whang-1997-MS.pdf
   kind: primary
   publisher: Management Science
@@ -882,6 +1120,15 @@
   notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the original paper."
 - slug: arxiv-revisiting-cost-fix
   title: 'arXiv: Revisiting cost-to-fix'
+  author:
+  - family: Menzies
+    given: Tim
+  - family: Nichols
+    given: William
+  - family: Shull
+    given: Forrest
+  - family: Layman
+    given: Lucas
   url: https://arxiv.org/pdf/1609.04886
   kind: primary
   publisher: arXiv
@@ -891,6 +1138,8 @@
   notes: Original paper (preprint).
 - slug: adr-github-io-architectural-decision
   title: 'adr.github.io: Architectural Decision Records'
+  author:
+  - literal: adr.github.io
   url: https://adr.github.io/
   kind: secondary
   publisher: adr.github.io
@@ -900,6 +1149,9 @@
   notes: "Classification is the importer's judgment against section 1's definition: community topic page that aggregates ADR resources."
 - slug: jamf-nist-definition-least-privilege
   title: 'Jamf: NIST definition of least privilege'
+  author:
+  - family: Vigo
+    given: Jesus
   url: https://www.jamf.com/blog/zero-trust-vs-least-privilege/
   kind: secondary
   publisher: Jamf
@@ -909,6 +1161,8 @@
   notes: Vendor blog.
 - slug: sciencedirect-least-privilege-defense-depth
   title: 'ScienceDirect: Least privilege and defense in depth'
+  author:
+  - literal: Elsevier
   url: https://www.sciencedirect.com/topics/computer-science/principle-of-least-privilege
   kind: secondary
   publisher: Elsevier (ScienceDirect Topics)
@@ -918,6 +1172,8 @@
   notes: Topic aggregator page.
 - slug: palo-alto-networks-defense-depth
   title: 'Palo Alto Networks: Defense in depth'
+  author:
+  - literal: Palo Alto Networks
   url: https://www.paloaltonetworks.com/cyberpedia/what-is-defense-in-depth
   kind: secondary
   publisher: Palo Alto Networks
@@ -927,6 +1183,21 @@
   notes: Vendor page.
 - slug: google-sre-postmortem-culture
   title: 'Google SRE: Postmortem culture'
+  author:
+  - family: Rogers
+    given: Daniel
+  - family: Suriar
+    given: Murali
+  - family: Lueder
+    given: Sue
+  - family: Deo
+    given: Pranjal
+  - family: Sudhakar
+    given: Divya
+  - family: O’Connor
+    given: Gary
+  - family: Rensin
+    given: Dave
   url: https://sre.google/workbook/postmortem-culture/
   kind: primary
   publisher: Google
@@ -936,6 +1207,9 @@
   notes: "Classification is the importer's judgment against section 1's definition: Google's own SRE book, original publication."
 - slug: google-sre-monitoring-distributed-systems
   title: 'Google SRE: Monitoring distributed systems'
+  author:
+  - family: Ewaschuk
+    given: Rob
   url: https://sre.google/sre-book/monitoring-distributed-systems/
   kind: primary
   publisher: Google
@@ -945,6 +1219,8 @@
   notes: "Classification is the importer's judgment against section 1's definition: Google's own SRE book, original publication."
 - slug: wikipedia-v-v-computer-simulation
   title: 'Wikipedia: V&V of computer simulation models'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Verification_and_validation_of_computer_simulation_models
   kind: secondary
   publisher: Wikipedia
@@ -954,6 +1230,27 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: sculley-et-al-hidden-technical
   title: 'Sculley et al.: Hidden Technical Debt in ML Systems (NeurIPS 2015)'
+  author:
+  - family: Sculley
+    given: D.
+  - family: Holt
+    given: Gary
+  - family: Golovin
+    given: Daniel
+  - family: Davydov
+    given: Eugene
+  - family: Phillips
+    given: Todd
+  - family: Ebner
+    given: Dietmar
+  - family: Chaudhary
+    given: Vinay
+  - family: Young
+    given: Michael
+  - family: Crespo
+    given: Jean-François
+  - family: Dennison
+    given: Dan
   url: https://proceedings.neurips.cc/paper_files/paper/2015/file/86df7dcfd896fcaf2674f757a2463eba-Paper.pdf
   kind: primary
   publisher: NeurIPS
@@ -963,6 +1260,8 @@
   notes: Original paper.
 - slug: wikipedia-concept-drift
   title: 'Wikipedia: Concept drift'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Concept_drift
   kind: secondary
   publisher: Wikipedia
@@ -972,6 +1271,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-quantum-error-correction
   title: 'Wikipedia: Quantum error correction'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Quantum_error_correction
   kind: secondary
   publisher: Wikipedia
@@ -981,6 +1282,11 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: ucsd-lectures-von-neumanns-probabilistic
   title: "UCSD: Lectures on von Neumann's Probabilistic Logics"
+  author:
+  - family: Leverentz
+    given: Andrew
+  - family: Thomas
+    given: Anthony
   url: https://cseweb.ucsd.edu/~dasgupta/254-neural-ul/anthony-andrew.pdf
   kind: primary
   publisher: UC San Diego
@@ -990,6 +1296,8 @@
   notes: "Classification is the importer's judgment against section 1's definition: university lecture notes (treated like the Portland handout)."
 - slug: nspe-ethics-reference-guide
   title: NSPE Ethics Reference Guide
+  author:
+  - literal: National Society of Professional Engineers
   url: https://www.nspe.org/sites/default/files/resources/pdfs/Ethics/EthicsReferenceGuide.pdf
   kind: primary
   publisher: NSPE
@@ -999,6 +1307,9 @@
   notes: Professional body.
 - slug: nspe-sustainability-pes-obligations
   title: "NSPE: Sustainability and the PE's obligations"
+  author:
+  - family: Bowman
+    given: Rebecca
   url: https://www.nspe.org/career-growth/pe-magazine/winter-2023/sustainability-the-pe-s-obligations
   kind: primary
   publisher: NSPE
@@ -1008,6 +1319,8 @@
   notes: Professional body.
 - slug: fdot-systems-engineering-100
   title: FDOT Systems Engineering 100
+  author:
+  - literal: Florida Department of Transportation
   url: https://wbt.dot.state.fl.us/ois/ITS-SystemsEngineering100/SystemsEngineeringPt2-m2-TRANSCRIPT.pdf
   kind: primary
   publisher: Florida Department of Transportation
@@ -1017,6 +1330,9 @@
   notes: Agency training transcript.
 - slug: arxiv-v-v-systems-systems
   title: 'arXiv: V&V in Systems of Systems'
+  author:
+  - family: Honour
+    given: Eric
   url: https://arxiv.org/pdf/1311.3626
   kind: primary
   publisher: arXiv
@@ -1026,6 +1342,9 @@
   notes: Original paper (preprint).
 - slug: arxiv-controls-machine-protection
   title: 'arXiv: Controls and machine protection'
+  author:
+  - family: Carrone
+    given: E.
   url: https://arxiv.org/pdf/1608.02836
   kind: primary
   publisher: arXiv
@@ -1035,6 +1354,9 @@
   notes: Original paper (preprint).
 - slug: arxiv-agentic-configuration-management
   title: 'arXiv: Agentic Configuration Management'
+  author:
+  - family: Quessada-Vial
+    given: Audrey
   url: https://arxiv.org/pdf/2608.11166
   kind: primary
   publisher: arXiv
@@ -1044,6 +1366,9 @@
   notes: Original paper (preprint).
 - slug: ebsco-fmea
   title: 'EBSCO: FMEA'
+  author:
+  - family: Dziak
+    given: Mark
   url: https://www.ebsco.com/research-starters/social-sciences-and-humanities/failure-mode-and-effects-analysis-fmea
   kind: secondary
   publisher: EBSCO
@@ -1053,6 +1378,13 @@
   notes: 'Research Starters: topic aggregator.'
 - slug: bmj-qual-saf-pmc-fmea
   title: 'BMJ Qual Saf / PMC: FMEA outputs - are they valid?'
+  author:
+  - family: Shebl
+    given: Nada Atef
+  - family: Franklin
+    given: Bryony Dean
+  - family: Barber
+    given: Nick
   url: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3405478/
   kind: primary
   publisher: NCBI PubMed Central
@@ -1062,6 +1394,11 @@
   notes: Original paper.
 - slug: leveson-thomas-stpa-handbook
   title: 'Leveson & Thomas: STPA Handbook'
+  author:
+  - family: Leveson
+    given: Nancy G.
+  - family: Thomas
+    given: John P.
   url: https://www.flighttestsafety.org/images/STPA_Handbook.pdf
   kind: primary
   publisher: null
@@ -1073,6 +1410,13 @@
   notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the handbook."
 - slug: national-academies-accident-precursor-analysis
   title: 'National Academies: Accident precursor analysis'
+  author:
+  - family: Phimister
+    given: James R.
+  - family: Bier
+    given: Vicki M.
+  - family: Kunreuther
+    given: Howard C.
   url: https://www.nationalacademies.org/read/11061/chapter/8
   kind: primary
   publisher: National Academies
@@ -1082,6 +1426,8 @@
   notes: Original report.
 - slug: wikipedia-measurement-uncertainty
   title: 'Wikipedia: Measurement uncertainty'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Measurement_uncertainty
   kind: secondary
   publisher: Wikipedia
@@ -1091,6 +1437,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: wikipedia-metrological-traceability
   title: 'Wikipedia: Metrological traceability'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Metrological_traceability
   kind: secondary
   publisher: Wikipedia
@@ -1100,6 +1448,9 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: primatech-alarp-principle
   title: 'Primatech: ALARP principle'
+  author:
+  - family: Kuzma
+    given: Dave
   url: https://www.primatech.com/technical/alarp-principle
   kind: secondary
   publisher: Primatech
@@ -1109,6 +1460,14 @@
   notes: "Classification is the importer's judgment against section 1's definition: consultancy page."
 - slug: sobek-ward-liker-toyotas-principles
   title: "Sobek, Ward, Liker: Toyota's Principles of Set-Based Concurrent Engineering"
+  author:
+  - family: Sobek
+    given: Durward K.
+    suffix: II
+  - family: Ward
+    given: Allen C.
+  - family: Liker
+    given: Jeffrey K.
   url: https://www.gapimprove.org/_files/ugd/cd8b34_2d04bd540ca04019986c3ba54ae8631e.pdf?index=true
   kind: primary
   publisher: null
@@ -1120,6 +1479,8 @@
   notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the original paper."
 - slug: wikipedia-fermi-problem
   title: 'Wikipedia: Fermi problem'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Fermi_problem
   kind: secondary
   publisher: Wikipedia
@@ -1129,6 +1490,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: g20-oecd-principles-corporate-governance
   title: G20/OECD Principles of Corporate Governance 2023
+  author:
+  - literal: Organisation for Economic Co-operation and Development
   url: https://legalinstruments.oecd.org/public/doc/322/322.en.pdf
   kind: primary
   publisher: OECD
@@ -1138,6 +1501,8 @@
   notes: Intergovernmental body.
 - slug: iso-37000-2021-governance-organizations
   title: ISO 37000:2021 Governance of organizations (catalogue page)
+  author:
+  - literal: International Organization for Standardization
   url: https://www.iso.org/standard/65036.html
   kind: primary
   publisher: ISO
@@ -1147,6 +1512,8 @@
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
 - slug: iia-three-lines-model
   title: 'IIA: The Three Lines Model (2020)'
+  author:
+  - literal: Institute of Internal Auditors
   url: https://www.theiia.org/globalassets/documents/resources/the-iias-three-lines-model-an-update-of-the-three-lines-of-defense-july-2020/three-lines-model-updated-english.pdf
   kind: primary
   publisher: Institute of Internal Auditors
@@ -1156,6 +1523,8 @@
   notes: Professional body.
 - slug: regulation-no-537-2014-article
   title: Regulation (EU) No 537/2014, Article 17 (text copy)
+  author:
+  - literal: European Parliament and Council of the European Union
   url: https://www.charteredaccountants.ie/chariotindex/text/ec_2014_537/17.html
   kind: primary
   publisher: European Union
@@ -1167,6 +1536,8 @@
   notes: 'Faithful copy (edition 9 section 12: Regulation (EU) No 537/2014 via charteredaccountants.ie).'
 - slug: nist-csrc-glossary-separation-duty
   title: 'NIST CSRC Glossary: separation of duty (SP 800-192)'
+  author:
+  - literal: National Institute of Standards and Technology
   url: https://csrc.nist.gov/glossary/term/separation_of_duty
   kind: primary
   publisher: NIST
@@ -1176,6 +1547,8 @@
   notes: Standards body glossary.
 - slug: iso-37301-2021-compliance-management
   title: ISO 37301:2021 Compliance management systems (catalogue page)
+  author:
+  - literal: International Organization for Standardization
   url: https://www.iso.org/standard/75080.html
   kind: primary
   publisher: ISO
@@ -1185,6 +1558,8 @@
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
 - slug: directive-2019-1937
   title: Directive (EU) 2019/1937 (EUR-Lex)
+  author:
+  - literal: European Parliament and Council of the European Union
   url: https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32019L1937
   kind: primary
   publisher: EUR-Lex (European Union)
@@ -1194,6 +1569,8 @@
   notes: 'Law; edition 9 section 12: Article 19 could not be retrieved.'
 - slug: iso-37001-anti-bribery-management
   title: ISO 37001 Anti-bribery management systems (catalogue page)
+  author:
+  - literal: International Organization for Standardization
   url: https://www.iso.org/standard/37001
   kind: primary
   publisher: ISO
@@ -1203,6 +1580,8 @@
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
 - slug: coso-erm-integrating-strategy-performance
   title: 'COSO: ERM — Integrating with Strategy and Performance, Executive Summary (2017)'
+  author:
+  - literal: Committee of Sponsoring Organizations of the Treadway Commission
   url: https://www.coso.org/_files/ugd/3059fc_61ea5985b03c4293960642fdce408eaa.pdf
   kind: primary
   publisher: COSO
@@ -1212,6 +1591,8 @@
   notes: Official executive summary of the framework.
 - slug: iso-31000-2018-risk-management
   title: ISO 31000:2018 Risk management (catalogue page)
+  author:
+  - literal: International Organization for Standardization
   url: https://www.iso.org/standard/65694.html
   kind: primary
   publisher: ISO
@@ -1221,6 +1602,9 @@
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
 - slug: amazon-2015-letter-shareholders
   title: Amazon 2015 letter to shareholders (SEC filing)
+  author:
+  - family: Bezos
+    given: Jeffrey P.
   url: https://www.sec.gov/Archives/edgar/data/1018724/000119312516530910/d168744dex991.htm
   kind: primary
   publisher: US SEC (EDGAR)
@@ -1230,6 +1614,8 @@
   notes: Original filing.
 - slug: uk-mod-red-teaming-handbook
   title: 'UK MoD: Red Teaming Handbook, 3rd ed. (2021)'
+  author:
+  - literal: UK Ministry of Defence
   url: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1027158/20210625-Red_Teaming_Handbook.pdf
   kind: primary
   publisher: UK Ministry of Defence
@@ -1239,6 +1625,8 @@
   notes: Official handbook.
 - slug: us-army-adp-6-0
   title: US Army ADP 6-0 Mission Command (2019)
+  author:
+  - literal: US Department of the Army
   url: https://irp.fas.org/doddir/army/adp6_0.pdf
   kind: primary
   publisher: US Army
@@ -1250,6 +1638,9 @@
   notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the doctrine publication."
 - slug: klein-performing-project-premortem
   title: 'Klein: Performing a Project Premortem (HBR 2007)'
+  author:
+  - family: Klein
+    given: Gary
   url: https://hbr.org/2007/09/performing-a-project-premortem
   kind: primary
   publisher: Harvard Business Review
@@ -1259,6 +1650,8 @@
   notes: 'Original article; edition 9 section 12: only available as a summary.'
 - slug: iso-21502-2020-guidance-project
   title: ISO 21502:2020 Guidance on project management (catalogue page)
+  author:
+  - literal: International Organization for Standardization
   url: https://www.iso.org/standard/74947.html
   kind: primary
   publisher: ISO
@@ -1268,6 +1661,8 @@
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
 - slug: pmi-pmbok-guide-8th-edition
   title: 'PMI: PMBOK Guide 8th edition'
+  author:
+  - literal: Project Management Institute
   url: https://www.pmi.org/standards/pmbok/about
   kind: primary
   publisher: PMI
@@ -1277,6 +1672,9 @@
   notes: Official PMI page; the PMBOK Guide text is paid (edition 9 section 12).
 - slug: purple-griffon-prince2-7th-edition
   title: 'Purple Griffon: PRINCE2 7th edition principles'
+  author:
+  - family: Lawless
+    given: James
   url: https://purplegriffon.com/blog/prince2-7th-edition-principles
   kind: secondary
   publisher: Purple Griffon
@@ -1286,6 +1684,8 @@
   notes: 'Training-vendor blog; edition 9 section 11: secondary, the official PRINCE2 manual is paid.'
 - slug: iso-21504-2022-guidance-portfolio
   title: ISO 21504:2022 Guidance on portfolio management (catalogue page)
+  author:
+  - literal: International Organization for Standardization
   url: https://www.iso.org/standard/82867.html
   kind: primary
   publisher: ISO
@@ -1295,6 +1695,9 @@
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
 - slug: flyvbjerg-from-nobel-prize-project
   title: 'Flyvbjerg: From Nobel Prize to Project Management (2006)'
+  author:
+  - family: Flyvbjerg
+    given: Bent
   url: https://arxiv.org/pdf/1302.3642
   kind: primary
   publisher: arXiv
@@ -1304,6 +1707,8 @@
   notes: Original paper (preprint).
 - slug: principles-behind-agile-manifesto
   title: Principles behind the Agile Manifesto
+  author:
+  - literal: Authors of the Agile Manifesto
   url: https://agilemanifesto.org/principles
   kind: primary
   publisher: Agile Manifesto authors
@@ -1313,6 +1718,11 @@
   notes: The original principles.
 - slug: scrum-guide
   title: The Scrum Guide (2020)
+  author:
+  - family: Schwaber
+    given: Ken
+  - family: Sutherland
+    given: Jeff
   url: https://scrumguides.org/scrum-guide.html
   kind: primary
   publisher: Scrum Guides (Schwaber and Sutherland)
@@ -1322,6 +1732,8 @@
   notes: The Scrum Guide itself.
 - slug: dora-working-small-batches
   title: 'DORA: Working in small batches'
+  author:
+  - literal: DORA
   url: https://dora.dev/capabilities/working-in-small-batches/
   kind: primary
   publisher: DORA (Google Cloud)
@@ -1331,6 +1743,9 @@
   notes: "Classification is the importer's judgment against section 1's definition: the research programme's own capability page."
 - slug: jargon-file-brookss-law
   title: "The Jargon File: Brooks's Law"
+  author:
+  - family: Raymond
+    given: Eric S.
   url: https://www.catb.org/jargon/html/B/Brookss-Law.html
   kind: secondary
   publisher: The Jargon File
@@ -1340,6 +1755,11 @@
   notes: 'Edition 9 section 12: P53 rests on the Jargon File (secondary only).'
 - slug: kohavi-thomke-surprising-power-online
   title: 'Kohavi & Thomke: The Surprising Power of Online Experiments (HBR 2017)'
+  author:
+  - family: Kohavi
+    given: Ron
+  - family: Thomke
+    given: Stefan
   url: https://web-docs.stern.nyu.edu/executive/The%20Surprising%20Power%20of%20Online%20Experiments.pdf
   kind: primary
   publisher: Harvard Business Review
@@ -1351,6 +1771,8 @@
   notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the HBR article."
 - slug: iso-56001-2024-innovation-management
   title: ISO 56001:2024 Innovation management system (catalogue page)
+  author:
+  - literal: International Organization for Standardization
   url: https://www.iso.org/standard/79278.html
   kind: primary
   publisher: ISO
@@ -1360,6 +1782,8 @@
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
 - slug: iso-9001-2026-launch
   title: 'ISO: ISO 9001:2026 launch (16 Sep 2026)'
+  author:
+  - literal: International Organization for Standardization
   url: https://www.iso.org/news/2026/09/ISO9001-2026
   kind: primary
   publisher: ISO
@@ -1369,6 +1793,8 @@
   notes: ISO news release on the ISO 9001:2026 launch.
 - slug: deming-14-points
   title: 'The W. Edwards Deming Institute: 14 Points'
+  author:
+  - literal: The W. Edwards Deming Institute
   url: https://deming.org/explore/fourteen-points/
   kind: primary
   publisher: The W. Edwards Deming Institute
@@ -1378,6 +1804,8 @@
   notes: "Classification is the importer's judgment against section 1's definition: the 14 points as published by Deming's institute."
 - slug: toyota-production-system
   title: 'Toyota: Toyota Production System (jidoka)'
+  author:
+  - literal: Toyota Motor Corporation
   url: https://global.toyota/en/company/vision-and-philosophy/production-system/
   kind: primary
   publisher: Toyota
@@ -1387,6 +1815,9 @@
   notes: "Classification is the importer's judgment against section 1's definition: the originator's own description of its production system."
 - slug: little-littles-law-as-viewed
   title: "Little: Little's Law as Viewed on Its 50th Anniversary (Operations Research 2011, reprint)"
+  author:
+  - family: Little
+    given: John D. C.
   url: https://projectproduction.org/journal/reprint-littles-law-as-viewed-on-its-50th-anniversary/
   kind: primary
   publisher: Operations Research
@@ -1398,6 +1829,8 @@
   notes: "Reprint (edition 9 title); Classification is the importer's judgment against section 1's definition: faithful copy."
 - slug: oecd-recommendation-public-procurement-integrity
   title: 'OECD Recommendation on Public Procurement: Integrity'
+  author:
+  - literal: Organisation for Economic Co-operation and Development
   url: https://search.oecd.org/governance/procurement/toolbox/principlestools/integrity
   kind: primary
   publisher: OECD
@@ -1407,6 +1840,8 @@
   notes: Intergovernmental body.
 - slug: iso-20400-2017-sustainable-procurement
   title: ISO 20400:2017 Sustainable procurement (catalogue page)
+  author:
+  - literal: International Organization for Standardization
   url: https://www.iso.org/standard/63026.html
   kind: primary
   publisher: ISO
@@ -1416,6 +1851,8 @@
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
 - slug: oecd-due-diligence-guidance-responsible
   title: OECD Due Diligence Guidance for Responsible Business Conduct (2018)
+  author:
+  - literal: Organisation for Economic Co-operation and Development
   url: https://www.oecd.org/en/publications/oecd-due-diligence-guidance-for-responsible-business-conduct_15f5f4b3-en.html
   kind: primary
   publisher: OECD
@@ -1425,6 +1862,8 @@
   notes: 'Intergovernmental body; edition 9 section 12: only the abstract could be retrieved.'
 - slug: iso-55000-2024-asset-management
   title: ISO 55000:2024 Asset management (catalogue page)
+  author:
+  - literal: International Organization for Standardization
   url: https://www.iso.org/standard/83053.html
   kind: primary
   publisher: ISO
@@ -1434,6 +1873,9 @@
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
 - slug: iso-iec-20000-1-2018
   title: ISO/IEC 20000-1:2018 Service management (catalogue page)
+  author:
+  - literal: International Organization for Standardization
+  - literal: International Electrotechnical Commission
   url: https://www.iso.org/standard/70636.html
   kind: primary
   publisher: ISO
@@ -1443,6 +1885,8 @@
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
 - slug: bci-good-practice-guidelines-2018
   title: BCI Good Practice Guidelines 2018 (with ISO 22301:2019 definitions)
+  author:
+  - literal: Business Continuity Institute
   url: https://www.thebci.org/static/cf455e45-b2c2-4a44-b77da7c99fd6df77/BCI-GPG-2018-Edition.pdf
   kind: primary
   publisher: Business Continuity Institute
@@ -1452,6 +1896,8 @@
   notes: Professional body.
 - slug: iso-22301-2019
   title: ISO 22301:2019 (catalogue page)
+  author:
+  - literal: International Organization for Standardization
   url: https://www.iso.org/standard/75106.html
   kind: primary
   publisher: ISO
@@ -1461,6 +1907,8 @@
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
 - slug: fema-national-incident-management-system
   title: 'FEMA: National Incident Management System, 3rd ed. (2017)'
+  author:
+  - literal: US Federal Emergency Management Agency
   url: https://training.fema.gov:443/EMIWeb/IS/IS700b/Handouts/National_Incident_Management%20System_Third%20Edition_October_2017.pdf
   kind: primary
   publisher: US FEMA
@@ -1470,6 +1918,8 @@
   notes: Federal doctrine.
 - slug: iso-22361-2022-crisis-management
   title: ISO 22361:2022 Crisis management (catalogue page)
+  author:
+  - literal: International Organization for Standardization
   url: https://www.iso.org/standard/50267.html
   kind: primary
   publisher: ISO
@@ -1479,6 +1929,9 @@
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
 - slug: iso-iec-27001-2022
   title: ISO/IEC 27001:2022 (catalogue page)
+  author:
+  - literal: International Organization for Standardization
+  - literal: International Electrotechnical Commission
   url: https://www.iso.org/standard/27001
   kind: primary
   publisher: ISO
@@ -1488,6 +1941,8 @@
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
 - slug: gdpr-article-5
   title: GDPR Article 5 (text copy)
+  author:
+  - literal: European Parliament and Council of the European Union
   url: https://gdpr-info.eu/art-5-gdpr/
   kind: primary
   publisher: European Union
@@ -1499,6 +1954,8 @@
   notes: "Text copy of the GDPR; Classification is the importer's judgment against section 1's definition: faithful copy."
 - slug: hgb-239
   title: § 239 HGB (text copy, dejure.org)
+  author:
+  - literal: Federal Republic of Germany
   url: https://dejure.org/gesetze/HGB/239.html
   kind: primary
   publisher: German Commercial Code (HGB)
@@ -1510,6 +1967,8 @@
   notes: 'Faithful copy (edition 9 section 12: § 239 HGB via dejure.org).'
 - slug: iso-15489-1-2016-records
   title: ISO 15489-1:2016 Records management (catalogue page)
+  author:
+  - literal: International Organization for Standardization
   url: https://www.iso.org/standard/62542.html
   kind: primary
   publisher: ISO
@@ -1519,6 +1978,8 @@
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
 - slug: troutman-pepper-sedona-commentary-legal
   title: 'Troutman Pepper: Sedona Commentary on Legal Holds, 2nd ed.'
+  author:
+  - literal: Troutman Pepper Locke
   url: https://www.troutman.com/insights/sedona-provides-updated-practical-guidance-for-legal-holds.html
   kind: secondary
   publisher: Troutman Pepper
@@ -1528,6 +1989,8 @@
   notes: 'Law-firm article; edition 9 section 11: secondary, describes the primary Sedona commentary.'
 - slug: iso-45001-2018
   title: ISO 45001:2018 (catalogue page)
+  author:
+  - literal: International Organization for Standardization
   url: https://www.iso.org/standard/63787.html
   kind: primary
   publisher: ISO
@@ -1537,6 +2000,8 @@
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
 - slug: presencis-iso-45001-clause-8
   title: 'Presencis: ISO 45001 clause 8.1.2'
+  author:
+  - literal: Presencis
   url: https://cdn.presencis.com/regulations/iso-45001/article-8.1.2/
   kind: secondary
   publisher: Presencis
@@ -1546,6 +2011,8 @@
   notes: 'Edition 9 section 11: secondary; the ISO 45001 text is paid.'
 - slug: iso-14001-2015-withdrawn-replaced
   title: ISO 14001:2015, withdrawn, replaced by ISO 14001:2026 (catalogue page)
+  author:
+  - literal: International Organization for Standardization
   url: https://www.iso.org/standard/60857.html
   kind: primary
   publisher: ISO
@@ -1555,6 +2022,8 @@
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
 - slug: columbia-accident-investigation-board-report
   title: Columbia Accident Investigation Board report, Vol. 1 (2003), summary
+  author:
+  - literal: Columbia Accident Investigation Board
   url: https://www.globalsecurity.org/space/library/report/2003/caib-report_vol-1_august2003.htm
   kind: primary
   publisher: GlobalSecurity.org
@@ -1564,6 +2033,9 @@
   notes: "Classification is the importer's judgment against section 1's definition: copy of the CAIB report text."
 - slug: edmondson-psychological-safety-learning-behavior
   title: 'Edmondson: Psychological Safety and Learning Behavior in Work Teams (ASQ 1999, copy)'
+  author:
+  - family: Edmondson
+    given: Amy
   url: https://web.mit.edu/curhan/www/docs/Articles/15341_Readings/Group_Performance/Edmondson%20Psychological%20safety.pdf
   kind: primary
   publisher: Administrative Science Quarterly
@@ -1575,6 +2047,8 @@
   notes: 'Faithful copy (edition 9 section 12: Edmondson via MIT).'
 - slug: google-re-work-understand-team
   title: 'Google re:Work: Understand team effectiveness'
+  author:
+  - literal: Google re:Work
   url: https://rework.withgoogle.com/intl/en/guides/understand-team-effectiveness
   kind: primary
   publisher: Google
@@ -1584,6 +2058,15 @@
   notes: "Classification is the importer's judgment against section 1's definition: Google's report on its own study."
 - slug: sackett-zhang-berry-lievens-revisiting
   title: 'Sackett, Zhang, Berry, Lievens: Revisiting meta-analytic estimates of validity in personnel selection (J. Appl. Psychol., copy)'
+  author:
+  - family: Sackett
+    given: Paul R.
+  - family: Zhang
+    given: Charlene
+  - family: Berry
+    given: Christopher M.
+  - family: Lievens
+    given: Filip
   url: https://www.gwern.net/doc/statistics/meta-analysis/2021-sackett.pdf
   kind: primary
   publisher: Journal of Applied Psychology
@@ -1595,6 +2078,11 @@
   notes: 'Faithful copy (edition 9 section 12: Sackett via gwern.net).'
 - slug: kluger-denisi-effects-feedback-interventions
   title: 'Kluger & DeNisi: The effects of feedback interventions on performance (Psychol. Bull. 1996)'
+  author:
+  - family: Kluger
+    given: Avraham N.
+  - family: DeNisi
+    given: Angelo
   url: https://cris.huji.ac.il/en/publications/the-effects-of-feedback-interventions-on-performance-a-historical/
   kind: primary
   publisher: Hebrew University of Jerusalem
@@ -1604,6 +2092,11 @@
   notes: Abstract page of the original paper.
 - slug: locke-latham-building-practically-useful
   title: 'Locke & Latham: Building a practically useful theory of goal setting (Am. Psychol. 2002, copy)'
+  author:
+  - family: Locke
+    given: Edwin A.
+  - family: Latham
+    given: Gary P.
   url: https://goal-lab.psych.umn.edu/orgpsych/2020/readings/5.%20Motivation/Locke%20&%20Latham%20(2002).pdf
   kind: primary
   publisher: American Psychologist
@@ -1615,6 +2108,8 @@
   notes: "Copy (edition 9 title); Classification is the importer's judgment against section 1's definition: faithful copy."
 - slug: wikipedia-campbells-law
   title: "Wikipedia: Campbell's law"
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Campbell%27s_law
   kind: secondary
   publisher: Wikipedia
@@ -1624,6 +2119,9 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: who-ilo-long-working-hours
   title: 'WHO/ILO: Long working hours increasing deaths (2021)'
+  author:
+  - literal: World Health Organization
+  - literal: International Labour Organization
   url: https://www.who.int/news/item/17-05-2021-long-working-hours-increasing-deaths-from-heart-disease-and-stroke-who-ilo
   kind: primary
   publisher: WHO
@@ -1633,6 +2131,9 @@
   notes: "Classification is the importer's judgment against section 1's definition: news release of the body that ran the study."
 - slug: pencavel-productivity-working-hours
   title: 'Pencavel: The Productivity of Working Hours (IZA DP 8129, 2014)'
+  author:
+  - family: Pencavel
+    given: John
   url: https://docs.iza.org/dp8129.pdf
   kind: primary
   publisher: IZA Institute of Labor Economics
@@ -1642,6 +2143,13 @@
   notes: Original discussion paper.
 - slug: mark-gudith-klocke-cost-interrupted
   title: 'Mark, Gudith, Klocke: The cost of interrupted work (CHI 2008)'
+  author:
+  - family: Mark
+    given: Gloria
+  - family: Gudith
+    given: Daniela
+  - family: Klocke
+    given: Ulrich
   url: https://www.interruptions.net/literature/Mark-CHI08.pdf
   kind: primary
   publisher: ACM CHI
@@ -1653,6 +2161,8 @@
   notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the original paper."
 - slug: iso-tc-260-people-power
   title: 'ISO TC 260: People power (ISO 30414, ISO/TS 30433)'
+  author:
+  - literal: International Organization for Standardization
   url: https://committee.iso.org/news/ref2689.html
   kind: primary
   publisher: ISO
@@ -1662,6 +2172,8 @@
   notes: ISO committee news item.
 - slug: iso-30401-2018-knowledge-management
   title: ISO 30401:2018 Knowledge management systems (catalogue page)
+  author:
+  - literal: International Organization for Standardization
   url: https://www.iso.org/standard/68683.html
   kind: primary
   publisher: ISO
@@ -1671,6 +2183,9 @@
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
 - slug: kotter-leading-change-why-transformation
   title: 'Kotter: Leading Change — Why Transformation Efforts Fail (HBR 1995, copy)'
+  author:
+  - family: Kotter
+    given: John P.
   url: https://fcm.ucsf.edu/sites/g/files/tkssra17611/files/Kotter_WhyTransformationEffortsFail.pdf
   kind: primary
   publisher: Harvard Business Review
@@ -1682,6 +2197,11 @@
   notes: "Copy (edition 9 title); Classification is the importer's judgment against section 1's definition: faithful copy."
 - slug: kim-mauborgne-fair-process
   title: 'Kim & Mauborgne: Fair Process (HBR 1997, copy)'
+  author:
+  - family: Kim
+    given: W. Chan
+  - family: Mauborgne
+    given: Renée
   url: https://ieanea.org/wp-content/uploads/2019/05/FairProcessArticle.pdf
   kind: primary
   publisher: Harvard Business Review
@@ -1693,6 +2213,9 @@
   notes: "Copy (edition 9 title); Classification is the importer's judgment against section 1's definition: faithful copy."
 - slug: conway-how-do-committees-invent
   title: 'Conway: How Do Committees Invent? (1968)'
+  author:
+  - family: Conway
+    given: Melvin E.
   url: https://www.melconway.com/Home/Committees_Paper.html
   kind: primary
   publisher: Melvin Conway
@@ -1702,6 +2225,9 @@
   notes: Author's own copy of the original paper.
 - slug: staw-knee-deep-big-muddy
   title: 'Staw: Knee-deep in the big muddy (1976, copy)'
+  author:
+  - family: Staw
+    given: Barry M.
   url: https://www.gwern.net/doc/psychology/cognitive-bias/sunk-cost/1976-staw.pdf
   kind: primary
   publisher: Organizational Behavior and Human Performance
@@ -1713,6 +2239,9 @@
   notes: 'Faithful copy (edition 9 section 12: Staw via gwern.net).'
 - slug: parkinson-parkinsons-law
   title: "Parkinson: Parkinson's Law (The Economist, 1955; text copy)"
+  author:
+  - family: Parkinson
+    given: C. Northcote
   url: https://doc.cat-v.org/economics/parkinsons-law
   kind: secondary
   publisher: cat-v.org
@@ -1722,6 +2251,9 @@
   notes: Copy of Parkinson's essay that could not be compared with The Economist's archive; edition 9 section 12 treats it as secondary.
 - slug: hoare-emperors-old-clothes-turing
   title: "Hoare: The Emperor's Old Clothes, Turing Award lecture (CACM 1981)"
+  author:
+  - family: Hoare
+    given: C. A. R.
   url: https://worrydream.com/refs/Hoare_1981_-_The_Emperors_Old_Clothes.pdf
   kind: primary
   publisher: Communications of the ACM
@@ -1733,6 +2265,8 @@
   notes: "Faithful copy (edition 9 section 12: Hoare's lecture via worrydream.com)."
 - slug: singapore-building-control-regulations
   title: 'Singapore: Building Control (Accredited Checkers and Accredited Checking Organisations) Regulations'
+  author:
+  - literal: Attorney-General’s Chambers of Singapore
   url: https://sso.agc.gov.sg/SL/BCA1989-RG2?DocDate=20121130
   kind: primary
   publisher: Singapore Attorney-General's Chambers
@@ -1742,6 +2276,8 @@
   notes: Regulation.
 - slug: asq-pdca-cycle
   title: 'ASQ: PDCA Cycle'
+  author:
+  - literal: American Society for Quality
   url: https://asq.org/quality-resources/pdca-cycle
   kind: primary
   publisher: ASQ
@@ -1751,6 +2287,8 @@
   notes: Professional body.
 - slug: nist-csrc-glossary-least-privilege
   title: 'NIST CSRC Glossary: least privilege (CNSSI 4009, SP 800-53 Rev. 5)'
+  author:
+  - literal: National Institute of Standards and Technology
   url: https://csrc.nist.gov/glossary/term/least_privilege
   kind: primary
   publisher: NIST
@@ -1760,6 +2298,8 @@
   notes: Standards body glossary.
 - slug: fda-applying-human-factors-usability
   title: 'FDA: Applying Human Factors and Usability Engineering to Medical Devices (guidance)'
+  author:
+  - literal: US Food and Drug Administration
   url: https://www.fda.gov/regulatory-information/search-fda-guidance-documents/applying-human-factors-and-usability-engineering-medical-devices
   kind: primary
   publisher: US FDA
@@ -1769,6 +2309,19 @@
   notes: Regulator.
 - slug: google-sre-workbook-canarying-releases
   title: 'Google SRE Workbook: Canarying Releases'
+  author:
+  - family: Warner
+    given: Alec
+  - family: Davidovič
+    given: Štěpán
+  - family: Hidalgo
+    given: Alex
+  - family: Beyer
+    given: Betsy
+  - family: Smith
+    given: Kyle
+  - family: Duftler
+    given: Matt
   url: https://sre.google/workbook/canarying-releases/
   kind: primary
   publisher: Google
@@ -1778,6 +2331,8 @@
   notes: "Classification is the importer's judgment against section 1's definition: Google's own SRE book, original publication."
 - slug: ieee-1149-1-test-access
   title: 'IEEE 1149.1: Test Access Port and Boundary-Scan Architecture'
+  author:
+  - literal: Institute of Electrical and Electronics Engineers
   url: https://standards.ieee.org/ieee/1149.1/4484/
   kind: primary
   publisher: IEEE
@@ -1787,6 +2342,8 @@
   notes: "Standard page; Classification is the importer's judgment against section 1's definition: the standard text is sold by IEEE."
 - slug: wikipedia-all-models-are-wrong
   title: 'Wikipedia: All models are wrong (Box & Draper 1987)'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/All_models_are_wrong
   kind: secondary
   publisher: Wikipedia
@@ -1796,6 +2353,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: faa-ac-25-1309-1a
   title: 'FAA AC 25.1309-1A: System Design and Analysis (fail-safe design concept)'
+  author:
+  - literal: US Federal Aviation Administration
   url: https://www.faa.gov/documentLibrary/media/Advisory_Circular/AC_25.1309-1A.pdf
   kind: primary
   publisher: US FAA
@@ -1805,6 +2364,9 @@
   notes: Regulator.
 - slug: next-web-werner-vogels-everything
   title: 'The Next Web: Werner Vogels, "Everything fails all the time"'
+  author:
+  - family: Helmond
+    given: Anne
   url: https://thenextweb.com/news/werner-vogels-everything-fails-all-the-time
   kind: secondary
   publisher: The Next Web
@@ -1814,6 +2376,9 @@
   notes: News article.
 - slug: osti-perspective-model-validation-validated
   title: 'OSTI: A Perspective on Model Validation and Validated Models (keynote)'
+  author:
+  - family: Romero
+    given: Vicente
   url: https://www.osti.gov/servlets/purl/1109271
   kind: primary
   publisher: US DOE OSTI
@@ -1823,6 +2388,8 @@
   notes: Original report.
 - slug: imo-solas-chapter-ii-1
   title: IMO SOLAS Chapter II-1, subdivision and stability (text via imorules.com)
+  author:
+  - literal: International Maritime Organization
   url: https://www.imorules.com/solas/02_chapter_II-1.html
   kind: primary
   publisher: IMO
@@ -1834,6 +2401,9 @@
   notes: 'Faithful copy (edition 9 section 12: IMO SOLAS via imorules.com).'
 - slug: cooper-estimating-safe-available-egress
   title: 'Cooper: Estimating Safe Available Egress Time from Fires (NBSIR 80-2172, 1981)'
+  author:
+  - family: Cooper
+    given: Leonard Y.
   url: https://nvlpubs.nist.gov/nistpubs/Legacy/IR/nbsir80-2172.pdf
   kind: primary
   publisher: NIST
@@ -1843,6 +2413,11 @@
   notes: Original report.
 - slug: nowlan-heap-reliability-centered-maintenance
   title: 'Nowlan & Heap: Reliability-Centered Maintenance (1978)'
+  author:
+  - family: Nowlan
+    given: F. Stanley
+  - family: Heap
+    given: Howard F.
   url: https://www.omdec.com/wikifiles/nowlanHeap.pdf
   kind: primary
   publisher: null
@@ -1854,6 +2429,10 @@
   notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the original report."
 - slug: kelley-origins-cpm-personal-history
   title: 'Kelley: The Origins of CPM, a Personal History (PMI)'
+  author:
+  - family: Kelley
+    given: James E.
+    suffix: Jr.
   url: https://www.pmi.org/learning/library/origins-cpm-personal-history-3762
   kind: primary
   publisher: PMI
@@ -1863,6 +2442,8 @@
   notes: Official PMI page; the PMBOK Guide text is paid (edition 9 section 12).
 - slug: joint-commission-sentinel-event-alert
   title: 'The Joint Commission: Sentinel Event Alert 50, Medical device alarm safety (2013)'
+  author:
+  - literal: The Joint Commission
   url: https://www.kff.org/wp-content/uploads/sites/2/2013/04/sea_50_alarms_4_5_13_final1.pdf
   kind: primary
   publisher: The Joint Commission
@@ -1874,6 +2455,8 @@
   notes: 'Faithful copy (edition 9 section 12: The Joint Commission via KFF).'
 - slug: ecfr-14-cfr-121-542
   title: 'eCFR: 14 CFR 121.542, Flight crewmember duties'
+  author:
+  - literal: US Federal Aviation Administration
   url: https://www.ecfr.gov/current/title-14/chapter-I/subchapter-G/part-121/subpart-T/section-121.542
   kind: primary
   publisher: US eCFR
@@ -1883,6 +2466,8 @@
   notes: Regulation.
 - slug: mil-std-889d-dissimilar-metals
   title: 'MIL-STD-889D: Dissimilar metals, galvanic compatibility (2021)'
+  author:
+  - literal: US Department of Defense
   url: https://corrdesa.com/wp-content/uploads/2024/04/MIL-STD-889D-2021-Release.pdf
   kind: primary
   publisher: US Department of Defense
@@ -1894,6 +2479,8 @@
   notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the standard."
 - slug: iso-10993-1-biological-evaluation
   title: 'ISO 10993-1: Biological evaluation of medical devices'
+  author:
+  - literal: International Organization for Standardization
   url: https://www.iso.org/standard/44908.html
   kind: primary
   publisher: ISO
@@ -1903,6 +2490,8 @@
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
 - slug: slsa-v1-0-provenance
   title: 'SLSA v1.0: Provenance'
+  author:
+  - literal: Open Source Security Foundation
   url: https://slsa.dev/spec/v1.0/provenance
   kind: primary
   publisher: OpenSSF (SLSA)
@@ -1912,6 +2501,9 @@
   notes: Specification.
 - slug: slocum-kinematic-couplings-review-design
   title: 'Slocum: Kinematic couplings, a review of design principles and applications (MIT)'
+  author:
+  - family: Slocum
+    given: Alexander
   url: https://web.mit.edu/2.70/Reading%20Materials/Kinematic%20coupling%20review%20article.pdf
   kind: primary
   publisher: MIT
@@ -1921,6 +2513,9 @@
   notes: "Classification is the importer's judgment against section 1's definition: original review article, hosted on an MIT course page."
 - slug: campbell-assessing-impact-planned-social
   title: 'Campbell: Assessing the Impact of Planned Social Change (reprint, J. MultiDisciplinary Evaluation 2011; original 1976/1979)'
+  author:
+  - family: Campbell
+    given: Donald T.
   url: https://jmde.journals.publicknowledgeproject.org/index.php/jmde_1/article/view/297
   kind: primary
   publisher: Journal of MultiDisciplinary Evaluation
@@ -1932,6 +2527,8 @@
   notes: 'Faithful copy (edition 9 section 12: Campbell via a 2011 journal reprint; the quote itself was checked on Wikipedia).'
 - slug: nasa-software-engineering-handbook-swe
   title: 'NASA Software Engineering Handbook: SWE-052 Bidirectional Traceability (NPR 7150.2)'
+  author:
+  - literal: NASA
   url: https://swehb.nasa.gov/spaces/SWEHBVC/pages/50888903/SWE-052+-+Bidirectional+Traceability?showComments=true&showCommentArea=true
   kind: primary
   publisher: NASA
@@ -1941,6 +2538,8 @@
   notes: Agency handbook.
 - slug: un-rio-declaration-environment-development
   title: 'UN: Rio Declaration on Environment and Development (1992)'
+  author:
+  - literal: United Nations
   url: https://icsid.worldbank.org/sites/default/files/parties_publications/C8394/Respondent%27s%20documents/RL%20-%20Legal%20Authorities/RL-0150-ENG%201992-06-13.pdf
   kind: primary
   publisher: United Nations
@@ -1952,6 +2551,8 @@
   notes: 'Faithful copy (edition 9 section 12: the Rio Declaration via the World Bank ICSID archive).'
 - slug: nist-sp-800-53-ac-3-2
   title: NIST SP 800-53 Rev. 5, AC-3(2) Dual Authorization (text via CSF Tools)
+  author:
+  - literal: National Institute of Standards and Technology
   url: https://csf.tools/reference/nist-sp-800-53/r5/ac/ac-3/ac-3-2/
   kind: primary
   publisher: NIST
@@ -1963,6 +2564,8 @@
   notes: 'Faithful copy (edition 9 section 12: NIST via CSF Tools).'
 - slug: nobel-prize-chemistry-2018-press
   title: 'Nobel Prize in Chemistry 2018: press release'
+  author:
+  - literal: The Royal Swedish Academy of Sciences
   url: https://www.nobelprize.org/prizes/chemistry/2018/press-release/
   kind: primary
   publisher: Nobel Prize Outreach
@@ -1972,6 +2575,8 @@
   notes: Official press release.
 - slug: nasa-technology-readiness-levels
   title: 'NASA: Technology Readiness Levels'
+  author:
+  - literal: NASA
   url: https://www.nasa.gov/directorates/somd/space-communications-navigation-program/technology-readiness-levels/
   kind: primary
   publisher: NASA
@@ -1981,6 +2586,8 @@
   notes: Agency document.
 - slug: nerc-prc-006-5-automatic
   title: 'NERC PRC-006-5: Automatic Underfrequency Load Shedding'
+  author:
+  - literal: North American Electric Reliability Corporation
   url: https://www.nerc.com/globalassets/standards/reliability-standards/prc/prc-006-5.pdf
   kind: primary
   publisher: NERC
@@ -1990,6 +2597,13 @@
   notes: Standard.
 - slug: saltzer-reed-clark-end-end
   title: 'Saltzer, Reed, Clark: End-to-End Arguments in System Design (1984)'
+  author:
+  - family: Saltzer
+    given: J. H.
+  - family: Reed
+    given: D. P.
+  - family: Clark
+    given: D. D.
   url: https://web.mit.edu/Saltzer/www/publications/endtoend/endtoend.pdf
   kind: primary
   publisher: MIT
@@ -1999,6 +2613,11 @@
   notes: Author's own copy of the original paper.
 - slug: rfc-9413-maintaining-robust-protocols
   title: 'RFC 9413: Maintaining Robust Protocols (2023)'
+  author:
+  - family: Thomson
+    given: Martin
+  - family: Schinazi
+    given: David
   url: https://www.rfc-editor.org/rfc/rfc9413.html
   kind: primary
   publisher: RFC Editor
@@ -2008,6 +2627,8 @@
   notes: Standard (RFC).
 - slug: nasa-mars-climate-orbiter-mishap
   title: 'NASA: Mars Climate Orbiter Mishap Investigation Board, Phase I Report (1999)'
+  author:
+  - literal: Mars Climate Orbiter Mishap Investigation Board
   url: https://discovery.larc.nasa.gov/PDF_FILES/MCO_report_2.pdf
   kind: primary
   publisher: NASA
@@ -2017,6 +2638,11 @@
   notes: Original report.
 - slug: astrom-murray-feedback-systems-section
   title: 'Åström & Murray: Feedback Systems, section 1.5 On-Off Control'
+  author:
+  - family: Åström
+    given: Karl Johan
+  - family: Murray
+    given: Richard M.
   url: https://introcontrol.mit.edu/_static/fall21/extras/Feedback%20Systems%20Murray.pdf
   kind: primary
   publisher: null
@@ -2028,6 +2654,11 @@
   notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the book."
 - slug: duranton-turner-fundamental-law-road
   title: 'Duranton & Turner: The Fundamental Law of Road Congestion (AER 2011)'
+  author:
+  - family: Duranton
+    given: Gilles
+  - family: Turner
+    given: Matthew A
   url: https://www.aeaweb.org/articles?id=10.1257/aer.101.6.2616
   kind: primary
   publisher: American Economic Association
@@ -2037,6 +2668,8 @@
   notes: Original paper (journal page).
 - slug: theory-constraints-institute-five-focusing
   title: 'Theory of Constraints Institute: Five Focusing Steps'
+  author:
+  - literal: Theory of Constraints Institute
   url: https://www.tocinstitute.org/five-focusing-steps.html
   kind: primary
   publisher: Theory of Constraints Institute
@@ -2046,6 +2679,8 @@
   notes: "Classification is the importer's judgment against section 1's definition: edition 9 section 12 states every rule except P53 has a primary source; for P50 only this page can be it."
 - slug: asme-bpvc-section-ix-welding
   title: 'ASME BPVC Section IX: Welding, Brazing and Fusing Qualifications'
+  author:
+  - literal: American Society of Mechanical Engineers
   url: https://www.asme.org/codes-standards/find-codes-standards/bpvc-ix-bpvc-section-ix-welding-brazing-fusing-qualifications
   kind: primary
   publisher: ASME
@@ -2055,6 +2690,13 @@
   notes: "Official code page; Classification is the importer's judgment against section 1's definition: the code text is sold by ASME. Edition 9 section 12: the page confirms procedure qualification only."
 - slug: mit-sloan-management-review-bullwhip
   title: 'MIT Sloan Management Review: The Bullwhip Effect in Supply Chains'
+  author:
+  - family: Lee
+    given: Hau L.
+  - family: Padmanabhan
+    given: V.
+  - family: Whang
+    given: Seungjin
   url: https://sloanreview.mit.edu/article/the-bullwhip-effect-in-supply-chains/
   kind: primary
   publisher: MIT Sloan Management Review
@@ -2064,6 +2706,8 @@
   notes: Original article by the authors.
 - slug: cis-control-1-inventory-control
   title: 'CIS Control 1: Inventory and Control of Enterprise Assets'
+  author:
+  - literal: Center for Internet Security
   url: https://www.cisecurity.org/controls/inventory-and-control-of-enterprise-assets
   kind: primary
   publisher: Center for Internet Security
@@ -2073,6 +2717,8 @@
   notes: Standard (CIS Controls).
 - slug: astm-c1683-size-scaling-tensile
   title: 'ASTM C1683: Size Scaling of Tensile Strengths Using Weibull Statistics for Advanced Ceramics'
+  author:
+  - literal: ASTM International
   url: https://store.astm.org/c1683-10r24.html
   kind: primary
   publisher: ASTM International
@@ -2082,6 +2728,9 @@
   notes: "Standard store page; Classification is the importer's judgment against section 1's definition: the standard text is sold by ASTM."
 - slug: reinertsen-always-bad-idea-add
   title: 'Reinertsen: Is it always a bad idea to add resources to a late project? (Electronic Design 2000)'
+  author:
+  - family: Reinertsen
+    given: Don
   url: https://www.electronicdesign.com/archive/article/21760483/is-it-always-a-bad-idea-to-add-resources-to-a-late-project
   kind: secondary
   publisher: Electronic Design
@@ -2091,6 +2740,8 @@
   notes: Trade article; edition 9 section 12 (P53 rests on the Jargon File and a trade article).
 - slug: wikipedia-genchi-genbutsu
   title: 'Wikipedia: Genchi Genbutsu'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Genchi_Genbutsu
   kind: secondary
   publisher: Wikipedia
@@ -2100,6 +2751,8 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: us-army-foundations-aar-process
   title: 'US Army: Foundations of the AAR Process (DTIC), quoting TC 25-20 (1993)'
+  author:
+  - literal: US Department of the Army
   url: https://apps.dtic.mil/sti/pdfs/ADA368651.pdf
   kind: primary
   publisher: DTIC
@@ -2109,6 +2762,9 @@
   notes: Original report.
 - slug: campbell-1979-evaluation-program-planning
   title: 'Campbell 1979, Evaluation and Program Planning 2(1): 67–90, doi:10.1016/0149-7189(79)90048-X'
+  author:
+  - family: Campbell
+    given: Donald T.
   url: https://doi.org/10.1016/0149-7189(79)90048-X
   kind: primary
   publisher: null
@@ -2118,6 +2774,8 @@
   notes: DOI of the original paper; publisher not stated in edition 9.
 - slug: incose-se-principles
   title: 'INCOSE: Systems Engineering Principles (Watson et al.)'
+  author:
+  - literal: International Council on Systems Engineering
   url: https://www.incose.org/wp-content/uploads/legacy/professional-development-portal/pdp-pdf-non-webinar-documents/systems_engineering_principles_book_v12_watson.pdf
   kind: primary
   publisher: INCOSE
@@ -2127,6 +2785,8 @@
   notes: Professional body.
 - slug: sebok-se-principles
   title: 'SEBoK: Systems Engineering Principles'
+  author:
+  - literal: Systems Engineering Body of Knowledge (SEBoK)
   url: https://sebokwiki.org/wiki/Systems_Engineering_Principles
   kind: primary
   publisher: SEBoK (INCOSE, IEEE CS, SERC)
@@ -2136,6 +2796,8 @@
   notes: "Classification is the importer's judgment against section 1's definition: body of knowledge curated by professional bodies."
 - slug: wikipedia-academic-use
   title: 'Wikipedia: Academic use'
+  author:
+  - literal: Wikipedia contributors
   url: https://en.wikipedia.org/wiki/Wikipedia:Academic_use
   kind: secondary
   publisher: Wikipedia
@@ -2145,6 +2807,9 @@
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
 - slug: mann-checklist-manifesto-notes
   title: 'Graham Mann: Notes on The Checklist Manifesto'
+  author:
+  - family: Mann
+    given: Graham
   url: https://grahammann.net/book-notes/the-checklist-manifesto-atul-gawande
   kind: secondary
   publisher: Graham Mann
