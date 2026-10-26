@@ -1,2 +1,153 @@
 # Case sources (registry fragment, slugs start with `case-`). Schema: schema/sources.schema.json.
-[]
+- slug: case-inquiry-board-ariane-501-report
+  title: 'ARIANE 5 Flight 501 Failure: Report by the Inquiry Board (1996)'
+  author:
+  - literal: Ariane 501 Inquiry Board
+  url: https://www-users.cse.umn.edu/~arnold/disasters/ariane5rep.html
+  kind: primary
+  publisher: ESA and CNES
+  year: 1996
+  via:
+    title: University of Minnesota (Douglas N. Arnold)
+  paid: false
+  accessed: '2026-10-26'
+  notes: Word-for-word copy of the Inquiry Board report (chaired by J. L. Lions); ESA does not host a text version.
+- slug: case-esa-ariane-501-inquiry-press-release
+  title: 'ESA: Ariane 501 - Presentation of Inquiry Board report (1996)'
+  author:
+  - literal: European Space Agency
+  url: https://www.esa.int/Newsroom/Press_Releases/Ariane_501_-_Presentation_of_Inquiry_Board_report
+  kind: primary
+  publisher: European Space Agency
+  year: 1996
+  paid: false
+  accessed: '2026-10-26'
+  notes: Press release N° 33-1996 by the launch agency, quoting the report's conclusion.
+- slug: case-fcc-hawaii-false-alert-report
+  title: 'FCC: Report and Recommendations, Hawaii Emergency Management Agency January 13, 2018 False Alert (2018)'
+  author:
+  - literal: Federal Communications Commission, Public Safety and Homeland Security Bureau
+  url: https://docs.fcc.gov/public/attachments/DOC-350119A1.pdf
+  kind: primary
+  publisher: Federal Communications Commission
+  year: 2018
+  paid: false
+  accessed: '2026-10-26'
+  notes: Regulator's investigation report.
+- slug: case-rba-barings-collapse-bulletin
+  title: 'RBA Bulletin: Implications of the Barings Collapse for Bank Supervisors (1995)'
+  author:
+  - literal: Reserve Bank of Australia
+  url: https://www.rba.gov.au/publications/bulletin/1995/nov/1.html
+  kind: primary
+  publisher: Reserve Bank of Australia
+  year: 1995
+  paid: false
+  accessed: '2026-10-26'
+  notes: A bank supervisor's account of the findings of the Board of Banking Supervision inquiry; the inquiry report itself is not online as text.
+- slug: case-wreck-commissioner-titanic-observations
+  title: "British Wreck Commissioner's Inquiry report: Titanic, Observations on the damage (1912)"
+  author:
+  - literal: British Wreck Commissioner's Inquiry
+  url: https://www.titanicinquiry.org/BOTInq/BOTReport/botRepObserv.php
+  kind: primary
+  publisher: His Majesty's Stationery Office
+  year: 1912
+  via:
+    title: Titanic Inquiry Project
+  paid: false
+  accessed: '2026-10-26'
+  notes: Transcription of the section "Description of the Damage to the Ship and its Gradual Final Effect - Observations" of the inquiry report.
+- slug: case-nbs-hyatt-regency-walkways-report
+  title: 'NBS BSS 143: Investigation of the Kansas City Hyatt Regency Walkways Collapse (1982)'
+  author:
+  - family: Marshall
+    given: R. D.
+  - family: Pfrang
+    given: E. O.
+  - family: Leyendecker
+    given: E. V.
+  - family: Woodward
+    given: K. A.
+  - family: Reed
+    given: R. P.
+  - family: Kasen
+    given: M. B.
+  - family: Shives
+    given: T. R.
+  url: https://nvlpubs.nist.gov/nistpubs/Legacy/BSS/nbsbuildingscience143.pdf
+  kind: primary
+  publisher: National Bureau of Standards
+  year: 1982
+  paid: false
+  accessed: '2026-10-26'
+  notes: Government investigation report (NBS, now NIST).
+- slug: case-task-force-2003-blackout-report
+  title: 'U.S.-Canada Power System Outage Task Force: Final Report on the August 14, 2003 Blackout (2004)'
+  author:
+  - literal: U.S.-Canada Power System Outage Task Force
+  url: https://www.energy.gov/sites/prod/files/oeprod/DocumentsandMedia/BlackoutFinal-Web.pdf
+  kind: primary
+  publisher: U.S. Department of Energy and Natural Resources Canada
+  year: 2004
+  paid: false
+  accessed: '2026-10-26'
+  notes: Official joint investigation report.
+- slug: case-hidden-clapham-junction-report
+  title: 'Hidden: Investigation into the Clapham Junction Railway Accident (1989)'
+  author:
+  - family: Hidden
+    given: Anthony
+  url: https://www.jesip.org.uk/wp-content/uploads/2022/03/Clapham-Rail-Crash.pdf
+  kind: primary
+  publisher: Her Majesty's Stationery Office (Cm 820)
+  year: 1989
+  via:
+    title: JESIP
+  paid: false
+  accessed: '2026-10-26'
+  notes: Scanned copy of the formal investigation report; its text layer has OCR errors, so quotes are kept to cleanly scanned sentences.
+- slug: case-nasa-hubble-optical-failure-report
+  title: 'NASA: The Hubble Space Telescope Optical Systems Failure Report (1990)'
+  author:
+  - literal: Hubble Space Telescope Optical Systems Board of Investigation
+  url: https://ntrs.nasa.gov/api/citations/19910003124/downloads/19910003124.pdf
+  kind: primary
+  publisher: National Aeronautics and Space Administration
+  year: 1990
+  paid: false
+  accessed: '2026-10-26'
+  notes: Board of investigation report (chaired by Lew Allen).
+- slug: case-senate-target-kill-chain-report
+  title: 'Senate Commerce Committee: A "Kill Chain" Analysis of the 2013 Target Data Breach (2014)'
+  author:
+  - literal: U.S. Senate Committee on Commerce, Science, and Transportation, Majority Staff
+  url: https://www.commerce.senate.gov/services/files/24d3c229-4f2f-405d-b8db-a3a67f183883
+  kind: primary
+  publisher: U.S. Senate Committee on Commerce, Science, and Transportation
+  year: 2014
+  paid: false
+  accessed: '2026-10-26'
+  notes: Committee staff report; it states that it rests on media reports and expert analyses. The origin refuses automated requests (HTTP 403), so it was read through the Internet Archive snapshot of 2026-03-28.
+- slug: case-commons-heathrow-t5-opening-report
+  title: 'House of Commons Transport Committee: The opening of Heathrow Terminal 5 (HC 543, 2008)'
+  author:
+  - literal: House of Commons Transport Committee
+  url: https://publications.parliament.uk/pa/cm200708/cmselect/cmtran/543/543.pdf
+  kind: primary
+  publisher: The Stationery Office
+  year: 2008
+  paid: false
+  accessed: '2026-10-26'
+  notes: Select committee report with oral and written evidence. The origin refuses automated requests (HTTP 403), so it was read through the Internet Archive snapshot of 2026-10-04.
+- slug: case-csb-bayer-cropscience-report
+  title: 'CSB: Bayer CropScience pesticide runaway reaction and explosion investigation report (2011)'
+  author:
+  - literal: U.S. Chemical Safety and Hazard Investigation Board
+  url: https://www.csb.gov/assets/1/20/bayer_report_final.pdf
+  kind: primary
+  publisher: U.S. Chemical Safety and Hazard Investigation Board
+  year: 2011
+  paid: false
+  accessed: '2026-10-26'
+  notes: Official investigation report 2008-08-I-WV.
