@@ -1,2 +1,107 @@
 # Case sources (registry fragment, slugs start with `case-`). Schema: schema/sources.schema.json.
-[]
+- slug: case-cloudflare-outage-2019-07-02
+  title: 'Cloudflare: Details of the Cloudflare outage on July 2, 2019'
+  author:
+  - family: Graham-Cumming
+    given: John
+  url: https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/
+  kind: primary
+  publisher: Cloudflare
+  year: 2019
+  paid: false
+  accessed: '2026-10-26'
+  notes: Public postmortem by the operating organization.
+- slug: case-csb-dupont-yerkes-case-study
+  title: 'CSB: E.I. DuPont de Nemours & Co Inc. Case Study, Flammable Vapor Explosion, Buffalo, New York (2011-01-I-NY)'
+  author:
+  - literal: US Chemical Safety and Hazard Investigation Board
+  url: https://www.csb.gov/userfiles/file/dupont_final_report.pdf
+  kind: primary
+  publisher: US Chemical Safety and Hazard Investigation Board
+  year: null
+  paid: false
+  accessed: '2026-10-26'
+  notes: Official investigation (case study) of the November 9, 2010 explosion.
+- slug: case-coi-nicoll-highway-interim-report
+  title: 'Committee of Inquiry: The incident at the MRT Circle Line worksite that led to the collapse of the Nicoll Highway on 20 April 2004 (interim report)'
+  author:
+  - literal: Committee of Inquiry into the collapse of Nicoll Highway
+  url: https://www.nas.gov.sg/archivesonline/data/pdfdoc/2004091398-MOM.pdf
+  kind: primary
+  publisher: Ministry of Manpower, Singapore
+  year: 2004
+  via:
+    title: National Archives of Singapore
+  paid: false
+  accessed: '2026-10-26'
+  notes: Official inquiry appointed under the Factories Act; interim report, as archived by the National Archives of Singapore.
+- slug: case-ntsb-aar-15-03-bedford
+  title: 'NTSB: Runway Overrun During Rejected Takeoff, Gulfstream Aerospace Corporation G-IV, N121JM, Bedford, Massachusetts, May 31, 2014 (NTSB/AAR-15/03)'
+  author:
+  - literal: US National Transportation Safety Board
+  url: https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1503.pdf
+  kind: primary
+  publisher: US National Transportation Safety Board
+  year: 2015
+  paid: false
+  accessed: '2026-10-26'
+  notes: Official accident report.
+- slug: case-ntsb-aar-10-01-colgan-3407
+  title: 'NTSB: Loss of Control on Approach, Colgan Air, Inc., Operating as Continental Connection Flight 3407, Bombardier DHC-8-400, N200WQ, Clarence Center, New York, February 12, 2009 (NTSB/AAR-10/01)'
+  author:
+  - literal: US National Transportation Safety Board
+  url: https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1001.pdf
+  kind: primary
+  publisher: US National Transportation Safety Board
+  year: 2010
+  paid: false
+  accessed: '2026-10-26'
+  notes: Official accident report.
+- slug: case-ntsb-aar-02-01-alaska-261
+  title: 'NTSB: Loss of Control and Impact with Pacific Ocean, Alaska Airlines Flight 261, McDonnell Douglas MD-83, N963AS, About 2.7 Miles North of Anacapa Island, California, January 31, 2000 (NTSB/AAR-02/01)'
+  author:
+  - literal: US National Transportation Safety Board
+  url: https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR0201.pdf
+  kind: primary
+  publisher: US National Transportation Safety Board
+  year: 2002
+  paid: false
+  accessed: '2026-10-26'
+  notes: Official accident report.
+- slug: case-house-oversight-equifax-report
+  title: 'US House Committee on Oversight and Government Reform: The Equifax Data Breach, Majority Staff Report'
+  author:
+  - literal: US House of Representatives Committee on Oversight and Government Reform
+  url: https://oversight.house.gov/wp-content/uploads/2018/12/Equifax-Report.pdf
+  kind: primary
+  publisher: US House of Representatives Committee on Oversight and Government Reform
+  year: 2018
+  paid: false
+  accessed: '2026-10-26'
+  notes: Congressional investigation report (majority staff).
+- slug: case-caib-report-vol1-ch8
+  title: 'Columbia Accident Investigation Board: Report Volume I, Chapter 8, History as Cause: Columbia and Challenger'
+  author:
+  - literal: Columbia Accident Investigation Board
+  url: https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter8.pdf
+  kind: primary
+  publisher: Columbia Accident Investigation Board
+  year: 2003
+  via:
+    title: UNT Libraries CyberCemetery (archived CAIB website)
+  paid: false
+  accessed: '2026-10-26'
+  notes: Official investigation report.
+- slug: case-rogers-commission-ch6
+  title: 'Report of the Presidential Commission on the Space Shuttle Challenger Accident, Chapter VI: An Accident Rooted in History'
+  author:
+  - literal: Presidential Commission on the Space Shuttle Challenger Accident
+  url: https://www.nasa.gov/history/rogersrep/v1ch6.htm
+  kind: primary
+  publisher: Presidential Commission on the Space Shuttle Challenger Accident
+  year: 1986
+  via:
+    title: NASA History Office
+  paid: false
+  accessed: '2026-10-26'
+  notes: Official investigation report (Rogers Commission).
