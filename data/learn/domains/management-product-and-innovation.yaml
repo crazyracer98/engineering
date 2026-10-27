@@ -1,2 +1,13 @@
 # Domain examples, branch Management: Product and innovation. Schema: schema/learn-domains.schema.json.
-[]
+- branch: 'Management: Product and innovation'
+  domain: Experimentation
+  scenario: A product team cannot predict which checkout page converts best. It builds eight variants and tests each with real visitors. Each round has a defined test, and the team writes down which variants it kept. It keeps the best and repeats with new variants based on them.
+  shows:
+  - rule: P31
+    how: No model is good enough to predict the result, so the team generates variants, tests them, keeps the best and repeats. Each round has a defined test and a record of what was kept.
+- branch: 'Management: Product and innovation'
+  domain: Innovation management
+  scenario: A company wants its new product to use an unproven sensor technology. The team has not used it before. The innovation lead records a maturity assessment of the sensor. The product's core function keeps a proven sensor, and the new one is used only in an optional add-on.
+  shows:
+  - rule: P17
+    how: The technology is new to the team, so its maturity is assessed and recorded. The immature technology stays out of the critical path.
