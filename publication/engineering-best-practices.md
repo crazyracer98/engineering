@@ -346,7 +346,7 @@ Each row names an engineering domain, the rules **found** in it, and the referen
 | Systems engineering | P9 Measurable requirements; P54 Verification and validation; P59 Traceability | [FDOT Systems Engineering 100](https://wbt.dot.state.fl.us/ois/ITS-SystemsEngineering100/SystemsEngineeringPt2-m2-TRANSCRIPT.pdf) [arXiv: V&V in Systems of Systems](https://arxiv.org/pdf/1311.3626) [Stell: Requirements traceability](https://stell-engineering.com/blog/what-is-requirement-traceability) |
 | Configuration management | P64 Versioning and change review | [arXiv: Controls and machine protection](https://arxiv.org/pdf/1608.02836) [arXiv: Agentic Configuration Management](https://arxiv.org/pdf/2608.11166) |
 | Reliability and safety engineering | P22 Failure and interaction analysis | [EBSCO: FMEA](https://www.ebsco.com/research-starters/social-sciences-and-humanities/failure-mode-and-effects-analysis-fmea) [BMJ Qual Saf / PMC: FMEA outputs - are they valid?](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3405478/) [Leveson & Thomas: STPA Handbook](https://www.flighttestsafety.org/images/STPA_Handbook.pdf) |
-| Accident research | P82 Investigate anomalies | [Wikipedia: Normalization of deviance](https://en.wikipedia.org/wiki/Normalization_of_deviance) [National Academies: Accident precursor analysis](https://www.nationalacademies.org/read/11061/chapter/8) |
+| Accident research | P82 Investigate anomalies | [Wikipedia: Normalization of deviance](https://en.wikipedia.org/wiki/Normalization_of_deviance) [National Academies: Accident precursor analysis](https://www.nationalacademies.org/read/11061/chapter/2) |
 | Metrology | P58 Comparable measurement | [Wikipedia: Measurement uncertainty](https://en.wikipedia.org/wiki/Measurement_uncertainty) [Wikipedia: Metrological traceability](https://en.wikipedia.org/wiki/Metrological_traceability) |
 | Risk regulation (UK HSE) | Master rule | [Primatech: ALARP principle](https://www.primatech.com/technical/alarp-principle) |
 | Design engineering | P16 Set-based design | [Sobek, Ward, Liker: Toyota's Principles of Set-Based Concurrent Engineering](https://www.gapimprove.org/_files/ugd/cd8b34_2d04bd540ca04019986c3ba54ae8631e.pdf?index=true) |
@@ -914,7 +914,7 @@ How to learn from failures and anomalies.
 | P79 | [FEMA: National Incident Management System, 3rd ed. (2017)](https://training.fema.gov:443/EMIWeb/IS/IS700b/Handouts/National_Incident_Management%20System_Third%20Edition_October_2017.pdf) |
 | P80 | [Google SRE: Postmortem culture](https://sre.google/workbook/postmortem-culture/) |
 | P81 | [ASQ: PDCA Cycle](https://asq.org/quality-resources/pdca-cycle); [ISO Central: PDCA](https://isocentral.org/resources/what-is-plan-do-check-act) |
-| P82 | [National Academies: Accident precursor analysis](https://www.nationalacademies.org/read/11061/chapter/8); [Wikipedia: Normalization of deviance](https://en.wikipedia.org/wiki/Normalization_of_deviance) |
+| P82 | [National Academies: Accident precursor analysis](https://www.nationalacademies.org/read/11061/chapter/2); [Wikipedia: Normalization of deviance](https://en.wikipedia.org/wiki/Normalization_of_deviance) |
 | P83 | [PHMSA: Metallurgical Laboratory Failure Examination Protocol](https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/docs/incident-reporting/accident-investigation-division/70066/metallurgical-laboratory-failure-examination-protocol.pdf); [Wikipedia: Forensic engineering](https://en.wikipedia.org/wiki/Forensic_engineering) |
 
 

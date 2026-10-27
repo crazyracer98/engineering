@@ -11,11 +11,15 @@ accept = ["100..=103", "200..=299", "429"]
 # (which would hide real "forbidden" errors on every other host):
 #   - DOI resolvers and NEJM redirect to publishers that block bots.
 #   - incose.org returned 403 to automated fetches (see the plan's P1 note).
+#   - fda.gov serves an abuse-detection page (a 302 to an "FDA Apology" page)
+#     to the link checker's user agent, while the same URLs answer 200 to
+#     other clients, so every FDA link would be reported as broken.
 # Source quotes are checked by the separate source-verification workflow.
 exclude = [
   '^https?://(dx\.)?doi\.org/',
   '^https?://([a-z0-9-]+\.)?nejm\.org/',
   '^https?://([a-z0-9-]+\.)?incose\.org/',
+  '^https?://([a-z0-9-]+\.)?fda\.gov/',
 ]
 
 # Working plans are not published content.

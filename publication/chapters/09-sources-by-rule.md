@@ -84,5 +84,5 @@
 | [P79](07-rules.md#p79) | [FEMA: National Incident Management System, 3rd ed. (2017)](https://training.fema.gov:443/EMIWeb/IS/IS700b/Handouts/National_Incident_Management%20System_Third%20Edition_October_2017.pdf) |
 | [P80](07-rules.md#p80) | [Google SRE: Postmortem culture](https://sre.google/workbook/postmortem-culture/) |
 | [P81](07-rules.md#p81) | [ASQ: PDCA Cycle](https://asq.org/quality-resources/pdca-cycle); [ISO Central: PDCA](https://isocentral.org/resources/what-is-plan-do-check-act) |
-| [P82](07-rules.md#p82) | [National Academies: Accident precursor analysis](https://www.nationalacademies.org/read/11061/chapter/8); [Wikipedia: Normalization of deviance](https://en.wikipedia.org/wiki/Normalization_of_deviance) |
+| [P82](07-rules.md#p82) | [National Academies: Accident precursor analysis](https://www.nationalacademies.org/read/11061/chapter/2); [Wikipedia: Normalization of deviance](https://en.wikipedia.org/wiki/Normalization_of_deviance) |
 | [P83](07-rules.md#p83) | [PHMSA: Metallurgical Laboratory Failure Examination Protocol](https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/docs/incident-reporting/accident-investigation-division/70066/metallurgical-laboratory-failure-examination-protocol.pdf); [Wikipedia: Forensic engineering](https://en.wikipedia.org/wiki/Forensic_engineering) |

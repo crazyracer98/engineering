@@ -19,7 +19,12 @@ rule ID, rule text or field of the dataset changes. It is dated 2026-10-27.
 - Authors that had been set from memory were checked against each work's
   record page and recorded in the source notes. One was wrong: the PMI
   article on the origins of CPM is by Kelley, Walker and Sayer, not Kelley
-  alone. The others were confirmed.
+  alone. The others were confirmed. That PMI article is also no longer
+  marked paid: its page carries the full text without a login.
+- The National Academies report on accident precursors (a P82 source) now
+  links to its committee summary chapter, which describes near misses before
+  major accidents and the normalization of deviance. The old link led to an
+  unrelated chapter of the same volume, on inherently safer design.
 - Dead links are fixed. The Jargon File is linked over http, because its
   https address has no valid certificate. The OECD procurement toolbox page
   and the Nowlan & Heap report are linked as Internet Archive copies, because
