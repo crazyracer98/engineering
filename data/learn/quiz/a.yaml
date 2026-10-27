@@ -82,7 +82,7 @@
     - text: Scale idle environments to zero and delete them after merge.
       correct: true
       feedback: "This is the P3 example. It reduces resource use over the lifecycle."
-    - text: Add capacity so that developers never wait for an environment, whatever it costs.
+    - text: Add capacity so that developers never wait for an environment when they open a branch.
       correct: false
       feedback: "More capacity raises resource use. P49 (induced demand) also warns that demand grows into new capacity."
     - text: Keep the environments running, and decide later whether to retire any of them.
@@ -244,9 +244,9 @@
     - text: State the new expectations clearly.
       correct: true
       feedback: "P8 asks to state the new expectations."
-    - text: Hold a vote and follow the majority, without explaining the result to anyone.
+    - text: Hold a vote among the affected people and let the majority choose the new model.
       correct: false
-      feedback: "P8 says this is not consensus. The decision stays with the decider, who also explains it and its reasons."
+      feedback: "P8 says this is not consensus. The decision stays with the decider."
     - text: Announce the decision on a Friday afternoon with no reasons.
       correct: false
       feedback: "P8 names announcing a change without reasons as a violation."
