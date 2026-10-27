@@ -1,2 +1,159 @@
 # Domain examples, branch Cross-cutting. Schema: schema/learn-domains.schema.json.
-[]
+- branch: Cross-cutting
+  domain: Professional ethics
+  scenario: >-
+    A consulting engineer is asked to approve a bridge design. Its bearings
+    come from a firm in which she holds shares, and bearings are outside her
+    field. She declares the share holding on her firm's register of interests
+    and steps out of the bearing review. A named colleague with bearing
+    expertise checks that part instead. The project is behind schedule, and
+    the contractor offers cheaper, untested bearings to save time. The release
+    gate has a safety sign-off item, so the swap waits for the same check.
+  shows:
+    - rule: P6
+      how: >-
+        She would review work in which she has a personal interest, so she
+        discloses it and steps out of that review. The register is checked
+        before the approval.
+    - rule: P2
+      how: >-
+        Bearings are outside her competence, so the bearing part goes to a
+        named checker with expertise in that domain.
+    - rule: P1
+      how: >-
+        Public safety goes above cost and schedule. The release gate contains a
+        safety sign-off item, so the cheaper, late substitute does not skip
+        it.
+- branch: Cross-cutting
+  domain: Systems engineering
+  scenario: >-
+    A team builds a train door system that is safety-critical and regulated.
+    The requirement "doors must close quickly" is rewritten as "doors close in
+    under 4 seconds", with a link to the passenger need for short stops. Each
+    requirement is linked to design and test. Before handover, the team tests
+    the whole system against the operator's requirements, and the operator
+    signs an acceptance.
+  shows:
+    - rule: P9
+      how: >-
+        Each requirement is written as measurable, with an acceptance criterion
+        and a link to a user need.
+    - rule: P59
+      how: >-
+        The system is safety-critical and regulated, so every requirement is
+        linked in both directions to design and test, with no requirement
+        lacking a test.
+    - rule: P54
+      how: >-
+        The team does verification and validation. Before handover, all parts
+        are tested together against the owner's requirements, and both a test
+        result and a stakeholder acceptance exist.
+- branch: Cross-cutting
+  domain: Configuration management
+  scenario: >-
+    A plant changes the set point of a pressure controller. The change is
+    recorded as a new version of the settings file. Before it goes live, a
+    reviewer checks its technical basis, the safety impact and the operating
+    procedures it affects. A manager approves it, and operators are told before
+    go-live. Later, an audit finds that the deployed settings match the
+    approved version.
+  shows:
+    - rule: P64
+      how: >-
+        Every artifact is versioned. A change is reviewed for basis, safety
+        impact and affected procedures, then approved, and the affected people
+        are informed before go-live. The deployed state matches an approved
+        version.
+- branch: Cross-cutting
+  domain: Reliability and safety engineering
+  scenario: >-
+    Before building a robot arm for a packing cell, the team lists how each
+    part can fail, such as a cable, a motor or a sensor. It also lists how
+    parts that have not failed can interact unsafely, such as a sensor and a
+    controller that disagree. The team adds how the arm can cause harm while
+    working as designed, for example when a worker reaches in. The list is
+    reviewed.
+  shows:
+    - rule: P22
+      how: >-
+        Before building, the team lists how each part can fail, how parts that
+        have not failed can interact unsafely, and how the system can cause harm
+        while working as designed. The list exists per component and is
+        reviewed.
+- branch: Cross-cutting
+  domain: Accident research
+  scenario: >-
+    A hydraulic lift in a workshop sometimes drifts down a few centimetres
+    when it is loaded. Nobody has been hurt and the crew says it always did
+    that. A new technician records it as an anomaly in a ticket. The team
+    investigates it and finds a worn seal. They fix the seal and the ticket
+    holds the decision.
+  shows:
+    - rule: P82
+      how: >-
+        The system behaves differently from what was expected, even though
+        nobody was harmed. The team records the anomaly and investigates it
+        before accepting it as normal. The ticket holds a decision: fix it, or
+        accept it with a written reason.
+- branch: Cross-cutting
+  domain: Metrology
+  scenario: >-
+    Two labs compare the stiffness of the same polymer. Their numbers differ by
+    8 percent. They find that one lab measured at 20 degrees Celsius and the
+    other at 30. They agree on a reference temperature and report it. Each
+    report also states the uncertainty. Both labs calibrate their load cells
+    against a traceable reference on a schedule.
+  shows:
+    - rule: P58
+      how: >-
+        Measurements are used to compare, so they are made under stated,
+        controlled reference conditions, with uncertainty reported with each
+        result. Instruments are calibrated regularly against traceable
+        references.
+- branch: Cross-cutting
+  domain: Risk regulation (UK HSE)
+  scenario: >-
+    A site owner reviews a risk from a storage tank. The risk is first sorted
+    into a region: unacceptable, tolerable or negligible. An unacceptable risk
+    must be reduced whatever the cost. A tolerable risk is reduced while it
+    is reasonably practicable. A negligible risk needs no further reduction.
+    The tank's risk falls in the tolerable region, so the owner keeps adding
+    controls until the next one costs grossly more than it gains.
+  shows:
+    - rule: Master
+      how: >-
+        The master rule says to keep reducing risk until the cost of the next
+        reduction is grossly disproportionate to the benefit (ALARP). The three
+        risk regions set how far to go. The tank's risk is tolerable, so the
+        owner reduces it while that is reasonably practicable and stops at the
+        grossly disproportionate point.
+- branch: Cross-cutting
+  domain: Design engineering
+  scenario: >-
+    Early in the design of a new handheld power tool, the team is unsure
+    whether a brushless or a brushed motor will meet cost and noise targets.
+    It develops both in parallel. As test results arrive, it drops the weaker
+    option. It commits only once feasibility is shown. The design records list
+    the alternatives kept and the evidence that removed each rejected one.
+  shows:
+    - rule: P16
+      how: >-
+        Uncertainty is high early, so several alternatives are developed in
+        parallel and weak ones are eliminated as evidence arrives. The team
+        commits only after feasibility is shown, and the records list the
+        evidence.
+- branch: Cross-cutting
+  domain: Engineering physics
+  scenario: >-
+    A team uses a heat flow simulation to decide how thick an insulation layer
+    must be for a furnace wall. The model was validated for temperatures up to
+    600 degrees Celsius, but the furnace runs at 900. The team does not rely on
+    the result. It extends the validation to the higher range and checks the
+    output against a rough hand estimate of the right order of magnitude.
+  shows:
+    - rule: P12
+      how: >-
+        A decision depends on a model, so it is validated for its intended use
+        and used only inside its validated range. Each result is checked against
+        an independent rough estimate. Once the validation is extended to 900
+        degrees, the decision lies inside the stated range.
