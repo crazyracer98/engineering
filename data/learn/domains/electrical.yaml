@@ -1,2 +1,114 @@
 # Domain examples, branch Electrical. Schema: schema/learn-domains.schema.json.
-[]
+- branch: Electrical
+  domain: Electronics
+  scenario: >-
+    A team designs a power supply board for an industrial controller. The
+    board must run on a warm factory floor for years. The team sizes the
+    voltage regulator for the expected peak current, and the board has a
+    backup supply path.
+  shows:
+    - rule: P44
+      how: >-
+        The team states the design load, the peak current the controller
+        draws, and sizes the regulator above it with a derating factor for the
+        warm floor. A load test at high temperature shows the regulator
+        carries at least that current times the chosen factor.
+    - rule: P45
+      how: >-
+        The board has two supply paths. In a test the team removes one path at
+        a time, and the controller keeps running on the other. The switch-over
+        circuit is tested as well, because a bad switch would waste the
+        redundancy.
+- branch: Electrical
+  domain: Power grids
+  scenario: >-
+    A regional operator plans how its network survives the loss of a line.
+    When a heat wave pushes demand above supply, the operator has a list of
+    loads to shed in a set order.
+  shows:
+    - rule: P45
+      how: >-
+        The operator tests the network with each single line out of service.
+        Power still reaches all critical substations, so the function
+        survives the loss of any single element (N-1).
+    - rule: P47
+      how: >-
+        The operator defines in advance which loads switch off first, such as
+        large interruptible industrial users, and which keep power, such as
+        hospitals. A simulated overload shows the low-priority loads stop
+        first and the critical ones keep running.
+- branch: Electrical
+  domain: Telecom and network
+  scenario: >-
+    A company sends large files between two data centres over several network
+    hops. A fault in a middle router once flipped bits in transit. The
+    company now checks files at the sender and the receiver.
+  shows:
+    - rule: P32
+      how: >-
+        Integrity can only be fully correct with knowledge at the end points,
+        so the sender computes a checksum and the receiver verifies it. The
+        links in between may also check frames, but only to improve
+        performance.
+    - rule: P33
+      how: >-
+        The transfer messages that carry each file's name, size and checksum
+        follow a written specification with a machine-checked schema. A
+        message that violates the schema is rejected and logged. The
+        interface states units and time zone explicitly.
+- branch: Electrical
+  domain: Computer engineering
+  scenario: >-
+    A hardware team designs a new embedded processor board. Each block has a
+    scan chain and debug pins. Before layout, the team profiles a benchmark
+    workload on the previous-generation board to see where the time goes.
+  shows:
+    - rule: P26
+      how: >-
+        Each block has documented test access to set and observe its key
+        states, through the scan chain and debug pins. A tester can drive any
+        block into a known state and read the result.
+    - rule: P50
+      how: >-
+        The team measures the current constraint, which is memory bandwidth,
+        and names it before any speed-up work. It improves the memory path
+        first, instead of making the already idle arithmetic unit faster.
+- branch: Electrical
+  domain: Broadcast
+  scenario: >-
+    A TV station runs a transmitter site that must stay on air. A feed can
+    look fine on a monitor until the signal suddenly drops out.
+  shows:
+    - rule: P70
+      how: >-
+        The station measures the signal in real use and alerts on symptoms
+        viewers feel, such as picture freezes and audio loss. Because the
+        output stays clean until the signal collapses (a cliff effect), it
+        also monitors the remaining signal margin.
+- branch: Electrical
+  domain: Microwave
+  scenario: >-
+    Two radio units in a microwave link exchange control messages. One unit
+    reports power in dBm and the other expects watts.
+  shows:
+    - rule: P33
+      how: >-
+        The interface specification fixes one unit for the power field and
+        puts it in the field name. The receiving unit checks each message
+        against the schema, rejects a message whose power field names the
+        other unit, and logs the rejection, instead of silently accepting it.
+- branch: Electrical
+  domain: Optical (laser safety)
+  scenario: >-
+    A lab builds a setup with a laser. A low-power alignment laser in a
+    closed box needs few controls. A high-power laser in an open lab has a
+    far worse worst case, and its stray reflections are hard to predict.
+  shows:
+    - rule: Master
+      how: >-
+        The lab scales the rigor to the consequence of failure times the
+        uncertainty. The closed low-power box scores low on both and gets a
+        simple check. The high-power open setup scores high on both: an eye
+        injury cannot be undone, and stray reflections are hard to predict.
+        It gets interlocks, a controlled area, trained staff and a formal
+        review.

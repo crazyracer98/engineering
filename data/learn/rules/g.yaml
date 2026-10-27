@@ -1,2 +1,45 @@
 # Rule examples, category G. Schema: schema/learn-rules.schema.json.
-[]
+- rule: P64
+  scenario: A small team runs a billing service. A developer wants to raise a database connection limit.
+  applying: The developer opens a pull request that states why the limit changes, what load and failure effects it has, and which runbook it touches. A second engineer approves it. The on-call team is told before go-live. The pipeline deploys the approved commit, and the deployed state matches it.
+  violating: The developer logs in to production and edits the setting by hand. Nobody reviews it and nobody tells the on-call team. The running service now differs from the repository, so the next failure is hard to reproduce.
+  management:
+    scenario: A company keeps its on-call policy in a shared document that anyone can edit.
+    applying: The policy is versioned in git. Each change is a pull request that names the reason, lists the teams affected and is approved. The affected people are told before the new version takes effect.
+    violating: A manager edits the shared document the evening before a holiday. Nobody reviews the change, no version is kept, and the on-call people learn about it when the pager goes off.
+- rule: P65
+  scenario: A team ships a new checkout service to replace the old one.
+  applying: The team defines the steps 1 %, 10 % and 100 % of traffic. It checks error rate and latency after each step before it starts the next. The check before 100 % is a hold point, so work stops until a lead approves it. The earlier checks are witness points, so the rollout continues while an engineer observes them.
+  violating: The team switches all traffic to the new service at once. A defect hits every customer at the same time, and there is no earlier check that could have limited the harm.
+  management:
+    scenario: A company plans to change how all its offices book travel.
+    applying: The company pilots the new process in one department. At the end of the pilot, a named group decides whether to continue, change the plan or stop. Only then does the next department start.
+    violating: The company switches every office to the new process on the same day. It decides nothing at any stage, so a flaw reaches all offices before anyone can stop it.
+- rule: P66
+  scenario: An operations team needs to replace a disk in a cluster node.
+  applying: The procedure starts with an isolation step. The team cordons and drains the node and pauses automatic sync, then locks the pause so that no tool restarts the node's work. The procedure ends with a release step that removes the lock after the disk is replaced.
+  violating: The team starts the repair with automatic sync still on. Halfway through, sync overwrites the manual fix and restarts a service on the node. The work is destroyed and the engineer is surprised by the restart.
+  management:
+    scenario: A product team commits to a sprint goal for two weeks.
+    applying: The team protects the sprint goal from unplanned changes. New requests wait for the next sprint. Only the Product Owner, who is accountable for the goal, may cancel the sprint.
+    violating: Stakeholders add urgent tasks to the sprint every few days, and anyone with influence can redirect the team. The committed goal is not protected, and nobody accountable decided to cancel it.
+- rule: P67
+  scenario: A team migrates a service to a new cluster. The tasks are data sync, DNS cutover, load testing, a new dashboard and documentation.
+  applying: The plan marks the longest chain of dependent tasks, data sync then DNS cutover, as the critical path. The plan also states the slack of load testing, the dashboard and the documentation. When people are short, the team protects the critical path first.
+  violating: The team adds people to the dashboard and the documentation, which have slack, while data sync slips. The migration date moves because the critical path is delayed.
+  management:
+    scenario: A company moves its office to a new building. The tasks are network installation, furniture delivery, badge setup and signage.
+    applying: The plan marks network installation and the tasks that depend on it as the critical path. Furniture and signage are marked with their slack. The project lead protects the critical path first.
+    violating: The lead pushes the signage supplier to finish early, which gains nothing, while the network installation slips and delays the move.
+- rule: P68
+  scenario: A team rolls out a new version of a service, and the real error rate under production load is unknown until the rollout runs.
+  applying: The team designs for the most probable load and monitors the real error rate. It sets a trigger level of 2 % errors and plans a backup action in advance, which is an automatic rollback. When the error rate crosses 2 %, the rollback runs.
+  violating: The team monitors the error rate but sets no trigger level. At go-live, the error rate climbs, and the team finds that nobody has planned a rollback.
+  management:
+    scenario: A programme migrates data to a new platform, and the effort needed stays uncertain until the work is under way.
+    applying: The programme sets a time tolerance and a planned response before the work starts. It monitors progress. When the migration will exceed its time tolerance by 10 %, the steering group decides on scope.
+    violating: The programme sets no tolerance and plans no response. When the migration runs late, nobody knows who decides or what the options are.
+- rule: P69
+  scenario: An engineering organization moves all its teams to a new CI system.
+  applying: The organization writes down the reason for the change and names a leading group. It sends weekly updates, defines early wins from a pilot team and switches the old system off only when all teams use the new one. The end criterion, the old way is switched off, is written down.
+  violating: A manager announces the new CI system by email and declares the change done. There is no leading group, no communication plan and no end criterion, so teams keep using the old system.

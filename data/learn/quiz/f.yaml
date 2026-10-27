@@ -1,2 +1,389 @@
 # Quiz questions, category F. Schema: schema/learn-quiz.schema.json.
-[]
+- id: q-f-01
+  rules: [P54]
+  stem: A team's CI run for a new customer portal is green. The product owner has not seen the portal yet, and the manager says, "Tests pass, so mark it done." What does the team still need before handover?
+  options:
+    - text: A recorded acceptance by the product owner against the owner's requirements.
+      correct: true
+      feedback: Right. Validation needs a stakeholder acceptance as well as a test result (P54).
+    - text: An end-to-end test that runs all parts together, such as DNS, certificates and monitoring.
+      correct: true
+      feedback: Right. P54 asks for a commissioning test of all parts working together before handover.
+    - text: Nothing more, because a green CI run shows that the portal meets the need.
+      correct: false
+      feedback: Wrong. Passing tests is verification. It does not show that the work meets the owner's need (P54).
+    - text: The same unit tests run again in a clean environment.
+      correct: false
+      feedback: Wrong. A second verification run adds no validation (P54). A clean environment helps with P57, but it does not replace acceptance.
+    - text: A second look from the author before the portal ships.
+      correct: false
+      feedback: Wrong. A review by the author is neither an acceptance by a stakeholder (P54) nor an independent check (P56).
+- id: q-f-02
+  rules: [P54, P55]
+  stem: Three services each pass their own tests. On the first joint deployment, the certificate service rejects the new DNS name. Which conclusions are right?
+  options:
+    - text: Parts that pass alone can fail together, so an end-to-end test of the whole system is needed before handover.
+      correct: true
+      feedback: Right. This is the failure the commissioning part of P54 is meant to catch.
+    - text: The joint test should run at the first stage where all the parts exist, not after release.
+      correct: true
+      feedback: Right. P55 asks each check to run at the first stage where it can run, and a joint test can run once the parts exist.
+    - text: Passing unit tests shows that every service meets the owner's needs, so this failure is a one-off.
+      correct: false
+      feedback: Wrong. Passing alone does not mean passing together (P54).
+    - text: The team should move its integration test to after the release, because the fix costs the same at any stage.
+      correct: false
+      feedback: Wrong. The cost of a fix rises at each later stage, so P55 says to find defects earlier.
+- id: q-f-03
+  rules: [P55]
+  stem: A type error reaches production and is found by a customer at 2 am. The team's lint and unit tests run only nightly, after the release branch is cut. Which changes fit P55?
+  options:
+    - text: Add more monitoring in production to catch such errors sooner.
+      correct: false
+      feedback: Wrong. Monitoring finds the defect after release, which is the latest stage. P55 asks for the earliest stage.
+    - text: Run lint, type checks and unit tests on every pull request before merge.
+      correct: true
+      feedback: Right. Each check then runs at the first stage where it can run (P55).
+    - text: Require a second approver on every release.
+      correct: false
+      feedback: Wrong. An independent checker is P56, and it is a different control. It does not move any check earlier (P55).
+    - text: Run the type check in a pre-commit hook on the developer's machine.
+      correct: true
+      feedback: Right. A type check can run before the commit, which is earlier than CI (P55).
+    - text: Keep the nightly run, because a fix costs the same at every stage.
+      correct: false
+      feedback: Wrong. P55 rests on the cost of a fix rising at each later stage.
+- id: q-f-04
+  rules: [P55]
+  stem: A product lead wants to commit twelve people for a quarter to a new initiative. The only document is a one-page proposal that nobody has reviewed. Which action fits P55?
+  options:
+    - text: Start the work and review the business case at the end-of-quarter retrospective.
+      correct: false
+      feedback: Wrong. The review comes after the money is spent. P55 asks for plans to be reviewed before people and money are committed.
+    - text: Review the proposal and the business case before any people or money are committed.
+      correct: true
+      feedback: Right. This is the earliest stage at which the defect can be found (P55).
+    - text: Let the author of the proposal approve it, to keep the review quick.
+      correct: false
+      feedback: Wrong. Authors do not see their own errors, and P56 asks for a checker who is not the author.
+    - text: Plan an acceptance review for after delivery.
+      correct: false
+      feedback: Wrong. An acceptance review is useful (P54), but it is the latest stage. It does not find a plan defect early (P55).
+- id: q-f-05
+  rules: [P56]
+  stem: A payments team changes the code that authorizes card transactions. A failure would be costly. Which practices meet P56?
+  options:
+    - text: A second engineer approves every pull request before it is merged.
+      correct: true
+      feedback: Right. Every change has a checker who is not the author (P56).
+    - text: The author re-reads the change the next day and merges it.
+      correct: false
+      feedback: Wrong. Authors do not see their own errors. A self-check is the lowest level of independence (P56).
+    - text: An external organization runs a penetration test on the payment flow.
+      correct: true
+      feedback: Right. P56 raises independence with the consequence of failure, from self to peer to external organization.
+    - text: The two engineers who designed the change together approve each other's work.
+      correct: false
+      feedback: Wrong. Shared assumptions hide shared errors (P56). Co-authors are not independent checkers.
+    - text: A second person must also authorize the deploy command.
+      correct: false
+      feedback: Wrong. A second person at the moment of action resembles the two-person rule (P42), which is for critical, irreversible actions. It is not a review of the work (P56).
+- id: q-f-06
+  rules: [P56]
+  stem: A company wants its budgets and accounts checked in proportion to the consequence of an error. Which choices fit P56?
+  options:
+    - text: The head of a department prepares the budget and approves it after a careful second reading.
+      correct: false
+      feedback: Wrong. The preparer is the checker. P56 needs a checker who is not the author.
+    - text: Finance checks a team lead's budget.
+      correct: true
+      feedback: Right. A check by someone other than the author fits a low-consequence budget (P56).
+    - text: An external auditor checks the company's accounts, and long-serving auditors are rotated.
+      correct: true
+      feedback: Right. Independence rises with consequence, up to an external audit, and P56 asks to rotate long-serving external auditors.
+    - text: The finance team of the company is the only checker of the yearly accounts.
+      correct: false
+      feedback: Wrong. For a high-consequence record, P56 raises independence beyond the company's own people.
+- id: q-f-07
+  rules: [P56]
+  stem: A team must review two changes, a new layout for an internal dashboard and the deletion of ten years of production audit logs. How independent should each checker be?
+  options:
+    - text: Dashboard layout - a peer who did not write it reviews the change.
+      correct: true
+      feedback: Right. A low-consequence, easily reversed change needs a checker who is not the author, and a peer is enough (P56).
+    - text: Both changes - the same peer review, because every change gets identical scrutiny.
+      correct: false
+      feedback: Wrong. P56 raises the checker's independence with the consequence of failure, so the two changes differ.
+    - text: Audit-log deletion - a checker from outside the team, with more independence than a peer.
+      correct: true
+      feedback: Right. An irreversible, high-consequence change calls for a more independent checker, up to an external one (P56).
+    - text: Dashboard layout - an external organization reviews it.
+      correct: false
+      feedback: Wrong. External review for a low-consequence change is more independence than P56 asks for.
+    - text: Audit-log deletion - the author's own check is enough, because the script is short.
+      correct: false
+      feedback: Wrong. Short work does not lower the consequence of failure. Authors do not see their own errors (P56).
+- id: q-f-08
+  rules: [P57]
+  stem: A release passes in staging and fails in production. Staging runs an image built separately from the release, with a smaller replica count and TLS switched off. Which actions fit P57?
+  options:
+    - text: Add more unit tests, since they run earlier than staging.
+      correct: false
+      feedback: Wrong. Earlier tests help find defects (P55), but they do not make the staging setup match operation (P57).
+    - text: Deploy the same image digest to staging and to production.
+      correct: true
+      feedback: Right. Testing a different build than the one deployed is the violation P57 names.
+    - text: Have a second engineer sign off the staging result.
+      correct: false
+      feedback: Wrong. A second checker (P56) does not remove the gap between the test setup and real operation (P57).
+    - text: List each remaining difference from production, such as replica count, and justify it.
+      correct: true
+      feedback: Right. P57 is met when the differences between the test setup and operation are listed and each is justified.
+    - text: Report the spread over several staging runs.
+      correct: false
+      feedback: Wrong. Reporting spread is P58. It does not make the configuration match production (P57).
+- id: q-f-09
+  rules: [P57]
+  stem: A load test fails because of a connection-pool bug. The team applies a one-line fix and wants to ship, since the earlier passing runs covered everything else. What does P57 ask?
+  options:
+    - text: Ship the fix, because the earlier passing runs still count.
+      correct: false
+      feedback: Wrong. P57 asks for the test to run again after every repair.
+    - text: Run the load test again after the fix, in the same configuration as production.
+      correct: true
+      feedback: Right. P57 asks for tests in operating conditions, and again after every repair.
+    - text: Test the fix on a developer laptop, where the bug is easy to reproduce.
+      correct: false
+      feedback: Wrong. A laptop differs from real operation. P57 asks for the same configuration and conditions.
+    - text: Ask the author to confirm that the fix works.
+      correct: false
+      feedback: Wrong. The author's word is neither a test in operating conditions (P57) nor an independent check (P56).
+- id: q-f-10
+  rules: [P58]
+  stem: A team reports that a new cache is 12 percent faster. The figure comes from one run on a laptop and one run on a CI runner. Which changes make the comparison fit P58?
+  options:
+    - text: Run both versions on the same instance type with a fixed load and a warm-up.
+      correct: true
+      feedback: Right. P58 asks for measurement under stated, controlled reference conditions.
+    - text: Report only the mean, to keep the report short.
+      correct: false
+      feedback: Wrong. A result without its uncertainty is incomplete (P58). The report needs the spread too.
+    - text: Report the spread over several runs.
+      correct: true
+      feedback: Right. P58 asks for the uncertainty with every result, so a reader can see whether 12 percent exceeds the noise.
+    - text: Keep the single runs, because 12 percent is larger than any plausible noise.
+      correct: false
+      feedback: Wrong. Without a measured spread that is an assumption. P58 asks for the spread to be reported.
+    - text: Add an independent reviewer of the claim, without changing the runs.
+      correct: false
+      feedback: Wrong. A reviewer (P56) cannot make two runs on different machines comparable (P58).
+- id: q-f-11
+  rules: [P58]
+  stem: Two directors want to rank teams by lead time. One team measures it from ticket creation, and another from the first commit. Which actions fit P58?
+  options:
+    - text: Let each team keep its own definition, since it knows its work best.
+      correct: false
+      feedback: Wrong. P58 asks for each indicator to be defined once so that results are comparable.
+    - text: Define lead time once, with its formula, period, population and data source.
+      correct: true
+      feedback: Right. A single definition makes the teams' numbers comparable (P58).
+    - text: Set a lead-time target for each team and compare progress.
+      correct: false
+      feedback: Wrong. A target does not make the measures comparable (P58). It also invites gaming (P19).
+    - text: Show how much lead time normally varies before comparing teams or periods.
+      correct: true
+      feedback: Right. P58 asks to show normal variation before comparing teams or periods.
+    - text: Compare only the last two weeks, because they are the freshest data.
+      correct: false
+      feedback: Wrong. Two weeks may sit inside normal variation. P58 asks to show that variation first.
+- id: q-f-12
+  rules: [P59]
+  stem: Firmware for an infusion pump is safety-critical and regulated. Its traceability report lists three requirements with no test and five tests that link to no requirement. What should the team do?
+  options:
+    - text: Write a test for each of the three untested requirements, or link an existing one.
+      correct: true
+      feedback: Right. P59 requires that no requirement is without a test.
+    - text: Cite 97 percent line coverage as proof of complete coverage.
+      correct: false
+      feedback: Wrong. Line coverage measures code. P59 asks for coverage of the requirements.
+    - text: Link each of the five orphan tests to the requirement it verifies, or add the missing requirement.
+      correct: true
+      feedback: Right. P59 requires that no test is without a requirement.
+    - text: Link requirements to design only, since tests are optional.
+      correct: false
+      feedback: Wrong. P59 links every requirement in both directions to design and to test.
+    - text: Skip traceability, since a passing compliance scan covers it.
+      correct: false
+      feedback: Wrong. A compliance scan (P60) does not show that every requirement has a test (P59).
+- id: q-f-13
+  rules: [P59]
+  stem: A company has two projects. One is the braking software of a rail vehicle under a safety standard. The other is a plugin for an internal wiki, with no regulator. Which statements about P59 are right?
+  options:
+    - text: The braking software needs links from each requirement to design and to test, in both directions.
+      correct: true
+      feedback: Right. The system is safety-critical, so the trigger of P59 holds.
+    - text: The wiki plugin needs the same full traceability, because P59 applies to every system.
+      correct: false
+      feedback: Wrong. P59 applies when the system is safety-critical or regulated. Elsewhere it is costly.
+    - text: The braking software may add traceability after certification.
+      correct: false
+      feedback: Wrong. The standards require proof of complete coverage, which P59 asks for as part of the work.
+    - text: The wiki plugin falls outside the trigger of P59, unless it becomes regulated.
+      correct: true
+      feedback: Right. P59 is risk-scaled. Its condition is a safety-critical or regulated system.
+- id: q-f-14
+  rules: [P60]
+  stem: A Kubernetes cluster passes the CIS Benchmark scan. The team lead says, "We are secure, so no further analysis is needed." Which statements are right?
+  options:
+    - text: A passing scan means the cluster is safe, so the other rules can wait.
+      correct: false
+      feedback: Wrong. Treating compliance as proof of safety is the violation of P60.
+    - text: A passing scan meets the minimum, and the other rules still apply.
+      correct: true
+      feedback: Right. P60 says to meet the code as the minimum and then apply the other rules.
+    - text: The scan result is the check that shows the code is met.
+      correct: true
+      feedback: Right. A compliance scan that passes is the check for P60.
+    - text: The team may skip the benchmark where its own analysis goes further.
+      correct: false
+      feedback: Wrong. The code is the minimum. Better analysis is added on top of it, not instead of it (P60).
+    - text: An independent reviewer can replace the scan.
+      correct: false
+      feedback: Wrong. A reviewer (P56) is a different control and does not show that the code is met (P60).
+- id: q-f-15
+  rules: [P60]
+  stem: A team builds a new kind of device for which no code or standard exists yet. How does P60 apply?
+  options:
+    - text: The condition of P60 is not met, because no code exists to meet as a minimum.
+      correct: true
+      feedback: Right. P60 applies if a code or standard exists, and a novel technology is its stated counterexample.
+    - text: The other rules still apply to the work.
+      correct: true
+      feedback: Right. P60 only says what to do about a code. It does not switch off the other rules.
+    - text: The team picks the nearest code of another technology and treats compliance as proof of safety.
+      correct: false
+      feedback: Wrong. That repeats the violation of P60, because compliance is a minimum and never proof of safety.
+    - text: The team waits for a code to appear before it verifies anything.
+      correct: false
+      feedback: Wrong. Verification and validation are always required (P54), whether or not a code exists.
+- id: q-f-16
+  rules: [P61]
+  stem: A team's backup procedure was written in 2022 and has never been restored. Any on-call engineer may run it during an outage. Which actions fit P61?
+  options:
+    - text: Prove the procedure with a real restore and keep the test record.
+      correct: true
+      feedback: Right. P61 asks for the procedure to be proven by a test before it is used.
+    - text: Have a colleague sign the document after re-reading it.
+      correct: false
+      feedback: Wrong. A review of the text is a check (P56). It does not prove that the procedure works (P61).
+    - text: Qualify each performer through a restore drill and keep a qualification record.
+      correct: true
+      feedback: Right. P61 asks to qualify each person who performs the procedure.
+    - text: Add a checklist for the restore steps instead of testing the procedure.
+      correct: false
+      feedback: Wrong. A checklist (P71) helps a person follow a procedure. It does not prove the procedure (P61).
+    - text: Monitor that the nightly backup job succeeds.
+      correct: false
+      feedback: Wrong. A successful job does not show that a restore works. P61 asks for a restore test.
+- id: q-f-17
+  rules: [P61]
+  stem: A team looks for places where a proven procedure and a qualified person are required. Which of these results fit P61?
+  options:
+    - text: The length of a simple machined bracket, checked afterwards with a caliper.
+      correct: false
+      feedback: Wrong. This can be fully inspected afterwards, which is the counterexample to P61.
+    - text: The quality of a weld inside a pressure vessel wall, which cannot be inspected afterwards.
+      correct: true
+      feedback: Right. A defect that inspection cannot find must be prevented by a proven procedure and a qualified person (P61).
+    - text: A typo fix in a README, checked by reading the diff.
+      correct: false
+      feedback: Wrong. The whole result can be checked afterwards, so P61 does not apply.
+    - text: A production database restore, which shows its flaws only when it is needed.
+      correct: true
+      feedback: Right. The result cannot be fully checked in advance, so P61 asks for a proven procedure and a qualified person.
+- id: q-f-18
+  rules: [P61, P57]
+  stem: A team proves its restore procedure by restoring a backup into a test cluster. The first restore failed on a missing configuration step, which the team then added. The test cluster runs a different database version from production. Which statements are right?
+  options:
+    - text: The test record from the failed first run is enough, since the step is now in the document.
+      correct: false
+      feedback: Wrong. P57 asks to test again after every repair.
+    - text: The team should run the restore again after adding the step.
+      correct: true
+      feedback: Right. P57 asks for a new test after every repair, and P61 asks for a procedure proven by a test.
+    - text: The version difference needs no note, because a restore is a restore.
+      correct: false
+      feedback: Wrong. P57 asks to list the differences between the test setup and operation and justify each one.
+    - text: The team should list the version difference and justify it or remove it.
+      correct: true
+      feedback: Right. This keeps the test close to real operation (P57), so the proof of the procedure counts (P61).
+- id: q-f-19
+  rules: [P62]
+  stem: A company hires a platform engineer. Each interviewer asks their own questions about 'culture fit', and the raters decide in a joint discussion. Which changes fit P62?
+  options:
+    - text: Ask every candidate the same job-related questions.
+      correct: true
+      feedback: Right. P62 asks for the same questions for each candidate.
+    - text: Let each interviewer probe the background of the candidate in front of them.
+      correct: false
+      feedback: Wrong. Different questions per candidate are the unstructured interview that P62 replaces.
+    - text: Rate the answers on scales anchored to the job requirements, with raters scoring independently first.
+      correct: true
+      feedback: Right. P62 asks for anchored scales, and its check is that raters score independently before the discussion.
+    - text: Rank the candidates against each other during the discussion.
+      correct: false
+      feedback: Wrong. P62 rates each answer on scales anchored to the job, and raters score independently before any discussion. Ranking during the discussion skips both.
+    - text: Add a debugging exercise that every candidate does.
+      correct: true
+      feedback: Right. P62 adds work samples or job-knowledge tests to the structured interview.
+- id: q-f-20
+  rules: [P62]
+  stem: A manager says unstructured interviews show the real person and that structured interviews predict nothing extra. A colleague quotes the evidence behind P62. Which statements are right?
+  options:
+    - text: Unstructured interviews predict job performance about as well, and they are more flexible.
+      correct: false
+      feedback: Wrong. P62 gives a mean validity of .42 for structured interviews and .19 for unstructured ones.
+    - text: Structured interviews predict job performance better than other common methods.
+      correct: true
+      feedback: Right. This is the reason given for P62.
+    - text: A work sample is redundant once the structured interview is done.
+      correct: false
+      feedback: Wrong. P62 asks to add work samples or job-knowledge tests.
+    - text: P62 covers promotions as well as hiring.
+      correct: true
+      feedback: Right. The trigger of P62 is selecting a person for a job or a promotion.
+- id: q-f-21
+  rules: [P63]
+  stem: An engineer deploys a service, and the runbook is missing the rollback step. The lead wants to give feedback. Which statements fit P63?
+  options:
+    - text: "The runbook is missing the rollback step. Add it and test it."
+      correct: true
+      feedback: Right. This names the task and how to improve it (P63).
+    - text: "You are careless. Be more careful next time."
+      correct: false
+      feedback: Wrong. This judges character, which P63 says to avoid.
+    - text: "Your incident count is the highest on the team this quarter."
+      correct: false
+      feedback: Wrong. This ranks people. P63 asks for feedback on the task, not a comparison.
+    - text: At the next review, check whether the runbook now has a tested rollback step.
+      correct: true
+      feedback: Right. P63 asks to check afterwards whether performance improved.
+    - text: Thank the engineer for the effort and let the matter drop.
+      correct: false
+      feedback: Wrong. Without a named improvement and a later check, P63 is not met.
+- id: q-f-22
+  rules: [P63]
+  stem: A team lead keeps written feedback records. Which record meets the check of P63?
+  options:
+    - text: "Strongest developer on the team, ranked 2 of 8."
+      correct: false
+      feedback: Wrong. A ranking compares people. P63 asks the record to name a task and an improvement.
+    - text: "Alert thresholds in the report were stale. Update them by Friday. Re-check at the next review."
+      correct: true
+      feedback: Right. It names a task and an improvement, and it plans a check of the effect (P63).
+    - text: "Too negative in meetings. Improve your attitude."
+      correct: false
+      feedback: Wrong. This targets character, not a task. P63 asks for feedback on the task.
+    - text: "Feedback always improves performance, so no follow-up is needed."
+      correct: false
+      feedback: Wrong. In over one third of cases feedback decreased performance, so P63 asks to check the effect.
