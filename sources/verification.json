@@ -1,9 +1,11 @@
 [
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://www.coso.org/_files/ugd/3059fc_61ea5985b03c4293960642fdce408eaa.pdf",
     "id": "Q1",
     "method": "origin",
+    "quote_sha256": "c9bbb7c1fe7f52d75dfb55e9c2bafbb5f9365b95bbb056bbed4abefb938d83df",
     "result": "matched",
     "score": 1.0,
     "sha256": "2d4809dd09687d701944987f65ca6ddc39074a00236abebfd436d79f4563abd1",
@@ -11,10 +13,12 @@
     "url": "https://www.coso.org/_files/ugd/3059fc_61ea5985b03c4293960642fdce408eaa.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://web.archive.org/web/20250809153707id_/https://www.pmi.org/standards/pmbok/about",
     "id": "Q2",
     "method": "archive",
+    "quote_sha256": "33281b65ddab1f06efba585f22043945f5055019b2e1e312f071497733453c15",
     "result": "paid",
     "score": 0.387,
     "sha256": "629a5c750e8a2120006b39a64f8adbbc71656a6b6b14af9b5b37da1d62a7df36",
@@ -22,10 +26,12 @@
     "url": "https://www.pmi.org/standards/pmbok/about"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": null,
     "final_url": null,
     "id": "Q3",
     "method": null,
+    "quote_sha256": "620dfa3d4c95cdaef788b92a21cb07f9a6690bd3e7bb64f3c9db3ac4242f6ba3",
     "result": "no-quote",
     "score": null,
     "sha256": null,
@@ -33,10 +39,12 @@
     "url": "https://www.sec.gov/Archives/edgar/data/1018724/000119312516530910/d168744dex991.htm"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://irp.fas.org/doddir/army/adp6_0.pdf",
     "id": "Q4",
     "method": "origin",
+    "quote_sha256": "dc806ba950cbb287dd1b52143361e6690a739e2e16e514a7663cd9300dc412c0",
     "result": "matched",
     "score": 1.0,
     "sha256": "7405ec17c47a07b1f7d62fabfb08d1d13eb20ff5758058cc17a101770df86b49",
@@ -44,10 +52,12 @@
     "url": "https://irp.fas.org/doddir/army/adp6_0.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://web.mit.edu/curhan/www/docs/Articles/15341_Readings/Group_Performance/Edmondson%20Psychological%20safety.pdf",
     "id": "Q5",
     "method": "origin",
+    "quote_sha256": "58317ece36f03094d8535bb9ef109bb20a4bf62e164d2a691265d54f86646974",
     "result": "matched",
     "score": 1.0,
     "sha256": "203906d3a7eb4131e39fe0245be8209f9df8cd6b40bb50916a42087f74f4237b",
@@ -55,10 +65,12 @@
     "url": "https://web.mit.edu/curhan/www/docs/Articles/15341_Readings/Group_Performance/Edmondson%20Psychological%20safety.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://legalinstruments.oecd.org/public/doc/322/322.en.pdf",
     "id": "Q6",
     "method": "origin",
+    "quote_sha256": "fce6b42d9dc531e6b9f99ad1a281f48c0cd019c358d36eef1d11f45adae4aceb",
     "result": "matched",
     "score": 1.0,
     "sha256": "8cf4fac211b424bfbba747f21fe4fe99152dd6543d2379233d508fa37baa7cdc",
@@ -66,10 +78,12 @@
     "url": "https://legalinstruments.oecd.org/public/doc/322/322.en.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://ieanea.org/wp-content/uploads/2019/05/FairProcessArticle.pdf",
     "id": "Q7",
     "method": "origin",
+    "quote_sha256": "691fa253e35fddf958c9f2537520e74d00ec3076ba87a5ede0ed517395e690db",
     "result": "matched",
     "score": 1.0,
     "sha256": "082adf03b0c37c6fcf5d36dc81455da37b6ad2f2ac736a3be83c9e86ddd50721",
@@ -77,10 +91,12 @@
     "url": "https://ieanea.org/wp-content/uploads/2019/05/FairProcessArticle.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://web.archive.org/web/20261015011409id_/https://www.sec.gov/Archives/edgar/data/1018724/000119312516530910/d168744dex991.htm",
     "id": "Q8",
     "method": "archive",
+    "quote_sha256": "00c102921b76dfdd4d3c05a1ba3f8a065596aeb4c2679a54cde1514e3bba5e14",
     "result": "matched",
     "score": 1.0,
     "sha256": "3b88ae41ece514f5ffd11d25633991178d6440875ebfc0ab20177b9d6d9349a6",
@@ -88,10 +104,12 @@
     "url": "https://www.sec.gov/Archives/edgar/data/1018724/000119312516530910/d168744dex991.htm"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://goal-lab.psych.umn.edu/orgpsych/2020/readings/5.%20Motivation/Locke%20&%20Latham%20(2002).pdf",
     "id": "Q9",
     "method": "origin",
+    "quote_sha256": "53208468f96866a37c51d72127febce5cffffda7b687b8a1949af3b6e83980ef",
     "result": "matched",
     "score": 1.0,
     "sha256": "4e706ba7747f55896758f2d1a6c37d6bc0834a9ce70b2de446cdd086c78b17aa",
@@ -99,10 +117,12 @@
     "url": "https://goal-lab.psych.umn.edu/orgpsych/2020/readings/5.%20Motivation/Locke%20&%20Latham%20(2002).pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://linkinghub.elsevier.com/retrieve/pii/014971897990048X",
     "id": "Q10",
     "method": "origin",
+    "quote_sha256": "12e27f43527c9dab5d3cd33f8ec71e586cf603f85e134da4f039c71215daaed4",
     "result": "matched",
     "score": 1.0,
     "sha256": "e2d74fb7b50f89bc06f08bcb1703e0043e5fa96762e653b72b63a2e2e1010650",
@@ -110,10 +130,12 @@
     "url": "https://doi.org/10.1016/0149-7189(79)90048-X"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://gwern.net/doc/psychology/cognitive-bias/sunk-cost/1976-staw.pdf",
     "id": "Q11",
     "method": "origin",
+    "quote_sha256": "3a89bfff1f354dcab6469070ec25646d150f7140e47940628d495c9c275d59d9",
     "result": "matched",
     "score": 1.0,
     "sha256": "da509fe22cb325b8e997b1867d4c9cd38ec22a32e473c375c5765d3491a26393",
@@ -121,10 +143,12 @@
     "url": "https://Www.Gwern.net/doc/psychology/cognitive-bias/sunk-cost/1976-staw.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://www.melconway.com/Home/Committees_Paper.html",
     "id": "Q12",
     "method": "origin",
+    "quote_sha256": "904d48db069b917a368fa2c857cbb221ff99e8d81a61d79508912b2eafe2c1fd",
     "result": "matched",
     "score": 1.0,
     "sha256": "e3e9f0d2e447208027ca1584f24d30918f5cc0a5a5cde6594ed5f6ec05b1b1d3",
@@ -132,10 +156,12 @@
     "url": "https://www.melconway.com/Home/Committees_Paper.html"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://training.fema.gov/emiweb/is/is700b/handouts/national_incident_management%20system_third%20edition_october_2017.pdf",
     "id": "Q13",
     "method": "origin",
+    "quote_sha256": "cd2ce77d88ef6542e6391c0f0e0485cc78d7cb5450a6a5ce304b98a7371dc35c",
     "result": "matched",
     "score": 1.0,
     "sha256": "5496c912f312ffac5547ede249e9aec590ec2d176c260d243cdb6391ed702930",
@@ -143,10 +169,12 @@
     "url": "https://training.fema.gov:443/EMIWeb/IS/IS700b/Handouts/National_Incident_Management%20System_Third%20Edition_October_2017.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://csrc.nist.gov/glossary/term/separation_of_duty",
     "id": "Q14",
     "method": "origin",
+    "quote_sha256": "e58911cf746ba2c2c2775bc0354e2733d9c86b2126fd054d61ee56cbd533c1fb",
     "result": "matched",
     "score": 1.0,
     "sha256": "f6f43a170b44b3657b4e5d2b602e25f39a4555886dc073ceb0bd1403f95cee2d",
@@ -154,10 +182,12 @@
     "url": "https://csrc.nist.gov/glossary/term/separation_of_duty"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://projectproduction.org/journal/reprint-littles-law-as-viewed-on-its-50th-anniversary/",
     "id": "Q15",
     "method": "origin",
+    "quote_sha256": "ac4b0faf732d56c91f184a06913c5b3ea0a0163bcedf482f462c435b82a40467",
     "result": "matched",
     "score": 1.0,
     "sha256": "7de9915e76c9622cb8503981e6a3a2254b295a1ab9ac1738d61d35529d143308",
@@ -165,10 +195,12 @@
     "url": "https://projectproduction.org/journal/reprint-littles-law-as-viewed-on-its-50th-anniversary/"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://web.archive.org/web/20260613033027id_/http://www.catb.org/jargon/html/B/Brookss-Law.html",
     "id": "Q16",
     "method": "archive",
+    "quote_sha256": "9ecf0ffe45ebdb5cb3ffd80e9633553ffd756728f70517f52ca603f4f8999a7d",
     "result": "matched",
     "score": 1.0,
     "sha256": "606c2ef0a5732bcd05474784e494ff98a174a3c066087d842ec64104bb144370",
@@ -176,10 +208,12 @@
     "url": "https://www.catb.org/jargon/html/B/Brookss-Law.html"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://gwern.net/doc/statistics/meta-analysis/2021-sackett.pdf",
     "id": "Q17",
     "method": "origin",
+    "quote_sha256": "74d95cf2b43beeb31d3bc3a04912a6f7c8aa2fc9186ac524b71b36452d52c0db",
     "result": "matched",
     "score": 1.0,
     "sha256": "e7b76db78577403ae78df8a57f20dd3646090ae3f3ff2b554cef789bf92cc0da",
@@ -187,10 +221,12 @@
     "url": "https://www.Gwern.net/doc/statistics/meta-analysis/2021-sackett.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://cris.huji.ac.il/en/publications/the-effects-of-feedback-interventions-on-performance-a-historical/",
     "id": "Q18",
     "method": "origin",
+    "quote_sha256": "f164ee65229af062ecc85c99eef08703cfaf280034bf56fb29de2a859f17407a",
     "result": "matched",
     "score": 1.0,
     "sha256": "d3554dcb29ff207aa27ed458714293d10fb347e17960da87153cb2d28d7b9520",
@@ -198,10 +234,12 @@
     "url": "https://cris.huji.ac.il/en/publications/the-effects-of-feedback-interventions-on-performance-a-historical/"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://web.archive.org/web/20260521194202id_/https://fcm.ucsf.edu/sites/g/files/tkssra17611/files/Kotter_WhyTransformationEffortsFail.pdf",
     "id": "Q19",
     "method": "archive",
+    "quote_sha256": "dbf082c8a44180ef2044f9da5a78d72893374ac85c288e79e0c1a8a7ae3c1fe0",
     "result": "matched",
     "score": 1.0,
     "sha256": "3cb20407b197c72f997a58d68587ad1e360555bec9bd1626490167fe80db8fb3",
@@ -209,10 +247,12 @@
     "url": "https://fcm.ucsf.edu/sites/g/files/tkssra17611/files/Kotter_WhyTransformationEffortsFail.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://www.nspe.org/sites/default/files/resources/pdfs/Ethics/EthicsReferenceGuide.pdf",
     "id": "Q20",
     "method": "origin",
+    "quote_sha256": "7f75ddafb7df9970d5e44d3592997c3f566b4beeeb34c5685ec9fee0b0284631",
     "result": "matched",
     "score": 1.0,
     "sha256": "135b9f2d9d201e5a95faabfdf13b30c605530c99118977fadf3b98496fea6184",
@@ -220,10 +260,12 @@
     "url": "https://www.nspe.org/sites/default/files/resources/pdfs/Ethics/EthicsReferenceGuide.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://www.electronicdesign.com/archive/article/21760483/is-it-always-a-bad-idea-to-add-resources-to-a-late-project",
     "id": "Q21",
     "method": "origin",
+    "quote_sha256": "8d2a91b1259fd95e13d58018abfcc34aaedd20dd37235f1543430082c13d1f59",
     "result": "matched",
     "score": 1.0,
     "sha256": "4512ec6a4d61bd7ef9b69e2c548508c83eb7f92d574d4ad31352b001ee995cae",
@@ -231,10 +273,12 @@
     "url": "https://www.electronicdesign.com/archive/article/21760483/is-it-always-a-bad-idea-to-add-resources-to-a-late-project"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://web.archive.org/web/20261009053555id_/https://www.iso.org/news/2026/09/ISO9001-2026",
     "id": "Q22",
     "method": "archive",
+    "quote_sha256": "8f04766d373557145c17ea978f44fe2e296e84df74e94b5a7d0c857a51c76401",
     "result": "matched",
     "score": 1.0,
     "sha256": "f21daa2fd8837d51f7d37b7411522c4192f69df6047be2748fb46ace43b2d2df",
@@ -242,10 +286,12 @@
     "url": "https://www.iso.org/news/2026/09/ISO9001-2026"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://irp.fas.org/doddir/army/adp6_0.pdf",
     "id": "Q23",
     "method": "origin",
+    "quote_sha256": "f546e64ddb9edae64179c37c06bf903f48c46af20d36ba0ffb8e9ce244f7323c",
     "result": "matched",
     "score": 1.0,
     "sha256": "7405ec17c47a07b1f7d62fabfb08d1d13eb20ff5758058cc17a101770df86b49",
@@ -253,10 +299,12 @@
     "url": "https://irp.fas.org/doddir/army/adp6_0.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://web.archive.org/web/20250809153707id_/https://www.pmi.org/standards/pmbok/about",
     "id": "Q24",
     "method": "archive",
+    "quote_sha256": "883a8d2f1c99a29b83c813ccb8302ee25a973c927bd6eff76dbb63f00c5ba0d0",
     "result": "paid",
     "score": 0.399,
     "sha256": "629a5c750e8a2120006b39a64f8adbbc71656a6b6b14af9b5b37da1d62a7df36",
@@ -264,10 +312,12 @@
     "url": "https://www.pmi.org/standards/pmbok/about"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": null,
     "final_url": null,
     "id": "Q25",
     "method": null,
+    "quote_sha256": "0cb8c3ed27007e19808ef5f3bff1a970d397a7b67b0ec4e0fde84485c475a9ce",
     "result": "blocked",
     "score": null,
     "sha256": null,
@@ -275,10 +325,12 @@
     "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32019L1937"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://training.fema.gov/emiweb/is/is700b/handouts/national_incident_management%20system_third%20edition_october_2017.pdf",
     "id": "Q26",
     "method": "origin",
+    "quote_sha256": "477da48d3b26ddcf43033d7c8292c8bda51d775622bbca6d0761d496bb123bac",
     "result": "matched",
     "score": 1.0,
     "sha256": "5496c912f312ffac5547ede249e9aec590ec2d176c260d243cdb6391ed702930",
@@ -286,10 +338,12 @@
     "url": "https://training.fema.gov:443/EMIWeb/IS/IS700b/Handouts/National_Incident_Management%20System_Third%20Edition_October_2017.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://www.coso.org/_files/ugd/3059fc_61ea5985b03c4293960642fdce408eaa.pdf",
     "id": "Q27",
     "method": "origin",
+    "quote_sha256": "358a02cb7b7e1128cb43e51ce120e3808940ee63ac6617c106f5f5ca77eb5270",
     "result": "matched",
     "score": 1.0,
     "sha256": "2d4809dd09687d701944987f65ca6ddc39074a00236abebfd436d79f4563abd1",
@@ -297,10 +351,12 @@
     "url": "https://www.coso.org/_files/ugd/3059fc_61ea5985b03c4293960642fdce408eaa.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://dejure.org/gesetze/HGB/239.html",
     "id": "Q28",
     "method": "origin",
+    "quote_sha256": "a7048680774aaac1ac6014612b9a366f68b816c96d9c5a7a74064451255f2e41",
     "result": "matched",
     "score": 1.0,
     "sha256": "292b8615207d33886809f25ffd1b463f85c3d53c6343d7ca6a9aa112138e1e99",
@@ -308,10 +364,12 @@
     "url": "https://dejure.org/gesetze/HGB/239.html"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://arxiv.org/pdf/1302.3642",
     "id": "Q29",
     "method": "origin",
+    "quote_sha256": "74b766ae4b63a8ab66cfc292860e32e0f3ea2dee597a31f2bc9968a581183632",
     "result": "matched",
     "score": 1.0,
     "sha256": "2c893d23d76c319142e7ed7a71a62f6ba367817e0a71fa8e289927178333025d",
@@ -319,10 +377,12 @@
     "url": "https://arxiv.org/pdf/1302.3642"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://www.coso.org/_files/ugd/3059fc_61ea5985b03c4293960642fdce408eaa.pdf",
     "id": "Q30",
     "method": "origin",
+    "quote_sha256": "c323b23dd539cbd0ce3d6bc21180bac91c2e199c561d2c6077fe5119fa800a4b",
     "result": "matched",
     "score": 1.0,
     "sha256": "2d4809dd09687d701944987f65ca6ddc39074a00236abebfd436d79f4563abd1",
@@ -330,10 +390,12 @@
     "url": "https://www.coso.org/_files/ugd/3059fc_61ea5985b03c4293960642fdce408eaa.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": null,
     "final_url": null,
     "id": "Q31",
     "method": null,
+    "quote_sha256": "77d4ef6aede63be129b6c2c094cd94ae07d1faab75ed8cfe41bfbef7f426128d",
     "result": "blocked",
     "score": null,
     "sha256": null,
@@ -341,10 +403,12 @@
     "url": "https://www.oecd.org/en/publications/oecd-due-diligence-guidance-for-responsible-business-conduct_15f5f4b3-en.html"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://hbr.org/2007/09/performing-a-project-premortem",
     "id": "Q32",
     "method": "origin",
+    "quote_sha256": "df01a6e4d3ec51de0077bd663c1b9337fd17df0a1b666f0135466ebd5a12fcdc",
     "result": "paid",
     "score": 0.478,
     "sha256": "5c2b6db9267781bc9defa49d54622e80fb830b2d9599c63192bb16d0f4c4e802",
@@ -352,10 +416,12 @@
     "url": "https://hbr.org/2007/09/performing-a-project-premortem"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://agilemanifesto.org/principles",
     "id": "Q33",
     "method": "origin",
+    "quote_sha256": "0e0dd70e755fa055d567d037e2e2e1fc7c405dc0da9ab1487054cd14a31c22c3",
     "result": "matched",
     "score": 1.0,
     "sha256": "efe1d58c7729d5698a3aa25a7bb991aa3f74edd387734c77db29798f1b9c89ee",
@@ -363,10 +429,12 @@
     "url": "https://agilemanifesto.org/principles"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://gdpr-info.eu/art-5-gdpr/",
     "id": "Q34",
     "method": "origin",
+    "quote_sha256": "eeccef09ecf4053ff4a57590c5d4164a0b0ce154ee7f347acc23fce8ead82d1f",
     "result": "matched",
     "score": 1.0,
     "sha256": "54dbcaf175d5a9edf585f16e8be6234c2aa63bcf196898084b7da1a0cceb895b",
@@ -374,10 +442,12 @@
     "url": "https://gdpr-info.eu/art-5-gdpr/"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://rework.withgoogle.com/intl/en/guides/understand-team-effectiveness",
     "id": "Q35",
     "method": "origin",
+    "quote_sha256": "9ea37e0b1d4fb1234f0eb68c48094ea7c3fa6164ae4427440a0ad1ff93abf5d1",
     "result": "matched",
     "score": 1.0,
     "sha256": "3c328058b0ac0a1d144373cb268b13ad7633824563d80544319027e60e7515d2",
@@ -385,10 +455,12 @@
     "url": "https://rework.withgoogle.com/intl/en/guides/understand-team-effectiveness"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://www.who.int/news/item/17-05-2021-long-working-hours-increasing-deaths-from-heart-disease-and-stroke-who-ilo",
     "id": "Q36",
     "method": "origin",
+    "quote_sha256": "b2d6597c89a05befa15cf400b537361636bf85b079a94138cf1282aafd90646c",
     "result": "matched",
     "score": 1.0,
     "sha256": "270999abfd62ff0e5b9d10291cbc99e6700e4a0c6a1361ac941c23538af8d836",
@@ -396,10 +468,12 @@
     "url": "https://www.who.int/news/item/17-05-2021-long-working-hours-increasing-deaths-from-heart-disease-and-stroke-who-ilo"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://training.fema.gov/emiweb/is/is700b/handouts/national_incident_management%20system_third%20edition_october_2017.pdf",
     "id": "Q37",
     "method": "origin",
+    "quote_sha256": "c0187a66de70e99f3e0b06b299013f5de81a691fffc3e4386f68d8bc941f6d89",
     "result": "matched",
     "score": 1.0,
     "sha256": "5496c912f312ffac5547ede249e9aec590ec2d176c260d243cdb6391ed702930",
@@ -407,10 +481,12 @@
     "url": "https://training.fema.gov:443/EMIWeb/IS/IS700b/Handouts/National_Incident_Management%20System_Third%20Edition_October_2017.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://web-docs.stern.nyu.edu/executive/The%20Surprising%20Power%20of%20Online%20Experiments.pdf",
     "id": "Q38",
     "method": "origin",
+    "quote_sha256": "89024b0e8da82b20dc4f7f43ff9aaa0b3cba162bb25cc98080d77c7fc8ac8c2b",
     "result": "matched",
     "score": 1.0,
     "sha256": "01fd677a7c99dcd9a2efc8f4ad350c321dcc9bb0d5be439b9591bd2a9fd41eb1",
@@ -418,10 +494,12 @@
     "url": "https://web-docs.stern.nyu.edu/executive/The%20Surprising%20Power%20of%20Online%20Experiments.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://deming.org/explore/fourteen-points/",
     "id": "Q39",
     "method": "origin",
+    "quote_sha256": "a7bb510f0a40e0cfa01629da270d961ebc2ec799aa02387543b6f38145a9a83d",
     "result": "matched",
     "score": 1.0,
     "sha256": "83a8f88a0cdfe6ac4f1d04e3fd83babf95862e146ea47fc823474723e6d3c5f5",
@@ -429,10 +507,12 @@
     "url": "https://deming.org/explore/fourteen-points/"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": null,
     "final_url": null,
     "id": "Q40",
     "method": null,
+    "quote_sha256": "3a96886d48cf5235e802bd904a17cc3613c5a23c1bd6cc84df9db34ce7e1eb90",
     "result": "gone",
     "score": null,
     "sha256": null,
@@ -440,10 +520,12 @@
     "url": "https://cdn.presencis.com/regulations/iso-45001/article-8.1.2/"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://www.theiia.org/globalassets/documents/resources/the-iias-three-lines-model-an-update-of-the-three-lines-of-defense-july-2020/three-lines-model-updated-english.pdf",
     "id": "Q41",
     "method": "origin",
+    "quote_sha256": "ec3bf3c0342f248324d859e12f3d085766c016dcd131a3d16b8fe5e38ce7b350",
     "result": "matched",
     "score": 1.0,
     "sha256": "50cc010b87c91214291a43da5cefd71e93d98831b59b8ebdd0985a8bdc5d6a91",
@@ -451,10 +533,12 @@
     "url": "https://www.theiia.org/globalassets/documents/resources/the-iias-three-lines-model-an-update-of-the-three-lines-of-defense-july-2020/three-lines-model-updated-english.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://www.charteredaccountants.ie/chariotindex/text/ec_2014_537/17.html",
     "id": "Q42",
     "method": "origin",
+    "quote_sha256": "27775d08e540350b973bb54bf04fe5013221bc3665150e08d20b184d0567d357",
     "result": "matched",
     "score": 1.0,
     "sha256": "f524ce780bec40deeab4ff4a142db5693b0f8f6bf7da7799ca3e0fb8909333d7",
@@ -462,10 +546,12 @@
     "url": "https://www.charteredaccountants.ie/chariotindex/text/ec_2014_537/17.html"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1027158/20210625-Red_Teaming_Handbook.pdf",
     "id": "Q43",
     "method": "origin",
+    "quote_sha256": "997feb8d0e37f6cb85d402e8a2c103129dffdb067bbd5a5bc2d8bfbedb8789a8",
     "result": "matched",
     "score": 1.0,
     "sha256": "410d8f63d44cabce631633634a40ad6ecdfb3af72667862466786d80d0cf03ef",
@@ -473,10 +559,12 @@
     "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1027158/20210625-Red_Teaming_Handbook.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://committee.iso.org/news/ref2689.html",
     "id": "Q44",
     "method": "origin",
+    "quote_sha256": "25d9fdb4bf095616db27b5984b2b2fdfa2d79a0609496d8bf1b00cae6cd02c42",
     "result": "matched",
     "score": 1.0,
     "sha256": "8afd1098b18eefee6a5c9c6b2e1944feea53e50c26ef14b3dfb181718e820caf",
@@ -484,10 +572,12 @@
     "url": "https://committee.iso.org/news/ref2689.html"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": null,
     "final_url": null,
     "id": "Q45",
     "method": null,
+    "quote_sha256": "7f4796d704dbbfdcf30d834c7536f749dffe8ea7328bd51ca1bcf01de031d163",
     "result": "no-quote",
     "score": null,
     "sha256": null,
@@ -495,10 +585,12 @@
     "url": "https://projectproduction.org/journal/reprint-littles-law-as-viewed-on-its-50th-anniversary/"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://www.thebci.org/static/cf455e45-b2c2-4a44-b77da7c99fd6df77/BCI-GPG-2018-Edition.pdf",
     "id": "Q46",
     "method": "origin",
+    "quote_sha256": "de99f057b255bc42ec496f9377d5a1210a0573db6211f8ed75e1de30cb2ec582",
     "result": "matched",
     "score": 1.0,
     "sha256": "3840619c17b290f083bf28e074f0830cca8b596b29e9268e72f3e11048b72948",
@@ -506,10 +598,12 @@
     "url": "https://www.thebci.org/static/cf455e45-b2c2-4a44-b77da7c99fd6df77/BCI-GPG-2018-Edition.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://scrumguides.org/scrum-guide.html",
     "id": "Q47",
     "method": "origin",
+    "quote_sha256": "7a47872630c4550845d590fc5d3151159a90abe2d282af715c2912dca703a3a3",
     "result": "matched",
     "score": 1.0,
     "sha256": "64aade688c3f2bceb1051268310e1cdcf503ac424e052a07414f60cabea8bcc0",
@@ -517,10 +611,12 @@
     "url": "https://scrumguides.org/scrum-guide.html"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://doc.cat-v.org/economics/parkinsons-law/",
     "id": "Q48",
     "method": "origin",
+    "quote_sha256": "cdf08ce2555e7135be5eba2da324f21f9b2ed7e4695f8175775a76c202ea2f94",
     "result": "matched",
     "score": 1.0,
     "sha256": "275a6ca0e24b14860cd037907d7ca55da2bab524475969e446bc573766cbf0aa",
@@ -528,10 +624,12 @@
     "url": "https://doc.cat-v.org/economics/parkinsons-law"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://courses.ie.bilkent.edu.tr/ie102/wp-content/uploads/sites/12/2019/02/Lee-Padmanabhan-Whang-1997-MS.pdf",
     "id": "Q49",
     "method": "origin",
+    "quote_sha256": "61fa4b7f0fb6307d8a8500e0aa000682bc94d7c87ce559b606d1a7a09e97549d",
     "result": "matched",
     "score": 1.0,
     "sha256": "178b8c836d7748122f45b4463affa348fa3ed0c58d2bf4d98724133ee886329b",
@@ -539,10 +637,12 @@
     "url": "https://courses.ie.bilkent.edu.tr/ie102/wp-content/uploads/sites/12/2019/02/Lee-Padmanabhan-Whang-1997-MS.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://purplegriffon.com/blog/prince2-7th-edition-principles",
     "id": "Q50",
     "method": "origin",
+    "quote_sha256": "f3cc0a58118e0f15a2373311375041e37be9b1eb5280b16bac98a461df838ef6",
     "result": "matched",
     "score": 1.0,
     "sha256": "22e1a4eafb87a8bb205c6c3812231ae6837437ffbe07a6629d7ec0a1703a2b5e",
@@ -550,10 +650,12 @@
     "url": "https://purplegriffon.com/blog/prince2-7th-edition-principles"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://dora.dev/capabilities/working-in-small-batches/",
     "id": "Q51",
     "method": "origin",
+    "quote_sha256": "ea3e360d5a66e21c3861cc77981b2c63c77677ec8b35d6ee709d6f000b47c431",
     "result": "matched",
     "score": 1.0,
     "sha256": "6b43fddc441be5fbf6f5c1e523e130b4e803d10c4d25725d7c7ea4835638af6e",
@@ -561,10 +663,12 @@
     "url": "https://dora.dev/capabilities/working-in-small-batches/"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://www.interruptions.net/literature/Mark-CHI08.pdf",
     "id": "Q52",
     "method": "origin",
+    "quote_sha256": "ff1925058eaa54c8331ae33b4b2f8395755010aee9154f67fed273cb6090dfd5",
     "result": "matched",
     "score": 1.0,
     "sha256": "0f8a2a943c3e62e3fbbd0ebab7d09d6b923b9a268fd8625c3da5b48407fa9b53",
@@ -572,10 +676,12 @@
     "url": "https://www.interruptions.net/literature/Mark-CHI08.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://web.archive.org/web/20250208085543id_/https://apps.dtic.mil/sti/pdfs/ADA368651.pdf",
     "id": "Q53",
     "method": "archive",
+    "quote_sha256": "986faf2952520c1f882e79450b1e27d2ccd1fc4d24b6b856ee8e108e9987fbfb",
     "result": "matched",
     "score": 1.0,
     "sha256": "24684a5db8602998a54a1404bdda318dc2c51afd17a93461a978e81c0b0e727d",
@@ -583,10 +689,12 @@
     "url": "https://apps.dtic.mil/sti/pdfs/ADA368651.pdf"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://agilemanifesto.org/principles",
     "id": "Q54",
     "method": "origin",
+    "quote_sha256": "75aae096f30dabdfcb64050833965898a302be78d16abb1866966c83f4ee32f1",
     "result": "matched",
     "score": 1.0,
     "sha256": "efe1d58c7729d5698a3aa25a7bb991aa3f74edd387734c77db29798f1b9c89ee",
@@ -594,10 +702,12 @@
     "url": "https://agilemanifesto.org/principles"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": "2026-10-25",
     "final_url": "https://www.globalsecurity.org/space/library/report/2003/caib-report_vol-1_august2003.htm",
     "id": "Q55",
     "method": "origin",
+    "quote_sha256": "aa00b16dbbb7724daf72433601b5026fd55fbb8e326140eba643db5a5e30b920",
     "result": "matched",
     "score": 1.0,
     "sha256": "9612a1efa0b21e70b9b122168685fc6371c2ee2b0e9d9d5e8d142902ccc148d6",
@@ -605,10 +715,12 @@
     "url": "https://www.globalsecurity.org/space/library/report/2003/caib-report_vol-1_august2003.htm"
   },
   {
+    "checked": "2026-10-14",
     "fetched_at": null,
     "final_url": null,
     "id": "Q56",
     "method": null,
+    "quote_sha256": "feac68fc29ef6b075411505590b2cbb496cae98c7258a31cd884b4ef858909fa",
     "result": "gone",
     "score": null,
     "sha256": null,
