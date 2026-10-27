@@ -8,6 +8,7 @@ import hashlib
 import http.client
 import io
 import json
+import shutil
 import urllib.error
 import urllib.request
 from collections.abc import Callable, Mapping
@@ -131,6 +132,13 @@ def test_normalize_nfkc_soft_hyphen_and_breaks() -> None:
 def test_hyphen_variants_match() -> None:
     hay = vs.normalize("a state‑of‑the art  exam-\nple")
     assert vs.score_segment("state-of-the-art example", hay) == 1.0
+
+
+def test_normalize_modifier_letter_apostrophe() -> None:
+    # CAIB PDF text spells apostrophes U+02BC; the quote uses a plain one.
+    hay = vs.normalize("the Boardʼs findings were clear")
+    assert vs.normalize("Board's") == vs.normalize("Boardʼs") == 'board"s'
+    assert vs.score_segment("the Board's findings were clear", hay) == 1.0
 
 
 def test_quoted_segments() -> None:
@@ -321,6 +329,7 @@ REGISTRY = """\
 
 
 def repo_with(repo: Path, quotes: str = QUOTES) -> Path:
+    shutil.rmtree(repo / "data" / "learn", ignore_errors=True)  # live cases
     seed_repo(repo, quotes)
     (repo / "sources" / "verification.json").unlink(missing_ok=True)
     (repo / "data" / "sources.yaml").write_text(REGISTRY, encoding="utf-8")
@@ -337,7 +346,7 @@ def run_cli(repo: Path, transport: FakeTransport, *args: str) -> int:
         transport=transport,
         throttle=vs.Throttle(0, clock.now, clock.sleep),
         update_manifest="--update-manifest" in args,
-        only={a for a in args if a.startswith("Q")} or None,
+        only={a for a in args if a.startswith(("Q", "case-"))} or None,
         sleep=clock.sleep,
         echo=lambda _s: None,
     )
@@ -421,6 +430,111 @@ def test_manifest_deterministic_and_merged(repo: Path) -> None:
         "Q2",
         "Q3",
     ]
+
+
+CASES = """\
+- id: case-demo
+  title: Demo
+  year: 2000
+  summary: s
+  rules: [P1]
+  lessons: [{rule: P1, text: t}]
+  quotes:
+  - source: alpha
+    text: the context of creating, preserving, and realizing value
+  - source: beta
+    text: this sentence is not in the page at all
+"""
+
+
+def seed_cases(repo: Path) -> None:
+    cases = repo / "data" / "learn" / "cases"
+    cases.mkdir(parents=True)
+    (cases / "1.yaml").write_text(CASES, encoding="utf-8")
+
+
+def test_case_quotes_are_collected_and_keyed(repo: Path) -> None:
+    repo_with(repo)
+    seed_cases(repo)
+    got = vs.case_quotes(repo)
+    assert [q["id"] for q in got] == ["case-demo#1", "case-demo#2"]
+    assert got[0]["source"] == "alpha" and got[0]["verbatim"]
+    assert vs.case_quotes(repo / "nowhere") == []
+
+
+def test_case_quote_ids_sort_numerically() -> None:
+    ids = ["case-b#1", "case-a#10", "case-a#2", "Q10", "Q2"]
+    assert sorted(ids, key=vs._id_key) == [
+        "Q2",
+        "Q10",
+        "case-a#2",
+        "case-a#10",
+        "case-b#1",
+    ]
+
+
+def test_case_quotes_verified_and_recorded(repo: Path) -> None:
+    repo_with(repo)
+    seed_cases(repo)
+    t = FakeTransport(
+        {
+            "https://a.example/": [ok(PAGE)],
+            "https://b.example/": [ok(PAGE)],
+            "https://g.example/": [status(403)],
+        }
+    )
+    # The unfound case quote fails the job like a rule quote.
+    assert run_cli(repo, t, "--update-manifest", "case-demo#1", "case-demo#2") == 1
+    data = {
+        e["id"]: e
+        for e in json.loads(
+            (repo / "sources" / "verification.json").read_text(encoding="utf-8")
+        )
+    }
+    assert set(data) == {"case-demo#1", "case-demo#2"}
+    assert data["case-demo#1"]["result"] == "matched"
+    assert data["case-demo#1"]["score"] == 1.0
+    assert data["case-demo#1"]["source"] == "alpha"
+    assert data["case-demo#2"]["result"] in ("near-miss", "not-found")
+
+
+def test_cases_only_skips_rule_quotes(repo: Path) -> None:
+    repo_with(repo)
+    seed_cases(repo)
+    t = FakeTransport(
+        {"https://a.example/": [ok(PAGE)], "https://b.example/": [ok(PAGE)]}
+    )
+    code = vs.run(
+        repo,
+        cache_dir=repo / "build" / "cache",
+        manifest=repo / "sources" / "verification.json",
+        update_manifest=True,
+        cases_only=True,
+        transport=t,
+        throttle=vs.Throttle(0, Clock().now, Clock().sleep),
+        echo=lambda _s: None,
+    )
+    assert code == 1
+    ids = [
+        e["id"]
+        for e in json.loads(
+            (repo / "sources" / "verification.json").read_text(encoding="utf-8")
+        )
+    ]
+    assert ids == ["case-demo#1", "case-demo#2"]
+
+
+def test_manifest_prunes_removed_case_quotes(repo: Path) -> None:
+    repo_with(repo)
+    seed_cases(repo)
+    path = repo / "sources" / "verification.json"
+    path.write_text(
+        json.dumps([{"id": "case-gone#1", "result": "matched"}]), encoding="utf-8"
+    )
+    t = FakeTransport({"https://a.example/": [ok(PAGE)]})
+    run_cli(repo, t, "--update-manifest", "case-demo#1")
+    ids = [e["id"] for e in json.loads(path.read_text(encoding="utf-8"))]
+    assert ids == ["case-demo#1"]
 
 
 def test_manifest_not_written_without_flag(repo: Path) -> None:
