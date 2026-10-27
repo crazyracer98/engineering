@@ -37,10 +37,19 @@ must match in order. Per source it tries the cache, the origin `url`,
   per-host delay of at least 2 s and an identifying User-Agent.
 - `verification.json` is the committed manifest: per quote the URL, final
   URL, method (`origin | via | archive`), fetch date, SHA-256 of the fetched
-  bytes, result and score. No text. Only `--update-manifest` writes it.
+  bytes, result and score, plus `quote_sha256` (SHA-256 of the normalized
+  quote text) and `checked` (the date the check is dated to: 2026-10-14 for
+  rule quotes, 2026-10-27 for case quotes). No text. Only `--update-manifest`
+  writes it.
+- Every run reports manifest entries out of step with the current quotes:
+  `stale` (the quote text no longer matches `quote_sha256`, or the entry has
+  none: re-verify needed) and `orphaned` (the quote ID no longer exists or is a
+  placeholder; `--update-manifest` prunes it). Both are only reported.
 - Results: `matched`; `not-found` / `near-miss (score)` fail the run (exit 1);
   `blocked`, `gone`, `timeout`, `unreadable` and `paid` (paid source whose
-  fetched page lacks the quote) are only reported (exit 0).
+  fetched page lacks the quote) are only reported (exit 0). A passage with no
+  scorable part (under 4 letters or digits per part) is `no-quote`, never
+  `matched`. `--only` / `--explain` with an unknown ID exit 2 and name it.
 - When a fetched page lacks a passage the archive snapshot is tried before a failure is
   reported; private-use glyphs (bullets) are ignored. Quote marks (single, double, straight, curly) compare equal, and in PDF text a
   footnote marker glued to a word ("command12") is dropped.
