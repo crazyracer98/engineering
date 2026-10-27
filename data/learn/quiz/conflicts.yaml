@@ -85,7 +85,7 @@
 - id: q-k-05
   rules:
   - K3
-  stem: An API specification allows any ISO 8601 timestamp with a time zone offset and requires the timestamp field. One client sends 2026-10-26T10:00:00+02:00, another sends 2026-10-26T08:00:00Z, and a third sends no timestamp. P27 (robustness) and P33 (strict interfaces) seem to disagree. Which handling follows K3? Select all that apply.
+  stem: An API specification allows any ISO 8601 timestamp with a UTC offset or the Z suffix and requires the timestamp field. One client sends 2026-10-26T10:00:00+02:00, another sends 2026-10-26T08:00:00Z, and a third sends no timestamp. P27 (robustness) and P33 (strict interfaces) seem to disagree. Which handling follows K3? Select all that apply.
   options:
   - text: Accept the message with the +02:00 offset, because the specification allows it.
     correct: true
@@ -164,7 +164,7 @@
     feedback: Wrong. This favors P83 over P73. K4 keeps the restart and makes the evidence capture quick.
   - text: Require a signed evidence form before any restart.
     correct: false
-    feedback: Wrong. A paper step adds delay beyond the time until harm (P73). K4 uses automation to keep the trade-off small.
+    feedback: Wrong. A manual paper step adds delay that can push recovery past the time until harm (P73). K4 uses automation to keep the trade-off small.
 - id: q-k-09
   rules:
   - K5
@@ -212,7 +212,7 @@
   options:
   - text: Give the restore a short checklist that the team confirms item by item.
     correct: true
-    feedback: 'Right. K6 prescribes the method where P71 applies: a critical procedure that is rare or done under time pressure.'
+    feedback: Right. K6's own example prescribes the restore checklist, a rare and critical procedure where P71 applies.
   - text: Give the onboarding task as purpose, end state and constraints only.
     correct: true
     feedback: Right. K6 says everywhere else, give intent and constraints, as P7 asks.
@@ -247,7 +247,7 @@
     feedback: Wrong. K6 warns that free methods at critical points remove proven protections (P72).
   - text: Add a checklist (P71) to every step, since checklists are cheap.
     correct: false
-    feedback: Wrong. P71 applies to critical procedures that are rare, complex or under pressure. K6 limits prescription to those points.
+    feedback: Wrong. P71 applies to critical procedures that are rare, complex or under pressure. K6 limits prescription to critical control points, qualified or regulated procedures and what the rigor matrix requires.
 - id: q-k-13
   rules:
   - K7
@@ -258,16 +258,16 @@
     feedback: 'Right. K7: honest errors and system weaknesses are treated without blame (P80, P5).'
   - text: Treat the deliberate bypass through a defined, fair disciplinary procedure.
     correct: true
-    feedback: Right. K7 sends deliberate violations to a disciplinary procedure, because P43 and the controls lose their force otherwise.
+    feedback: Right. K7 sends deliberate violations, such as bypassing the two-person rule (P42), to a disciplinary procedure. Without a consequence, accountability (P43, P2) and the controls lose their force.
   - text: Discipline both engineers, so that accountability is clear.
     correct: false
-    feedback: Wrong. K7 says blame for honest errors hides information. Punishing the wrong command breaks P5.
+    feedback: Wrong. The wrong command was an honest error. K7 treats honest errors without blame, because blame hides information (P5, P80).
   - text: Run a blameless review for both, because P5 means no one is punished.
     correct: false
     feedback: Wrong. K7 warns that no consequence for deliberate violations destroys trust and controls (P43).
   - text: Give the wrong-command engineer a mild warning as an example, and keep the postmortem.
     correct: false
-    feedback: Wrong. A warning is still blame for an honest error. K7 and P5 never punish an honest report.
+    feedback: Wrong. A warning is still blame for an honest error, and K7 treats honest errors without blame (P5, P80).
 - id: q-k-14
   rules:
   - K7
@@ -287,7 +287,7 @@
     feedback: Wrong. K7 reserves the procedure for deliberate violations, reckless behavior and fraud, and this was an honest slip.
   - text: Skip the analysis, because no harm happened.
     correct: false
-    feedback: Wrong. P80 asks for system-level analysis of failures, and K7 keeps it for honest errors. A near miss shows a weakness.
+    feedback: Wrong. P82 asks you to investigate anomalies even if nobody was harmed, and K7 keeps that analysis blameless for honest errors. A near miss shows a weakness.
 - id: q-k-15
   rules:
   - K8
