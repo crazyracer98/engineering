@@ -1,5 +1,30 @@
 # History
 
+## 1.1.0 (learning hub)
+
+Version 1.1.0 adds a way to learn the rules, not only look them up. It is a
+minor edition under ADR 0004: it adds content and changes no rule, no rule ID
+and no field of the dataset. It is dated 2026-10-27.
+
+The new content is on the site only:
+
+- a worked example for each of the 83 rules, with a management variant for
+  the 67 rules that have a management form;
+- one example for each of the 130 domain rows;
+- 27 real cases that cover 44 rules, with 198 verbatim quotes from their
+  sources;
+- 193 multi-select quiz questions, in a quiz for each of the 9 categories, a
+  quiz on the 8 conflict rules and a mixed test of 10 random questions.
+
+Examples are illustrative and are not evidence. Case quotes are checked
+against their sources the same way as rule quotes (ADR 0006), using
+`verify_sources`. The examples, cases and questions are data in `data/learn/`
+(ADR 0008).
+
+The paper, the single-file Markdown and the YAML release asset carry no
+learning content; only their edition number and date change. Learning content
+may be added to them in a later minor edition.
+
 ## 1.0.0 (first edition)
 
 Version 1.0.0 is the first published edition of this taxonomy. There is no

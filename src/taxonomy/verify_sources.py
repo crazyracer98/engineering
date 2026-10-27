@@ -1,5 +1,8 @@
 """Check that each quote in ``data/quotes.yaml`` appears in its fetched source.
 
+Case quotes (``quotes[]`` of ``data/learn/cases/*.yaml``, ID ``<case id>#<n>``)
+go through the same path, each as one verbatim passage.
+
 ``run`` backs ``taxonomy verify-sources``. Per source it tries the cache, the
 origin URL, ``via.url`` and finally the Internet Archive snapshot closest to
 :data:`CHECKED_TIMESTAMP`, extracts the text (HTML, PDF or plain), normalizes
@@ -31,7 +34,7 @@ from typing import Any, Protocol, cast
 
 from pypdf import PdfReader
 
-from taxonomy.load import load_registry, load_yaml
+from taxonomy.load import load_learn, load_registry, load_yaml
 from taxonomy.model import Source
 
 logging.getLogger("pypdf").setLevel(logging.ERROR)  # font warnings drown the report
@@ -89,6 +92,7 @@ _QUOTE_MAP = str.maketrans(
         "’": '"',
         "‚": '"',
         "‛": '"',
+        "ʼ": '"',  # U+02BC modifier letter apostrophe (CAIB PDF text)
         "′": '"',
         "“": '"',
         "”": '"',
@@ -743,9 +747,15 @@ def _forget_fetch(res: QuoteResult) -> None:
     res.from_cache = False
 
 
-def _id_key(qid: str) -> tuple[int, str]:
+def _id_key(qid: str) -> tuple[int, str, int]:
+    """Rule quotes (``Q12``) by number, then case quotes (``case-x#3``) by case."""
     m = re.fullmatch(r"Q(\d+)", qid)
-    return (int(m.group(1)) if m else 10**9, qid)
+    if m:
+        return (int(m.group(1)), "", 0)
+    c = re.fullmatch(r"(.+)#(\d+)", qid)
+    if c:
+        return (10**9, c.group(1), int(c.group(2)))
+    return (10**9 + 1, qid, 0)
 
 
 class Verifier:
@@ -777,8 +787,14 @@ class Verifier:
         slug = str(quote["source"])
         src = self.registry[slug]
         res = QuoteResult(qid, slug, src["url"], "matched")
-        segments = quoted_segments(str(quote["text"]))
-        if not segments:
+        # A case quote is one verbatim passage; a rule quote cell marks its
+        # passages with double quotes.
+        segments = (
+            [str(quote["text"])]
+            if quote.get("verbatim")
+            else quoted_segments(str(quote["text"]))
+        )
+        if not segments or not any(c.isalnum() for c in segments[0]):
             res.result = "no-quote"
             res.detail = "no double-quoted passage in the cell"
             return res
@@ -928,7 +944,12 @@ class Verifier:
                 )
             else:
                 texts.append((slug, text))
-        for seg in quoted_segments(str(quote["text"])):
+        segs = (
+            [str(quote["text"])]
+            if quote.get("verbatim")
+            else quoted_segments(str(quote["text"]))
+        )
+        for seg in segs:
             lines.append(f"passage: {_snippet(seg, 600)}")
             for part in split_ellipsis(seg):
                 lines.append(f"  part (normalized): {part}")
@@ -1060,8 +1081,32 @@ def render_report(results: Sequence[QuoteResult]) -> str:
 # --------------------------------------------------------------------------
 
 
+def case_quotes(root: Path) -> list[Mapping[str, Any]]:
+    """Every ``quotes[]`` entry of ``data/learn/cases/*.yaml`` as a verifiable quote.
+
+    The ID is ``<case id>#<n>`` (n counts from 1, in file order). The whole
+    ``text`` is one verbatim passage (``verbatim``), so it is checked without
+    surrounding double quotes.
+    """
+    out: list[Mapping[str, Any]] = []
+    for case in load_learn(root).cases:
+        for n, q in enumerate(case.get("quotes", []), start=1):
+            out.append(
+                {
+                    "id": f"{case['id']}#{n}",
+                    "source": q["source"],
+                    "text": q["text"],
+                    "verbatim": True,
+                }
+            )
+    return out
+
+
 def _load_quotes(root: Path) -> list[Mapping[str, Any]]:
-    return cast("list[Mapping[str, Any]]", load_yaml(root / "data" / "quotes.yaml"))
+    rule_quotes = cast(
+        "list[Mapping[str, Any]]", load_yaml(root / "data" / "quotes.yaml")
+    )
+    return [*rule_quotes, *case_quotes(root)]
 
 
 def run(
@@ -1070,6 +1115,7 @@ def run(
     cache_dir: Path,
     offline: bool = False,
     only: set[str] | None = None,
+    cases_only: bool = False,
     manifest: Path,
     update_manifest: bool = False,
     report: Path | None = None,
@@ -1096,6 +1142,8 @@ def run(
         return 0
     all_quotes = _load_quotes(root)
     quotes = verifiable_quotes(all_quotes, only)
+    if cases_only:
+        quotes = [q for q in quotes if q.get("verbatim")]
     results: list[QuoteResult] = []
     for q in quotes:
         results.append(verifier.verify(q))

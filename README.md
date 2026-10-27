@@ -18,6 +18,9 @@ template sync) inherited from
 
 Read the [site](https://crazyracer98.github.io/engineering/) or download
 the [PDF paper](https://github.com/crazyracer98/engineering/releases/latest/download/engineering-best-practices.pdf).
+Learn the rules with worked examples and real cases in the
+[Learn section](https://crazyracer98.github.io/engineering/learn/), then test
+yourself in the [Quiz section](https://crazyracer98.github.io/engineering/quiz/).
 Each release also attaches `engineering-best-practices.md`,
 `engineering-best-practices.yaml` and `references.json` (CSL-JSON).
 
@@ -43,13 +46,13 @@ edition (see `data/meta.yaml`) and release year you read.
   author       = {crazyracer98 and Claude},
   title        = {Engineering Best Practices --- Cross-Domain Taxonomy},
   year         = {2026},
-  edition      = {1.0.0},
+  edition      = {1.1.0},
   howpublished = {\url{https://github.com/crazyracer98/engineering}},
 }
 ```
 
 > crazyracer98, with Claude, *Engineering Best Practices --- Cross-Domain
-> Taxonomy*, edition 1.0.0, 2026. [Online]. Available:
+> Taxonomy*, edition 1.1.0, 2026. [Online]. Available:
 > https://github.com/crazyracer98/engineering
 
 ## License

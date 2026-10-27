@@ -73,6 +73,7 @@ def cmd_verify_sources(root: Path, args: argparse.Namespace) -> int:
         cache_dir=root / args.cache_dir,
         offline=args.offline,
         only=_ids(args.only),
+        cases_only=args.cases_only,
         explain=_ids(args.explain),
         manifest=root / args.manifest,
         update_manifest=args.update_manifest,
@@ -96,7 +97,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
     v.add_argument("--cache-dir", type=Path, default=Path("build/source-cache"))
     v.add_argument("--offline", action="store_true", help="use only the cache")
-    v.add_argument("--only", help="comma-separated quote IDs, e.g. Q12,Q13")
+    v.add_argument(
+        "--only", help="comma-separated quote IDs, e.g. Q12,case-ariane-501#2"
+    )
+    v.add_argument(
+        "--cases-only",
+        action="store_true",
+        help="check only the quotes of data/learn/cases/ (IDs <case id>#<n>)",
+    )
     v.add_argument("--manifest", type=Path, default=Path("sources/verification.json"))
     v.add_argument("--update-manifest", action="store_true", help="write the manifest")
     v.add_argument(
