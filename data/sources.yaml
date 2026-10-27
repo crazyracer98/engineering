@@ -2001,7 +2001,7 @@
   accessed: null
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
 - slug: auditor-training-online-iso-45001-clause-8-1-2
-  title: 'Auditor Training Online: ISO 45001 Clause 8.1.2, Eliminating hazards and reducing OH&S risks'
+  title: 'Auditor Training Online: ISO 45001 Clause 8.1.2, Eliminating hazards and reducing OH&S risks (2023)'
   author:
   - family: Stapleton
     given: Jackie
@@ -2431,7 +2431,7 @@
   accessed: '2026-10-27'
   notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the original report. The OMDEC host fails TLS (2026-10-27) and the DTIC record (ADA066579) refuses automated fetches, so the URL is the archived OMDEC copy; its title page says OMDEC updated and converted the report to this format in 2004. Authors checked on 2026-10-27 (issue #24) against that title page: F. Stanley Nowlan, Howard F. Heap, work performed by United Airlines for the Office of Assistant Secretary of Defense, December 29, 1978."
 - slug: kelley-origins-cpm-personal-history
-  title: 'Kelley: The Origins of CPM, a Personal History (PMI)'
+  title: 'Kelley, Walker & Sayer: The Origins of CPM, a Personal History (PM Network 1989, PMI)'
   author:
   - family: Kelley
     given: James E.

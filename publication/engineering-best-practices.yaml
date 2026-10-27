@@ -1221,7 +1221,7 @@ domains:
   references:
   - title: ISO 45001:2018 (catalogue page)
     url: https://www.iso.org/standard/63787.html
-  - title: 'Auditor Training Online: ISO 45001 Clause 8.1.2, Eliminating hazards and reducing OH&S risks'
+  - title: 'Auditor Training Online: ISO 45001 Clause 8.1.2, Eliminating hazards and reducing OH&S risks (2023)'
     url: https://blog.auditortrainingonline.com/blog/iso-45001-clause-8-1-2
 - branch: 'Management: Risk, resilience and legal'
   domain: Environmental management
@@ -4190,7 +4190,7 @@ rules:
   source_domain: construction management (critical path method)
   notes:
   sources:
-  - title: 'Kelley: The Origins of CPM, a Personal History (PMI)'
+  - title: 'Kelley, Walker & Sayer: The Origins of CPM, a Personal History (PM Network 1989, PMI)'
     url: https://www.pmi.org/learning/library/origins-cpm-personal-history-3762
   - title: 'Wikipedia: Critical path method'
     url: https://en.wikipedia.org/wiki/Critical_path_method
@@ -7520,7 +7520,7 @@ sources:
   accessed:
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
 - slug: auditor-training-online-iso-45001-clause-8-1-2
-  title: 'Auditor Training Online: ISO 45001 Clause 8.1.2, Eliminating hazards and reducing OH&S risks'
+  title: 'Auditor Training Online: ISO 45001 Clause 8.1.2, Eliminating hazards and reducing OH&S risks (2023)'
   author:
   - family: Stapleton
     given: Jackie
@@ -7950,7 +7950,7 @@ sources:
   accessed: '2026-10-27'
   notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the original report. The OMDEC host fails TLS (2026-10-27) and the DTIC record (ADA066579) refuses automated fetches, so the URL is the archived OMDEC copy; its title page says OMDEC updated and converted the report to this format in 2004. Authors checked on 2026-10-27 (issue #24) against that title page: F. Stanley Nowlan, Howard F. Heap, work performed by United Airlines for the Office of Assistant Secretary of Defense, December 29, 1978."
 - slug: kelley-origins-cpm-personal-history
-  title: 'Kelley: The Origins of CPM, a Personal History (PMI)'
+  title: 'Kelley, Walker & Sayer: The Origins of CPM, a Personal History (PM Network 1989, PMI)'
   author:
   - family: Kelley
     given: James E.
@@ -8347,7 +8347,7 @@ history:
   editions:
   - edition: 1.1.1
     date: '2026-10-27'
-    summary: "Source fixes; no rule changed. Two gone secondary sources are replaced and their quotes re-taken verbatim: the Sedona Conference Commentary on Legal Holds (2019) itself for the Troutman Pepper article (Q56, now primary), and an Auditor Training Online article reproducing ISO 45001 clause 8.1.2 for the Presencis page (Q40). The unreachable UCSD lecture notes are replaced by von Neumann's own 1952 lectures. Authors set from memory were checked against each work's record; the PMI CPM article gains its co-authors Walker and Sayer and is no longer marked paid, and Romero's given name is completed from the OSTI record. The National Academies precursor report (P82) now links to its committee summary chapter instead of an unrelated chapter. Dead links are fixed (catb.org over http, archived copies for the OECD toolbox and Nowlan & Heap); the FDA pages are live and unchanged. The three replaced sources leave the registry; their slugs are not reused."
+    summary: "Source fixes; no rule changed. Two gone secondary sources are replaced and their quotes re-taken verbatim: the Sedona Conference Commentary on Legal Holds (2019) itself for the Troutman Pepper article (Q56, now primary), and an Auditor Training Online article reproducing ISO 45001 clause 8.1.2 for the Presencis page (Q40). The unreachable UCSD lecture notes are replaced by von Neumann's own 1952 lectures. Authors set from memory were checked against each work's record; the PMI CPM article gains its co-authors Walker and Sayer and is no longer marked paid, and Romero's given name is completed from the OSTI record. The National Academies precursor report (P82) now links to its committee summary chapter instead of an unrelated chapter. Dead links are fixed (catb.org over http, archived copies for the OECD toolbox and Nowlan & Heap); the FDA pages are live, so their links are unchanged. The three replaced sources leave the registry; their slugs are not reused."
   - edition: 1.1.0
     date: '2026-10-27'
     summary: 'Learning hub on the site. It adds worked examples for all 83 rules (67 with a management variant), one domain example for each of the 130 domain rows, 27 real cited cases covering 44 rules with 198 verbatim quotes, and quizzes: 193 multi-select questions in 9 category quizzes, a conflict-rule quiz and a mixed test. Case quotes are now checked against their sources by verify-sources. No rule changed. The paper, the single-file Markdown and the YAML release asset carry no learning content; only their edition number and date change.'

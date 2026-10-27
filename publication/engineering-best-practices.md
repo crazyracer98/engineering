@@ -415,7 +415,7 @@ Each row names an engineering domain, the rules **found** in it, and the referen
 | Data protection | P36 Least privilege; P24 Lifecycle and decommissioning; P11 Trustworthy evidence | [GDPR Article 5 (text copy)](https://gdpr-info.eu/art-5-gdpr/) |
 | Records management and accounting | P11 Trustworthy evidence | [§ 239 HGB (text copy, dejure.org)](https://dejure.org/gesetze/HGB/239.html) [ISO 15489-1:2016 Records management (catalogue page)](https://www.iso.org/standard/62542.html) |
 | Litigation and investigations | P83 Preserve evidence | [The Sedona Conference: Commentary on Legal Holds, Second Edition: The Trigger & The Process (2019)](https://www.thesedonaconference.org/sites/default/files/publications/Commentary%20on%20Legal%20Holds.pdf) |
-| Occupational health and safety | P38 Hierarchy of controls | [ISO 45001:2018 (catalogue page)](https://www.iso.org/standard/63787.html) [Auditor Training Online: ISO 45001 Clause 8.1.2, Eliminating hazards and reducing OH&S risks](https://blog.auditortrainingonline.com/blog/iso-45001-clause-8-1-2) |
+| Occupational health and safety | P38 Hierarchy of controls | [ISO 45001:2018 (catalogue page)](https://www.iso.org/standard/63787.html) [Auditor Training Online: ISO 45001 Clause 8.1.2, Eliminating hazards and reducing OH&S risks (2023)](https://blog.auditortrainingonline.com/blog/iso-45001-clause-8-1-2) |
 | Environmental management | P3 Sustainability | [ISO 14001:2015, withdrawn, replaced by ISO 14001:2026 (catalogue page)](https://www.iso.org/standard/60857.html) |
 | Organizational accident research | P82 Investigate anomalies | [Columbia Accident Investigation Board report, Vol. 1 (2003), summary](https://www.globalsecurity.org/space/library/report/2003/caib-report_vol-1_august2003.htm) |
 
@@ -899,7 +899,7 @@ How to learn from failures and anomalies.
 | P64 | [arXiv: Controls and machine protection](https://arxiv.org/pdf/1608.02836); [arXiv: Agentic Configuration Management](https://arxiv.org/pdf/2608.11166); [OSHA 29 CFR 1910.119 (management of change)](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.119) |
 | P65 | [Google SRE Workbook: Canarying Releases](https://sre.google/workbook/canarying-releases/); [Flight Test Fact: The build-up approach](https://flighttestfact.com/the-build-up-approach/); [Quality Engineers Guide: Hold point and witness point](https://www.qualityengineersguide.com/what-is-witness-point-and-hold-point) |
 | P66 | [OSHA: Control of hazardous energy (lockout/tagout)](https://www.osha.gov/control-hazardous-energy) |
-| P67 | [Kelley: The Origins of CPM, a Personal History (PMI)](https://www.pmi.org/learning/library/origins-cpm-personal-history-3762); [Wikipedia: Critical path method](https://en.wikipedia.org/wiki/Critical_path_method) |
+| P67 | [Kelley, Walker & Sayer: The Origins of CPM, a Personal History (PM Network 1989, PMI)](https://www.pmi.org/learning/library/origins-cpm-personal-history-3762); [Wikipedia: Critical path method](https://en.wikipedia.org/wiki/Critical_path_method) |
 | P68 | [ICE: The observational method](https://knowledgehub.ice.org.uk/cpd/delivery-exc/observational-method/) |
 | P69 | [Kotter: Leading Change — Why Transformation Efforts Fail (HBR 1995, copy)](https://fcm.ucsf.edu/sites/g/files/tkssra17611/files/Kotter_WhyTransformationEffortsFail.pdf) |
 | P70 | [Google SRE: Monitoring distributed systems](https://sre.google/sre-book/monitoring-distributed-systems/); [TV Technology: Confidence monitors](https://www.tvtechnology.com/opinions/confidence-monitors) |
@@ -1035,7 +1035,7 @@ Each row states what a rule means when the "system" is an organization, a team, 
 
 ## 11. Direct quotes
 
-Rule quotes were checked against the linked page on 2026-10-14, except four re-checked on 2026-10-27 for edition 1.1.1, and case quotes on 2026-10-27. "…" marks text left out. Where the linked page is a copy, the original is named. Quotes for the engineering sources of rules P1–P4, P9–P17, P22–P34, P36–P42, P44–P51, P54–P61, P64–P68, P70–P78 and P80–P83 are given in the rule tables where they decide the evidence rating (for example P75, P34).
+Rule quotes were checked against the linked page on 2026-10-14, except those for P6 (OECD corporate governance), P38, P53 and P83, re-checked on 2026-10-27 for edition 1.1.1, and case quotes on 2026-10-27. "…" marks text left out. Where the linked page is a copy, the original is named. Quotes for the engineering sources of rules P1–P4, P9–P17, P22–P34, P36–P42, P44–P51, P54–P61, P64–P68, P70–P78 and P80–P83 are given in the rule tables where they decide the evidence rating (for example P75, P34).
 
 ### Master rule
 

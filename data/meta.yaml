@@ -168,7 +168,7 @@ sections:
 - key: quotes
   number: 11
   title: Direct quotes
-  intro: Rule quotes were checked against the linked page on 2026-10-14, except four re-checked on 2026-10-27 for edition 1.1.1, and case quotes on 2026-10-27. "…" marks text left out. Where the linked page is a copy, the original is named. Quotes for the engineering sources of rules P1–P4, P9–P17, P22–P34, P36–P42, P44–P51, P54–P61, P64–P68, P70–P78 and P80–P83 are given in the rule tables where they decide the evidence rating (for example P75, P34).
+  intro: Rule quotes were checked against the linked page on 2026-10-14, except those for P6 (OECD corporate governance), P38, P53 and P83, re-checked on 2026-10-27 for edition 1.1.1, and case quotes on 2026-10-27. "…" marks text left out. Where the linked page is a copy, the original is named. Quotes for the engineering sources of rules P1–P4, P9–P17, P22–P34, P36–P42, P44–P51, P54–P61, P64–P68, P70–P78 and P80–P83 are given in the rule tables where they decide the evidence rating (for example P75, P34).
   groups:
   - key: master_rule
     title: Master rule
