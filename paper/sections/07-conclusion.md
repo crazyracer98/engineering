@@ -30,6 +30,6 @@ and its coverage rests on a saturation argument that can only predict that
 few rules remain unfound [@saunders-2018-saturation]. These limits are
 stated with the sources, and the method that produced the taxonomy is
 described so that each of them can be checked or reduced by further work.
-Version 1.0.0 is released as an openly licensed, machine-checked dataset
+The taxonomy is released as an openly licensed, machine-checked dataset
 from which the published tables and this paper's results are generated, so
 that later editions can extend it without losing what is already sourced.

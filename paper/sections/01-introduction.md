@@ -93,8 +93,8 @@ scope and scales, collect, standardize, saturate coverage, move to a single
 machine-checked source, review the classification critically, and upgrade
 the sources. The taxonomy is released as a versioned dataset from which the
 tables, the rule cards and this paper's results are generated, with
-automated integrity checks. This paper describes version 1.0.0, and the
-release version is the edition number of the taxonomy.
+automated integrity checks. This paper describes the edition named on its
+title page, and the release version is the edition number of the taxonomy.
 
 The rest of the paper is organized as follows. Section 2 places the taxonomy
 among systems engineering principles, process standards and handbooks,

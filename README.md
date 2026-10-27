@@ -18,6 +18,9 @@ template sync) inherited from
 
 Read the [site](https://crazyracer98.github.io/engineering/) or download
 the [PDF paper](https://github.com/crazyracer98/engineering/releases/latest/download/engineering-best-practices.pdf).
+Learn the rules with worked examples and real cases in the
+[Learn section](https://crazyracer98.github.io/engineering/learn/), then test
+yourself in the [Quiz section](https://crazyracer98.github.io/engineering/quiz/).
 Each release also attaches `engineering-best-practices.md`,
 `engineering-best-practices.yaml` and `references.json` (CSL-JSON).
 

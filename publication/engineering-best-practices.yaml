@@ -5,8 +5,8 @@
 
 meta:
   title: Engineering Best Practices — Cross-Domain Taxonomy
-  edition: 1.0.0
-  date: '2026-10-14'
+  edition: 1.1.0
+  date: '2026-10-27'
   master_rule:
     scale: Scale the rigor of every rule to (consequence of failure) × (uncertainty).
     alarp: Keep reducing risk until the cost of the next reduction is grossly disproportionate to the benefit (ALARP).
@@ -8339,6 +8339,9 @@ sources:
   notes: Personal book notes (blog); edition 9 cites Gawande via these notes.
 history:
   editions:
+  - edition: 1.1.0
+    date: '2026-10-27'
+    summary: 'Learning hub on the site. It adds worked examples for all 83 rules (67 with a management variant), one domain example for each of the 130 domain rows, 27 real cited cases covering 44 rules with 198 verbatim quotes, and quizzes: 193 multi-select questions in 9 category quizzes, a conflict-rule quiz and a mixed test. Case quotes are now checked against their sources by verify-sources. No rule changed. The paper, the single-file Markdown and the YAML release asset are unchanged.'
   - edition: 1.0.0
     date: '2026-10-14'
     summary: 'First published edition of the taxonomy: 83 rules (58 universal, 9 risk-scaled, 16 conditional) and 8 conflict rules in 9 categories.'
