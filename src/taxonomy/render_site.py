@@ -200,7 +200,12 @@ def build(out: Path, root: Path | None = None, engine: str | None = None) -> Non
             str(out.resolve()),
         ]
     result = subprocess.run(
-        command, capture_output=True, text=True, env=env, check=False, cwd=root
+        command,
+        capture_output=True,
+        text=True,
+        env=env,
+        check=False,
+        cwd=root if engine == "zensical" else None,
     )
     if result.returncode:
         raise RuntimeError(f"{engine} build failed:\n{result.stdout}{result.stderr}")
