@@ -19,7 +19,8 @@ rule ID, rule text or field of the dataset changes. It is dated 2026-10-27.
 - Authors that had been set from memory were checked against each work's
   record page and recorded in the source notes. One was wrong: the PMI
   article on the origins of CPM is by Kelley, Walker and Sayer, not Kelley
-  alone. The others were confirmed. That PMI article is also no longer
+  alone. Romero's given name is completed from the OSTI record (Vicente
+  Jose). The others were confirmed. That PMI article is also no longer
   marked paid: its page carries the full text without a login.
 - The National Academies report on accident precursors (a P82 source) now
   links to its committee summary chapter, which describes near misses before

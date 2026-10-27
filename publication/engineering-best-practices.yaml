@@ -7954,6 +7954,7 @@ sources:
   author:
   - family: Kelley
     given: James E.
+    suffix: Jr.
   - family: Walker
     given: Morgan R.
   - family: Sayer
@@ -7961,10 +7962,10 @@ sources:
   url: https://www.pmi.org/learning/library/origins-cpm-personal-history-3762
   kind: primary
   publisher: PMI
-  year:
+  year: 1989
   paid: false
   accessed: '2026-10-27'
-  notes: "Official PMI library page of a PM Network article (February 1989). The page carries the full article text, through the authors' biographies, without a login (checked on 2026-10-27), so the source is not paid; the former paid flag and PMBOK Guide note (edition 9 section 12) did not apply to this article. Authors corrected on 2026-10-27 (issue #24) from the page's own record and \"How to cite\" line (read through the Internet Archive snapshot of 2026-10-04, as pmi.org answers bots with a challenge page): Kelley, J. E., Walker, M. R., & Sayer, J. S. (1989), The origins of CPM: a personal history, PM Network 3(2), 7-22. The former single author with suffix \"Jr.\" was set from memory; the record gives no suffix."
+  notes: "Official PMI library page of a PM Network article (February 1989). The page carries the full article text, through the authors' biographies, without a login (checked on 2026-10-27), so the source is not paid; the former paid flag and PMBOK Guide note (edition 9 section 12) did not apply to this article. Authors corrected on 2026-10-27 (issue #24) from the page's own record and \"How to cite\" line (read through the Internet Archive snapshot of 2026-10-04, as pmi.org answers bots with a challenge page): Kelley, J. E., Walker, M. R., & Sayer, J. S. (1989), The origins of CPM: a personal history, PM Network 3(2), 7-22. The former single author was set from memory and missed Walker and Sayer. The record's author field omits Kelley's suffix, but the article text and its reference list on the same page name him \"James E. Kelley, Jr.\" (rechecked on 2026-10-27), so the suffix stays."
 - slug: joint-commission-sentinel-event-alert
   title: 'The Joint Commission: Sentinel Event Alert 50, Medical device alarm safety (2013)'
   author:
@@ -8346,7 +8347,7 @@ history:
   editions:
   - edition: 1.1.1
     date: '2026-10-27'
-    summary: "Source fixes; no rule changed. Two gone secondary sources are replaced and their quotes re-taken verbatim: the Sedona Conference Commentary on Legal Holds (2019) itself for the Troutman Pepper article (Q56, now primary), and an Auditor Training Online article reproducing ISO 45001 clause 8.1.2 for the Presencis page (Q40). The unreachable UCSD lecture notes are replaced by von Neumann's own 1952 lectures. Authors set from memory were checked against each work's record; the PMI CPM article gains its co-authors Walker and Sayer and is no longer marked paid. The National Academies precursor report (P82) now links to its committee summary chapter instead of an unrelated chapter. Dead links are fixed (catb.org over http, archived copies for the OECD toolbox and Nowlan & Heap); the FDA pages are live and unchanged. The three replaced sources leave the registry; their slugs are not reused."
+    summary: "Source fixes; no rule changed. Two gone secondary sources are replaced and their quotes re-taken verbatim: the Sedona Conference Commentary on Legal Holds (2019) itself for the Troutman Pepper article (Q56, now primary), and an Auditor Training Online article reproducing ISO 45001 clause 8.1.2 for the Presencis page (Q40). The unreachable UCSD lecture notes are replaced by von Neumann's own 1952 lectures. Authors set from memory were checked against each work's record; the PMI CPM article gains its co-authors Walker and Sayer and is no longer marked paid, and Romero's given name is completed from the OSTI record. The National Academies precursor report (P82) now links to its committee summary chapter instead of an unrelated chapter. Dead links are fixed (catb.org over http, archived copies for the OECD toolbox and Nowlan & Heap); the FDA pages are live and unchanged. The three replaced sources leave the registry; their slugs are not reused."
   - edition: 1.1.0
     date: '2026-10-27'
     summary: 'Learning hub on the site. It adds worked examples for all 83 rules (67 with a management variant), one domain example for each of the 130 domain rows, 27 real cited cases covering 44 rules with 198 verbatim quotes, and quizzes: 193 multi-select questions in 9 category quizzes, a conflict-rule quiz and a mixed test. Case quotes are now checked against their sources by verify-sources. No rule changed. The paper, the single-file Markdown and the YAML release asset carry no learning content; only their edition number and date change.'

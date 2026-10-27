@@ -2435,6 +2435,7 @@
   author:
   - family: Kelley
     given: James E.
+    suffix: Jr.
   - family: Walker
     given: Morgan R.
   - family: Sayer
@@ -2442,10 +2443,10 @@
   url: https://www.pmi.org/learning/library/origins-cpm-personal-history-3762
   kind: primary
   publisher: PMI
-  year: null
+  year: 1989
   paid: false
   accessed: '2026-10-27'
-  notes: 'Official PMI library page of a PM Network article (February 1989). The page carries the full article text, through the authors'' biographies, without a login (checked on 2026-10-27), so the source is not paid; the former paid flag and PMBOK Guide note (edition 9 section 12) did not apply to this article. Authors corrected on 2026-10-27 (issue #24) from the page''s own record and "How to cite" line (read through the Internet Archive snapshot of 2026-10-04, as pmi.org answers bots with a challenge page): Kelley, J. E., Walker, M. R., & Sayer, J. S. (1989), The origins of CPM: a personal history, PM Network 3(2), 7-22. The former single author with suffix "Jr." was set from memory; the record gives no suffix.'
+  notes: 'Official PMI library page of a PM Network article (February 1989). The page carries the full article text, through the authors'' biographies, without a login (checked on 2026-10-27), so the source is not paid; the former paid flag and PMBOK Guide note (edition 9 section 12) did not apply to this article. Authors corrected on 2026-10-27 (issue #24) from the page''s own record and "How to cite" line (read through the Internet Archive snapshot of 2026-10-04, as pmi.org answers bots with a challenge page): Kelley, J. E., Walker, M. R., & Sayer, J. S. (1989), The origins of CPM: a personal history, PM Network 3(2), 7-22. The former single author was set from memory and missed Walker and Sayer. The record''s author field omits Kelley''s suffix, but the article text and its reference list on the same page name him "James E. Kelley, Jr." (rechecked on 2026-10-27), so the suffix stays.'
 - slug: joint-commission-sentinel-event-alert
   title: 'The Joint Commission: Sentinel Event Alert 50, Medical device alarm safety (2013)'
   author:
