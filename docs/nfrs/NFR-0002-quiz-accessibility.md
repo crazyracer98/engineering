@@ -37,6 +37,11 @@ Every quiz on the site meets these constraints:
   (`.quiz-score`), counted over the questions on the page; options,
   feedback and per-question status stay cleared. The mixed quiz is a fresh
   random draw each time and never reads or writes storage.
+- Every quiz form carries `autocomplete="off"`, so the browser does not
+  restore ticks that show no feedback. Restoring a page from the
+  back/forward cache clears each question like a fresh load: options,
+  feedback, result, the focus `tabindex` on the result and the open
+  "Show answer" panel (as "Reset" does).
 
 ## Source
 
@@ -51,6 +56,12 @@ to build a small quiz engine of our own instead of a third-party plugin.
   `site-assets/quiz-core.js` (scoring, seeded drawing, progress
   storage that never throws on a null, throwing or corrupt store, the score
   restored from stored progress, and the mixed quiz's no-storage rule).
+  The DOM glue in `site-assets/quiz.js` is covered by
+  `tests/js/quiz-dom.test.js` in jsdom (build, check and score, "Reset"
+  closing answers, bfcache `pageshow` clearing, the JS-built mixed
+  questions matching the static markup, and the mixed quiz storing
+  nothing). jsdom is a pinned devDependency in `tests/js/package.json`;
+  run `npm ci --prefix tests/js` once before `node --test`.
 - Manual, at the learning hub's G3 gate and after any change to
   `site-assets/` or the quiz markup: in a real browser, (1) complete a
   quiz with the keyboard only and check the focus order, the focus after

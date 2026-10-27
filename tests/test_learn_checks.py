@@ -28,8 +28,13 @@ FIXTURES = Path(__file__).resolve().parent / "fixtures" / "learn"
 @pytest.fixture
 def stub_repo(repo: Path) -> Path:
     """The repo copy with every learning file emptied, whatever content is live."""
-    for path in (repo / "data" / "learn").glob("*/*.yaml"):
-        path.write_text("[]\n", encoding="utf-8")
+    paths = sorted((repo / "data" / "learn").rglob("*.yaml"))
+    assert paths, "no learn files found; the layout or the repo fixture changed"
+    yaml = YAML(typ="safe")
+    for path in paths:
+        # Keep each file's top-level shape (all are lists today, per the schemas).
+        empty = "{}\n" if isinstance(yaml.load(path), dict) else "[]\n"
+        path.write_text(empty, encoding="utf-8")
     return repo
 
 
@@ -80,6 +85,8 @@ def test_branch_slugs() -> None:
 
 
 def test_all_domain_branches_have_a_stub(repo: Path) -> None:
+    # Deliberately the copied live repo: this pins the live data/learn/domains
+    # files to the live domains.yaml, so a fixture repo would test nothing.
     domains = make_context(repo).ds.domains["domains"]
     slugs = {branch_slug(d["branch"]) for d in domains}
     files = {p.stem for p in (repo / "data/learn/domains").glob("*.yaml")}
@@ -461,7 +468,8 @@ def test_coverage_cli(stub_repo: Path, capsys: pytest.CaptureFixture[str]) -> No
         == 1
     )
     out = capsys.readouterr().out
-    assert "I1 has no rule example" in out or "has no rule example" in out
+    first = make_context(stub_repo).ds.category_by_id()["I"]["rules"][0]
+    assert f"{first} has no rule example (data/learn/rules/i.yaml)" in out
     assert "learn coverage (scope i): 8 gap(s)" in out
     assert (
         validate.main(["--learn-coverage", "--scope", "zz", "--root", str(stub_repo)])
