@@ -30,7 +30,7 @@
       feedback: Wrong. Trust does not change need. Under P36 the question is what the role needs, and planning does not need salaries.
     - text: Require two signatures on every payment above a set amount.
       correct: false
-      feedback: A good control, but it is the two-person rule (P42). It does not limit what a lead can see or approve alone.
+      feedback: A good control, but it is the two-person rule (P42) at the moment of payment. It does not limit what data a lead can see (P36).
     - text: Set a written spending limit for each lead, with higher amounts going up a level.
       correct: true
       feedback: Right. Written limits of authority are part of P36 in its management form.
@@ -55,7 +55,7 @@
       feedback: Right. Rejecting is the defined safe state here, and the alert tells people the system is in it (P37).
     - text: Run a second copy of the same webhook against the same key service.
       correct: false
-      feedback: Wrong. Both copies fail together and neither defines a safe state. Redundancy (P45) needs independent copies, and it does not replace P37.
+      feedback: Wrong. Both copies share the key service, so one cause stops both (P46), and neither defines a safe state. Redundancy (P45) does not replace P37.
 - id: q-d-04
   rules: [P37]
   stem: A company approves every production change through one change approver. The approver is often away. Which default follows the management form of fail-safe?
@@ -103,10 +103,10 @@
       feedback: Wrong. Training is a low level in P38. It leaves the shared login in place.
     - text: Enforce single sign-on with multi-factor authentication, so that sharing stops working.
       correct: true
-      feedback: Right. A system-enforced control is a higher level than policy or training (P38). It does not rely on people's care.
+      feedback: Right. Single sign-on with a second factor ties each login to one person, which is how the shared account is removed in practice. It is system-enforced, so it does not rely on people's care (P38).
     - text: Keep one account, and let a vault hand out a credential to one named person at a time.
-      correct: true
-      feedback: Right. This substitutes a safer arrangement, which is level 2 in P38. Every use is tied to one person.
+      correct: false
+      feedback: Wrong here. A vault is a lower level than removing the shared account, and removal is possible. P38 uses the highest possible level and records why a higher one was not possible.
 - id: q-d-07
   rules: [P39]
   stem: A postmortem shows that three engineers ran a destructive migration against production when they meant to use staging. Which fix follows error-proofing?
@@ -211,7 +211,7 @@
       feedback: Right. A separate entity is one way to keep a failure from spreading (P41).
     - text: Let the core team run both products with shared on-call and shared cash.
       correct: false
-      feedback: Wrong. Shared people and cash connect the two. Fewer parts (P23) cannot justify removing every compartment.
+      feedback: Wrong. Shared people and cash connect the two, so a failure spreads to the core business (P41). Fewer parts (P23) cannot justify removing every compartment.
 - id: q-d-13
   rules: [P42]
   stem: A platform team lists the actions that may need a second approver. Which actions fall under the two-person rule?
