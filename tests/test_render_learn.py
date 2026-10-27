@@ -143,6 +143,13 @@ def test_stems_do_not_hint_at_the_number_of_correct_answers() -> None:
         assert not re.search(r"\bWhich (?!of )\w", q["stem"].split(". ")[-1]), q["id"]
 
 
+def test_js_cue_matches_the_static_cue() -> None:
+    """The mixed test renders in JS; its cue and hint id must match the static form."""
+    js = (REPO / "site-assets" / "quiz.js").read_text(encoding="utf-8")
+    assert f'const HINT_TEXT = "{render_learn.SELECT_CUE}";' in js
+    assert "const hintId = `${q.id}-hint`;" in js
+
+
 def test_bank_lists_every_question_with_html_feedback(
     ds: Dataset, learn: Learn
 ) -> None:

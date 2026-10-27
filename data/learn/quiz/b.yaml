@@ -558,7 +558,7 @@
   rules: [P18]
   stem: >-
     A team classifies this week's decisions. Which of the following ways of handling
-    follow P18?
+    them follow P18?
   options:
     - text: A new linter rule is reversible, so the team decides it today
       correct: true

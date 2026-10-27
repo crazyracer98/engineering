@@ -71,7 +71,7 @@
       feedback: One accountable owner is the topic of P30, and it does not make a structure simpler.
 - id: q-c-05
   rules: [P24]
-  stem: A team writes the design document for a new Kubernetes cluster that holds customer data. Which of the following items of content satisfy the check of P24?
+  stem: A team writes the design document for a new Kubernetes cluster that holds customer data. Which of the following parts of the document satisfy the check of P24?
   options:
     - text: A maintenance section.
       correct: true

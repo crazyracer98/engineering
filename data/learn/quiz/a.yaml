@@ -46,7 +46,7 @@
       feedback: "P2 asks to involve an expert outside your competence. Each design needs a named checker with expertise in its domain."
     - text: Approve it, because her seniority covers the review and she can read the database documentation.
       correct: false
-      feedback: "P2 names approving work in a domain you do not know as the violation. Seniority is not competence."
+      feedback: "P2 names approving work in a domain you do not know as the violation. Seniority is not competence, and reading the documentation does not make her an expert in databases."
     - text: Review the parts she knows, such as network access, and say which parts she did not check.
       correct: true
       feedback: "P2 asks her to work within her competence. A review limited to her domain, with the gap stated, stays within it."
@@ -246,7 +246,7 @@
       feedback: "P8 asks to state the new expectations."
     - text: Hold a vote and follow the majority, without explaining the result to anyone.
       correct: false
-      feedback: "P8 says this is not consensus. The decision stays with the decider."
+      feedback: "P8 says this is not consensus. The decision stays with the decider, who also explains it and its reasons."
     - text: Announce the decision on a Friday afternoon with no reasons.
       correct: false
       feedback: "P8 names announcing a change without reasons as a violation."

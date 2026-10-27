@@ -85,7 +85,7 @@
 - id: q-k-05
   rules:
   - K3
-  stem: An API specification allows any ISO 8601 timestamp with a UTC offset or the Z suffix and requires the timestamp field. One client sends 2026-10-26T10:00:00+02:00, another sends 2026-10-26T08:00:00Z, and a third sends no timestamp. P27 (robustness) and P33 (strict interfaces) seem to disagree. Which of the following ways of handling follow K3?
+  stem: An API specification allows any ISO 8601 timestamp with a UTC offset or the Z suffix and requires the timestamp field. One client sends 2026-10-26T10:00:00+02:00, another sends 2026-10-26T08:00:00Z, and a third sends no timestamp. P27 (robustness) and P33 (strict interfaces) seem to disagree. Which of the following ways of handling the three messages follow K3?
   options:
   - text: Accept the message with the +02:00 offset, because the specification allows it.
     correct: true
@@ -168,7 +168,7 @@
 - id: q-k-09
   rules:
   - K5
-  stem: In one week a team plans two decisions. One is a new internal dashboard. The other is deleting historical audit logs. P18 says to decide reversible things fast. P64 and P56 ask for review and an independent checker. Which of the following ways of handling follow K5?
+  stem: In one week a team plans two decisions. One is a new internal dashboard. The other is deleting historical audit logs. P18 says to decide reversible things fast. P64 and P56 ask for review and an independent checker. Which of the following ways of handling the two decisions follow K5?
   options:
   - text: Let the team decide on the dashboard with a peer review or a self-check.
     correct: true
@@ -208,7 +208,7 @@
 - id: q-k-11
   rules:
   - K6
-  stem: A manager wants to follow P7 (leave the method to the people who do the work) but a quarterly backup restore is rare and critical (P71). Another task is to improve developer onboarding. Which of the following ways of handling follow K6?
+  stem: A manager wants to follow P7 (leave the method to the people who do the work) but a quarterly backup restore is rare and critical (P71). Another task is to improve developer onboarding. Which of the following ways of handling the two tasks follow K6?
   options:
   - text: Give the restore a short checklist that the team confirms item by item.
     correct: true
@@ -251,7 +251,7 @@
 - id: q-k-13
   rules:
   - K7
-  stem: After an outage, two things come out. An engineer ran a wrong command during the incident. Another engineer bypassed the two-person rule on purpose to ship faster. P5 and P80 (blameless) seem to conflict with accountability (P43, P2). Which of the following ways of handling follow K7?
+  stem: After an outage, two things come out. An engineer ran a wrong command during the incident. Another engineer bypassed the two-person rule on purpose to ship faster. P5 and P80 (blameless) seem to conflict with accountability (P43, P2). Which of the following ways of handling the two cases follow K7?
   options:
   - text: Treat the wrong command in a blameless postmortem, and look for the system weakness behind it.
     correct: true
@@ -291,7 +291,7 @@
 - id: q-k-15
   rules:
   - K8
-  stem: A team has the goal 'halve build time' (P21). Leadership wants to base each engineer's bonus on the build time number. P19 warns that rewarded indicators are gamed. Which of the following ways of handling follow K8?
+  stem: A team has the goal 'halve build time' (P21). Leadership wants to base each engineer's bonus on the build time number. P19 warns that rewarded indicators are gamed. Which of the following ways of handling the goal and the bonus follow K8?
   options:
   - text: Keep the goal for direction and learning.
     correct: true
