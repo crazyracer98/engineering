@@ -21,8 +21,9 @@ against their sources the same way as rule quotes (ADR 0006), using
 `verify_sources`. The examples, cases and questions are data in `data/learn/`
 (ADR 0008).
 
-The paper, the single-file Markdown and the YAML release asset are
-unchanged. Learning content may be added to them in a later minor edition.
+The paper, the single-file Markdown and the YAML release asset carry no
+learning content; only their edition number and date change. Learning content
+may be added to them in a later minor edition.
 
 ## 1.0.0 (first edition)
 
