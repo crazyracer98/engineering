@@ -10,6 +10,8 @@ from typing import Any
 import pytest
 
 from taxonomy import cli
+from taxonomy.load import load_dataset, load_registry
+from taxonomy.render_markdown import render_single
 from taxonomy.validate import CHECKS, Finding, parse_id_list, run_checks
 
 Edit = Callable[[str, Callable[[Any], None]], None]
@@ -135,9 +137,18 @@ def test_unused_paper_source(repo: Path, edit: Edit) -> None:
     assert any("orphan-paper" in m for m in messages(repo, "source-used"))
 
 
-def test_table_column_count(repo: Path, edit: Edit) -> None:
+def test_pipe_in_a_cell_is_escaped_not_a_column(repo: Path, edit: Edit) -> None:
     edit("data/glossary.yaml", lambda d: d["error"].update(meaning="a | b"))
-    assert any("column count" in m for m in messages(repo, "table-columns"))
+    assert messages(repo, "table-columns") == []
+    md = render_single(load_dataset(repo), load_registry(repo))
+    assert "a \\| b" in md
+
+
+def test_table_column_count(repo: Path, edit: Edit) -> None:
+    # A header with one column fewer than its rows: the table cannot be built.
+    edit("data/meta.yaml", lambda d: d["tables"]["glossary"].pop())
+    found = messages(repo, "table-columns")
+    assert any("table row has 3 cells, header has 2" in m for m in found), found
 
 
 def test_escaped_pipe_is_not_a_column(repo: Path, edit: Edit) -> None:
