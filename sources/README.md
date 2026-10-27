@@ -38,8 +38,9 @@ must match in order. Per source it tries the cache, the origin `url`,
 - `verification.json` is the committed manifest: per quote the URL, final
   URL, method (`origin | via | archive`), fetch date, SHA-256 of the fetched
   bytes, result and score, plus `quote_sha256` (SHA-256 of the normalized
-  quote text) and `checked` (the date the check is dated to: 2026-10-14 for
-  rule quotes, 2026-10-27 for case quotes). No text. Only `--update-manifest`
+  quote text) and `checked` (the UTC date of the run that verified the quote: the date
+  part of its fetch date, or the run's date when nothing was fetched). Entries
+  keep the value of the run that wrote them. No text. Only `--update-manifest`
   writes it.
 - Every run reports manifest entries out of step with the current quotes:
   `stale` (the quote text no longer matches `quote_sha256`, or the entry has

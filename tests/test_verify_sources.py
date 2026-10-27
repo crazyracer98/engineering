@@ -1240,9 +1240,32 @@ def test_manifest_stores_quote_hash_and_check_date(repo: Path) -> None:
     assert data["Q1"]["quote_sha256"] == vs.quote_hash(
         'See "the context of creating, preserving, and realizing value"'
     )
-    assert data["Q1"]["checked"] == "2026-10-14"
-    assert data["case-demo#1"]["checked"] == "2026-10-27"
+    assert data["Q1"]["checked"] == data["Q1"]["fetched_at"]
+    assert data["case-demo#1"]["checked"] == data["case-demo#1"]["fetched_at"]
     assert len(str(data["case-demo#1"]["quote_sha256"])) == 64
+
+
+def test_checked_is_the_run_date_not_a_constant(repo: Path) -> None:
+    repo_with(repo)
+    quote = {"id": "Q40", "source": "alpha", "text": '"the context of creating"'}
+    registry = {"alpha": src("https://a.example/")}
+    fetched, _, _ = fetcher(
+        repo,
+        {"https://a.example/": [ok(PAGE)]},
+        now=lambda: datetime(2026, 11, 3, 23, 59, tzinfo=UTC),
+    )
+    run_clock = lambda: datetime(2026, 11, 4, 1, 0, tzinfo=UTC)  # noqa: E731
+    res = vs.Verifier(fetched, registry, now=run_clock).verify(quote)
+    assert res.fetched_at == "2026-11-03"
+    assert vs.manifest_entry(res)["checked"] == "2026-11-03"
+    # No fetch date (offline, nothing cached): the run clock's UTC date.
+    (repo / "empty").mkdir()
+    offline, _, _ = fetcher(repo / "empty", {}, offline=True)
+    res = vs.Verifier(offline, registry, now=run_clock).verify(quote)
+    assert res.fetched_at is None
+    assert vs.manifest_entry(res)["checked"] == "2026-11-04"
+    # The archive lookup constants do not leak into the manifest.
+    assert vs.manifest_entry(res)["checked"] not in {"2026-10-14", "2026-10-27"}
 
 
 def test_manifest_drift_stale_and_orphaned() -> None:
