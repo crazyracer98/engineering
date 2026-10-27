@@ -1,2 +1,404 @@
 # Quiz questions, category I. Schema: schema/learn-quiz.schema.json.
-[]
+- id: q-i-01
+  rules: [P80]
+  stem: >-
+    A payment service is down for an hour after an engineer runs a command
+    against production instead of staging. The outage is above the team's
+    severity line, and you write the postmortem. Which findings and actions
+    follow the blameless approach?
+  options:
+    - text: Ask why one command could reach production with no guard, and add a confirmation step.
+      correct: true
+      feedback: >-
+        Right. P80 looks for the cause in the system. A missing guard is a
+        system weakness that a fix can remove.
+    - text: Record the root cause as "operator error" and close the report.
+      correct: false
+      feedback: >-
+        Wrong. "Operator error" as the final root cause is the violation
+        named in P80. It names a person and changes nothing in the system.
+    - text: List the system actions with owners, such as separate credentials and a clearer prompt.
+      correct: true
+      feedback: >-
+        Right. The P80 check asks for a postmortem with system-level
+        actions for each failure above the severity line.
+    - text: Name the engineer in the report so that colleagues can learn from the mistake.
+      correct: false
+      feedback: >-
+        Wrong. P80 says blame makes people hide information. Naming the
+        person to blame is what the rule asks you not to do.
+    - text: Skip the postmortem, because the fix took only ten minutes.
+      correct: false
+      feedback: >-
+        Wrong. P80 applies to each failure above a set severity. The time
+        to fix is not the test, and the outage lasted an hour.
+- id: q-i-02
+  rules: [P80, P64]
+  stem: >-
+    Your team reviews four postmortems from the last quarter. All four
+    failures were above the severity line. Which of them meet the P80
+    check?
+  options:
+    - text: A deploy failure whose report ends with "be more careful" as the only action.
+      correct: false
+      feedback: >-
+        Does not meet P80. "Be more careful" is not a system-level action.
+        The change process (P64) was never examined.
+    - text: A database outage whose report lists a missing alert and an unreviewed config change, each with an owner.
+      correct: true
+      feedback: >-
+        Meets P80. The causes sit in the system, and the actions fix the
+        monitoring and the change review (P64).
+    - text: A cache failure that was discussed in chat, with no written postmortem.
+      correct: false
+      feedback: >-
+        Does not meet P80. The check needs a postmortem for each failure
+        above the severity line, with actions on record.
+    - text: A login outage whose report names no person as the cause and sets two tracked system changes.
+      correct: true
+      feedback: >-
+        Meets P80. It finds the root cause in the system and the actions
+        are system-level.
+    - text: A queue overflow whose report blames the on-call engineer for a slow reaction.
+      correct: false
+      feedback: >-
+        Does not meet P80. It stops at a person and does not ask why the
+        system made the slow reaction likely.
+- id: q-i-03
+  rules: [P81, P80]
+  stem: >-
+    A team holds a retrospective every sprint. Three sprints in a row, a
+    release slips because of the same flaky deployment step. Which steps
+    apply Plan-Do-Check-Act?
+  options:
+    - text: Open a ticket with an owner for each retrospective action and review the open ones at the next retrospective.
+      correct: true
+      feedback: >-
+        Right. The P81 check is that actions from earlier cycles are
+        tracked until they are completed.
+    - text: Hold retrospectives only after a release has failed badly.
+      correct: false
+      feedback: >-
+        Wrong. P81 applies always, not only after a failure. A cycle that
+        runs only on failure is not a cycle. P80 is the rule that waits
+        for a failure.
+    - text: Check whether last sprint's change worked, then keep it or adjust it.
+      correct: true
+      feedback: >-
+        Right. Check and Act close the P81 cycle. Without them the team
+        plans and does, but does not learn.
+    - text: Close each action when the retrospective ends so the list stays short.
+      correct: false
+      feedback: >-
+        Wrong. Closing an action before the work is done breaks the P81
+        check. Actions stay open until completed.
+    - text: Change the process, for example with an automated deployment test, instead of listing the same finding again.
+      correct: true
+      feedback: >-
+        Right. P81 names the same failure happening again with no process
+        change as its violation.
+    - text: Blame the engineer who owns the deployment step and move on.
+      correct: false
+      feedback: >-
+        Wrong. P80 looks for the cause in the system, and blame does not
+        feed an improvement cycle (P81).
+- id: q-i-04
+  rules: [P81, P70]
+  stem: >-
+    A department asks how it can show that it runs Plan-Do-Check-Act
+    properly. It lists what it has in place. Which items meet the P81
+    check?
+  options:
+    - text: Every retrospective action is a ticket with an owner, and open tickets are visible to the whole team.
+      correct: true
+      feedback: >-
+        Meets P81. Actions are tracked, and the check asks for tracking
+        until they are completed.
+    - text: Retrospective notes live on a wiki page that nobody reopens.
+      correct: false
+      feedback: >-
+        Does not meet P81. Notes that are never revisited do not track
+        actions. Monitoring (P70) can supply the data for the Check step,
+        but it does not replace tracking.
+    - text: Open actions are reset at the start of each quarter and unfinished ones are dropped.
+      correct: false
+      feedback: >-
+        Does not meet P81. Dropping unfinished actions ends tracking
+        before they are completed.
+    - text: Each retrospective opens with the actions from earlier cycles that are still not done.
+      correct: true
+      feedback: >-
+        Meets P81. Earlier actions stay in view until they are completed.
+    - text: The team writes the same three actions in every retrospective, and none is ever closed.
+      correct: false
+      feedback: >-
+        Does not meet P81. Listing is not completing. The check asks for
+        actions to be tracked until they are completed, and none is.
+- id: q-i-05
+  rules: [P82, P80]
+  stem: >-
+    An integration test fails about one run in twenty. Developers rerun
+    the pipeline until it passes. Nobody has been harmed. What should the
+    team do?
+  options:
+    - text: Rerun and merge, because no harm means nothing to investigate.
+      correct: false
+      feedback: >-
+        Wrong. P82 applies "even if nobody was harmed". Ignored warning
+        signs come before major accidents.
+    - text: "Open a ticket for the flaky test and decide: fix it, or accept it with a written reason."
+      correct: true
+      feedback: >-
+        Right. The P82 check is a ticket for each anomaly with a decision.
+    - text: Add an automatic retry and mute the alert for good.
+      correct: false
+      feedback: >-
+        Wrong. Silencing an alert permanently without an investigation is
+        the violation named in P82.
+    - text: Wait until a flake blocks a release, then run a postmortem.
+      correct: false
+      feedback: >-
+        Wrong. P80 starts when a failure has happened. P82 asks you to act
+        on the anomaly before it becomes a failure.
+    - text: Wait for a developer to complain, since the test is only a test.
+      correct: false
+      feedback: >-
+        Wrong. P82 asks you to record and investigate the anomaly. It does
+        not wait for a complaint.
+- id: q-i-06
+  rules: [P82, P75]
+  stem: >-
+    A team reviews how it closes anomaly tickets. Which closures meet the
+    P82 check, a decision on each anomaly?
+  options:
+    - text: "Closed: sensor glitch only on firmware 2.1, accepted until the Q3 upgrade, review date set."
+      correct: true
+      feedback: >-
+        Meets P82. The anomaly is accepted with a written reason, which
+        the check allows.
+    - text: "Closed: won't fix, known issue."
+      correct: false
+      feedback: >-
+        Does not meet P82. Accepting an anomaly needs a written reason,
+        and this one gives none.
+    - text: An engineer calls an alert "noise", and it is silenced for good.
+      correct: false
+      feedback: >-
+        Does not meet P82. Silencing without an investigation is the
+        violation. A noisy alert also fails the actionable-alerts rule
+        (P75), but the first step is to investigate.
+    - text: "Fixed: clock skew between two hosts caused the odd timestamps, patch merged."
+      correct: true
+      feedback: >-
+        Meets P82. The anomaly was investigated and fixed, which is the
+        other allowed decision.
+    - text: The anomaly appears in a chat message and has no ticket.
+      correct: false
+      feedback: >-
+        Does not meet P82. The check needs a ticket for each anomaly.
+    - text: Alert tuned after tests showed it fires on healthy batch jobs, with the finding in the ticket.
+      correct: true
+      feedback: >-
+        Meets P82. The team investigated first, then decided. This also
+        serves P75, because the alert becomes actionable.
+- id: q-i-07
+  rules: [P82, P80]
+  stem: >-
+    A nightly job takes three times longer than usual for a week. No user
+    has complained and every run still finishes. Which responses fit the
+    taxonomy?
+  options:
+    - text: Open an anomaly ticket the same day.
+      correct: true
+      feedback: >-
+        Right. P82 says to record the anomaly when the system behaves
+        differently from what was expected, even if nobody was harmed.
+    - text: Hold a full blameless postmortem, because every anomaly is a failure.
+      correct: false
+      feedback: >-
+        Wrong. P80 applies after a failure has happened. This is an
+        anomaly, and P82 handles it with a ticket and a decision.
+    - text: Treat the slowdown as normal, because no user complained.
+      correct: false
+      feedback: >-
+        Wrong. P82 says to investigate before you accept it as normal.
+        Lack of complaints is not an investigation.
+    - text: Raise the alert threshold so it stops firing.
+      correct: false
+      feedback: >-
+        Wrong. Changing the threshold to hide the signal is close to the
+        violation in P82, which is silencing an alert without an
+        investigation.
+    - text: End the ticket with a decision, fix or accept with a written reason.
+      correct: true
+      feedback: >-
+        Right. This is the P82 check. Every anomaly ends with a decision.
+- id: q-i-08
+  rules: [P83, P80]
+  stem: >-
+    A service in a production cluster crash-loops. Users see slow pages,
+    and the team estimates it will be hours before real harm. The on-call
+    engineer wants to restart the pods. Which actions apply P83?
+  options:
+    - text: Capture logs, a heap dump and a disk snapshot before the restart.
+      correct: true
+      feedback: >-
+        Right. P83 says to document and preserve the as-found state before
+        you repair or restart anything.
+    - text: Restart first to restore service and collect evidence later.
+      correct: false
+      feedback: >-
+        Wrong. A repair destroys the evidence needed to find the cause.
+        This is the violation named in P83.
+    - text: Record who captured the evidence and when.
+      correct: true
+      feedback: >-
+        Right. P83 asks for a record of who handled the evidence, the
+        chain of custody.
+    - text: Roll back the last deploy at once, then try to reproduce the fault in staging.
+      correct: false
+      feedback: >-
+        Wrong. A rollback is a repair. It removes the as-found state, and
+        a staging copy may not show the same fault. Blameless analysis
+        (P80) needs the evidence.
+    - text: List the captured evidence in the incident record before the first repair step.
+      correct: true
+      feedback: >-
+        Right. This is the P83 check. The record shows the evidence
+        captured before the first repair action.
+    - text: Delete old pods to free disk space, then take the snapshot.
+      correct: false
+      feedback: >-
+        Wrong. Deleting pods destroys evidence before it is captured. P83
+        asks you to preserve the as-found state before you change anything.
+- id: q-i-09
+  rules: [P83, P73]
+  stem: >-
+    A control service fails. The temperature of a process rises, and harm
+    is five minutes away. A full manual snapshot would take twenty
+    minutes. Which actions fit the taxonomy?
+  options:
+    - text: Restart the service without waiting for a manual snapshot.
+      correct: true
+      feedback: >-
+        Right. P73 asks that the response is faster than the time until
+        harm. Here that outranks a slow manual capture, as the conflict
+        between P83 and P73 resolves.
+    - text: Spend twenty minutes on a full manual snapshot before any restart.
+      correct: false
+      feedback: >-
+        Wrong. The capture would take longer than the time until harm,
+        which breaks P73.
+    - text: Run automatic dumps and log shipping that finish in seconds before each restart.
+      correct: true
+      feedback: >-
+        Right. Fast automatic capture serves P83 without costing time
+        against P73.
+    - text: Skip all evidence because harm is imminent.
+      correct: false
+      feedback: >-
+        Wrong. Even when you restore service first, you keep whatever the
+        automation captured. P83 still applies as far as time allows.
+    - text: Afterwards, keep the automatic dumps and record who handled them in the incident record.
+      correct: true
+      feedback: >-
+        Right. P83 asks for the evidence to be documented and preserved,
+        with a chain of custody.
+- id: q-i-10
+  rules: [P83]
+  stem: >-
+    A dismissed employee files a complaint with the company. The chat
+    tool deletes messages after 30 days, and a related channel is 25 days
+    old. Which actions apply the legal-hold form of P83?
+  options:
+    - text: Suspend routine deletion for the related mailboxes and channels now.
+      correct: true
+      feedback: >-
+        Right. The management form of P83 is to stop routine deletion when
+        a dispute is reasonably anticipated.
+    - text: Wait for a formal letter from a lawyer before changing anything.
+      correct: false
+      feedback: >-
+        Wrong. P83 applies when litigation or an investigation is
+        reasonably anticipated. The hold does not wait for a letter.
+    - text: Keep all company data forever so that nothing is ever lost.
+      correct: false
+      feedback: >-
+        Wrong. The hold covers the relevant records. P83 does not ask for
+        unlimited retention.
+    - text: Record who exported the preserved records and when.
+      correct: true
+      feedback: >-
+        Right. The legal hold preserves the records, and the chain of
+        custody from P83, a record of who handled the evidence, keeps them
+        trustworthy.
+    - text: Let the manager involved tidy the channel first, to keep it professional.
+      correct: false
+      feedback: >-
+        Wrong. Changing the records before they are preserved destroys the
+        as-found state that P83 protects.
+- id: q-i-11
+  rules: [P80, P5]
+  stem: >-
+    A company reorganizes its support and billing teams. A month later,
+    handoffs fail and customers wait days for refunds. The company plans
+    a review. Which choices apply the after-action review form of P80?
+  options:
+    - text: "Hold the review with everyone affected: what happened, why, and how to improve."
+      correct: true
+      feedback: >-
+        Right. This is the after-action review form of P80, run for an
+        event across the teams it touched.
+    - text: Ask each team lead to write down who caused the delays.
+      correct: false
+      feedback: >-
+        Wrong. P80 looks for the cause in the system. Blame makes people
+        hide information, and it works against psychological safety (P5).
+    - text: Let only senior managers meet and send out a summary.
+      correct: false
+      feedback: >-
+        Wrong. The people affected hold the facts about what happened.
+        Leaving them out weakens the analysis, and P5 asks that they can
+        speak openly.
+    - text: Finish with process changes that have owners, such as a named owner for each handoff.
+      correct: true
+      feedback: >-
+        Right. The aim of P80 is system-level actions. The review ends in
+        changes to the process, not in a verdict on people.
+    - text: Skip the review, because the reorganization is finished.
+      correct: false
+      feedback: >-
+        Wrong. P80 applies after a failure. The handoff failures happened,
+        so the review is due.
+- id: q-i-12
+  rules: [P82, P81]
+  stem: >-
+    Three projects in a row finish about two weeks late, each with a
+    different stated reason. None caused serious harm. Which responses
+    apply the management form of P82?
+  options:
+    - text: Judge each project on its own and call it bad luck.
+      correct: false
+      feedback: >-
+        Wrong. P82 asks you to look at deviations even when nothing went
+        wrong. Treating each as an accident hides the pattern.
+    - text: Record the three misses as one deviation and investigate them as a pattern.
+      correct: true
+      feedback: >-
+        Right. P82 in management means weak signals are recorded and
+        investigated before they become normal.
+    - text: Add two weeks to every plan and treat the slip as normal.
+      correct: false
+      feedback: >-
+        Wrong. P82 says to investigate before you accept the deviation as
+        normal. Padding plans accepts it without a reason.
+    - text: Change the planning method once the investigation finds the cause, and track the change.
+      correct: true
+      feedback: >-
+        Right. An investigated anomaly ends in a decision (P82), and
+        tracking the change to completion is the P81 cycle.
+    - text: Wait for a project to fail badly before you look into it.
+      correct: false
+      feedback: >-
+        Wrong. P82 acts before harm. Ignored warning signs come before
+        major accidents.

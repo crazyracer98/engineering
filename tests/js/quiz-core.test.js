@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { score, draw, loadProgress, saveProgress, progressKey } from "../../site-assets/quiz-core.js";
+import { score, draw, loadProgress, saveProgress, progressKey, persistsProgress, scoreFromProgress } from "../../site-assets/quiz-core.js";
 
 // Deterministic LCG in [0, 1).
 function seeded(seed) {
@@ -85,4 +85,43 @@ test("storage functions never throw", () => {
   assert.deepEqual(loadProgress({ getItem: () => '{"answered":{"q":true,"r":"x"}}' }, "a"), {
     answered: { q: true },
   });
+});
+
+test("scoreFromProgress counts only ids on the page and ignores unknown ids", () => {
+  const progress = { answered: { a: true, b: false, c: true, gone: true } };
+  assert.deepEqual(scoreFromProgress(progress, ["a", "b", "d"]), { right: 1, done: 2, total: 3 });
+  assert.deepEqual(scoreFromProgress(progress, []), { right: 0, done: 0, total: 0 });
+  assert.deepEqual(scoreFromProgress({ answered: { toString: true } }, ["toString", "x"]), {
+    right: 1,
+    done: 1,
+    total: 2,
+  });
+});
+
+test("scoreFromProgress is zero for corrupt or missing storage", () => {
+  const zero = { right: 0, done: 0, total: 2 };
+  const ids = ["a", "b"];
+  assert.deepEqual(scoreFromProgress(loadProgress(null, "x"), ids), zero);
+  assert.deepEqual(scoreFromProgress(loadProgress({ getItem: () => "{not json" }, "x"), ids), zero);
+  assert.deepEqual(scoreFromProgress(loadProgress({ getItem: () => '{"answered":{"a":"yes"}}' }, "x"), ids), zero);
+  assert.deepEqual(scoreFromProgress(null, ids), zero);
+  assert.deepEqual(scoreFromProgress({ answered: [] }, ids), zero);
+  assert.deepEqual(scoreFromProgress({}, ids), zero);
+});
+
+test("re-answering overwrites the stored result and the score follows", () => {
+  const st = memStorage();
+  const p = loadProgress(st, "a");
+  p.answered.q1 = false;
+  saveProgress(st, "a", p);
+  assert.equal(scoreFromProgress(loadProgress(st, "a"), ["q1"]).right, 0);
+  p.answered.q1 = true;
+  saveProgress(st, "a", p);
+  assert.equal(scoreFromProgress(loadProgress(st, "a"), ["q1"]).right, 1);
+});
+
+test("the mixed quiz does not persist progress; category quizzes do", () => {
+  assert.equal(persistsProgress("mixed"), false);
+  assert.equal(persistsProgress("a"), true);
+  assert.equal(persistsProgress("quiz"), true);
 });
