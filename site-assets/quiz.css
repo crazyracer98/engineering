@@ -16,6 +16,10 @@
   padding: 0;
   font-weight: 700;
 }
+.quiz-q .quiz-hint {
+  margin: 0.2em 0 0;
+  font-size: 0.8rem;
+}
 .quiz-q label {
   display: block;
   margin: 0.4em 0 0;

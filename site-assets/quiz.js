@@ -9,6 +9,9 @@ function getStorage() {
   }
 }
 
+// Same cue on every question; keep in step with SELECT_CUE in render_learn.py.
+const HINT_TEXT = "Select all that apply.";
+
 function el(tag, attrs = {}, text) {
   const node = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
@@ -19,8 +22,9 @@ function el(tag, attrs = {}, text) {
 // Same markup as the static contract. Only feedback_html is trusted HTML.
 function renderQuestion(q) {
   const form = el("form", { class: "quiz-q", "data-qid": q.id, autocomplete: "off" });
-  const fs = el("fieldset");
-  fs.append(el("legend", {}, q.stem));
+  const hintId = `${q.id}-hint`;
+  const fs = el("fieldset", { "aria-describedby": hintId });
+  fs.append(el("legend", {}, q.stem), el("p", { class: "quiz-hint", id: hintId }, HINT_TEXT));
   q.options.forEach((o, i) => {
     const input = el("input", { type: "checkbox", name: q.id, value: String(i) });
     if (o.correct) input.setAttribute("data-correct", "1");

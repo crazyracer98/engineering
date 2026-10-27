@@ -1,7 +1,7 @@
 # Quiz questions, category H. Schema: schema/learn-quiz.schema.json.
 - id: q-h-01
   rules: [P70]
-  stem: "An online shop's dashboards show CPU, memory and disk for every host. Last week the checkout failed for two hours, and the team heard about it from customer emails. Which changes fit P70, Monitoring in operation?"
+  stem: "An online shop's dashboards show CPU, memory and disk for every host. Last week the checkout failed for two hours, and the team heard about it from customer emails. Which of the following changes fit P70, Monitoring in operation?"
   options:
     - text: "Add a dashboard and alerts for the checkout failure rate and page latency."
       correct: true
@@ -20,7 +20,7 @@
       feedback: "Wrong. This creates noise and misses user symptoms. P70 wants user-facing alerts, and P75 wants every alert to be actionable."
 - id: q-h-02
   rules: [P70, P19]
-  stem: "A department head reads one weekly report of last month's results. A growing backlog of complaints went unseen until the results dropped. Which steps fit the management form of P70?"
+  stem: "A department head reads one weekly report of last month's results. A growing backlog of complaints went unseen until the results dropped. Which of the following steps fit the management form of P70?"
   options:
     - text: "Set one target number for complaints and reward the team for reaching it."
       correct: false
@@ -36,7 +36,7 @@
       feedback: "Right. P70's management form includes going to the place where the work happens."
 - id: q-h-03
   rules: [P71, P7]
-  stem: "Once a year, an engineer upgrades the main database's major version in a short maintenance window. Last time a step was skipped. Which approaches fit P71, Checklists?"
+  stem: "Once a year, an engineer upgrades the main database's major version in a short maintenance window. Last time a step was skipped. Which of the following approaches fit P71, Checklists?"
   options:
     - text: "Use a short checklist, and confirm each item by pointing at it and saying its status aloud."
       correct: true
@@ -52,7 +52,7 @@
       feedback: "Wrong. P71 asks for a short checklist that can be used under time pressure, not a long document."
 - id: q-h-04
   rules: [P71]
-  stem: "A failover checklist exists. A postmortem finds that its authors never changed it after the last incident, and that people tick the boxes silently without checking. Which actions fit P71?"
+  stem: "A failover checklist exists. A postmortem finds that its authors never changed it after the last incident, and that people tick the boxes silently without checking. Which of the following actions fit P71?"
   options:
     - text: "Update the checklist after each postmortem, so it reflects what went wrong."
       correct: true
@@ -71,7 +71,7 @@
       feedback: "Wrong. P71's check requires each critical procedure to have a checklist that is used."
 - id: q-h-05
   rules: [P72, P7]
-  stem: "A bakery logs forty process readings in the same way. Nobody knows which ones decide food safety. Which steps fit P72, Critical control points?"
+  stem: "A bakery logs forty process readings in the same way. Nobody knows which ones decide food safety. Which of the following steps fit P72, Critical control points?"
   options:
     - text: "Rank the steps by how often incidents happen, and control the most frequent first."
       correct: false
@@ -106,9 +106,9 @@
       feedback: "Right. All five parts of P72 are present, and the test verifies that the control works in practice."
 - id: q-h-07
   rules: [P73]
-  stem: "A log service fills its disk steadily, and the database stops three hours after the leak starts. Detection takes 10 minutes, the response 40 minutes and the manual recovery 2 hours 20 minutes. Which changes fit P73, Response faster than harm?"
+  stem: "A log service fills its disk steadily, and the database stops three hours after the leak starts. Detection takes 10 minutes, the response 40 minutes and the manual recovery 2 hours 20 minutes. Which of the following changes fit P73, Response faster than harm?"
   options:
-    - text: "Accept the total of 3 hours 10 minutes, because it is close to the limit."
+    - text: Accept the total of 3 hours 10 minutes, because it is close to the limit of 3 hours.
       correct: false
       feedback: "Wrong. P73 asks for a total shorter than the time until harm, with a margin. 3 hours 10 minutes is longer than 3 hours."
     - text: "Automate the disk expansion so that recovery takes 30 minutes."
@@ -122,7 +122,7 @@
       feedback: "Wrong. P73 compares the measured detection-plus-response time, including recovery, with the time until harm."
 - id: q-h-08
   rules: [P73]
-  stem: "A company can tolerate a payroll outage of 5 days. A recovery test shows that restoring payroll takes 6 days. Which actions fit the management form of P73?"
+  stem: "A company can tolerate a payroll outage of 5 days. A recovery test shows that restoring payroll takes 6 days. Which of the following actions fit the management form of P73?"
   options:
     - text: "Raise the tolerable maximum to 7 days, so the test result passes."
       correct: false
@@ -138,7 +138,7 @@
       feedback: "Right. This is the management form of P73: the objective is inside the tolerable period and checked by measurement."
 - id: q-h-09
   rules: [P74]
-  stem: "A plant replaces every pump part every six months. Bearings wear with age, while the control electronics fail at random. Which statements fit P74, Maintenance by failure pattern?"
+  stem: "A plant replaces every pump part every six months. Bearings wear with age, while the control electronics fail at random. Which of the following statements fit P74, Maintenance by failure pattern?"
   options:
     - text: "Replace the electronics every six months too, so they are as good as new."
       correct: false
@@ -157,7 +157,7 @@
       feedback: "Wrong. P74 chooses the method by how each part fails, not by one cycle for everything."
 - id: q-h-10
   rules: [P74, P70]
-  stem: "A service leaks memory, and the team restarts it every night. The restarts are logged as preventive maintenance. Which statements fit P74?"
+  stem: "A service leaks memory, and the team restarts it every night. The restarts are logged as preventive maintenance. Which of the following statements fit P74?"
   options:
     - text: "Keep the nightly restart and log it as preventive maintenance."
       correct: false
@@ -173,7 +173,7 @@
       feedback: "Right. P74's check is that each task states the failure pattern it addresses, so the leak stays visible."
 - id: q-h-11
   rules: [P75, P70]
-  stem: "An on-call channel receives about 300 alerts a day, and 95 percent need no action. Last week a real disk alert was missed in the noise. Which actions fit P75, Actionable alerts?"
+  stem: "An on-call channel receives about 300 alerts a day, and 95 percent need no action. Last week a real disk alert was missed in the noise. Which of the following actions fit P75, Actionable alerts?"
   options:
     - text: "Give every alert an owner and a runbook action."
       correct: true
@@ -192,7 +192,7 @@
       feedback: "Wrong. Rare firing is not the test. P75 removes alerts that nobody acts on, and P70 needs the user-symptom alerts."
 - id: q-h-12
   rules: [P75]
-  stem: "A programme board gets a forty-page status report every week. It has not led to a decision in months. Which changes fit the management form of P75?"
+  stem: "A programme board gets a forty-page status report every week. It has not led to a decision in months. Which of the following changes fit the management form of P75?"
   options:
     - text: "Add more indicators, so the board sees the whole picture."
       correct: false
@@ -208,7 +208,7 @@
       feedback: "Right. P75 asks to remove alerts, in management form reports, that nobody acts on."
 - id: q-h-13
   rules: [P76]
-  stem: "During a production cutover, fifteen people are on a bridge call. One engineer starts a parallel deployment of an unrelated feature, and a sales manager asks for a delivery date in the channel. Which actions fit P76, Sterile critical phase?"
+  stem: "During a production cutover, fifteen people are on a bridge call. One engineer starts a parallel deployment of an unrelated feature, and a sales manager asks for a delivery date in the channel. Which of the following actions fit P76, Sterile critical phase?"
   options:
     - text: "Hold the parallel deployment until the cutover finishes."
       correct: true
@@ -227,7 +227,7 @@
       feedback: "Wrong. A side discussion in the response channel breaks the communication rules that P76 asks for."
 - id: q-h-14
   rules: [P76]
-  stem: "A product team has meetings all day, and its engineers say they cannot concentrate. During the last crisis, each department opened its own channel. Which changes fit the management form of P76?"
+  stem: "A product team has meetings all day, and its engineers say they cannot concentrate. During the last crisis, each department opened its own channel. Which of the following changes fit the management form of P76?"
   options:
     - text: "Expect everyone to answer chat messages within five minutes."
       correct: false
@@ -235,7 +235,7 @@
     - text: "In a crisis, use one channel with one commander."
       correct: true
       feedback: "Right. P76's management form limits crisis communication to the response."
-    - text: "Let each department keep its own crisis channel, to share the load."
+    - text: Let each department keep its own crisis channel, to share the load across the teams.
       correct: false
       feedback: "Wrong. Parallel channels spread attention and break the communication rules P76 asks for."
     - text: "Set aside meeting-free blocks, such as Tuesday and Thursday mornings."
@@ -243,7 +243,7 @@
       feedback: "Right. P76's management form protects blocks of uninterrupted work."
 - id: q-h-15
   rules: [P77]
-  stem: "A fraud-scoring model was trained a year ago. Its accuracy has dropped as customer behavior changed, and nobody noticed. Which actions fit P77, Data as a dependency?"
+  stem: "A fraud-scoring model was trained a year ago. Its accuracy has dropped as customer behavior changed, and nobody noticed. Which of the following actions fit P77, Data as a dependency?"
   options:
     - text: "Monitor the inputs and scores for drift, with an alert."
       correct: true
@@ -262,7 +262,7 @@
       feedback: "Wrong. P77 ties retraining to drift and to changes in the world, not to the calendar alone."
 - id: q-h-16
   rules: [P77]
-  stem: "The board report and the HR system show different headcount figures, and nobody knows why. Which actions fit the management form of P77?"
+  stem: "The board report and the HR system show different headcount figures, and nobody knows why. Which of the following actions fit the management form of P77?"
   options:
     - text: "Reconcile the two figures by hand before each board meeting."
       correct: false
@@ -278,7 +278,7 @@
       feedback: "Right. P77's management form checks data quality and watches for drift."
 - id: q-h-17
   rules: [P78, P36]
-  stem: "A scan of a company's cloud accounts finds a test cluster with public access. No team claims it and it is in no inventory. Which actions fit P78, Asset inventory?"
+  stem: "A scan of a company's cloud accounts finds a test cluster with public access. No team claims it and it is in no inventory. Which of the following actions fit P78, Asset inventory?"
   options:
     - text: "Tighten the cluster's access and stop there, since the inventory is not the problem."
       correct: false
@@ -297,7 +297,7 @@
       feedback: "Wrong. P78 applies because you operate many assets. Fast change is a reason for automated discovery, not for no inventory."
 - id: q-h-18
   rules: [P78]
-  stem: "A supplier contract renewed automatically because nobody knew its notice period. Each department keeps its own contract list. Which actions fit the management form of P78?"
+  stem: "A supplier contract renewed automatically because nobody knew its notice period. Each department keeps its own contract list. Which of the following actions fit the management form of P78?"
   options:
     - text: "Keep one register of all contracts, with owner, status and lifecycle stage, including end date and notice period."
       correct: true
@@ -313,7 +313,7 @@
       feedback: "Wrong. Separate lists are not a complete register, and they hide contracts from the owner of the whole."
 - id: q-h-19
   rules: [P79]
-  stem: "In a major incident, one commander directly coordinates 20 people in a single channel. Orders overlap and tasks are missed. Which actions fit P79, Span of control?"
+  stem: "In a major incident, one commander directly coordinates 20 people in a single channel. Orders overlap and tasks are missed. Which of the following actions fit P79, Span of control?"
   options:
     - text: "Add group leads, so the commander directs about five people."
       correct: true
@@ -329,7 +329,7 @@
       feedback: "Right. P79's check is that each incident record lists the roles and the number of people each lead directed."
 - id: q-h-20
   rules: [P79]
-  stem: "A team reviews four incident records against the check of P79. Which records pass?"
+  stem: "A team reviews four incident records against the check of P79. Which of the following records pass?"
   options:
     - text: "It lists the roles, and each lead directed four people."
       correct: true

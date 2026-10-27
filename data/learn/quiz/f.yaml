@@ -20,7 +20,7 @@
       feedback: Wrong. A review by the author is neither an acceptance by a stakeholder (P54) nor an independent check (P56).
 - id: q-f-02
   rules: [P54, P55]
-  stem: Three services each pass their own tests. On the first joint deployment, the certificate service rejects the new DNS name. Which conclusions are right?
+  stem: Three services each pass their own tests. On the first joint deployment, the certificate service rejects the new DNS name. Which of the following conclusions are right?
   options:
     - text: Parts that pass alone can fail together, so an end-to-end test of the whole system is needed before handover.
       correct: true
@@ -31,12 +31,12 @@
     - text: Passing unit tests shows that every service meets the owner's needs, so this failure is a one-off.
       correct: false
       feedback: Wrong. Passing alone does not mean passing together (P54).
-    - text: The team should move its integration test to after the release, because the fix costs the same at any stage.
+    - text: The team should move its integration test to after the release, because the fix costs the same at any stage of the work.
       correct: false
       feedback: Wrong. The cost of a fix rises at each later stage, so P55 says to find defects earlier.
 - id: q-f-03
   rules: [P55]
-  stem: A type error reaches production and is found by a customer at 2 am. The team's lint and unit tests run only nightly, after the release branch is cut. Which changes fit P55?
+  stem: A type error reaches production and is found by a customer at 2 am. The team's lint and unit tests run only nightly, after the release branch is cut. Which of the following changes fit P55?
   options:
     - text: Add more monitoring in production to catch such errors sooner.
       correct: false
@@ -55,9 +55,9 @@
       feedback: Wrong. P55 rests on the cost of a fix rising at each later stage.
 - id: q-f-04
   rules: [P55]
-  stem: A product lead wants to commit twelve people for a quarter to a new initiative. The only document is a one-page proposal that nobody has reviewed. Which action fits P55?
+  stem: A product lead wants to commit twelve people for a quarter to a new initiative. The only document is a one-page proposal that nobody has reviewed. Which of the following actions fit P55?
   options:
-    - text: Start the work and review the business case at the end-of-quarter retrospective.
+    - text: Start the work and review the business case at the end-of-quarter retrospective with the sponsor.
       correct: false
       feedback: Wrong. The review comes after the money is spent. P55 asks for plans to be reviewed before people and money are committed.
     - text: Review the proposal and the business case before any people or money are committed.
@@ -71,7 +71,7 @@
       feedback: Wrong. An acceptance review is useful (P54), but it is the latest stage. It does not find a plan defect early (P55).
 - id: q-f-05
   rules: [P56]
-  stem: A payments team changes the code that authorizes card transactions. A failure would be costly. Which practices meet P56?
+  stem: A payments team changes the code that authorizes card transactions. A failure would be costly. Which of the following practices meet P56?
   options:
     - text: A second engineer approves every pull request before it is merged.
       correct: true
@@ -90,7 +90,7 @@
       feedback: Wrong. A second person at the moment of action resembles the two-person rule (P42), which is for critical, irreversible actions. It is not a review of the work (P56).
 - id: q-f-06
   rules: [P56]
-  stem: A company wants its budgets and accounts checked in proportion to the consequence of an error. Which choices fit P56?
+  stem: A company wants its budgets and accounts checked in proportion to the consequence of an error. Which of the following choices fit P56?
   options:
     - text: The head of a department prepares the budget and approves it after a careful second reading.
       correct: false
@@ -125,7 +125,7 @@
       feedback: Wrong. Short work does not lower the consequence of failure. Authors do not see their own errors (P56).
 - id: q-f-08
   rules: [P57]
-  stem: A release passes in staging and fails in production. Staging runs an image built separately from the release, with a smaller replica count and TLS switched off. Which actions fit P57?
+  stem: A release passes in staging and fails in production. Staging runs an image built separately from the release, with a smaller replica count and TLS switched off. Which of the following actions fit P57?
   options:
     - text: Add more unit tests, since they run earlier than staging.
       correct: false
@@ -160,7 +160,7 @@
       feedback: Wrong. The author's word is neither a test in operating conditions (P57) nor an independent check (P56).
 - id: q-f-10
   rules: [P58]
-  stem: A team reports that a new cache is 12 percent faster. The figure comes from one run on a laptop and one run on a CI runner. Which changes make the comparison fit P58?
+  stem: A team reports that a new cache is 12 percent faster. The figure comes from one run on a laptop and one run on a CI runner. Which of the following changes make the comparison fit P58?
   options:
     - text: Run both versions on the same instance type with a fixed load and a warm-up.
       correct: true
@@ -179,7 +179,7 @@
       feedback: Wrong. A reviewer (P56) cannot make two runs on different machines comparable (P58).
 - id: q-f-11
   rules: [P58]
-  stem: Two directors want to rank teams by lead time. One team measures it from ticket creation, and another from the first commit. Which actions fit P58?
+  stem: Two directors want to rank teams by lead time. One team measures it from ticket creation, and another from the first commit. Which of the following actions fit P58?
   options:
     - text: Let each team keep its own definition, since it knows its work best.
       correct: false
@@ -217,7 +217,7 @@
       feedback: Wrong. A compliance scan (P60) does not show that every requirement has a test (P59).
 - id: q-f-13
   rules: [P59]
-  stem: A company has two projects. One is the braking software of a rail vehicle under a safety standard. The other is a plugin for an internal wiki, with no regulator. Which statements about P59 are right?
+  stem: A company has two projects. One is the braking software of a rail vehicle under a safety standard. The other is a plugin for an internal wiki, with no regulator. Which of the following statements about P59 are right?
   options:
     - text: The braking software needs links from each requirement to design and to test, in both directions.
       correct: true
@@ -233,7 +233,7 @@
       feedback: Right. P59 is risk-scaled. Its condition is a safety-critical or regulated system.
 - id: q-f-14
   rules: [P60]
-  stem: A Kubernetes cluster passes the CIS Benchmark scan. The team lead says, "We are secure, so no further analysis is needed." Which statements are right?
+  stem: A Kubernetes cluster passes the CIS Benchmark scan. The team lead says, "We are secure, so no further analysis is needed." Which of the following statements are right?
   options:
     - text: A passing scan means the cluster is safe, so the other rules can wait.
       correct: false
@@ -268,7 +268,7 @@
       feedback: Wrong. Verification and validation are always required (P54), whether or not a code exists.
 - id: q-f-16
   rules: [P61]
-  stem: A team's backup procedure was written in 2022 and has never been restored. Any on-call engineer may run it during an outage. Which actions fit P61?
+  stem: A team's backup procedure was written in 2022 and has never been restored. Any on-call engineer may run it during an outage. Which of the following actions fit P61?
   options:
     - text: Prove the procedure with a real restore and keep the test record.
       correct: true
@@ -303,7 +303,7 @@
       feedback: Right. The result cannot be fully checked in advance, so P61 asks for a proven procedure and a qualified person.
 - id: q-f-18
   rules: [P61, P57]
-  stem: A team proves its restore procedure by restoring a backup into a test cluster. The first restore failed on a missing configuration step, which the team then added. The test cluster runs a different database version from production. Which statements are right?
+  stem: A team proves its restore procedure by restoring a backup into a test cluster. The first restore failed on a missing configuration step, which the team then added. The test cluster runs a different database version from production. Which of the following statements are right?
   options:
     - text: The test record from the failed first run is enough, since the step is now in the document.
       correct: false
@@ -319,7 +319,7 @@
       feedback: Right. This keeps the test close to real operation (P57), so the proof of the procedure counts (P61).
 - id: q-f-19
   rules: [P62]
-  stem: A company hires a platform engineer. Each interviewer asks their own questions about 'culture fit', and the raters decide in a joint discussion. Which changes fit P62?
+  stem: A company hires a platform engineer. Each interviewer asks their own questions about 'culture fit', and the raters decide in a joint discussion. Which of the following changes fit P62?
   options:
     - text: Ask every candidate the same job-related questions.
       correct: true
@@ -338,7 +338,7 @@
       feedback: Right. P62 adds work samples or job-knowledge tests to the structured interview.
 - id: q-f-20
   rules: [P62]
-  stem: A manager says unstructured interviews show the real person and that structured interviews predict nothing extra. A colleague quotes the evidence behind P62. Which statements are right?
+  stem: A manager says unstructured interviews show the real person and that structured interviews predict nothing extra. A colleague quotes the evidence behind P62. Which of the following statements are right?
   options:
     - text: Unstructured interviews predict job performance about as well, and they are more flexible.
       correct: false
@@ -354,7 +354,7 @@
       feedback: Right. The trigger of P62 is selecting a person for a job or a promotion.
 - id: q-f-21
   rules: [P63]
-  stem: An engineer deploys a service, and the runbook is missing the rollback step. The lead wants to give feedback. Which statements fit P63?
+  stem: An engineer deploys a service, and the runbook is missing the rollback step. The lead wants to give feedback. Which of the following statements fit P63?
   options:
     - text: "The runbook is missing the rollback step. Add it and test it."
       correct: true
@@ -373,7 +373,7 @@
       feedback: Wrong. Without a named improvement and a later check, P63 is not met.
 - id: q-f-22
   rules: [P63]
-  stem: A team lead keeps written feedback records. Which record meets the check of P63?
+  stem: A team lead keeps written feedback records. Which of the following records meet the check of P63?
   options:
     - text: "Strongest developer on the team, ranked 2 of 8."
       correct: false

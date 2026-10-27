@@ -1,7 +1,7 @@
 # Quiz questions, category G. Schema: schema/learn-quiz.schema.json.
 - id: q-g-01
   rules: [P64]
-  stem: A developer must raise a timeout in a production service. Which parts of the change process satisfy P64 (Versioning and change review)?
+  stem: A developer must raise a timeout in a production service. Which of the following parts of the change process satisfy P64 (Versioning and change review)?
   options:
     - text: The change is a pull request that states why the timeout changes.
       correct: true
@@ -20,7 +20,7 @@
       feedback: Wrong. Small steps with checks belong to P65 (Small verified steps). P64 does not ask for them, and they do not replace a change review.
 - id: q-g-02
   rules: [P64]
-  stem: An audit compares a production server with its repository. Which findings break P64 (Versioning and change review)?
+  stem: An audit compares a production server with its repository. Which of the following findings break P64 (Versioning and change review)?
   options:
     - text: The running configuration matches no approved commit.
       correct: true
@@ -39,7 +39,7 @@
       feedback: Wrong. A missing trigger level is a P68 (Observational method) gap. P64 asks about versions, review and approval.
 - id: q-g-03
   rules: [P65]
-  stem: A team replaces the payment service. The change carries risk for every customer. Which plans apply P65 (Small verified steps)?
+  stem: A team replaces the payment service. The change carries risk for every customer. Which of the following plans apply P65 (Small verified steps)?
   options:
     - text: Send 1 % of traffic to the new service and check errors, then 10 %, then 100 %.
       correct: true
@@ -58,7 +58,7 @@
       feedback: Wrong. P65 asks for a check of each step before the next one starts.
 - id: q-g-04
   rules: [P65, P68]
-  stem: A rollout plan has two checks. At check A, work stops until a lead approves. At check B, an engineer watches the metrics while the rollout continues. Which statements are right?
+  stem: A rollout plan has two checks. At check A, work stops until a lead approves. At check B, an engineer watches the metrics while the rollout continues. Which of the following statements are right?
   options:
     - text: Check A is a hold point under P65.
       correct: true
@@ -77,7 +77,7 @@
       feedback: Wrong. P65 asks for each check between steps to be marked as a hold point or a witness point.
 - id: q-g-05
   rules: [P66]
-  stem: An engineer must repair a pump that feeds a production line and that restarts itself on a signal from a controller. Which actions apply P66 (Isolation before work)?
+  stem: An engineer must repair a pump that feeds a production line and that restarts itself on a signal from a controller. Which of the following actions apply P66 (Isolation before work)?
   options:
     - text: Cut the power and the input flow to the pump before work starts.
       correct: true
@@ -96,7 +96,7 @@
       feedback: Wrong. Small verified steps are P65. P66 asks to isolate first, so a restart cannot injure the engineer.
 - id: q-g-06
   rules: [P66]
-  stem: A product team is in week one of a two-week sprint. A senior stakeholder asks for a new feature right now. Which responses fit the management form of P66 (Isolation before work)?
+  stem: A product team is in week one of a two-week sprint. A senior stakeholder asks for a new feature right now. Which of the following responses fit the management form of P66 (Isolation before work)?
   options:
     - text: The request waits for the next sprint.
       correct: true
@@ -115,7 +115,7 @@
       feedback: Wrong. A critical path is P67. It shapes the plan, but it does not protect the team's committed goal.
 - id: q-g-07
   rules: [P67]
-  stem: A cluster migration has five tasks. Data sync leads to DNS cutover. Documentation, a new dashboard and a load test have slack. The date is at risk. Which actions apply P67 (Critical path)?
+  stem: A cluster migration has five tasks. Data sync leads to DNS cutover. Documentation, a new dashboard and a load test have slack. The date is at risk. Which of the following actions apply P67 (Critical path)?
   options:
     - text: Mark data sync and DNS cutover as the longest chain of dependent tasks.
       correct: true
@@ -153,7 +153,7 @@
       feedback: Wrong. P67 asks for the longest chain of dependent tasks to be identified, not dropped.
 - id: q-g-09
   rules: [P68]
-  stem: A team ships a service whose real load is unknown until it runs in production. Which parts of a plan apply P68 (Observational method)?
+  stem: A team ships a service whose real load is unknown until it runs in production. Which of the following parts of a plan apply P68 (Observational method)?
   options:
     - text: The design fits the most probable load.
       correct: true
@@ -172,7 +172,7 @@
       feedback: Wrong. Discovering at go-live that no rollback plan exists is the P68 violation. The backup action is planned in advance.
 - id: q-g-10
   rules: [P68, P65]
-  stem: A programme has set a time tolerance for a data migration. It is 10 % past that tolerance. Which responses fit the management form of P68 (Observational method)?
+  stem: A programme has set a time tolerance for a data migration. It is 10 % past that tolerance. Which of the following responses fit the management form of P68 (Observational method)?
   options:
     - text: The steering group decides on scope, as planned in advance.
       correct: true
@@ -191,7 +191,7 @@
       feedback: Wrong. A tolerance is set in advance and monitored. Removing it hides the measurement that P68 depends on.
 - id: q-g-11
   rules: [P69]
-  stem: An organization moves 30 teams to a new CI system. Which plans apply P69 (Guided change)?
+  stem: An organization moves 30 teams to a new CI system. Which of the following plans apply P69 (Guided change)?
   options:
     - text: A written reason, a named leading group and a communication plan.
       correct: true
@@ -210,7 +210,7 @@
       feedback: Wrong. A reviewed change is P64 (Versioning and change review). It covers the technical change, not how people adopt the new way of working.
 - id: q-g-12
   rules: [P69, P64]
-  stem: A company will replace its ticket tool for all staff. A pipeline change moves the tool's configuration into git. Which statements are right?
+  stem: A company will replace its ticket tool for all staff. A pipeline change moves the tool's configuration into git. Which of the following statements are right?
   options:
     - text: P64 covers the reviewed, versioned configuration change.
       correct: true
@@ -218,7 +218,7 @@
     - text: P69 covers making the need visible and leading the people through the change.
       correct: true
       feedback: Correct. P69 applies where many people change how they work, and it asks for a leading group and communication.
-    - text: P64 replaces P69, because an approved change needs no communication plan.
+    - text: P64 replaces P69, because an approved change needs no communication plan for the staff.
       correct: false
       feedback: Wrong. P64 only requires informing the affected people before go-live. P69 adds a plan that continues until the change is routine.
     - text: P69 replaces P64, because a leading group approves the configuration.

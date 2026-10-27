@@ -2,7 +2,7 @@
 - id: q-k-01
   rules:
   - K1
-  stem: 'A payment service has a high consequence of failure. Its design rules pull two ways: P45 (redundancy) and P44 (margin) add parts, and P23 (simplicity) removes them. The team must set up production and a development copy. Which choices follow K1? Select all that apply.'
+  stem: 'A payment service has a high consequence of failure. Its design rules pull two ways: P45 (redundancy) and P44 (margin) add parts, and P23 (simplicity) removes them. The team must set up production and a development copy. Which of the following choices follow K1?'
   options:
   - text: Run production across several availability zones, because the master rule and the rigor matrix require that much redundancy.
     correct: true
@@ -22,7 +22,7 @@
 - id: q-k-02
   rules:
   - K1
-  stem: For an internal wiki, a reviewer asks to add a different database engine for the replica (P46), isolated compartments (P41) and a second control layer (P40). The author objects with P23 (fewer parts). What does K1 say about this conflict? Select all that apply.
+  stem: For an internal wiki, a reviewer asks to add a different database engine for the replica (P46), isolated compartments (P41) and a second control layer (P40). The author objects with P23 (fewer parts). What does K1 say about this conflict?
   options:
   - text: Both adding and removing parts change failure risk, so neither side wins by default.
     correct: true
@@ -45,7 +45,7 @@
 - id: q-k-03
   rules:
   - K2
-  stem: A bug leaks customer records every minute. The fix is one line of config. P64 asks for change review and P65 asks for small verified steps, but both take hours. The time until harm (P73) is far shorter. Which actions follow K2? Select all that apply.
+  stem: A bug leaks customer records every minute. The fix is one line of config. P64 asks for change review and P65 asks for small verified steps, but both take hours. The time until harm (P73) is far shorter. Which of the following actions follow K2?
   options:
   - text: Use the predefined emergency change path, which has a shorter review, for example one approver.
     correct: true
@@ -56,7 +56,7 @@
   - text: Skip the review and write it up later, because harm is already happening.
     correct: false
     feedback: Wrong. K2 warns that skipping review without a plan removes every check at the moment of highest stress (P64, P65).
-  - text: Hold the fix until the normal P64 review and P65 steps finish, because rules come first.
+  - text: Hold the fix until the normal P64 review and P65 steps finish, because rules come first and apply to all changes.
     correct: false
     feedback: Wrong. K2 exists because P73 (time until harm) can make the full process too slow. The harm continues while the review runs.
   - text: Invent the review steps during the incident to suit the situation.
@@ -65,7 +65,7 @@
 - id: q-k-04
   rules:
   - K2
-  stem: 'A team has an emergency path: one approver, and a mandatory postmortem within 48 hours. Lately engineers use it for features with near deadlines. A lead asks what K2 allows. Which statements are correct? Select all that apply.'
+  stem: 'A team has an emergency path: one approver, and a mandatory postmortem within 48 hours. Lately engineers use it for features with near deadlines. A lead asks what K2 allows. Which of the following statements are correct?'
   options:
   - text: The path is for fixes needed faster than P64 and P65 allow because of P73, the time until harm.
     correct: true
@@ -85,7 +85,7 @@
 - id: q-k-05
   rules:
   - K3
-  stem: An API specification allows any ISO 8601 timestamp with a UTC offset or the Z suffix and requires the timestamp field. One client sends 2026-10-26T10:00:00+02:00, another sends 2026-10-26T08:00:00Z, and a third sends no timestamp. P27 (robustness) and P33 (strict interfaces) seem to disagree. Which handling follows K3? Select all that apply.
+  stem: An API specification allows any ISO 8601 timestamp with a UTC offset or the Z suffix and requires the timestamp field. One client sends 2026-10-26T10:00:00+02:00, another sends 2026-10-26T08:00:00Z, and a third sends no timestamp. P27 (robustness) and P33 (strict interfaces) seem to disagree. Which of the following ways of handling follow K3?
   options:
   - text: Accept the message with the +02:00 offset, because the specification allows it.
     correct: true
@@ -105,7 +105,7 @@
 - id: q-k-06
   rules:
   - K3
-  stem: A sensor protocol specifies a temperature field of -50 to 150 degrees Celsius. The specification allows messages to arrive in any order. A gateway receives messages out of order, and one message that says 900. P27 (tolerate variation) and P33 (reject bad input) both seem to apply. What does K3 say to do? Select all that apply.
+  stem: A sensor protocol specifies a temperature field of -50 to 150 degrees Celsius. The specification allows messages to arrive in any order. A gateway receives messages out of order, and one message that says 900. P27 (tolerate variation) and P33 (reject bad input) both seem to apply. What does K3 say to do?
   options:
   - text: Process the out-of-order messages normally, because the specification allows any order.
     correct: true
@@ -128,7 +128,7 @@
 - id: q-k-07
   rules:
   - K4
-  stem: A service crashes. Orders are lost for every minute it stays down, and the time until harm (P73) is short. P83 asks to preserve the as-found state before a restart. Automation can restart the service now. Which actions follow K4? Select all that apply.
+  stem: A service crashes. Orders are lost for every minute it stays down, and the time until harm (P73) is short. P83 asks to preserve the as-found state before a restart. Automation can restart the service now. Which of the following actions follow K4?
   options:
   - text: Capture crash dumps and ship logs automatically, and fast, before the restart.
     correct: true
@@ -139,7 +139,7 @@
   - text: Wait for a full forensic copy of the host, then restart.
     correct: false
     feedback: Wrong. K4 does not let P83 delay recovery beyond the time until harm (P73). A full copy takes too long.
-  - text: Restart now and discard the state, because recovery always outranks evidence.
+  - text: Restart now and discard the state, because recovery always outranks evidence in an outage.
     correct: false
     feedback: Wrong. K4 keeps whatever the automation captured. It does not drop P83, it only limits its delay.
   - text: Ask the on-call engineer to snapshot the disks by hand before restarting.
@@ -148,7 +148,7 @@
 - id: q-k-08
   rules:
   - K4
-  stem: A design review asks how the platform should handle the P83 (preserve evidence) and P73 (response faster than harm) conflict for automatic restarts. Which designs follow K4? Select all that apply.
+  stem: A design review asks how the platform should handle the P83 (preserve evidence) and P73 (response faster than harm) conflict for automatic restarts. Which of the following designs follow K4?
   options:
   - text: Run a dump and log-shipping step as part of every automatic restart.
     correct: true
@@ -168,7 +168,7 @@
 - id: q-k-09
   rules:
   - K5
-  stem: In one week a team plans two decisions. One is a new internal dashboard. The other is deleting historical audit logs. P18 says to decide reversible things fast. P64 and P56 ask for review and an independent checker. Which handling follows K5? Select all that apply.
+  stem: In one week a team plans two decisions. One is a new internal dashboard. The other is deleting historical audit logs. P18 says to decide reversible things fast. P64 and P56 ask for review and an independent checker. Which of the following ways of handling follow K5?
   options:
   - text: Let the team decide on the dashboard with a peer review or a self-check.
     correct: true
@@ -188,7 +188,7 @@
 - id: q-k-10
   rules:
   - K5
-  stem: A developer proposes dropping a production table with no backup. A manager says P18 means the lowest competent level should decide quickly. Which statements follow K5? Select all that apply.
+  stem: A developer proposes dropping a production table with no backup. A manager says P18 means the lowest competent level should decide quickly. Which of the following statements follow K5?
   options:
   - text: The drop is irreversible and high consequence, so it gets full review (P64).
     correct: true
@@ -208,7 +208,7 @@
 - id: q-k-11
   rules:
   - K6
-  stem: A manager wants to follow P7 (leave the method to the people who do the work) but a quarterly backup restore is rare and critical (P71). Another task is to improve developer onboarding. Which handling follows K6? Select all that apply.
+  stem: A manager wants to follow P7 (leave the method to the people who do the work) but a quarterly backup restore is rare and critical (P71). Another task is to improve developer onboarding. Which of the following ways of handling follow K6?
   options:
   - text: Give the restore a short checklist that the team confirms item by item.
     correct: true
@@ -228,7 +228,7 @@
 - id: q-k-12
   rules:
   - K6
-  stem: A repeated release process has twenty steps. One step, the signing of the production artifact, is where control is essential (P72). Another process has a result that can't be fully checked afterwards (P61). The rest is routine team work. Which choices follow K6? Select all that apply.
+  stem: A repeated release process has twenty steps. One step, the signing of the production artifact, is where control is essential (P72). Another process has a result that can't be fully checked afterwards (P61). The rest is routine team work. Which of the following choices follow K6?
   options:
   - text: Prescribe the method at the signing step, as a critical control point with a limit and monitoring.
     correct: true
@@ -251,7 +251,7 @@
 - id: q-k-13
   rules:
   - K7
-  stem: After an outage, two things come out. An engineer ran a wrong command during the incident. Another engineer bypassed the two-person rule on purpose to ship faster. P5 and P80 (blameless) seem to conflict with accountability (P43, P2). Which handling follows K7? Select all that apply.
+  stem: After an outage, two things come out. An engineer ran a wrong command during the incident. Another engineer bypassed the two-person rule on purpose to ship faster. P5 and P80 (blameless) seem to conflict with accountability (P43, P2). Which of the following ways of handling follow K7?
   options:
   - text: Treat the wrong command in a blameless postmortem, and look for the system weakness behind it.
     correct: true
@@ -271,7 +271,7 @@
 - id: q-k-14
   rules:
   - K7
-  stem: An operator reports a near miss. They mistyped a delete command, noticed it and stopped it in time. A manager wants a formal warning, citing P2 (work within competence). The operator acted honestly and followed procedure. What does K7 say? Select all that apply.
+  stem: An operator reports a near miss. They mistyped a delete command, noticed it and stopped it in time. A manager wants a formal warning, citing P2 (work within competence). The operator acted honestly and followed procedure. What does K7 say?
   options:
   - text: Treat the near miss without blame, and look for the system cause, for example a missing confirmation step.
     correct: true
@@ -291,7 +291,7 @@
 - id: q-k-15
   rules:
   - K8
-  stem: A team has the goal 'halve build time' (P21). Leadership wants to base each engineer's bonus on the build time number. P19 warns that rewarded indicators are gamed. Which handling follows K8? Select all that apply.
+  stem: A team has the goal 'halve build time' (P21). Leadership wants to base each engineer's bonus on the build time number. P19 warns that rewarded indicators are gamed. Which of the following ways of handling follow K8?
   options:
   - text: Keep the goal for direction and learning.
     correct: true
@@ -311,7 +311,7 @@
 - id: q-k-16
   rules:
   - K8
-  stem: A support team is ranked by tickets closed per day. Closures rise, but customers reopen more tickets. The director wants to keep the ranking and raise the target (P21). Which actions follow K8? Select all that apply.
+  stem: A support team is ranked by tickets closed per day. Closures rise, but customers reopen more tickets. The director wants to keep the ranking and raise the target (P21). Which of the following actions follow K8?
   options:
   - text: Add the reopen rate as a counter-indicator for the closing target.
     correct: true

@@ -1,7 +1,7 @@
 # Quiz questions, category D. Schema: schema/learn-quiz.schema.json.
 - id: q-d-01
   rules: [P36]
-  stem: A platform team reviews its service accounts after 90 days. Which findings must they act on under least privilege?
+  stem: A platform team reviews its service accounts after 90 days. Which of the following findings must they act on under least privilege?
   options:
     - text: The reporting service holds a database write permission it has not used in 90 days.
       correct: true
@@ -20,7 +20,7 @@
       feedback: Right. A permission held just in case is more than the function needs (P36). Grant it when needed, and remove it afterwards.
 - id: q-d-02
   rules: [P36]
-  stem: A finance director says all team leads should see every employee's salary data, so that they can plan budgets. Which responses follow the management form of least privilege?
+  stem: A finance director says all team leads should see every employee's salary data, so that they can plan budgets. Which of the following responses follow the management form of least privilege?
   options:
     - text: Give each lead the budget and headcount of their own team only.
       correct: true
@@ -39,7 +39,7 @@
       feedback: Wrong. P36 keeps decision authority at what the role needs. Speed is handled by deciding reversible things low (P18), not by removing limits.
 - id: q-d-03
   rules: [P37]
-  stem: An admission webhook that checks image signatures starts to error under load. The team must decide how it behaves when it fails. Which choices follow fail-safe?
+  stem: An admission webhook that checks image signatures starts to error under load. The team must decide how it behaves when it fails. Which of the following choices follow fail-safe?
   options:
     - text: Allow the request through, so that deployments never stall.
       correct: false
@@ -47,7 +47,7 @@
     - text: Write down that the safe state is to reject, and test it by injecting a failure.
       correct: true
       feedback: Right. P37 requires a defined safe state, and its check is a failure injection that shows the system reaches it.
-    - text: Leave the behavior to the client library default, since it has not been tested.
+    - text: Leave the behavior to the client library default, since nobody has tested what it does.
       correct: false
       feedback: Wrong. Undefined behavior when a dependency is lost is the violation named in P37.
     - text: Reject the request while the webhook errors, and raise an alert.
@@ -58,7 +58,7 @@
       feedback: Wrong. Both copies share the key service, so one cause stops both (P46), and neither defines a safe state. Redundancy (P45) does not replace P37.
 - id: q-d-04
   rules: [P37]
-  stem: A company approves every production change through one change approver. The approver is often away. Which default follows the management form of fail-safe?
+  stem: A company approves every production change through one change approver. The approver is often away. Which of the following defaults follow the management form of fail-safe?
   options:
     - text: Any manager may approve by chat message while the approver is away.
       correct: false
@@ -74,7 +74,7 @@
       feedback: Wrong. This is the two-person rule (P42), for critical irreversible actions. It does not say what happens when approvers are absent.
 - id: q-d-05
   rules: [P38]
-  stem: A review finds an admin port on a payment service that every office laptop can reach. A vendor tool needs the port in production, so it cannot be removed. Which actions follow the hierarchy of controls?
+  stem: A review finds an admin port on a payment service that every office laptop can reach. A vendor tool needs the port in production, so it cannot be removed. Which of the following actions follow the hierarchy of controls?
   options:
     - text: Add a README line that says do not connect to the admin port.
       correct: false
@@ -90,7 +90,7 @@
       feedback: Right. P38 checks for a record that explains why a higher level was not possible. A policy engine is an engineering control.
 - id: q-d-06
   rules: [P38]
-  stem: An audit finds that staff share one login to a supplier portal. Which responses follow the hierarchy of controls for management risks?
+  stem: An audit finds that staff share one login to a supplier portal. Which of the following responses follow the hierarchy of controls for management risks?
   options:
     - text: Remove the shared account and give each person a personal login.
       correct: true
@@ -101,7 +101,7 @@
     - text: Run a yearly training session on password habits.
       correct: false
       feedback: Wrong. Training is a low level in P38. It leaves the shared login in place.
-    - text: Enforce single sign-on with multi-factor authentication, so that sharing stops working.
+    - text: Enforce single sign-on with multi-factor authentication, so sharing stops working.
       correct: true
       feedback: Right. Single sign-on with a second factor ties each login to one person, which is how the shared account is removed in practice. It is system-enforced, so it does not rely on people's care (P38).
     - text: Keep one account, and let a vault hand out a credential to one named person at a time.
@@ -109,7 +109,7 @@
       feedback: Wrong here. A vault is a lower level than removing the shared account, and removal is possible. P38 uses the highest possible level and records why a higher one was not possible.
 - id: q-d-07
   rules: [P39]
-  stem: A postmortem shows that three engineers ran a destructive migration against production when they meant to use staging. Which fix follows error-proofing?
+  stem: A postmortem shows that three engineers ran a destructive migration against production when they meant to use staging. Which of the following fixes follow error-proofing?
   options:
     - text: Send a reminder email every Monday that asks engineers to check the target.
       correct: false
@@ -125,7 +125,7 @@
       feedback: Wrong. An optional step is not a guard. P39 also prefers impossible over visible, and an impossible fix exists here.
 - id: q-d-08
   rules: [P39]
-  stem: A purchasing team keeps receiving orders with no contract number. Which responses follow the management form of error-proofing?
+  stem: A purchasing team keeps receiving orders with no contract number. Which of the following responses follow the management form of error-proofing?
   options:
     - text: Make the contract number a required field, so the system refuses an order without one.
       correct: true
@@ -144,7 +144,7 @@
       feedback: Wrong. The two-person rule (P42) is for critical, irreversible actions. A signature does not stop a missing number getting in.
 - id: q-d-09
   rules: [P40]
-  stem: A company stores customer records behind one perimeter firewall. Which changes give it defense in depth?
+  stem: A company stores customer records behind one perimeter firewall. Which of the following changes give it defense in depth?
   options:
     - text: Add a second firewall of the same make and configuration at the same perimeter.
       correct: false
@@ -163,7 +163,7 @@
       feedback: Wrong. P40 requires each layer to be verified. An untested layer may not work when needed.
 - id: q-d-10
   rules: [P40]
-  stem: A company wants independent lines of defense over access to its production systems. Which arrangement follows the management form of defense in depth?
+  stem: A company wants independent lines of defense over access to its production systems. Which of the following arrangements follow the management form of defense in depth?
   options:
     - text: The platform team owns the access risk, security monitors it, and internal audit tests both.
       correct: true
@@ -179,7 +179,7 @@
       feedback: Wrong. This is a peer check inside the first line (P56). It does not add independent lines.
 - id: q-d-11
   rules: [P41]
-  stem: A software-as-a-service product serves many customers from test, staging and production environments. Which designs follow compartments?
+  stem: A software-as-a-service product serves many customers from test, staging and production environments. Which of the following designs follow compartments?
   options:
     - text: Run production and testing in separate cloud accounts.
       correct: true
@@ -198,7 +198,7 @@
       feedback: Right. Cell-based design lets one damaged cell fail alone. P41 checks that a failure test in one compartment leaves the rest working.
 - id: q-d-12
   rules: [P41]
-  stem: A company launches a risky new product beside its core business. Which arrangements follow the management form of compartments?
+  stem: A company launches a risky new product beside its core business. Which of the following arrangements follow the management form of compartments?
   options:
     - text: Fund the product from the core budget line, to keep accounts simple.
       correct: false
@@ -214,7 +214,7 @@
       feedback: Wrong. Shared people and cash connect the two, so a failure spreads to the core business (P41). Fewer parts (P23) cannot justify removing every compartment.
 - id: q-d-13
   rules: [P42]
-  stem: A platform team lists the actions that may need a second approver. Which actions fall under the two-person rule?
+  stem: A platform team lists the actions that may need a second approver. Which of the following actions fall under the two-person rule?
   options:
     - text: Deleting production data after the backup window has passed.
       correct: true
@@ -233,7 +233,7 @@
       feedback: Wrong. It is reversible. Reversible decisions are made fast and low (P18), and P42 does not apply.
 - id: q-d-14
   rules: [P42]
-  stem: A company releases large payments from its bank account. Which setups follow the management form of the two-person rule?
+  stem: A company releases large payments from its bank account. Which of the following setups follow the management form of the two-person rule?
   options:
     - text: A payment above a set amount needs two signatures when it is released.
       correct: true
@@ -252,7 +252,7 @@
       feedback: Right. Contract signature is a named case of a critical, irreversible management action (P42).
 - id: q-d-15
   rules: [P43]
-  stem: A four-person team runs a cloud account that holds customer data, and the possible loss is above the acceptable risk. Which arrangements satisfy segregation of duties?
+  stem: A four-person team runs a cloud account that holds customer data, and the possible loss is above the acceptable risk. Which of the following arrangements satisfy segregation of duties?
   options:
     - text: One engineer requests production access and another approves it.
       correct: true
@@ -271,7 +271,7 @@
       feedback: Wrong. That is the check of least privilege (P36). P43 checks for people holding two incompatible roles.
 - id: q-d-16
   rules: [P43, P42, P36]
-  stem: A reviewer finds one person who raises purchase requests, approves them and records the payments. Which fixes satisfy segregation of duties?
+  stem: A reviewer finds one person who raises purchase requests, approves them and records the payments. Which of the following fixes satisfy segregation of duties?
   options:
     - text: Split request, approval, execution and recording across different people.
       correct: true
