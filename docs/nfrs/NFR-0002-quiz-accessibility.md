@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted
+Accepted. Implemented in v1.1.0 (2026-10-27); see "Outcome" below.
 
 ## Attribute
 
@@ -59,3 +59,32 @@ to build a small quiz engine of our own instead of a third-party plugin.
   the correct and incorrect states with a greyscale or forced-colours
   view; (4) optionally listen with a screen reader for the result and
   score announcements.
+
+## Outcome
+
+Implemented in v1.1.0. Decisions made while building it:
+
+- **Uniform multiple-response cue.** Every question carries the same
+  "Select all that apply." instruction, rendered by both the static form and
+  the JS-built mixed form and linked to the fieldset with `aria-describedby`.
+  It gives no count of correct answers, and stems are worded neutrally so
+  they do not imply one either. `test_js_cue_matches_the_static_cue` keeps
+  the two renderings identical.
+- **No length cue.** The longest option is no more likely to be correct than
+  chance. `test_longest_option_is_not_systematically_correct` (in
+  `tests/test_render_learn.py`) fails when the share of questions whose
+  single longest option is correct exceeds the expected share (the sum of
+  correct options over options) by more than 10 percentage points of the
+  bank. At release the count was 82 against an expected 87.97 and a bound
+  of 107.27.
+- **Storage.** The mixed quiz stores nothing. A category quiz restores only
+  its score on reload, and Reset clears that quiz's stored results.
+- **Firefox soft reload.** Firefox, and back/forward restores from the
+  bfcache, can bring back ticked checkboxes with no feedback. Inputs are now
+  cleared on build, a `pageshow` listener (`persisted`) clears each question
+  again, and the mixed forms set `autocomplete="off"`.
+- **Manual checks stay manual.** There is no browser in the devcontainer, so
+  the DOM flow, the mixed wiring and the screen-reader announcements are
+  covered only by the manual checks above.
+
+Open follow-ups: #29, #30, #32 and #34.
