@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
+import json
 import re
+import shutil
 from pathlib import Path
 
 import pytest
 
 from taxonomy import render_site
-from taxonomy.load import load_dataset
+from taxonomy.load import load_dataset, load_yaml
 from taxonomy.render_markdown import strip_code
 
 REPO = Path(__file__).resolve().parents[1]
@@ -83,3 +85,102 @@ def test_build_raises_on_mkdocs_failure(
     monkeypatch.setattr(render_site, "assemble", lambda root: root)
     with pytest.raises(RuntimeError, match="mkdocs build failed"):
         render_site.build(tmp_path / "out", tmp_path)  # no mkdocs.yml there
+
+
+def _stub_root(tmp_path: Path) -> Path:
+    """A repo copy with every learning file emptied, whatever content is live."""
+    root = tmp_path / "stub"
+    for name in ("data", "publication", "docs", "paper"):
+        shutil.copytree(
+            REPO / name, root / name, ignore=shutil.ignore_patterns("plans")
+        )
+    shutil.copyfile(REPO / "mkdocs.yml", root / "mkdocs.yml")
+    for path in (root / "data" / "learn").glob("*/*.yaml"):
+        path.write_text("[]\n", encoding="utf-8")
+    return root
+
+
+def _fixture_root(tmp_path: Path, assets: bool = False) -> Path:
+    """A repo copy whose ``data/learn`` holds the learn fixtures."""
+    root = tmp_path / "repo"
+    for name in ("data", "publication", "docs", "paper"):
+        shutil.copytree(
+            REPO / name, root / name, ignore=shutil.ignore_patterns("plans")
+        )
+    shutil.rmtree(root / "data" / "learn")
+    shutil.copytree(REPO / "tests" / "fixtures" / "learn", root / "data" / "learn")
+    shutil.copyfile(REPO / "mkdocs.yml", root / "mkdocs.yml")
+    if assets:
+        (root / "site-assets").mkdir()
+        (root / "site-assets" / "quiz.js").write_text("// js\n", encoding="utf-8")
+        (root / "site-assets" / "quiz.css").write_text("/* css */\n", encoding="utf-8")
+    return root
+
+
+def test_nav_lists_exactly_the_generated_pages() -> None:
+    def pages(node: object) -> set[str]:
+        if isinstance(node, str):
+            return {node}
+        if isinstance(node, list):
+            return set().union(*(pages(n) for n in node)) if node else set()
+        if isinstance(node, dict):
+            return set().union(*(pages(v) for v in node.values()))
+        return set()
+
+    nav = load_yaml(REPO / "mkdocs.yml")["nav"]
+    src = render_site.assemble(REPO)
+    built = {p.relative_to(src).as_posix() for p in src.rglob("*.md")}
+    assert pages(nav) == built
+
+
+def test_assemble_writes_learn_quiz_bank_and_assets(tmp_path: Path) -> None:
+    root = _fixture_root(tmp_path, assets=True)
+    src = render_site.assemble(root)
+    bank = json.loads((src / "assets/quiz/quiz-bank.json").read_text("utf-8"))
+    assert [q["id"] for q in bank] == ["q-a-01", "q-k-01"]
+    assert (src / "assets/quiz/quiz.js").read_text("utf-8") == "// js\n"
+    assert (src / "assets/quiz/quiz.css").is_file()
+    chapter = (src / "07-rules.md").read_text("utf-8")
+    assert "([Learn](learn/a.md#p1))" in chapter
+    assert "[Learn](learn/a.md#p2)" not in chapter
+    # publication/ is untouched by the site-only links.
+    assert "[Learn]" not in (root / "publication/chapters/07-rules.md").read_text(
+        "utf-8"
+    )
+    index = (src / "index.md").read_text("utf-8")
+    assert "(learn/index.md)" in index and "(quiz/index.md)" in index
+    snippet = (src / "quiz/a.md").read_text("utf-8")
+    assert 'data-qid="q-a-01"' in snippet
+
+
+def test_assets_cannot_replace_the_generated_bank(tmp_path: Path) -> None:
+    root = _fixture_root(tmp_path, assets=True)
+    (root / "site-assets" / "quiz-bank.json").write_text("[]\n", encoding="utf-8")
+    src = render_site.assemble(root)
+    bank = json.loads((src / "assets/quiz/quiz-bank.json").read_text("utf-8"))
+    assert [q["id"] for q in bank] == ["q-a-01", "q-k-01"]
+
+
+def test_assemble_without_site_assets_or_learn_data(tmp_path: Path) -> None:
+    src = render_site.assemble(_stub_root(tmp_path))
+    assert json.loads((src / "assets/quiz/quiz-bank.json").read_text("utf-8")) == []
+    assert "[Learn](" not in (src / "07-rules.md").read_text("utf-8")
+    assert len(list((src / "learn").glob("*.md"))) == 1 + 9 + 20
+    assert len(list((src / "quiz").glob("*.md"))) == 1 + 1 + 9 + 1
+
+
+def test_fixture_build_strict_renders_quiz_and_learn(tmp_path: Path) -> None:
+    root = _fixture_root(tmp_path, assets=True)
+    out = tmp_path / "site"
+    render_site.build(out, root)
+    quiz = (out / "quiz" / "a" / "index.html").read_text("utf-8")
+    assert '<form class="quiz-q" data-qid="q-a-01">' in quiz
+    assert 'src="../../assets/quiz/quiz.js"' in quiz and 'type="module"' in quiz
+    assert (out / "assets/quiz/quiz-bank.json").is_file()
+    mixed = (out / "quiz" / "mixed" / "index.html").read_text("utf-8")
+    assert 'data-bank="../../assets/quiz/quiz-bank.json"' in mixed
+    rules = (out / "07-rules" / "index.html").read_text("utf-8")
+    assert 'href="../learn/a/#p1"' in rules
+    learn = (out / "learn" / "a" / "index.html").read_text("utf-8")
+    assert 'id="p1"' in learn and "Real case" in learn
+    assert (out / "learn" / "branch-civil" / "index.html").is_file()
