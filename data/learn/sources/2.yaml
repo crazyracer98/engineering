@@ -1,17 +1,4 @@
 # Case sources (registry fragment, slugs start with `case-`). Schema: schema/sources.schema.json.
-- slug: case-inquiry-board-ariane-501-report
-  title: 'ARIANE 5 Flight 501 Failure: Report by the Inquiry Board (1996)'
-  author:
-  - literal: Ariane 501 Inquiry Board
-  url: https://www-users.cse.umn.edu/~arnold/disasters/ariane5rep.html
-  kind: primary
-  publisher: ESA and CNES
-  year: 1996
-  via:
-    title: University of Minnesota (Douglas N. Arnold)
-  paid: false
-  accessed: '2026-10-26'
-  notes: Word-for-word copy of the Inquiry Board report (chaired by J. L. Lions); ESA does not host a text version.
 - slug: case-esa-ariane-501-inquiry-press-release
   title: 'ESA: Ariane 501 - Presentation of Inquiry Board report (1996)'
   author:

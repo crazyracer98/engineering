@@ -379,13 +379,18 @@
   title: Ariane 5 Flight 501 failure
   year: 1996
   summary: >-
-    About 40 seconds after the start of the flight sequence, the first Ariane
-    5 veered off its flight path, broke up and exploded. Both inertial
-    reference systems stopped on the same software error. A value tied to
-    horizontal velocity was far higher than on Ariane 4, and its conversion
-    was not protected. The error came from an alignment function that serves
-    no purpose after lift-off.
-  rules: [P27]
+    On 4 June 1996, about 40 seconds after the start of the flight sequence,
+    the first Ariane 5 veered off its flight path, broke up and exploded. Its
+    guidance used two inertial reference systems (SRIs) in parallel, with
+    identical hardware and software, practically the same as on Ariane 4.
+    Ariane 5's early trajectory gives much higher horizontal velocity than
+    Ariane 4's, and a data conversion that was not protected failed on the
+    larger value. The error came from an alignment function that serves no
+    purpose after lift-off. The back-up SRI failed first, and the active SRI
+    failed 0.05 seconds later for the same reason. The Ariane 5 trajectory
+    data were not in the SRI specification, so the function was never tested
+    under simulated Ariane 5 flight conditions.
+  rules: [P27, P46, P57]
   lessons:
   - rule: P27
     text: >-
@@ -394,12 +399,33 @@
       the loss of both inertial systems. A robust design keeps working when
       inputs move beyond the range of an earlier use, and is tested with the
       inputs of the new use.
+  - rule: P46
+    text: >-
+      The two SRIs were redundant copies, but they ran the same software. One
+      design error hit both copies within 0.05 seconds, so the redundancy gave
+      no protection. Copies that share a cause need to be made different, or
+      the shared dependency needs to be justified.
+  - rule: P57
+    text: >-
+      The Ariane 5 trajectory data were left out of the SRI specification, so
+      the realignment function was never tested under simulated Ariane 5
+      flight conditions, and the design error was not found. A readiness test
+      runs in the conditions of real operation, and each difference from them
+      is listed and justified.
   quotes:
+  - source: case-esa-ariane-501-inquiry-press-release
+    text: >-
+      On 4 June 1996 the maiden flight of the Ariane 5 launcher ended in a
+      failure. Only about 40 seconds after initiation of the flight sequence,
+      at an altitude of about 3700 m, the launcher veered off its flight path,
+      broke up and exploded.
   - source: case-ariane-501-inquiry-board
     text: >-
-      Only about 40 seconds after initiation of the flight sequence, at an
-      altitude of about 3700 m, the launcher veered off its flight path, broke
-      up and exploded.
+      The design of the Ariane 5 SRI is practically the same as that of an
+      SRI which is presently used on Ariane 4, particularly as regards the
+      software.
+  - source: case-ariane-501-inquiry-board
+    text: There are two SRIs operating in parallel, with identical hardware and software.
   - source: case-ariane-501-inquiry-board
     text: >-
       The data conversion instructions (in Ada code) were not protected from
@@ -415,8 +441,19 @@
       considerably higher horizontal velocity values.
   - source: case-ariane-501-inquiry-board
     text: >-
-      the active inertial reference system, identical to the back-up system in
-      hardware and software, failed for the same reason.
+      0.05 seconds later the active inertial reference system, identical to
+      the back-up system in hardware and software, failed for the same reason.
+  - source: case-ariane-501-inquiry-board
+    text: >-
+      it was jointly agreed not to include the Ariane 5 trajectory data in the
+      SRI requirements and specification.
+  - source: case-ariane-501-inquiry-board
+    text: >-
+      Consequently the realignment function was not tested under simulated
+      Ariane 5 flight conditions, and the design error was not discovered.
+  - source: case-esa-ariane-501-inquiry-press-release
+    text: >-
+      the equipment and system tests were not sufficiently representative.
 - id: case-goiania
   title: Goiânia radiotherapy source
   year: 1987
