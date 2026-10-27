@@ -18,7 +18,7 @@ function el(tag, attrs = {}, text) {
 
 // Same markup as the static contract. Only feedback_html is trusted HTML.
 function renderQuestion(q) {
-  const form = el("form", { class: "quiz-q", "data-qid": q.id });
+  const form = el("form", { class: "quiz-q", "data-qid": q.id, autocomplete: "off" });
   const fs = el("fieldset");
   fs.append(el("legend", {}, q.stem));
   q.options.forEach((o, i) => {
@@ -65,6 +65,14 @@ function clearQuestion(form) {
   form.querySelectorAll(".quiz-fb").forEach((p) => (p.hidden = true));
   const r = form.querySelector(".quiz-result");
   if (r) r.textContent = "";
+}
+
+// Browsers (Firefox form cache, bfcache) can restore ticks the quiz does not
+// show feedback for; every quiz starts with all options unchecked.
+function uncheckAll(scope) {
+  scope.querySelectorAll("form.quiz-q input[type=checkbox]").forEach((i) => {
+    i.checked = false;
+  });
 }
 
 function setResult(form, ok, text) {
@@ -132,6 +140,7 @@ function initQuiz(root, pageStorage) {
     const mine = ++run;
     root.querySelectorAll(".quiz-error").forEach((e) => e.remove());
     if (!mixed) {
+      uncheckAll(root);
       forms().forEach(bind);
       updateScore();
       return;
@@ -186,6 +195,13 @@ function initAll() {
     initQuiz(root, storage);
   });
 }
+
+// A bfcache restore keeps the whole old DOM, feedback included. The score
+// stays; the per-question state is reset like a fresh load.
+window.addEventListener("pageshow", (ev) => {
+  if (!ev.persisted) return;
+  document.querySelectorAll(".quiz form.quiz-q").forEach(clearQuestion);
+});
 
 // Material instant navigation re-renders the page without a reload and
 // exposes `document$`; otherwise run once the DOM is ready.
