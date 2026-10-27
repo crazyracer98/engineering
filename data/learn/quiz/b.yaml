@@ -258,7 +258,7 @@
       feedback: >-
         Right. P12 (management form) checks an estimate against a reference
         class of similar past projects.
-    - text: Accept the team's own plan because the team knows the work best and has done similar work
+    - text: Accept the team's own plan because the team knows the work best and has planned each task in detail
       correct: false
       feedback: >-
         The management form of P12 asks for more than the own plan. The outside
@@ -646,7 +646,7 @@
       feedback: >-
         Right. P19 pairs a rewarded indicator with a counter-measure. P21
         still supports the goal itself.
-    - text: Drop the goal and set "do your best" instead, so nothing is measured any more
+    - text: Drop the goal and set "do your best" instead, so the team feels less pressure
       correct: false
       feedback: >-
         P21 says specific, hard goals beat "do your best". P19 asks for guards
@@ -674,7 +674,7 @@
       feedback: >-
         Right. P20 asks for the evidence and decision points written down
         before the work begins.
-    - text: The sponsor alone decides at each gate whether to continue, with no criteria written in advance
+    - text: The sponsor alone decides at each gate whether to continue, using criteria written before the start
       correct: false
       feedback: >-
         P20 says someone who did not start the project decides. The sponsor is
