@@ -3,12 +3,15 @@ matching and class-from-field (plan item D4)."""
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
+import pytest
 from ruamel.yaml import YAML
 
-from taxonomy.ids import expand_ids, id_finder, id_key, link_ids
+from taxonomy.ids import MAX_RANGE, expand_ids, id_finder, id_key, link_ids
 from taxonomy.load import load_dataset, load_registry
+from taxonomy.model import CLASS_LETTER
 from taxonomy.render_markdown import _link_block, render_chapters
 from taxonomy.render_paper import _Paper
 from tests.conftest import REPO
@@ -177,3 +180,36 @@ def test_rendering_shows_class_and_category_next_to_the_id() -> None:
     assert "| [P1](#p1) | universal (U), category A: " in chapters["07-rules.md"]
     paper = _Paper(ds).rule_card(ds.rule_by_id()["P1"])
     assert "universal (U) · category A" in paper
+
+
+def test_expand_ids_caps_a_range() -> None:
+    assert len(expand_ids(f"P1-P{MAX_RANGE}", ["P"])) == MAX_RANGE
+    with pytest.raises(ValueError, match="limit"):
+        expand_ids(f"P1-P{MAX_RANGE + 1}", ["P"])
+
+
+def test_ids_after_a_digit_hyphen_are_not_linked() -> None:
+    known = {"P1", "P3", "P5"}
+    for text in ("ISO27001-P1", "2024-P1", "ISO-P1", "x9-P1"):
+        assert link_ids(text, known, ["P"], _href) == text, text
+        assert expand_ids(text, ["P"]) == [], text
+        assert not id_finder(["P"]).findall(text), text
+    # A whole ID before the hyphen keeps its range / pair behaviour.
+    assert [m.group(0) for m in id_finder(["P"]).finditer("P3-P5")] == ["P3", "P5"]
+    assert link_ids("P3-P5", known, ["P"], _href) == "[P3](x.md#p3)–[P5](x.md#p5)"
+
+
+def test_id_key_ignores_prefix_order_duplicates() -> None:
+    from taxonomy.ids import _key_pattern
+
+    _key_pattern.cache_clear()
+    id_key("K1", ["P", "K"])
+    id_key("K1", ["K", "P"])
+    id_key("K1", ["P", "K", "P"])
+    assert _key_pattern.cache_info().currsize == 1
+    assert id_key("K2", ["P", "K"]) == (1, 2)
+
+
+def test_class_letter_covers_every_class() -> None:
+    schema = json.loads((REPO / "schema/rules.schema.json").read_text("utf-8"))
+    assert set(schema["items"]["properties"]["class"]["enum"]) == set(CLASS_LETTER)

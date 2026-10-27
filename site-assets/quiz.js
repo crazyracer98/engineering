@@ -9,9 +9,6 @@ function getStorage() {
   }
 }
 
-// Same cue on every question; keep in step with SELECT_CUE in render_learn.py.
-const HINT_TEXT = "Select all that apply.";
-
 function el(tag, attrs = {}, text) {
   const node = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
@@ -20,11 +17,13 @@ function el(tag, attrs = {}, text) {
 }
 
 // Same markup as the static contract. Only feedback_html is trusted HTML.
-function renderQuestion(q) {
+// `cue` is the same select-all hint on every question; Python renders it into
+// the quiz's data-cue (SELECT_CUE in render_learn.py), so there is one source.
+function renderQuestion(q, cue) {
   const form = el("form", { class: "quiz-q", "data-qid": q.id, autocomplete: "off" });
   const hintId = `${q.id}-hint`;
   const fs = el("fieldset", { "aria-describedby": hintId });
-  fs.append(el("legend", {}, q.stem), el("p", { class: "quiz-hint", id: hintId }, HINT_TEXT));
+  fs.append(el("legend", {}, q.stem), el("p", { class: "quiz-hint", id: hintId }, cue));
   q.options.forEach((o, i) => {
     const input = el("input", { type: "checkbox", name: q.id, value: String(i) });
     if (o.correct) input.setAttribute("data-correct", "1");
@@ -68,15 +67,12 @@ function clearQuestion(form) {
   });
   form.querySelectorAll(".quiz-fb").forEach((p) => (p.hidden = true));
   const r = form.querySelector(".quiz-result");
-  if (r) r.textContent = "";
-}
-
-// Browsers (Firefox form cache, bfcache) can restore ticks the quiz does not
-// show feedback for; every quiz starts with all options unchecked.
-function uncheckAll(scope) {
-  scope.querySelectorAll("form.quiz-q input[type=checkbox]").forEach((i) => {
-    i.checked = false;
-  });
+  if (r) {
+    r.textContent = "";
+    r.removeAttribute("tabindex"); // added when focus moved here after Check
+  }
+  const details = form.querySelector("details.quiz-answer");
+  if (details) details.open = false;
 }
 
 function setResult(form, ok, text) {
@@ -144,7 +140,6 @@ function initQuiz(root, pageStorage) {
     const mine = ++run;
     root.querySelectorAll(".quiz-error").forEach((e) => e.remove());
     if (!mixed) {
-      uncheckAll(root);
       forms().forEach(bind);
       updateScore();
       return;
@@ -164,7 +159,7 @@ function initQuiz(root, pageStorage) {
     root.querySelectorAll("form.quiz-q").forEach((f) => f.remove());
     const n = Number(root.dataset.draw) || 10;
     for (const q of draw(bank, n, Math.random)) {
-      const f = renderQuestion(q);
+      const f = renderQuestion(q, root.dataset.cue || "");
       bind(f);
       root.insertBefore(f, scoreEl);
     }

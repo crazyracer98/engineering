@@ -167,8 +167,20 @@ def test_yaml_sources_text_uses_per_use_titles_like_markdown() -> None:
     reg = load_registry(REPO)
     doc = build_document(ds, reg)
     md = render_single(ds, reg)
-    quote = next(q for q in doc["quotes"] if q["id"] == "Q9")
+    items = [(f"quote {q['id']}", q) for q in doc["quotes"]] + [
+        (f"management form {r['id']}", r["management"])
+        for r in doc["rules"]
+        if r.get("management")
+    ]
+    checked = 0
+    for label, item in items:
+        text = item.get("sources_text")
+        if text is None:
+            continue
+        checked += 1
+        assert f"| {text} |" in md, (
+            f"{label}: the YAML sources_text is not a cell of the Markdown: {text!r}"
+        )
+    assert checked, "no quote or management form has a sources_text to compare"
     form = next(r for r in doc["rules"] if r["id"] == "P57")["management"]
-    assert f"| {quote['sources_text']} |" in md
-    assert f"| {form['sources_text']} |" in md
     assert form["sources_text"].startswith("[ISO 22301:2019](")

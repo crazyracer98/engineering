@@ -15,6 +15,7 @@ from dataclasses import dataclass
 from taxonomy.ids import link_ids
 from taxonomy.model import (
     CHECKER_LEVEL_RULE,
+    CLASS_LETTER,
     RELATION_LABELS,
     Dataset,
     Management,
@@ -76,6 +77,47 @@ def lookup(registry: Mapping[str, Source], slug: str) -> Source:
         raise UnknownSlugError(slug) from None
 
 
+_TITLE_SPECIAL = re.compile(r"([\\`*_\[\]<>])")
+_URL_UNSAFE = re.compile(r"[\s<>]")
+
+
+def escape_title(title: str) -> str:
+    """``title`` safe as Markdown link text: backslash-escape ``\\ ` * _ [ ] < >``.
+
+    ``|`` is left alone; ``table`` escapes it for any cell.
+    """
+    return _TITLE_SPECIAL.sub(r"\\\1", title)
+
+
+def _balanced(url: str) -> bool:
+    depth = 0
+    for ch in url:
+        if ch == "(":
+            depth += 1
+        elif ch == ")":
+            depth -= 1
+            if depth < 0:
+                return False
+    return depth == 0
+
+
+def safe_url(url: str) -> str:
+    """``url`` safe as an inline link destination.
+
+    Whitespace and ``<``/``>`` are percent-encoded; parentheses are kept when
+    balanced (CommonMark allows them) and percent-encoded otherwise.
+    """
+    url = _URL_UNSAFE.sub(lambda m: "".join(f"%{b:02X}" for b in m[0].encode()), url)
+    if not _balanced(url):
+        url = url.replace("(", "%28").replace(")", "%29")
+    return url
+
+
+def md_link(title: str, url: str) -> str:
+    """``[title](url)`` with the title and URL escaped."""
+    return f"[{escape_title(title)}]({safe_url(url)})"
+
+
 def resolve_citations(
     text: str,
     registry: Mapping[str, Source],
@@ -93,7 +135,7 @@ def resolve_citations(
 
     def link(slug: str, locator: str | None) -> str:
         source = lookup(registry, slug)
-        out = f"[{titles.get(slug, source['title'])}]({source['url']})"
+        out = md_link(titles.get(slug, source["title"]), source["url"])
         return f"{out}, {locator}" if locator else out
 
     def replace(match: re.Match[str]) -> str:
@@ -146,7 +188,7 @@ def number_citations(text: str, registry: Mapping[str, Source]) -> str:
         return body
     entries = [
         f'- <a id="ref-{n}"></a>\\[{n}\\] '
-        f"[{registry[slug]['title']}]({registry[slug]['url']})"
+        + md_link(registry[slug]["title"], registry[slug]["url"])
         for slug, n in numbers.items()
     ]
     return body.rstrip("\n") + "\n\n## References\n\n" + "\n".join(entries) + "\n"
@@ -170,11 +212,14 @@ class Section:
     blocks: list[Block]
 
 
+_UNESCAPED_PIPE = re.compile(r"(?<!\\)\|")
+
+
 def table(header: list[str], rows: list[list[str]]) -> str:
     """A pipe table; every row must have the header's column count."""
 
     def line(cells: list[str]) -> str:
-        return "| " + " | ".join(cells) + " |"
+        return "| " + " | ".join(_UNESCAPED_PIPE.sub(r"\\|", c) for c in cells) + " |"
 
     for row in rows:
         if len(row) != len(header):
@@ -223,10 +268,12 @@ class _Builder:
         )
 
     # -- sections ----------------------------------------------------------
+    @staticmethod
+    def _num(sec: Mapping[str, object]) -> int:
+        return int(str(sec["number"]))
+
     def heading(self, sec: Mapping[str, object]) -> Block:
-        return Block(
-            "h2", f"## {sec['number']}. {sec['title']}", int(str(sec["number"]))
-        )
+        return Block("h2", f"## {sec['number']}. {sec['title']}", self._num(sec))
 
     def intro(self, text: str | None, number: int) -> list[Block]:
         if not text:
@@ -258,13 +305,14 @@ class _Builder:
         text = "\n".join(
             f"- {self.c(item['text'])}" for item in self.meta["how_to_read"]
         )
-        return [Block("list", text, 1)]
+        return [Block("list", text, self._num(sec))]
 
     def master_rule(self, sec: Mapping[str, object]) -> list[Block]:
+        n = self._num(sec)
         m = self.meta["master_rule"]
         regions = m["risk_regions"]
         return [
-            Block("list", f"1. {self.c(m['scale'])}\n2. {self.c(m['alarp'])}", 2),
+            Block("list", f"1. {self.c(m['scale'])}\n2. {self.c(m['alarp'])}", n),
             Block(
                 "table",
                 table(
@@ -274,9 +322,9 @@ class _Builder:
                         for k in ("unacceptable", "tolerable", "negligible")
                     ],
                 ),
-                2,
+                n,
             ),
-            Block("para", self.c(m["management_intro"]), 2),
+            Block("para", self.c(m["management_intro"]), n),
             Block(
                 "table",
                 table(
@@ -290,14 +338,16 @@ class _Builder:
                         for t in m["management_terms"]
                     ],
                 ),
-                2,
+                n,
             ),
         ]
 
     def overview(self, sec: Mapping[str, object]) -> list[Block]:
         meta = self.meta
-        n = 3
+        n = self._num(sec)
         qv, am = meta["quick_view"], meta["analogy_map"]
+        subsections = sec["subsections"]
+        assert isinstance(subsections, dict)
         questions = meta["quick_view_questions"]
         qrows = [
             [f"{cat['id']}. {cat['name']}", self.c(questions[cat["id"]])]
@@ -325,11 +375,7 @@ class _Builder:
             Block("h3", f"### {am['title']}", n),
             *self.intro(am.get("intro"), n),
             Block("table", table(self.tables["analogy_map"], arows), n),
-            Block(
-                "h3",
-                f"### {meta['sections'][2]['subsections']['rules_per_category']}",
-                n,
-            ),
+            Block("h3", f"### {subsections['rules_per_category']}", n),
             Block("list", "\n".join(lines), n),
         ]
 
@@ -339,7 +385,7 @@ class _Builder:
         return str(value) if value else None
 
     def domain_index(self, sec: Mapping[str, object]) -> list[Block]:
-        n = 4
+        n = self._num(sec)
         blocks = self.intro(self._intro(sec), n)
         branches: dict[str, list[list[str]]] = {}
         for d in self.ds.domains["domains"]:
@@ -370,16 +416,18 @@ class _Builder:
         return blocks
 
     def glossary(self, sec: Mapping[str, object]) -> list[Block]:
+        n = self._num(sec)
         rows = [
             [term, self.c(v["meaning"]), self.c(v["not_same_as"])]
             for term, v in self.ds.glossary.items()
         ]
         return [
-            *self.intro(self._intro(sec), 5),
-            Block("table", table(self.tables["glossary"], rows), 5),
+            *self.intro(self._intro(sec), n),
+            Block("table", table(self.tables["glossary"], rows), n),
         ]
 
     def rigor_matrix(self, sec: Mapping[str, object]) -> list[Block]:
+        n = self._num(sec)
         cells = {(r["consequence"], r["uncertainty"]): r for r in self.ds.rigor_matrix}
 
         def cell(cons: str, unc: str) -> str:
@@ -396,15 +444,16 @@ class _Builder:
             for cons in ("low", "high")
         ]
         return [
-            *self.intro(self._intro(sec), 6),
-            Block("table", table(self.tables["rigor_matrix"], rows), 6),
+            *self.intro(self._intro(sec), n),
+            Block("table", table(self.tables["rigor_matrix"], rows), n),
         ]
 
     def rules_section(self, sec: Mapping[str, object]) -> list[Block]:
+        n = self._num(sec)
         blocks: list[Block] = []
         for cat in self.ds.categories:
-            blocks.append(Block("h3", f"### {cat['id']}. {cat['name']}", 7))
-            blocks.append(Block("para", self.c(cat["description"]), 7))
+            blocks.append(Block("h3", f"### {cat['id']}. {cat['name']}", n))
+            blocks.append(Block("para", self.c(cat["description"]), n))
             main: list[list[str]] = []
             detail: list[list[str]] = []
             for rid in cat["rules"]:
@@ -423,7 +472,7 @@ class _Builder:
                 detail.append(
                     [
                         rid,
-                        f"{r['class']} ({r['class'][0].upper()}), category "
+                        f"{r['class']} ({CLASS_LETTER[r['class']]}), category "
                         f"{r['category']}: {r['class_note']}",
                         self.c(r["check"]),
                         self.c(r["violation"]),
@@ -432,8 +481,8 @@ class _Builder:
                         self.c(r["source_domain"]),
                     ]
                 )
-            blocks.append(Block("table", table(self.tables["rules_main"], main), 7))
-            blocks.append(Block("table", table(self.tables["rules_detail"], detail), 7))
+            blocks.append(Block("table", table(self.tables["rules_main"], main), n))
+            blocks.append(Block("table", table(self.tables["rules_detail"], detail), n))
         return blocks
 
     def related(self, r: Rule) -> str:
@@ -446,6 +495,7 @@ class _Builder:
         return "; ".join(parts)
 
     def conflicts(self, sec: Mapping[str, object]) -> list[Block]:
+        n = self._num(sec)
         rows = [
             [
                 self.anchor(k["id"]),
@@ -458,11 +508,12 @@ class _Builder:
             for k in self.ds.conflicts
         ]
         return [
-            *self.intro(self._intro(sec), 8),
-            Block("table", table(self.tables["conflicts"], rows), 8),
+            *self.intro(self._intro(sec), n),
+            Block("table", table(self.tables["conflicts"], rows), n),
         ]
 
     def sources_by_rule(self, sec: Mapping[str, object]) -> list[Block]:
+        n = self._num(sec)
         m = self.meta["master_rule"]
         rows = [["Master rule", self.links(m["sources"], m.get("source_titles"), "; ")]]
         for r in self.ds.rules:
@@ -470,12 +521,13 @@ class _Builder:
                 [r["id"], self.links(r["sources"], r.get("source_titles"), "; ")]
             )
         return [
-            *self.intro(self._intro(sec), 9),
-            Block("table", table(self.tables["sources_by_rule"], rows), 9),
+            *self.intro(self._intro(sec), n),
+            Block("table", table(self.tables["sources_by_rule"], rows), n),
         ]
 
     def management_forms(self, sec: Mapping[str, object]) -> list[Block]:
-        blocks = self.intro(self._intro(sec), 10)
+        n = self._num(sec)
+        blocks = self.intro(self._intro(sec), n)
         overrides = sec.get("header_overrides") or {}
         titles = sec.get("category_titles") or {}
         assert isinstance(overrides, dict) and isinstance(titles, dict)
@@ -506,21 +558,20 @@ class _Builder:
                 continue
             header = overrides.get(cat["id"]) or self.tables["management_forms"]
             blocks.append(
-                Block(
-                    "h3", f"### {cat['id']}. {titles.get(cat['id'], cat['name'])}", 10
-                )
+                Block("h3", f"### {cat['id']}. {titles.get(cat['id'], cat['name'])}", n)
             )
-            blocks.append(Block("table", table(header, rows), 10))
+            blocks.append(Block("table", table(header, rows), n))
         return blocks
 
     def quotes(self, sec: Mapping[str, object]) -> list[Block]:
-        blocks = self.intro(self._intro(sec), 11)
+        n = self._num(sec)
+        blocks = self.intro(self._intro(sec), n)
         groups = sec["groups"]
         assert isinstance(groups, list)
         for g in groups:
             rows = [self.quote_row(q) for q in self.ds.quotes if q["group"] == g["key"]]
-            blocks.append(Block("h3", f"### {g['title']}", 11))
-            blocks.append(Block("table", table(g["header"], rows), 11))
+            blocks.append(Block("h3", f"### {g['title']}", n))
+            blocks.append(Block("table", table(g["header"], rows), n))
         return blocks
 
     def quote_row(self, q: Quote) -> list[str]:
@@ -534,10 +585,11 @@ class _Builder:
         return [label, src, self.c(q["text"])]
 
     def method(self, sec: Mapping[str, object]) -> list[Block]:
+        n = self._num(sec)
         blocks: list[Block] = []
         for part in self.ds.method:
-            blocks.append(Block("h3", f"### {part['section']}", 12))
-            blocks.append(Block("para", self.c(part["text"]), 12))
+            blocks.append(Block("h3", f"### {part['section']}", n))
+            blocks.append(Block("para", self.c(part["text"]), n))
         return blocks
 
 
@@ -603,51 +655,69 @@ def chapter_filename(ds: Dataset, number: int) -> str:
     return f"{number:02d}-{sec['key'].replace('_', '-')}.md"
 
 
-_SKIP = re.compile(r"`[^`\n]*`|\[[^\]]*\]\([^)]*\)|<a id=\"[^\"]*\"></a>[A-Z]\d+")
+def _section_number(ds: Dataset, key: str) -> int:
+    """The number of the section with ``key``."""
+    return next(int(s["number"]) for s in ds.meta["sections"] if s["key"] == key)
+
+
+# Skipped when linking: inline code, an existing inline link (link text may
+# hold escaped brackets; the destination is ``<...>`` or holds balanced
+# parentheses to one nesting level, as in CommonMark) and a rule anchor.
+_SKIP = re.compile(
+    r"`[^`\n]*`"
+    r"|\[(?:\\.|[^\]\\])*\]\((?:<[^<>\n]*>|[^()]|\([^()]*\))*\)"
+    r"|<a id=\"[^\"]*\"></a>[A-Z]\d+"
+)
 _SECTION_REF = re.compile(r"\b([Ss]ection) (\d{1,2})\b(?![.\d]\d)")
 
 
-def _link_refs(text: str, ds: Dataset, current: int) -> str:
-    """Link ``section N`` and rule IDs in a line, outside existing links."""
-    numbers = {s["number"] for s in ds.meta["sections"]}
-    ids = ds.all_ids()
-    rule_chapter = chapter_filename(ds, 7)
-    conflict_chapter = chapter_filename(ds, 8)
+class _RefLinker:
+    """Links ``section N`` and rule IDs; the per-chapter lookups are built once."""
 
-    def sec_sub(m: re.Match[str]) -> str:
+    def __init__(self, ds: Dataset, current: int) -> None:
+        self.ds = ds
+        self.current = current
+        self.numbers = {s["number"] for s in ds.meta["sections"]}
+        self.ids = ds.all_ids()
+        self.prefixes = list(ds.meta["id_prefixes"])
+        self.conflicts = {k["id"] for k in ds.conflicts}
+        self.rules_number = _section_number(ds, "rules")
+        self.conflicts_number = _section_number(ds, "conflicts")
+        self.filenames = {n: chapter_filename(ds, n) for n in self.numbers}
+
+    def _sec_sub(self, m: re.Match[str]) -> str:
         num = int(m.group(2))
-        if num not in numbers:
+        if num not in self.numbers:
             return m.group(0)
-        return f"[{m.group(1)} {num}]({chapter_filename(ds, num)})"
+        return f"[{m.group(1)} {num}]({self.filenames[num]})"
 
-    prefixes = list(ds.meta["id_prefixes"])
-    conflicts = {k["id"] for k in ds.conflicts}
-
-    def href(rid: str) -> str:
-        is_conflict = rid in conflicts
-        here = current == (8 if is_conflict else 7)
+    def _href(self, rid: str) -> str:
+        number = self.conflicts_number if rid in self.conflicts else self.rules_number
         anchor = f"#{rid.lower()}"
-        return (
-            anchor
-            if here
-            else f"{conflict_chapter if is_conflict else rule_chapter}{anchor}"
+        return anchor if self.current == number else f"{self.filenames[number]}{anchor}"
+
+    def _link(self, piece: str) -> str:
+        return link_ids(
+            _SECTION_REF.sub(self._sec_sub, piece), self.ids, self.prefixes, self._href
         )
 
-    def link(piece: str) -> str:
-        return link_ids(_SECTION_REF.sub(sec_sub, piece), ids, prefixes, href)
+    def line(self, text: str) -> str:
+        """``text`` with references linked, outside existing links and code."""
+        out: list[str] = []
+        last = 0
+        for m in _SKIP.finditer(text):
+            out.append(self._link(text[last : m.start()]))
+            out.append(m.group(0))
+            last = m.end()
+        out.append(self._link(text[last:]))
+        return "".join(out)
 
-    out: list[str] = []
-    last = 0
-    for m in _SKIP.finditer(text):
-        out.append(link(text[last : m.start()]))
-        out.append(m.group(0))
-        last = m.end()
-    out.append(link(text[last:]))
-    return "".join(out)
 
-
-def _link_block(text: str, ds: Dataset, current: int) -> list[str]:
+def _link_block(
+    text: str, ds: Dataset, current: int, linker: _RefLinker | None = None
+) -> list[str]:
     """Link references line by line, leaving fenced code blocks untouched."""
+    linker = linker or _RefLinker(ds, current)
     out: list[str] = []
     fence: str | None = None
     for line in text.split("\n"):
@@ -660,7 +730,7 @@ def _link_block(text: str, ds: Dataset, current: int) -> list[str]:
                 fence = None
             out.append(line)
         else:
-            out.append(_link_refs(line, ds, current))
+            out.append(linker.line(line))
     return out
 
 
@@ -675,6 +745,7 @@ def render_chapters(ds: Dataset, registry: Mapping[str, Source]) -> dict[str, st
         toc.append(
             f"{sec.number}. [{meta_sec.get('contents_title', sec.title)}]({name})"
         )
+        linker = _RefLinker(ds, sec.number)
         lines: list[str] = []
         for i, block in enumerate(sec.blocks):
             if i:
@@ -682,7 +753,7 @@ def render_chapters(ds: Dataset, registry: Mapping[str, Source]) -> dict[str, st
             if block.kind in ("h2", "h3"):
                 lines.append(block.text[1:])  # demote one level under the chapter H1
             else:
-                lines.extend(_link_block(block.text, ds, sec.number))
+                lines.extend(_link_block(block.text, ds, sec.number, linker))
         files[name] = "\n".join(lines) + "\n"
     head = [f"# {ds.meta['title']}", "", counts_line(ds), "", "## Contents", "", *toc]
     files["README.md"] = "\n".join(head) + "\n"

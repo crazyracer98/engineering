@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted
+Accepted. Implemented in v1.1.0 (2026-10-27); see "Outcome" below.
 
 ## Description
 
@@ -49,3 +49,27 @@ cases only where a verified source exists) and
 - A rule with one question in its category quiz is reported as a gap.
 - An unknown scope exits 2 and names the valid scopes.
 - Tested in `tests/test_learn_checks.py` (`test_coverage_*`).
+
+## Outcome
+
+At v1.1.0 the report shows `learn coverage (all scopes): 0 gap(s)`:
+
+- 83 rule examples, 67 of them with a management variant.
+- 130 domain examples across the 20 branches.
+- 193 questions.
+- 27 cases covering 44 rules, with 198 quotes (cases stay optional; 39 rules
+  have none).
+
+How case quotes are verified: each quote is copied from the raw source text
+(fetched directly, not through a summarising tool) and must score 1.0
+against it. `taxonomy verify-sources` checks them under the key
+`<case id>#<n>`, and `--cases-only` runs just those. At release all 198
+matched. Nine of them (GAO Patriot, Senate Target) match only from cache,
+because the origin returns 403 and the archive rate-limits.
+
+When two case items documented the same incident, they were merged into one
+case: one id, the union of rules and lessons and the quotes, the first
+source slug kept. That gives one "Real case" block per incident and one
+registry entry per URL, and keeps "at most one case per rule" true.
+
+Open follow-ups: #29, #30, #32 and #34.

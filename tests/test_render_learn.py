@@ -5,6 +5,7 @@ from __future__ import annotations
 import html
 import re
 import shutil
+from dataclasses import replace
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -62,7 +63,12 @@ def test_question_markup_follows_the_contract(ds: Dataset, learn: Learn) -> None
     found = tags(out)
     names = [t for t, _ in found]
     assert names[:3] == ["form", "fieldset", "legend"]
-    assert found[0][1] == {"class": "quiz-q", "data-qid": "q-a-01"}
+    # autocomplete=off: the browser must not restore ticks that show no feedback.
+    assert found[0][1] == {
+        "class": "quiz-q",
+        "data-qid": "q-a-01",
+        "autocomplete": "off",
+    }
     # Every question carries the same cue, tied to the fieldset for screen readers.
     assert found[1][1] == {"aria-describedby": "q-a-01-hint"}
     assert ("p", {"class": "quiz-hint", "id": "q-a-01-hint"}) in found
@@ -96,7 +102,8 @@ def test_mixed_block(ds: Dataset) -> None:
     page = render_learn.mixed_page(ds)
     assert (
         '<div class="quiz" data-quiz="mixed" '
-        'data-bank="../../assets/quiz/quiz-bank.json" data-draw="10">' in page
+        'data-bank="../../assets/quiz/quiz-bank.json" data-draw="10" '
+        'data-cue="Select all that apply.">' in page
     )
     noscript = re.search(r"<noscript>(.*?)</noscript>", page, re.S)
     assert noscript and 'href="../a/"' in noscript.group(1)
@@ -133,7 +140,11 @@ def test_longest_option_is_not_systematically_correct() -> None:
         if len(longest) == 1 and options[longest[0]]["correct"]:
             observed += 1
         expected += sum(o["correct"] for o in options) / len(options)
-    assert observed <= expected + 0.10 * len(questions), (observed, expected)
+    slack = 0.10 * len(questions)
+    assert observed <= expected + slack, (observed, expected)
+    # Two-sided: a bank that avoids the longest option as a rule teaches the
+    # opposite shortcut.
+    assert observed >= expected - slack, (observed, expected)
 
 
 def test_stems_do_not_hint_at_the_number_of_correct_answers() -> None:
@@ -143,11 +154,32 @@ def test_stems_do_not_hint_at_the_number_of_correct_answers() -> None:
         assert not re.search(r"\bWhich (?!of )\w", q["stem"].split(". ")[-1]), q["id"]
 
 
-def test_js_cue_matches_the_static_cue() -> None:
-    """The mixed test renders in JS; its cue and hint id must match the static form."""
+def test_mixed_test_hands_the_cue_to_js_from_python() -> None:
+    """One source for the cue: the JS-built questions read ``data-cue``.
+
+    The JS side (hint text and markup equal to the static form) is checked in
+    ``tests/js/quiz-dom.test.js``.
+    """
     js = (REPO / "site-assets" / "quiz.js").read_text(encoding="utf-8")
-    assert f'const HINT_TEXT = "{render_learn.SELECT_CUE}";' in js
-    assert "const hintId = `${q.id}-hint`;" in js
+    assert render_learn.SELECT_CUE not in js
+    assert "dataset.cue" in js
+
+
+def test_quiz_index_derives_counts_from_the_data(ds: Dataset) -> None:
+    index = render_learn.quiz_index(ds)
+    assert f"{render_learn.MIXED_DRAW} random questions" in index
+    assert "Conflict rules (K1 to K8)" in index
+    assert render_learn.conflict_range(ds) == "K1 to K8"
+    assert "Rules K1 to K8" in render_learn.quiz_page(ds, Learn(), "conflicts", [])
+    fewer = replace(ds, conflicts=ds.conflicts[:3])
+    assert render_learn.conflict_range(fewer) == "K1 to K3"
+    assert render_learn.conflict_range(replace(ds, conflicts=ds.conflicts[:1])) == "K1"
+    assert "K1 to K3" in render_learn.quiz_index(fewer)
+
+
+def test_question_category_reads_the_id() -> None:
+    assert render_learn.question_category({"id": "q-c-07"}) == "c"  # type: ignore[typeddict-item]
+    assert render_learn.question_category({"id": "q-k-01"}) == "k"  # type: ignore[typeddict-item]
 
 
 def test_bank_lists_every_question_with_html_feedback(
@@ -177,6 +209,44 @@ def test_category_page_has_anchors_example_and_case(
     assert "The check was never run." in page
     assert "<blockquote><p>a made-up quote</p>" in page
     assert 'href="https://example.org/case-demo-report"' in page
+
+
+def test_case_is_shown_in_full_once_per_page(
+    ds: Dataset, learn: Learn, registry: dict[str, Source]
+) -> None:
+    case = learn.cases[0]
+    case["rules"] = ["P1", "P2", "P3"]
+    case["lessons"].append({"rule": "P2", "text": "Second lesson."})
+    cat = ds.category_by_id()["A"]
+    assert {"P1", "P2", "P3"} <= set(cat["rules"])
+    page = render_learn.category_page(ds, learn, registry, cat)
+    # Full case, quotes included, only under the first rule that lists it.
+    assert page.count('<div class="learn-case" id="case-demo">') == 1
+    assert page.count("a made-up quote") == 1
+    assert page.index('id="case-demo"') < page.index("{#p2}")
+    # Later rules get a short entry that links to the first occurrence.
+    assert page.count('<div class="learn-case learn-case-ref">') == 2
+    assert page.count('<a href="#case-demo">') == 2
+    assert "Second lesson." in page and "The check was never run." in page
+    ref = page.split('<div class="learn-case learn-case-ref">')[1].split("</div>")[0]
+    assert "A demo case (1999)" in ref and "a made-up quote" not in ref
+    ids = re.findall(r'\bid="([^"]+)"', page)
+    assert len(ids) == len(set(ids))
+
+
+def test_domain_anchors_are_unique_and_never_empty() -> None:
+    used: set[str] = set()
+    got = [
+        render_learn.unique_anchor(d, used)
+        for d in ["Water & Sewer", "Water - Sewer", "***", "", "Water & Sewer"]
+    ]
+    assert got == [
+        "water-sewer",
+        "water-sewer-2",
+        "domain",
+        "domain-2",
+        "water-sewer-3",
+    ]
 
 
 def test_branch_page_has_an_anchor_per_domain_row(ds: Dataset, learn: Learn) -> None:

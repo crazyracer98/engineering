@@ -43,8 +43,8 @@ logging.getLogger("pypdf").setLevel(logging.ERROR)  # font warnings drown the re
 USER_AGENT = (
     "engineering-taxonomy-verifier/1.0 (+https://github.com/crazyracer98/engineering)"
 )
-#: The date the rule quotes were checked; the archive snapshot nearest to it is
-#: used when a page has to be looked up there.
+#: The Wayback timestamp the archive snapshot nearest to is used for rule
+#: quotes. Only the archive lookup: the manifest's ``checked`` is the run date.
 CHECKED_TIMESTAMP = "20261014"
 #: The same for case quotes (``data/learn/cases/``), which were added later.
 CASE_CHECKED_TIMESTAMP = "20261027"
@@ -787,8 +787,9 @@ class QuoteResult:
     missing: list[str] = field(default_factory=list)
     #: SHA-256 of the normalized quote text, to spot a quote edited since.
     quote_sha256: str | None = None
-    #: The date (``YYYYMMDD``) the quote's check is dated to.
-    checked: str = CHECKED_TIMESTAMP
+    #: The UTC date (``YYYY-MM-DD``) of the run that verified the quote; the
+    #: manifest's ``checked`` is ``fetched_at`` when set, else this.
+    checked: str = ""
 
 
 def _forget_fetch(res: QuoteResult) -> None:
@@ -817,14 +818,16 @@ def quote_hash(text: str) -> str:
     return hashlib.sha256(normalize(text).encode()).hexdigest()
 
 
-def _iso_date(stamp: str) -> str:
-    return f"{stamp[:4]}-{stamp[4:6]}-{stamp[6:]}"
-
-
 class Verifier:
-    def __init__(self, fetcher: Fetcher, registry: Mapping[str, Source]) -> None:
+    def __init__(
+        self,
+        fetcher: Fetcher,
+        registry: Mapping[str, Source],
+        now: Callable[[], datetime] = _utcnow,
+    ) -> None:
         self.fetcher = fetcher
         self.registry = registry
+        self._now = now
         self._text: dict[str, str | None] = {}
 
     def _normalized(self, fetched: Fetched) -> str | None:
@@ -859,7 +862,9 @@ class Verifier:
         slug = str(quote["source"])
         src = self._source(quote, slug)
         stamp = CASE_CHECKED_TIMESTAMP if quote.get("verbatim") else CHECKED_TIMESTAMP
-        res = QuoteResult(qid, slug, src["url"], "matched", checked=stamp)
+        res = QuoteResult(
+            qid, slug, src["url"], "matched", checked=self._now().date().isoformat()
+        )
         res.quote_sha256 = quote_hash(str(quote["text"]))
         # A case quote is one verbatim passage; a rule quote cell marks its
         # passages with double quotes.
@@ -1085,7 +1090,7 @@ def manifest_entry(r: QuoteResult) -> dict[str, Any]:
         "result": r.result,
         "score": None if r.score is None else round(r.score, 3),
         "quote_sha256": r.quote_sha256,
-        "checked": _iso_date(r.checked),
+        "checked": r.fetched_at or r.checked,
     }
 
 

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import shutil
 from collections.abc import Callable
 from pathlib import Path
 from typing import Any
@@ -9,6 +10,8 @@ from typing import Any
 import pytest
 
 from taxonomy import cli
+from taxonomy.load import load_dataset, load_registry
+from taxonomy.render_markdown import render_single
 from taxonomy.validate import CHECKS, Finding, parse_id_list, run_checks
 
 Edit = Callable[[str, Callable[[Any], None]], None]
@@ -52,6 +55,9 @@ def test_every_check_has_a_seeded_test() -> None:
         "id-map",
         "citations",
         "registry-unique",
+        "checker-level-rule",
+        "domain-anchors",
+        "quote-passages",
     }
     assert set(CHECKS) == names
 
@@ -131,14 +137,94 @@ def test_unused_paper_source(repo: Path, edit: Edit) -> None:
     assert any("orphan-paper" in m for m in messages(repo, "source-used"))
 
 
-def test_table_column_count(repo: Path, edit: Edit) -> None:
+def test_pipe_in_a_cell_is_escaped_not_a_column(repo: Path, edit: Edit) -> None:
     edit("data/glossary.yaml", lambda d: d["error"].update(meaning="a | b"))
-    assert any("column count" in m for m in messages(repo, "table-columns"))
+    assert messages(repo, "table-columns") == []
+    md = render_single(load_dataset(repo), load_registry(repo))
+    assert "a \\| b" in md
+
+
+def test_table_column_count(repo: Path, edit: Edit) -> None:
+    # A header with one column fewer than its rows: the table cannot be built.
+    edit("data/meta.yaml", lambda d: d["tables"]["glossary"].pop())
+    found = messages(repo, "table-columns")
+    assert any("table row has 3 cells, header has 2" in m for m in found), found
 
 
 def test_escaped_pipe_is_not_a_column(repo: Path, edit: Edit) -> None:
     edit("data/glossary.yaml", lambda d: d["error"].update(meaning="a \\| b"))
     assert messages(repo, "table-columns") == []
+
+
+def test_pipe_in_code_span_is_not_a_column(repo: Path, edit: Edit) -> None:
+    edit("data/glossary.yaml", lambda d: d["error"].update(meaning="use `a | b` here"))
+    assert messages(repo, "table-columns") == []
+
+
+def test_checker_level_rule_renamed(repo: Path, edit: Edit) -> None:
+    edit("data/rules.yaml", lambda d: rule(d, "P56").update(name="Something else"))
+    msgs = messages(repo, "checker-level-rule")
+    assert len(msgs) == 1 and "P56" in msgs[0] and "Something else" in msgs[0]
+
+
+def test_checker_level_rule_missing(repo: Path, edit: Edit) -> None:
+    edit("data/rules.yaml", lambda d: rule(d, "P56").update(id="P9999"))
+    assert any("no such rule" in m for m in messages(repo, "checker-level-rule"))
+
+
+def _first_branch(doc: Any) -> tuple[str, dict[str, Any]]:
+    row = doc["domains"][0]
+    return row["branch"], row
+
+
+def test_domain_anchor_collision(repo: Path, edit: Edit) -> None:
+    def seed(doc: Any) -> None:
+        branch, row = _first_branch(doc)
+        twin = dict(row)
+        row["domain"], twin["domain"] = "Same name", "Same-name"
+        doc["domains"].append({**twin, "branch": branch})
+
+    edit("data/domains.yaml", seed)
+    msgs = messages(repo, "domain-anchors")
+    assert any("share the anchor 'same-name'" in m for m in msgs), msgs
+
+
+def test_domain_anchor_empty(repo: Path, edit: Edit) -> None:
+    edit("data/domains.yaml", lambda d: _first_branch(d)[1].update(domain="***"))
+    assert any("empty anchor" in m for m in messages(repo, "domain-anchors"))
+
+
+def test_quote_without_scorable_part(repo: Path, edit: Edit) -> None:
+    def seed(doc: Any) -> None:
+        q = next(q for q in doc if q.get("source") and not q.get("placeholder"))
+        q["text"] = 'only "a b ... c d" here'
+
+    edit("data/quotes.yaml", seed)
+    msgs = messages(repo, "quote-passages")
+    assert len(msgs) == 1 and "no scorable quoted passage" in msgs[0], msgs
+
+
+def test_cross_reference_quote_is_not_a_passage(repo: Path) -> None:
+    assert messages(repo, "quote-passages") == []
+
+
+def test_case_quote_needs_four_alphanumerics(repo: Path, edit: Edit) -> None:
+    for path in (repo / "data" / "learn").glob("*/*.yaml"):
+        path.write_text("[]\n", encoding="utf-8")
+    shutil.copytree(
+        Path(__file__).resolve().parent / "fixtures" / "learn",
+        repo / "data" / "learn",
+        dirs_exist_ok=True,
+    )
+    assert messages(repo, "quote-passages") == []
+    edit("data/learn/cases/1.yaml", lambda d: d[0]["quotes"][0].update(text="-- ab --"))
+    msgs = messages(repo, "quote-passages")
+    assert len(msgs) == 1 and "fewer than 4" in msgs[0], msgs
+
+
+def test_id_range_over_the_cap_is_a_finding(repo: Path, edit: Edit) -> None:
+    edit("data/rules.yaml", lambda d: rule(d, "P2").update(related_text="P1-P9999"))
+    assert any("limit" in m for m in messages(repo, "override-agreement"))
 
 
 def test_relation_contradiction_conflict_vs_support(repo: Path, edit: Edit) -> None:
