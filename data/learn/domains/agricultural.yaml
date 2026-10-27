@@ -5,7 +5,8 @@
     A grower designs a drip irrigation controller for a greenhouse. Soil
     moisture, water pressure and supply temperature vary from day to day. The
     team tests the controller with varied inputs: noisy sensors, low pressure,
-    a cold-water inlet. The yield result changes little across the tests.
+    a cold-water inlet. The water delivered to each plant changes little
+    across the tests.
   shows:
     - rule: P27
       how: >-

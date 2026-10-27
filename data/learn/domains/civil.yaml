@@ -29,16 +29,19 @@
 - branch: Civil
   domain: Coastal and hydraulic
   scenario: >-
-    A harbour authority designs a sea wall. It states the design wave load as a
-    probability per time period, a 1-in-100-year event. It then sets the crest
-    height above the height that load needs. Because the design is at an early
-    stage with poor wave data, the factor is large.
+    A harbour authority designs a sea wall. It states the design event as a
+    probability per time period: the storm with a 1-in-100-year return period.
+    It then sets the crest height above the wave run-up that storm produces,
+    with a freeboard allowance. The design is at an early stage with poor wave
+    data, so the allowance is large. The team plans to reduce it once a wave
+    buoy has recorded a full year of storms.
   shows:
     - rule: P44
       how: >-
-        The design load is stated as a probability per time period. Capacity
-        sits above that load by a chosen factor, and the factor is larger at
-        this early stage and shrinks as the uncertainty falls.
+        The design load is stated as a probability per time period, and
+        capacity sits above it with a margin. The margin follows design
+        maturity: large now, while the wave data is poor, and smaller once the
+        buoy records cut the uncertainty.
 - branch: Civil
   domain: Offshore and decommissioning
   scenario: >-
@@ -72,16 +75,17 @@
         path and marks the slack of the other tasks.
     - rule: P65
       how: >-
-        The risky pour is done in checked steps. The rebar inspection is defined
-        as a hold point, so work stops until the check is approved.
+        The step before the risky pour is checked before the pour starts. The
+        rebar inspection is defined as a hold point, so work stops until the
+        check is approved.
 - branch: Civil
   domain: Transportation
   scenario: >-
     A city widens a congested arterial road. The business case includes a
     forecast of how much extra traffic the new lanes will attract, and it adds a
-    demand control: a congestion charge on the corridor. Separately, a
-    pedestrian crossing sits where drivers often misjudge the signal. The
-    designers add a raised median so the unsafe move is physically impossible.
+    demand control: a congestion charge on the corridor. Separately, at one
+    junction drivers keep making a banned turn across oncoming traffic. The
+    designers add a raised median so the banned turn is physically impossible.
   shows:
     - rule: P49
       how: >-
@@ -89,16 +93,18 @@
         the new lanes, and with a demand control, here a price.
     - rule: P39
       how: >-
-        A person can repeat the same error. The designers make the error
-        impossible with a physical guard, the highest level of error-proofing.
+        Drivers repeat the same error. The designers make the error impossible
+        with a physical guard, the highest level of error-proofing.
 - branch: Civil
   domain: Environmental and water
   scenario: >-
     A water utility finds traces of a contaminant in a reservoir. Whether it
     harms people is not yet proven, but the possible harm is serious. The
-    utility adds a carbon filter now and records that choice. It keeps the
-    existing chlorination and adds a UV stage, so that two independent,
-    separately tested treatment layers protect the supply.
+    utility adds an activated-carbon filter now and records that choice.
+    Against pathogens, it keeps the existing chlorination and adds a UV stage,
+    so that two independent disinfection layers protect the supply. Each layer
+    is checked on its own: the chlorine residual is measured and the UV dose
+    is monitored.
   shows:
     - rule: P15
       how: >-
@@ -107,13 +113,13 @@
         and records which measure it took.
     - rule: P40
       how: >-
-        The supply has at least two independent control layers, chlorination
-        and UV, and each layer is verified.
+        Against pathogens the supply has two independent control layers,
+        chlorination and UV, and each layer is verified on its own.
 - branch: Civil
   domain: Railway operations
   scenario: >-
-    A rail operator runs a track possession for maintenance. This is a rare,
-    complex procedure done under time pressure. The protection officer works
+    A rail operator runs a track possession for maintenance. This is a complex
+    procedure done under time pressure. The protection officer works
     through a short checklist. For each item the officer points at it and says
     its status aloud: "Signals blocked, confirmed." After a near miss, the
     operator updates the checklist.

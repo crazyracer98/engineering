@@ -3,8 +3,8 @@
   domain: Mining
   scenario: >-
     A mine runs a repeated process of hoisting ore up a shaft. Among many steps,
-    the team picks the few where control is essential: the shaft brake test and
-    the cage overwind limit. It ranks them by the consequence of failure, not by
+    the team picks the few where control is essential: the winder brakes and
+    the overwind protection. It ranks them by the consequence of failure, not by
     how often incidents occur. Each has a limit, monitoring, a predefined
     corrective action, a record and a recent verification that it works.
   shows:

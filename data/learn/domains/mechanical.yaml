@@ -3,19 +3,20 @@
   domain: Machine and pressure vessel design
   scenario: >-
     A team designs a compressed-air receiver. It first meets the applicable
-    pressure vessel code as the minimum and runs a compliance scan. It then
-    sets the design pressure above the expected working pressure and states the
-    load as a probability per time period. The wall thickness includes a factor
-    for this early design stage.
+    pressure vessel code as the minimum, and the inspector's code check
+    passes. It then applies the other rules. It sets the design pressure well
+    above the highest expected working pressure, with the relief valve set
+    between the two.
   shows:
     - rule: P60
       how: >-
         A code exists, so the team meets it as the minimum and then applies the
-        other rules. A compliance scan passes.
+        other rules. The code compliance check passes.
     - rule: P44
       how: >-
-        Capacity sits above the stated design load by a chosen factor that
-        reflects the design maturity.
+        Capacity sits above the expected load: the design pressure is well
+        above the highest working pressure, and the relief valve keeps the real
+        pressure below the design pressure.
 - branch: Mechanical
   domain: Technical drawing
   scenario: >-
@@ -34,8 +35,10 @@
     An airframe team designs a flap actuator. It picks the simplest design that
     meets the requirements and splits it into modules, each with one stated
     purpose. It adds a second actuator channel so that the flap survives the
-    loss of either channel. The design relies on a new composite hinge, so the
-    team assesses its maturity and keeps it off the critical path until proven.
+    loss of either channel, and a test with either channel disabled shows the
+    flap still moves. The team would like a new composite hinge. Its recorded
+    maturity assessment finds it immature, so the flap keeps a proven metal
+    hinge until the composite one is qualified.
   shows:
     - rule: P23
       how: >-
@@ -47,8 +50,9 @@
         channel in a test keeps the flap moving.
     - rule: P17
       how: >-
-        The design depends on a technology new to the team. Its maturity is
-        assessed, and the immature hinge stays out of the critical path.
+        The design would depend on a technology new to the team. Its maturity
+        is assessed and recorded, and the immature hinge stays out of the
+        critical path.
 - branch: Mechanical
   domain: Aerospace testing
   scenario: >-
@@ -71,29 +75,33 @@
 - branch: Mechanical
   domain: Aviation operations and maintenance
   scenario: >-
-    An airline plans maintenance for a fleet. For parts that wear with age, such
-    as brake pads, it replaces them on a schedule. For everything else it
-    monitors condition. Each maintenance task states which failure pattern it
-    addresses. During the final minutes before pushback, the crew keeps to
-    essential talk only.
+    An airline plans maintenance for a fleet. Parts that wear out with age,
+    such as life-limited engine discs, it replaces after a set number of
+    flight cycles. For everything else it monitors condition. Each maintenance
+    task states which failure pattern it addresses. During taxi, takeoff and
+    landing, the flight crew keeps to essential talk only, as the airline's
+    written rules require.
   shows:
     - rule: P74
       how: >-
         The maintenance method follows how each part fails: scheduled
-        replacement only for what wears with age, condition monitoring for the
-        rest. Each task states its failure pattern.
+        replacement only for what wears with age, here counted in flight
+        cycles, and condition monitoring for the rest. Each task states its
+        failure pattern.
     - rule: P76
       how: >-
-        Pushback is a critical phase. Only the activity and communication that
-        the phase needs are allowed, under written rules.
+        Taxi, takeoff and landing are critical phases. Only the activity and
+        communication that they need are allowed, under written rules.
 - branch: Mechanical
   domain: Automotive
   scenario: >-
     A carmaker develops a braking system. Two brake controllers share one
     supplier, so a single defect could hit both. The team makes the second
-    controller from a different design. Every requirement links to design and
-    test, and back. Before building, the team lists how each part can fail and
-    how parts can interact unsafely.
+    controller from a different design. It lists what the two still share,
+    such as the vehicle power supply, with a reason for each. Every
+    requirement links to design and test, and back. Before building, the team
+    lists how each part can fail and how parts can interact unsafely, and
+    reviews the list.
   shows:
     - rule: P46
       how: >-
@@ -111,20 +119,21 @@
   domain: Naval architecture
   scenario: >-
     A shipyard designs a ferry hull. Watertight bulkheads divide the hull into
-    isolated compartments. In a damage test, one flooded compartment leaves the
-    other compartments dry and the ship afloat.
+    isolated compartments. In the damage stability analysis, one flooded
+    compartment leaves the other compartments dry and the ship afloat.
   shows:
     - rule: P41
       how: >-
-        The system is divided into isolated compartments. A failure test in one
-        compartment leaves all others working.
+        The system is divided into isolated compartments. The damage case for
+        one compartment leaves all the others working.
 - branch: Mechanical
   domain: Elevators
   scenario: >-
-    A lift maker defines the safe state as the car stopped and held by the safety
-    gear. If the rope tension is lost or the controller fails, the brake and
-    safety gear move the car there. A test with cut power shows that the car
-    stops.
+    A lift maker defines the safe state as the car stopped and held. If power
+    or the controller fails, the spring-applied brake closes. If the car
+    overspeeds, for example after a rope failure, the governor trips the safety
+    gear. A test with cut power shows that the brake stops the car, and an
+    overspeed test shows that the safety gear catches it.
   shows:
     - rule: P37
       how: >-
@@ -150,27 +159,35 @@
 - branch: Mechanical
   domain: Acoustic
   scenario: >-
-    A plant has a loud compressor. The team first removes the need for it by
-    changing the process, a higher control level. For the noise that remains,
-    it adds an enclosure at the source. It records why a quieter machine was not
-    possible. Tests with varied loads show that the noise stays within limits.
+    A plant has a loud compressor. The team checks the higher control levels
+    first. The process still needs compressed air, so the compressor cannot be
+    removed, and no quieter model meets the demand. It records both reasons.
+    It then encloses the compressor, an engineering control at the source,
+    rather than handing out ear protection at the receiver. The compressor runs
+    at varying speeds, so the enclosure panels and mounts are designed to stay
+    clear of resonance across the whole speed range. Tests across that range
+    show that the noise at the work stations changes little and stays within
+    limits.
   shows:
     - rule: P38
       how: >-
-        The team uses the highest possible control level and acts at the source
-        first. A record states why a higher level or a closer control was not
-        possible.
+        Elimination and substitution are not possible, and a record states
+        why. The team uses the next level, an engineering control, and places
+        it at the source rather than along the path or at the receiver.
     - rule: P27
       how: >-
-        Tests with varied inputs, here different loads, show stable results.
+        The input, the compressor speed, varies. The enclosure is designed so
+        the result changes little across that range, and tests at varied
+        speeds show stable noise levels.
 - branch: Mechanical
   domain: Space systems
   scenario: >-
     A satellite team sizes its power budget with capacity above the expected
-    load, and a larger factor in the early design phase. The flight computer and
-    the thruster controller exchange data over an interface with a machine-
-    checked schema. It states units and reference frames explicitly. The
-    interface rejects and logs a message that sends thrust in the wrong frame.
+    load, and a larger factor in the early design phase. It lowers the factor
+    at later reviews as the load estimates firm up. The flight computer and
+    the thruster controller exchange data over an interface with a
+    machine-checked schema. It states units and reference frames explicitly.
+    The interface rejects and logs a thrust command that has no frame field.
   shows:
     - rule: P44
       how: >-
@@ -198,8 +215,10 @@
   scenario: >-
     A utility adds a power line to relieve a congested grid corridor. It
     forecasts that demand will grow into the new capacity and adds a demand
-    control: a time-of-use price. It measures and reviews resource use across
-    the plant's lifecycle.
+    control: a time-of-use price. Before choosing the line, it checks whether
+    efficiency and demand response could free enough capacity instead. For the
+    line it builds, it measures and reviews energy losses and materials over
+    the whole lifecycle, from construction through operation to removal.
   shows:
     - rule: P49
       how: >-
@@ -207,5 +226,6 @@
         control, here a price.
     - rule: P3
       how: >-
-        Environmental impact and resource use are reduced across the lifecycle.
-        Resource use is measured and reviewed.
+        Environmental impact and resource use are weighed across the
+        lifecycle: efficiency comes before new build, and losses and materials
+        are measured and reviewed from construction to removal.
