@@ -15,20 +15,21 @@
   - rule: P64
     text: >-
       The deployed state did not match the intended change. One of eight servers
-      kept the old code, and no second person checked the deployment. A check that
-      the deployed state matches the approved change would have found the missed
-      server.
+      kept the old code, and no second technician reviewed the deployment.
+      P64's check, that the deployed state matches an approved change, is aimed
+      at exactly this gap.
   - rule: P73
     text: >-
-      Harm grew every minute while staff searched for the cause. There was no
-      planned action, such as disconnecting the system, that could act faster than
-      the harm. The regulator found that staff needed clear guidance on when to
-      disconnect.
+      Knight's system kept sending orders while its staff tried to find the
+      source of the problem, and the positions built up over 45 minutes. The SEC
+      found that Knight needed clear guidance on when to disconnect a
+      malfunctioning system from the market. A response decided in advance,
+      such as when to disconnect, is what lets the response beat the harm.
   - rule: P75
     text: >-
-      The system sent 97 messages that named the fault before the market opened.
-      They were not designed as alerts and nobody acted on them. A message that
-      nobody acts on does not protect anyone.
+      Before the market opened, the system sent 97 e-mails that pointed at the
+      fault. They were not designed as alerts, and staff generally did not
+      review them. A message that nobody acts on does not protect anyone.
   quotes:
   - source: case-sec-knight-capital-order
     text: SMARS routed millions of orders into the market over a 45-minute period
@@ -65,8 +66,8 @@
   - rule: P65
     text: >-
       Software at Cloudflare went out in stages, but firewall rules went to every
-      site at once. The fix was to roll out rules in stages too, and keep a global
-      push only for emergencies.
+      site at once. Cloudflare's remedy is to roll out rules in stages too, and
+      keep a global push only for emergencies.
   - rule: P70
     text: >-
       Tests that act like users, run from outside the network, caught the fault
@@ -100,10 +101,11 @@
   lessons:
   - rule: P66
     text: >-
-      Closing the valves on the tank was not enough. An open overflow line still
-      joined it to the tanks in service. Isolation has to cover every input,
-      including vent and overflow lines, and the energy control procedure has to
-      list each one.
+      The lockout card for the tank covered its five valves and the agitator
+      motor, but not the overflow line, which had no valves and was never
+      blinded. That line still joined the tank to the tanks in service.
+      Isolation has to cover every input, including vent and overflow lines,
+      and the energy control procedure has to list each one.
   quotes:
   - source: case-csb-dupont-yerkes-case-study
     text: The welder died instantly from blunt force trauma
@@ -117,6 +119,10 @@
     text: DuPont did not properly isolate and lockout tank 1 from in-service tanks 2 and 3 prior to authorizing hot work on tank 1.
   - source: case-csb-dupont-yerkes-case-study
     text: DuPont was fined for not including steps to isolate the slurry tank overflow line in their energy control procedure, and for not installing blinds in the overflow line.
+  - source: case-csb-dupont-yerkes-case-study
+    text: all five valves leading to and from tank 1 and the agitator motor had been locked out.
+  - source: case-csb-dupont-yerkes-case-study
+    text: The card instructed workers to try to start the motor before beginning work, but did not reference the overflow line, which had no valves.
 - id: case-nicoll-highway-2004-monitoring
   title: Nicoll Highway collapse, Singapore (2004)
   year: 2004
@@ -130,9 +136,11 @@
   lessons:
   - rule: P68
     text: >-
-      Monitoring only works if the readings are right and someone acts on them.
-      The inquiry asked for reliable monitoring data, and for senior managers who
-      stop the work when readings exceed the pre-set levels.
+      The interim report called for instrument monitoring that is effective,
+      adequately resourced and maintained, and for senior managers able to
+      suspend or stop the work when readings exceed the pre-determined risk
+      levels. Trigger levels only help when the readings are right and someone
+      acts on them.
   quotes:
   - source: case-coi-nicoll-highway-interim-report
     text: At about 3.30pm on 20 April 2004, the temporary retaining wall system for a deep excavation adjacent to the Nicoll Highway collapsed.
@@ -181,8 +189,8 @@
   summary: >-
     Colgan Air flight 3407 stalled on approach to Buffalo, New York, and crashed
     into a house. Everyone on board and one person on the ground died. The NTSB
-    found that the captain responded wrongly to the stick shaker. One contributing
-    factor was that the crew did not follow sterile cockpit procedures. They
+    found that the captain responded inappropriately to the stick shaker. One
+    contributing factor was that the crew did not follow sterile cockpit procedures. They
     talked about unrelated things during the final minutes of the descent.
   rules: [P76]
   lessons:
@@ -218,10 +226,13 @@
   lessons:
   - rule: P74
     text: >-
-      The acme nut wears with use, so its lubrication and wear checks must follow
-      how fast it wears. The intervals were stretched without an analysis of each
-      task, and the absence of past problems was taken as proof. Each maintenance
-      task needs to rest on how its part actually fails.
+      The acme nut threads wear, and the end play check measures that wear
+      before it becomes a failure. The lubrication and end play check intervals
+      were extended without a task-by-task analysis, which let the threads wear
+      to failure without the opportunity for detection. The NTSB warned that an
+      absence of maintenance history is not enough to justify a longer
+      interval. Each maintenance task needs to rest on how its part actually
+      fails.
   quotes:
   - source: case-ntsb-aar-02-01-alaska-261
     text: The 2 pilots, 3 cabin crewmembers, and 83 passengers on board were killed
@@ -246,17 +257,20 @@
   year: 2017
   summary: >-
     In 2017 attackers stole the personal data of about 148 million people from
-    Equifax. They entered through an Apache Struts vulnerability in a legacy application. Equifax
-    did not have a complete, up-to-date inventory of its IT assets or the
+    Equifax. They entered through an Apache Struts vulnerability in a legacy
+    application. Equifax did not have a complete, up-to-date inventory of its
+    IT assets or the
     software on them. The executive responsible for the application did not know
     it ran Apache Struts.
   rules: [P78]
   lessons:
   - rule: P78
     text: >-
-      You cannot patch what you do not know you run. Equifax kept several partial
-      lists instead of one complete inventory. An inventory with each asset, its
-      software and its owner would show where a new vulnerability applies.
+      If an organization does not know what is on its networks, the report says,
+      it will not know where patching is needed. Equifax had inventories, but
+      none was comprehensive, and the executive responsible for the affected
+      environment did not know it ran Apache Struts. P78 asks for a complete
+      inventory with an owner for each asset.
   quotes:
   - source: case-house-oversight-equifax-report
     text: On September 7, 2017, Equifax announced a cybersecurity incident affecting 143 million consumers.
@@ -288,14 +302,16 @@
   lessons:
   - rule: P80
     text: >-
-      The board warns against naming a broken part and a person as the cause.
-      That leads to the false belief that the problem is solved. It treated the
-      organization as a whole as part of the cause.
+      The board warns that many investigations stop at the part that broke and
+      the person closest to it, and that such corrections lead to a misguided
+      belief that the underlying problem has been solved. Its own cause model
+      took in NASA as an organizational whole.
   - rule: P81
     text: >-
-      The same kind of failure came back 17 years after Challenger, because the
-      institutional causes had not been fixed. Actions from an investigation only
-      help when they are carried out and checked.
+      Seventeen years after Challenger, the board found that the causes of the
+      institutional failure behind it had not been fixed, and that NASA had
+      failed to identify a similar trend. P81's check closes that loop:
+      actions from earlier cycles are tracked until they are completed.
   quotes:
   - source: case-caib-report-vol1-ch7
     text: Even after it was clear from the launch videos that foam had struck the Orbiter in a manner never before seen
@@ -330,9 +346,10 @@
   lessons:
   - rule: P82
     text: >-
-      Each flight with O-ring damage and no accident made the damage look normal.
-      The anomaly tracking only kept problems that were outside past experience,
-      so a recurring problem dropped out of view. A recurring anomaly needs an
+      As O-ring damage recurred, NASA and Thiokol accepted escalating risk,
+      apparently because they "got away with it last time." Tracking only the anomalies outside
+      prior flight experience let major problems drop out of the reporting
+      system. A recurring anomaly needs an
       investigation and a decision, not quiet acceptance.
   quotes:
   - source: case-rogers-commission-ch6
