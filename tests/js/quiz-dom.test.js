@@ -156,6 +156,43 @@ test("pageshow with persisted clears every form; a normal pageshow does not", as
   assert.ok([...form.querySelectorAll(".quiz-fb")].every((p) => p.hidden));
 });
 
+test("pageshow persisted clears ticks with stored results, without any Check, and in the mixed quiz", async () => {
+  const restore = (window) =>
+    window.dispatchEvent(new window.PageTransitionEvent("pageshow", { persisted: true }));
+  const allClear = (window) =>
+    [...window.document.querySelectorAll("form.quiz-q input")].every((i) => !i.checked);
+
+  // Category quiz with stored results: the score stays, every tick goes.
+  const storage = recordingStorage();
+  const stored = await load(CATEGORY_PAGE, { storage });
+  const [a, b] = stored.document.querySelectorAll("form.quiz-q");
+  tick(a, 0);
+  submit(stored, a);
+  tick(b, 1); // ticked, never checked
+  restore(stored);
+  assert.ok(allClear(stored));
+  assert.equal(
+    stored.document.querySelector(".quiz-score").textContent,
+    "Score: 1 of 1 answered correctly (2 questions).",
+  );
+
+  // Category quiz without stored results, ticks only.
+  const bare = await load(CATEGORY_PAGE);
+  tick(bare.document.querySelector("form.quiz-q"), 0, 1);
+  restore(bare);
+  assert.ok(allClear(bare));
+
+  // Mixed quiz: JS-built forms are cleared too.
+  const mixed = await load(MIXED_PAGE);
+  const form = mixed.document.querySelector("form.quiz-q");
+  tick(form, 0);
+  submit(mixed, form);
+  tick(mixed.document.querySelectorAll("form.quiz-q")[1], 1);
+  restore(mixed);
+  assert.ok(allClear(mixed));
+  assert.ok(!form.classList.contains("quiz-right"));
+});
+
 test("a category quiz stores its score; the score returns on reload, the ticks do not", async () => {
   const storage = recordingStorage();
   const first = await load(CATEGORY_PAGE, { storage });
