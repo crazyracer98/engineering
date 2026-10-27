@@ -1,2 +1,21 @@
 # Domain examples, branch Management: Finance. Schema: schema/learn-domains.schema.json.
-[]
+- branch: 'Management: Finance'
+  domain: Accounting and bookkeeping
+  scenario: A small company's ledger is used as evidence at an audit. Each entry shows who made it and when, and it was recorded at the time of the transaction. A correction does not erase the original entry. It adds a new line that records who changed it, when and why. An auditor samples entries to check this.
+  shows:
+  - rule: P11
+    how: The ledger entries are attributable, recorded at the time and original. Changes keep the original entry visible and record who, when and why. A sample of records shows author, time and change history.
+- branch: 'Management: Finance'
+  domain: Payments and treasury
+  scenario: A company pays suppliers by bank transfer. Moving a large sum out of the account cannot be undone, so the bank system requires two authorized people at the moment of action. Separately, the process is split. One person requests a payment, another approves it, a third executes it and a fourth records it. A small branch has too few staff, so a later independent review is added instead.
+  shows:
+  - rule: P42
+    how: The large transfer is critical and cannot be undone, so the system requires a second authorized person at the moment of action.
+  - rule: P43
+    how: The payment process is split so no single person can request, approve, execute and record the same transaction. The small branch uses a compensating control, a later independent review.
+- branch: 'Management: Finance'
+  domain: Budgeting
+  scenario: A department asks for a larger IT budget because its current one is always fully spent. The finance lead expects spending to grow into whatever is added. The increase is approved with a forecast of how spending will grow and an explicit scope, two named projects. Any other new request goes onto a priority list that the finance lead reviews each quarter.
+  shows:
+  - rule: P49
+    how: The added budget is treated as added capacity that demand will fill. It comes with a forecast of spending growth and a demand control, here a fixed scope and a priority list.

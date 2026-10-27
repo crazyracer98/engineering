@@ -1,2 +1,85 @@
 # Domain examples, branch Management: People and organization. Schema: schema/learn-domains.schema.json.
-[]
+- branch: 'Management: People and organization'
+  domain: Team leadership
+  scenario: A new team lead runs a weekly review for a support team. After a bad week she thanks the engineer who reported that he had pushed a wrong setting. She asks the team what slowed them down. Every few months an anonymous survey asks whether people feel safe to speak up. Each agent can name their role on the shift and the team's goal for the week. Before a new ticket tool is adopted, agents try it on a busy shift, not on a calm one.
+  shows:
+  - rule: P5
+    how: The lead thanks the person who reports a mistake and asks for input. That makes it safe to report errors, ask questions and disagree. The anonymous survey item on speaking up is the rule's check.
+  - rule: P25
+    how: The work is designed for real people under real conditions. Roles and goals are clear, and the tool is tried by the agents who will use it, under the stress of a busy shift, not judged for an average user on a calm day.
+- branch: 'Management: People and organization'
+  domain: Personnel selection
+  scenario: A company needs a new shift supervisor. Every candidate gets the same job-related questions. Each answer is rated on a scale tied to the job's requirements. Each candidate also does a short work sample, planning a rota with a mock staff shortage. The three interviewers score on their own before they meet to talk.
+  shows:
+  - rule: P62
+    how: The interviews use fixed questions and anchored rating scales, and a work sample is added. Raters score independently before discussion. Those are the parts of the rule's action and its check.
+- branch: 'Management: People and organization'
+  domain: Performance feedback
+  scenario: A manager reviews a quarter with a team that missed a delivery date. He names the task, which is the handover of release notes. He agrees with the team what to change in how it is done. He does not comment on anyone's character or rank people. At the next review he checks whether handovers improved.
+  shows:
+  - rule: P63
+    how: The feedback is about a named task and how to improve it, not about character or ranking. The manager checks at the next review whether performance improved.
+- branch: 'Management: People and organization'
+  domain: Goals and performance measurement
+  scenario: A customer service director sets each team three specific, challenging goals for the year. Each goal has a measure, a deadline and a progress chart that is reviewed every month. One goal rewards the number of closed tickets. Teams start closing tickets early, and some close them without a fix. So the director pairs the count with a reopened-ticket rate, and reviews each year whether the count still tracks service quality. Each goal is also written so that it can be measured, and it links to a customer need.
+  shows:
+  - rule: P21
+    how: The goals are few, specific and challenging, and each has a measure, a deadline and a progress chart with regular feedback.
+  - rule: P19
+    how: The ticket count rewards people, so it is gamed. The director adds a counter-indicator, the reopened rate, and reviews each year whether the count still tracks the objective.
+  - rule: P9
+    how: Each goal is written as measurable and linked to a user need, here a customer need.
+- branch: 'Management: People and organization'
+  domain: Working time and health
+  scenario: Last year a logistics firm saw errors rise in the final weeks of its peak season, after months of long shifts, although those weeks were not the busiest. For this season the planner sets the rota for the whole season, not only for the busiest day, and caps each person's overtime per week. The firm tracks overtime and fatigue-related errors week by week over the full season.
+  shows:
+  - rule: P28
+    how: The rota is designed for the strain that builds up over the whole season, not only for the single largest load, and sustained overtime is limited. The firm measures how overtime and errors grow over the full period.
+- branch: 'Management: People and organization'
+  domain: Work design and focus
+  scenario: A finance team closes its books each month. During the three-day close, the team lead writes down which activity and communication the close needs. Routine requests wait until it ends. Chat is limited to the close channel. The rules are written down and the team uses them each month.
+  shows:
+  - rule: P76
+    how: The close is defined as a critical phase. Only the activity and communication it needs are allowed, and the communication rules are written down and used.
+- branch: 'Management: People and organization'
+  domain: Succession and human capital
+  scenario: Only one person in a plant knows how to tune a key line. The HR lead names a second person for each such role and trains them, so the function survives losing any one person. Skill levels are assessed the same way for everyone, under stated conditions, with the uncertainty of each rating reported. The ratings are compared when choosing successors.
+  shows:
+  - rule: P45
+    how: A second trained person per key role lets the function survive the loss of any single person. This is N-1 applied to people.
+  - rule: P58
+    how: Skills are rated under stated reference conditions and the uncertainty is reported, so the ratings can be compared when deciding. The rule's calibration against references is not shown here.
+- branch: 'Management: People and organization'
+  domain: Knowledge management
+  scenario: A consultancy keeps two people who know each client's system, so a departure does not stop the work. Every significant decision is stored in a decision log with its reason and the alternatives rejected. New staff read the log to learn why things are as they are.
+  shows:
+  - rule: P45
+    how: Two people know each system, so the function survives the loss of any single person.
+  - rule: P10
+    how: Each significant decision has a record with its reason and the rejected alternatives.
+- branch: 'Management: People and organization'
+  domain: Change management
+  scenario: A company moves all staff to a new expenses tool. The project lead writes down why the change is needed and names a group to lead it. Leaders repeat the vision at every team meeting. The group removes obstacles, such as missing logins, and plans an early win, a first fast refund. The old tool is switched off on a set date, which marks the end.
+  shows:
+  - rule: P69
+    how: The change has a written reason, a named leading group, frequent communication, an early win and an end criterion, "the old way is switched off".
+- branch: 'Management: People and organization'
+  domain: Organizational justice
+  scenario: A manager plans to change shift patterns. She asks the affected staff for input and challenge before she decides. She then explains the final decision and its reasons in writing. She states what is expected from each team from the start date. Not everyone agrees, and she does not wait for consensus.
+  shows:
+  - rule: P8
+    how: The decision changes people's work, so she runs an input round, writes an explanation and states the new expectations. It is not consensus.
+- branch: 'Management: People and organization'
+  domain: Organization design
+  scenario: A firm wants its software to have three clear services. It sets up three teams, each owning one service, so the team boundaries match the intended structure. It counts cross-team dependencies each quarter. During a major outage, one incident lead directs a group of about five, and adds group leads when more people join.
+  shows:
+  - rule: P35
+    how: Team boundaries match the intended components, each with one owning team, and cross-team dependencies are counted.
+  - rule: P79
+    how: During the outage one person directs about five people, and group leads are added above that.
+- branch: 'Management: People and organization'
+  domain: Escalation of commitment
+  scenario: A company starts a pilot of a new loyalty scheme. Before it begins, the sponsor writes down the evidence that would stop it and the dates of two gates. At each gate, a director who did not start the pilot decides to continue or stop. At the second gate the evidence is missing, and the director stops it.
+  shows:
+  - rule: P20
+    how: Stop criteria and gate dates are written before the start. Someone other than the sponsor makes the continue-or-stop decision.

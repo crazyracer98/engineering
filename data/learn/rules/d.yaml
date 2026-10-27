@@ -1,2 +1,61 @@
 # Rule examples, category D. Schema: schema/learn-rules.schema.json.
-[]
+- rule: P36
+  scenario: A small team runs the deployment pipeline for an online shop. The pipeline updates one web service in one cluster namespace.
+  applying: The pipeline role can only update deployments in that namespace. Every quarter a report lists each permission that went unused for 90 days, and the team removes them. No role holds an unused permission.
+  violating: The pipeline runs with cluster-admin rights because that was quicker to set up. It can delete any resource in any namespace, and nobody ever reviews what it uses. A leaked pipeline token now exposes the whole cluster.
+  management:
+    scenario: A company lets team leads approve purchases and look up staff records.
+    applying: Each lead has a written spending limit and sees only the data of their own team. Personal data stays visible to HR alone. A larger purchase goes to the next level.
+    violating: Every lead can approve any amount and open any employee file, because they are trusted. One careless lead can leak the whole payroll.
+- rule: P37
+  scenario: An admission webhook checks image signatures before a cluster starts a new workload. The webhook depends on a key service.
+  applying: The team writes down the safe state, which is to reject the request. In a failure test they stop the key service. The webhook rejects every request and raises an alert. The system reaches the defined safe state.
+  violating: Nobody defines what happens when the key service is lost. The webhook sometimes lets unsigned images through and sometimes hangs. The behavior is undefined, and it fails open when it matters most.
+  management:
+    scenario: A company approves production changes through a single change approver.
+    applying: The written default is that no change goes ahead without approval. A named deputy takes over when the approver is absent. A drill with the approver offline confirms it.
+    violating: When the approver is on leave, engineers go ahead on a chat message from anyone. The failure moves the process to the most dangerous state.
+- rule: P38
+  scenario: A risk review finds an administration port on an internal tool that every office laptop can reach.
+  applying: The team removes the port from the production build. Where a vendor tool still needs it, they bind it to localhost and write a record that says why removal was not possible. Each risk has such a record.
+  violating: The team adds a line to the README that says do not connect to the admin port. This warning is the only control. It depends on everyone reading it and remembering it.
+  management:
+    scenario: Staff share one login to a supplier portal, and an audit flags the risk.
+    applying: The company removes the shared account and gives each person a personal login with single sign-on. The risk cannot occur, so no reminder is needed.
+    violating: The company publishes a policy that says do not share credentials. The shared account stays in place, so the policy relies on personal care alone.
+- rule: P39
+  scenario: A postmortem shows that three different engineers ran a destructive migration against production when they meant to run it on staging.
+  applying: The migration tool now refuses a production target unless the command carries a change ticket number. The error is impossible by default. Where on-call must still act, a diff of the target is shown first, and a snapshot with a restore window limits the damage.
+  violating: The team sends an announcement that says please check the target before you run a migration. The guard is a reminder, so the same error can happen a fourth time.
+  management:
+    scenario: A purchasing team keeps receiving orders that have no contract number.
+    applying: The purchase system refuses to save an order that has no valid contract number. The error cannot enter the process, so nobody needs to catch it later.
+    violating: Finance checks a sample of orders each month and chases the gaps by hand. The system accepts the error, and the process relies on later inspection.
+- rule: P40
+  scenario: A company stores customer records in a cloud database.
+  applying: The records sit behind role-based access, a network policy and encryption at rest. The layers fail independently. The team tests each layer every quarter, so each critical asset has at least two verified layers.
+  violating: The only protection is the perimeter firewall. Once an attacker is inside, every record is open. A second layer exists on paper but nobody has tested it.
+  management:
+    scenario: A company wants independent oversight of access to its production systems.
+    applying: The platform team owns the access risk. The security team monitors it as a second line. Internal audit tests both as a third line. Each line is independent of the one below it.
+    violating: The platform team owns, monitors and audits its own access. All three jobs sit in one line, so a blind spot in that team stays hidden.
+- rule: P41
+  scenario: A software-as-a-service product serves many customers and has test, staging and production environments.
+  applying: Each environment has its own cloud account, and customers are served from separate cells with quotas. In a failure test the team floods one cell. All the other cells keep working.
+  violating: One shared database serves all tenants and all environments. A runaway test query slows production for every customer at once.
+  management:
+    scenario: A company starts a risky new product next to its core business.
+    applying: The new product runs with its own budget, its own stop criteria and its own legal entity. If it fails, the core business keeps its funds.
+    violating: The new product draws on the same budget line as the core product. A cost overrun there cuts funding for everything else.
+- rule: P42
+  scenario: A platform team can delete production data. A deletion cannot be undone once the backup window has passed.
+  applying: The deletion tool needs a second authorized person to approve it live, at the moment of action. The system enforces this for every action on the critical list. One person cannot complete the deletion alone.
+  violating: One administrator can delete the production database alone. A single error, or a single bad actor, goes unchecked.
+  management:
+    scenario: A company releases large payments from its bank account.
+    applying: Any payment above a set amount needs two signatures when it is released. The bank system will not release the payment with one.
+    violating: One finance clerk can release any payment alone. A wrong amount or a fake invoice leaves the account before anyone else sees it.
+- rule: P43
+  scenario: A four-person team runs a cloud account that holds customer data, and the possible loss is above the acceptable risk.
+  applying: A matrix lists incompatible roles. The engineer who requests production access cannot approve it. Nobody can grant themselves admin rights and also delete the audit log. Where the team is too small to split a step, a later independent review of the log is the compensating control. An access review finds nobody with two incompatible roles.
+  violating: One person can create a cloud account, grant themselves admin rights and delete the audit log. They can request, approve, execute and hide a transaction without anyone else involved.

@@ -1,5 +1,5 @@
 // Thin DOM glue for the quizzes; the logic lives in quiz-core.js.
-import { score, draw, loadProgress, saveProgress } from "./quiz-core.js";
+import { score, draw, loadProgress, saveProgress, persistsProgress, scoreFromProgress } from "./quiz-core.js";
 
 function getStorage() {
   try {
@@ -18,7 +18,7 @@ function el(tag, attrs = {}, text) {
 
 // Same markup as the static contract. Only feedback_html is trusted HTML.
 function renderQuestion(q) {
-  const form = el("form", { class: "quiz-q", "data-qid": q.id });
+  const form = el("form", { class: "quiz-q", "data-qid": q.id, autocomplete: "off" });
   const fs = el("fieldset");
   fs.append(el("legend", {}, q.stem));
   q.options.forEach((o, i) => {
@@ -67,6 +67,14 @@ function clearQuestion(form) {
   if (r) r.textContent = "";
 }
 
+// Browsers (Firefox form cache, bfcache) can restore ticks the quiz does not
+// show feedback for; every quiz starts with all options unchecked.
+function uncheckAll(scope) {
+  scope.querySelectorAll("form.quiz-q input[type=checkbox]").forEach((i) => {
+    i.checked = false;
+  });
+}
+
 function setResult(form, ok, text) {
   form.classList.toggle("quiz-right", ok === true);
   form.classList.toggle("quiz-wrong", ok === false);
@@ -75,9 +83,11 @@ function setResult(form, ok, text) {
   return r;
 }
 
-function initQuiz(root, storage) {
+function initQuiz(root, pageStorage) {
   const name = root.dataset.quiz || "quiz";
   const mixed = name === "mixed";
+  // The mixed test is a fresh draw each time: it never reads or writes storage.
+  const storage = persistsProgress(name) ? pageStorage : null;
   let scoreEl = root.querySelector(".quiz-score");
   let resetBtn = root.querySelector(".quiz-reset");
   if (!scoreEl) {
@@ -88,7 +98,7 @@ function initQuiz(root, storage) {
     resetBtn = el("button", { class: "quiz-reset", type: "button" }, "Reset");
     root.append(resetBtn);
   }
-  // Remember only what this page has run: progress storage is global per quiz.
+  // Category quizzes restore only the running score on reload, not per-question state.
   let progress = storage ? loadProgress(storage, name) : { answered: {} };
   if (!progress || !progress.answered) progress = { answered: {} };
 
@@ -96,22 +106,10 @@ function initQuiz(root, storage) {
 
   function updateScore() {
     const fs = forms();
-    const done = fs.filter((f) => f.dataset.qid in progress.answered);
-    const right = done.filter((f) => progress.answered[f.dataset.qid]).length;
-    scoreEl.textContent = done.length
-      ? `Score: ${right} of ${done.length} answered correctly (${fs.length} questions).`
+    const { right, done } = scoreFromProgress(progress, fs.map((f) => f.dataset.qid));
+    scoreEl.textContent = done
+      ? `Score: ${right} of ${done} answered correctly (${fs.length} questions).`
       : "";
-  }
-
-  function restore() {
-    for (const f of forms()) {
-      const qid = f.dataset.qid;
-      if (qid in progress.answered) {
-        const ok = progress.answered[qid];
-        setResult(f, ok, ok ? "Answered correctly earlier." : "Answered incorrectly earlier.");
-      }
-    }
-    updateScore();
   }
 
   function bind(form) {
@@ -142,8 +140,9 @@ function initQuiz(root, storage) {
     const mine = ++run;
     root.querySelectorAll(".quiz-error").forEach((e) => e.remove());
     if (!mixed) {
+      uncheckAll(root);
       forms().forEach(bind);
-      restore();
+      updateScore();
       return;
     }
     const url = new URL(root.dataset.bank, document.baseURI);
@@ -165,7 +164,7 @@ function initQuiz(root, storage) {
       bind(f);
       root.insertBefore(f, scoreEl);
     }
-    restore();
+    updateScore();
   }
 
   resetBtn.addEventListener("click", () => {
@@ -196,6 +195,13 @@ function initAll() {
     initQuiz(root, storage);
   });
 }
+
+// A bfcache restore keeps the whole old DOM, feedback included. The score
+// stays; the per-question state is reset like a fresh load.
+window.addEventListener("pageshow", (ev) => {
+  if (!ev.persisted) return;
+  document.querySelectorAll(".quiz form.quiz-q").forEach(clearQuestion);
+});
 
 // Material instant navigation re-renders the page without a reload and
 // exposes `document$`; otherwise run once the DOM is ready.

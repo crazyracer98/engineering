@@ -1,2 +1,109 @@
 # Rule examples, category C. Schema: schema/learn-rules.schema.json.
-[]
+- rule: P22
+  scenario: A team designs a job scheduler that depends on a registry, a queue and two controllers.
+  applying: Before building, the team lists how each part can fail and how the two controllers can fight over the same job when neither has failed. It also lists how a correct scheduler could still harm users through misuse. A reviewer signs off on the list for each component.
+  violating: The team builds the scheduler and ships it. The first failure analysis happens after an outage in which the registry went down and two controllers restarted the same jobs.
+  management:
+    scenario: A company plans to migrate three clusters in one quarter.
+    applying: Before the start, the teams assume the migration failed and list the reasons. They also list how the parallel migrations can interfere, and they find that two teams plan the same freeze window.
+    violating: Each team plans its own migration and reports only the benefits. Nobody asks how the migrations interfere, and two of them collide on the same freeze window.
+- rule: P23
+  scenario: A platform team packages ten applications for deployment.
+  applying: Each application has its own Helm chart with one stated purpose. A review finds no unused values, templates or flags.
+  violating: The team adds options for imagined future needs to one shared chart for all ten applications. Most options are unused, and a change for one application breaks another.
+  management:
+    scenario: A product team tracks its work.
+    applying: The team keeps one backlog with one ranked list and drops meetings that do not serve the objective.
+    violating: The team keeps three parallel priority lists and adds a new approval layer for imagined future needs. Nobody can say which work comes first.
+- rule: P24
+  scenario: A team designs a new Kubernetes cluster for a data service.
+  applying: The design document has a maintenance section and a decommissioning section. The decommissioning section says how to delete the cluster and its data before the cluster is created.
+  violating: The design document ends at go-live. Years later, orphaned volumes and DNS records remain, and nobody can safely remove them.
+  management:
+    scenario: A company signs a contract with a hosting vendor.
+    applying: The contract has an exit clause and a data-return clause. The personal data collected under it has a deletion date.
+    violating: The contract says nothing about the end. When the company leaves, the vendor keeps its data and no one knows how to get it back.
+- rule: P25
+  scenario: An on-call engineer must fail over a database during a night incident.
+  applying: The team tests the failover runbook with real on-call engineers at night and under time pressure. The CLI output is unambiguous, and the team fixes the steps where testers slip.
+  violating: The failover command prints similar messages for success and failure. An engineer misreads one at 3 a.m., and the post-incident review blames the engineer.
+  management:
+    scenario: A team of eight starts a new project.
+    applying: Each member can name their role and the team's current goal. The workload is set at a level that people can carry.
+    violating: Roles are unclear and goals change weekly. When work slips, the manager blames individuals for errors that the setup invites.
+- rule: P26
+  scenario: A team builds a payment service from several components.
+  applying: Each component documents how to set and observe its key states. It has a readiness endpoint, a dry-run mode and a test flag, so the team can test it before release.
+  violating: The component can only be tested in production. There is no way to set its state or to see its internal state, so a bug appears only with live customers.
+  management:
+    scenario: A finance team approves access requests for a core system.
+    applying: Each approval is stored as a ticket. An auditor can sample the tickets and see who approved what.
+    violating: Approvals are given by chat or by phone and leave no record. An auditor cannot sample the control.
+- rule: P27
+  scenario: A service retries failed calls to a partner API.
+  applying: The service uses retries with jitter and idempotent operations. Tests with varied latency, clock drift and message order show stable results.
+  violating: The service works only when timing is exact. A small delay in message order makes it create duplicate orders.
+  management:
+    scenario: A team plans a roadmap with a top objective for the year.
+    applying: The team checks the plan against a credible range of assumptions. The roadmap still delivers its top objective if one engineer leaves.
+    violating: The plan assumes that every engineer stays and every estimate holds. When one engineer leaves, the top objective fails.
+- rule: P28
+  scenario: A team prepares a message broker for production.
+  applying: An endurance test runs for several days at a realistic load. The team measures the growth of memory leaks, disk wear and fragmentation.
+  violating: The team runs a one-hour peak test and then ships. After three weeks of normal load, the broker runs out of memory.
+  management:
+    scenario: An operations team carries on-call duty.
+    applying: The team reviews on-call load and overtime every month. No one works above 48 hours per week as a pattern, and deferred maintenance is tracked.
+    violating: The team accepts sustained overtime and lets technical debt grow. Each week looks fine, but burnout and defects build up over the year.
+- rule: P29
+  scenario: A platform team upgrades the container network plugin of a cluster.
+  applying: The team keeps a tested compatibility matrix for Kubernetes, CNI and CSI versions. Each interacting pair is on the list before the upgrade.
+  violating: The team upgrades the CNI plugin alone. It breaks the storage driver, which was never tested with that version.
+  management:
+    scenario: Two platform teams plan to merge.
+    applying: Before the merge, the teams compare their on-call rules and release processes. They plan how to integrate the differences.
+    violating: The teams merge on a fixed date without any comparison. Their incompatible release processes block each other for months.
+- rule: P30
+  scenario: A deployment is managed by a GitOps tool, and an autoscaler is also enabled.
+  applying: The autoscaler owns the replica count, and the GitOps manifest leaves that field out. Each managed field has exactly one owner.
+  violating: The GitOps tool and the autoscaler both set the replica count. Each keeps reverting the other, and the system flaps.
+  management:
+    scenario: A team has one backlog and runs incident response.
+    applying: There is one product owner per backlog and one incident commander per incident. Each person reports to one person for a given task.
+    violating: Two managers set priorities for the same backlog and give opposite orders. The team does not know whom to follow.
+- rule: P31
+  scenario: A team must tune autoscaler settings, and no model predicts good values.
+  applying: The team generates several variants and tests each one under load. It records which variants it kept and repeats the round.
+  violating: The team picks the settings by opinion in a meeting, although a test could compare them.
+  management:
+    scenario: A portal team wants to improve developer onboarding.
+    applying: The team A/B-tests two onboarding flows with real users and keeps the better one. It then tests the next change.
+    violating: The team picks the flow that the loudest person prefers and never tests it with users.
+- rule: P32
+  scenario: Two services exchange files and need to know that the files arrive intact.
+  applying: The sender adds a checksum, and the receiver verifies it in the application. Services authenticate each other with mTLS and do not rely only on network encryption.
+  violating: The team trusts the network to deliver data correctly. The application does not check the data, and a corrupted backup is found only at restore time.
+  management:
+    scenario: A platform team supports product teams.
+    applying: The platform team measures time-to-first-deploy for product teams. It does not rely only on its own ticket times.
+    violating: Each department reports that its tickets close on time. Nobody checks whether a product team can deploy.
+- rule: P33
+  scenario: A service receives JSON messages from other teams.
+  applying: Every interface has a machine-checked schema in CI. The service rejects and logs unknown or malformed fields, and field names carry units, such as latency_ms. Timestamps are in UTC with offset.
+  violating: The service silently ignores unknown or malformed fields. A sender writes a duration in seconds, and a receiver reads it as milliseconds.
+  management:
+    scenario: A shared service team receives work requests from other units.
+    applying: The team states what it needs in a definition of ready. It returns a request without a cost centre instead of guessing.
+    violating: The team silently fixes incomplete requests. Over time, people send incomplete requests as the unofficial standard.
+- rule: P34
+  scenario: A team tests a storage design on 3 nodes and plans to run it on 300.
+  applying: The team estimates the failure rate per component and multiplies it by the planned scale. It then tests the design at the target scale.
+  violating: The team assumes that a failure never seen in the 3-node test will not happen at 300 nodes. At scale, the rare failure happens every week.
+  management:
+    scenario: A company grows from 50 to 500 people.
+    applying: The company expects rare events, such as fraud or the loss of a key person, to happen regularly. It scales its controls with its size.
+    violating: The company keeps the controls of a 50-person firm. At 500 people, an event that happens once in 500 person-years now happens about every year, and no control catches it.
+- rule: P35
+  scenario: A company builds a system from several components and has several teams.
+  applying: Each major component boundary has one owning team. The company counts cross-team dependencies and reshapes the teams when the intended structure changes.
+  violating: One component is maintained by four teams that never talk to each other. The design then copies their communication gaps.

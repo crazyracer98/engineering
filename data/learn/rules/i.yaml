@@ -1,2 +1,120 @@
 # Rule examples, category I. Schema: schema/learn-rules.schema.json.
-[]
+- rule: P80
+  scenario: >-
+    A payments API is down for 40 minutes after an engineer runs a cleanup
+    script against production instead of staging. The incident is above the
+    team's severity-2 line, so it needs a postmortem.
+  applying: >-
+    The postmortem asks why the script could reach production at all. It
+    finds that both environments share one credential and that the prompt
+    does not show which environment it is in. It lists three system
+    actions with owners: separate credentials, a coloured prompt, and a
+    confirmation step for destructive scripts. The engineer is not named
+    as the cause. The check is met: the failure has a postmortem with
+    system-level actions.
+  violating: >-
+    The report closes with the root cause "operator error" and the action
+    "remind the engineer to be careful". Nothing in the system changes.
+    The next engineer who can reach production with the same credential
+    makes the same mistake, and people stop reporting their slips.
+  management:
+    scenario: >-
+      A company reorganizes its support and billing teams. Within a month
+      handoffs fail and customers wait days for refunds.
+    applying: >-
+      The company holds an after-action review with everyone affected.
+      They discuss without blame what was meant to happen, what happened,
+      why, and how to improve. The output is a short list of process
+      changes, such as a named owner for each handoff.
+    violating: >-
+      The director asks each team lead to write down who caused the
+      delays. The leads blame each other, nobody shares what they saw, and
+      the handoffs stay broken.
+- rule: P81
+  scenario: >-
+    A team of six runs two-week sprints. In three sprints in a row, a
+    release is delayed by the same flaky deployment step.
+  applying: >-
+    Each retrospective turns its findings into tickets with an owner and a
+    due date. The next retrospective starts by reviewing the open tickets
+    from earlier cycles. The team checks whether the last change worked and
+    then acts: it keeps the fix, or changes it. After the third delay the
+    team changes the process by adding an automated deployment test. The
+    check is met: actions from earlier cycles are tracked until they are
+    completed.
+  violating: >-
+    The team lists "make deployments more reliable" in every retrospective
+    and never opens a ticket for it. Nobody looks at earlier notes. The
+    same failure happens again with no process change.
+  management:
+    scenario: >-
+      A department of 40 people holds a retrospective at the end of each
+      quarter. Last quarter it agreed to shorten its approval chain.
+    applying: >-
+      The department runs the cycle at fixed intervals: plan, do, check
+      and act. It tracks every action to completion on a shared list. At
+      the next quarterly review, the first agenda item is the status of
+      last quarter's actions.
+    violating: >-
+      The department holds the review only when something goes wrong. The
+      actions are written in the minutes and never looked at again. The
+      approval chain is as long as it was a year ago.
+- rule: P82
+  scenario: >-
+    An integration test fails about one run in twenty. Developers rerun
+    the pipeline until it goes green. Nobody has been hurt and no release
+    has been blocked for more than an hour.
+  applying: >-
+    A developer records the flaky test as an anomaly ticket on the day it
+    is noticed. The team investigates and finds a race condition in test
+    setup, which could also appear in production. The ticket ends with a
+    decision: fix it, which they do. If the cause had been harmless, the
+    ticket would carry a written reason for accepting it. The check is
+    met: each anomaly has a ticket with a decision.
+  violating: >-
+    The team adds an automatic retry that hides the failure and mutes the
+    alert permanently. No ticket exists and no one has looked at the
+    cause. The odd behaviour becomes normal, and the race condition ships
+    to production unseen.
+  management:
+    scenario: >-
+      Three projects in a row finish about two weeks late. Each one has a
+      different stated reason, and none caused a serious problem.
+    applying: >-
+      A programme manager records the three misses as one deviation and
+      investigates them as a pattern. The study finds that estimates
+      ignore the time taken by a shared testing team. The planning method
+      is changed before the slip becomes the accepted norm.
+    violating: >-
+      Each late project is closed on its own with "unlucky timing". Later
+      plans quietly add two weeks, so the delay becomes normal. Nobody
+      asks why it keeps happening.
+- rule: P83
+  scenario: >-
+    A service in a cluster starts crash-looping. Users see slower pages,
+    but the team estimates it will be hours before real harm. The on-call
+    engineer wants to restart the pods.
+  applying: >-
+    Before any repair, the engineer captures the logs, a heap dump and a
+    disk snapshot. She writes in the incident record what she captured,
+    when, and who handled it. Only then does she restart the pods. The
+    check is met: the incident record lists the evidence captured before
+    the first repair action.
+  violating: >-
+    The engineer restarts the service first. The new pods start with clean
+    memory and rotated logs. When the team asks later what went wrong,
+    nothing is left to examine and the cause stays a guess.
+  management:
+    scenario: >-
+      A dismissed employee files a complaint. The company's chat tool
+      deletes messages after 30 days, and a related channel is 25 days
+      old.
+    applying: >-
+      Once the complaint makes a dispute reasonably likely, the company
+      stops routine deletion for the related mailboxes and channels. It
+      preserves the records and logs who exported them and when. This is a
+      legal hold.
+    violating: >-
+      The company waits for a formal letter before changing anything.
+      The auto-delete job runs five days later and the relevant messages
+      are gone.

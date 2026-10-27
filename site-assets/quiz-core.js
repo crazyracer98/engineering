@@ -61,3 +61,25 @@ export function saveProgress(storage, quiz, progress) {
     return false;
   }
 }
+
+/** The mixed test is a fresh random draw each time, so it never touches progress storage. */
+export function persistsProgress(quiz) {
+  return quiz !== "mixed";
+}
+
+/**
+ * Running score from stored progress, counting only question ids in `ids`
+ * (stored ids no longer on the page are ignored). Never throws.
+ */
+export function scoreFromProgress(progress, ids) {
+  const answered = progress && progress.answered && typeof progress.answered === "object" ? progress.answered : {};
+  let done = 0;
+  let right = 0;
+  for (const id of ids) {
+    if (Object.hasOwn(answered, id) && typeof answered[id] === "boolean") {
+      done++;
+      if (answered[id]) right++;
+    }
+  }
+  return { right, done, total: ids.length };
+}

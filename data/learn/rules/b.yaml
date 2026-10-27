@@ -1,2 +1,232 @@
 # Rule examples, category B. Schema: schema/learn-rules.schema.json.
-[]
+# Illustrative, not evidence: every scenario is invented.
+- rule: P9
+  scenario: A platform team plans a faster login service for an internal portal.
+  applying: >-
+    The requirement reads "p95 login time is under 300 ms at 500 concurrent
+    users", with a test that checks it. It links to ticket UX-212, where staff
+    report slow sign-ins. Every requirement in the spec has a criterion and a
+    link to a need, so the check passes.
+  violating: >-
+    The spec says "the login shall be fast". Nobody can test it, and no ticket
+    says who needs it. The team cannot show that the service meets the
+    requirement.
+  management:
+    scenario: A director sets a goal for the cloud platform group for the year.
+    applying: >-
+      The objective reads "cut median time to provision a namespace from 3
+      days to 1 hour by the end of Q2". It has one named owner and links to
+      the product teams' request for self-service. Measure, target, deadline,
+      owner and need are all present.
+    violating: >-
+      The objective reads "make provisioning better". It has no measure, no
+      deadline and no owner, and it does not say whose need it serves.
+- rule: P10
+  scenario: >-
+    A team chooses a message queue for a new order service. The choice will be
+    hard to change later.
+  applying: >-
+    The team writes a decision record in the repository. It states the choice,
+    the reason (ordering guarantees and the team's operating experience) and
+    the two rejected alternatives with why each lost. Two years later a new
+    engineer can judge whether the reason still holds.
+  violating: >-
+    The team picks the queue in a call and writes nothing down. Two years
+    later nobody knows why the system is built this way, and no one dares to
+    change it.
+  management:
+    scenario: A department head reorganizes on-call duty across three teams.
+    applying: >-
+      The decision log gets an entry. It names the shared rotation as the
+      choice, gives the reason (fewer night calls per person), lists the
+      per-team rotation as rejected with its reason, and names the owner.
+    violating: >-
+      The new rotation is announced in a chat message. The reason, the
+      alternatives and the owner are not recorded, so the next manager cannot
+      tell why it was chosen.
+- rule: P11
+  scenario: A release depends on a test report that a manager must approve.
+  applying: >-
+    The report is stored with the commit SHA and signed by the person who ran
+    it. A correction is a new entry that keeps the original visible and
+    records who changed it, when and why. A sample of records shows author,
+    time and full history.
+  violating: >-
+    After a failed run, someone edits the report so that the test shows as
+    passed. The original entry is gone, and no one can tell who changed it or
+    when.
+  management:
+    scenario: A finance team keeps the project budget in a shared ledger.
+    applying: >-
+      A budget change is a new entry with author, date and reason. The earlier
+      figure stays visible. An auditor can reproduce every past state and see
+      that the records are in order.
+    violating: >-
+      A manager overwrites the budget cell with a new number. The old figure is
+      lost, and the organization cannot show how or why the number changed.
+- rule: P12
+  scenario: >-
+    A team sizes a cluster for next year's traffic from a benchmark. The
+    benchmark ran on three, four and six nodes.
+  applying: >-
+    The sizing note states that the benchmark is valid for 3 to 6 nodes. The
+    plan targets 5 nodes, inside that range. The team also checks the result
+    against a rough back-of-the-envelope estimate, and both agree within an
+    order of magnitude.
+  violating: >-
+    The team scales the benchmark results up to predict 50 nodes. The
+    benchmark never covered that range, and no independent estimate checks the
+    result. The decision rests on an unvalidated extrapolation.
+  management:
+    scenario: A programme office reviews the business case for a platform migration.
+    applying: >-
+      The office compares the estimate with the last five migrations, which
+      overran by 40 % on average. It adjusts the plan with that outside view
+      instead of trusting only the team's own plan.
+    violating: >-
+      The office accepts the team's own estimate as it stands. It never looks
+      at how similar past projects ended.
+- rule: P13
+  scenario: A data team publishes a monthly capacity report to management.
+  applying: >-
+    One command regenerates the report from the recorded inputs. The data
+    snapshot, the code and the tool versions are pinned. Anyone can re-run it
+    and get the same figures.
+  violating: >-
+    An analyst copies numbers from three dashboards into a spreadsheet by hand.
+    The steps are not recorded, so nobody can regenerate the report, and a
+    typo goes unnoticed.
+  management:
+    scenario: A delivery lead reports DORA metrics to the executive team.
+    applying: >-
+      The dashboard is generated from pipeline data by a documented job. Each
+      figure names its data source, and the same job produces the same numbers
+      on any day.
+    violating: >-
+      The figures are typed into a hand-edited spreadsheet each quarter. The
+      sources are not named, and nobody can reproduce last quarter's numbers.
+- rule: P14
+  scenario: A team deploys a container image to production.
+  applying: >-
+    The image is signed and carries build provenance and a software bill of
+    materials. The deployment pins the image by digest. For this artifact the
+    team can show its origin, build and certificate. When a library flaw is
+    announced, they find every affected deployment.
+  violating: >-
+    The team runs an unsigned image from an unknown registry. They cannot show
+    where it came from or what it contains. When a defect appears, they cannot
+    find all affected deployments.
+  management:
+    scenario: A procurement team is about to sign with a SaaS vendor.
+    applying: >-
+      Before signing, the team lists the vendor's sub-processors and where
+      each stores data. It acts on what it finds, for example by requiring
+      data to stay in the region.
+    violating: >-
+      The team signs on the strength of a sales presentation. It does not know
+      the vendor's sub-processors or where they hold the data.
+- rule: P15
+  scenario: >-
+    A database team sees odd checksum errors on a storage volume. The cause is
+    unknown.
+  applying: >-
+    The team takes a snapshot and stops writes to the volume at once. It does
+    not wait for the root cause. A record states the protective measure and
+    why it is proportionate to the risk of lasting data loss.
+  violating: >-
+    Writes continue while the team waits for proof of corruption. The damage
+    is irreversible, and by the time the proof arrives, more data is lost.
+  management:
+    scenario: >-
+      Finance receives a fraud warning about a supplier's new bank account
+      details.
+    applying: >-
+      Payments to the supplier are paused while the warning is checked. The
+      step is proportionate and reversible, and it is taken before fraud is
+      proven.
+    violating: >-
+      Payments continue until the fraud is confirmed. By then the money is
+      gone.
+- rule: P16
+  scenario: >-
+    A team must pick an ingress controller. No one knows which will meet the
+    latency goal.
+  applying: >-
+    The team prototypes two controllers in parallel. Load tests eliminate the
+    weaker one. The design record lists both alternatives and the evidence that
+    removed the loser. The team commits only after feasibility is shown.
+  violating: >-
+    The team chooses one controller on day one. Late in the project, it finds
+    that the controller cannot meet the latency requirement. The rework is
+    expensive.
+  management:
+    scenario: A company needs a new monitoring vendor.
+    applying: >-
+      Two vendors run a paid pilot for a quarter. The weaker one is dropped as
+      results arrive, and only then is one contract signed.
+    violating: >-
+      Leadership signs a three-year contract with the first vendor it meets. It
+      learns after launch that the tool does not fit.
+- rule: P17
+  scenario: >-
+    A team wants a young open-source project for the control plane of its
+    platform.
+  applying: >-
+    The team records a maturity assessment for the project: it is early stage
+    and has few production users. It keeps the project off the critical path
+    and uses a graduated, proven project there instead.
+  violating: >-
+    The team adopts an untested tool for the production control plane with no
+    assessment. Unknown failures now sit on the critical path.
+  management:
+    scenario: A company considers a start-up vendor for its payroll process.
+    applying: >-
+      The company assesses the vendor's maturity first. It does not choose the
+      start-up for payroll without an exit plan.
+    violating: >-
+      The company moves payroll to a two-person start-up without checking its
+      maturity or planning an exit. If the vendor fails, payroll stops.
+- rule: P18
+  scenario: >-
+    A team has two decisions this week: trying a new linter rule, and moving
+    the whole service to another cloud provider.
+  applying: >-
+    The team classifies the linter rule as reversible and decides it today at
+    team level. It classifies the provider move as irreversible. That decision
+    goes through consultation, a red team and a decision record (P10). Each
+    record states its class and the matching process.
+  violating: >-
+    The linter trial waits three weeks for committee approval. The provider
+    contract is signed in a single meeting. The process is heavy where it is
+    not needed and light where harm lasts.
+- rule: P19
+  scenario: A manager wants to rank on-call engineers by a single number.
+  applying: >-
+    The manager pairs the closed ticket count with a counter-indicator, the
+    number of reopened incidents, and reads a sample of incidents to compare
+    the numbers with what really happened. Each year the team reviews whether
+    both still track on-call quality. Mean time to restore is not a bonus
+    target.
+  violating: >-
+    Closed ticket count is the only measure of on-call quality. Engineers split
+    tickets and close them early to raise the number, and real quality drops.
+- rule: P20
+  scenario: A sponsor launches a service-mesh pilot with an uncertain outcome.
+  applying: >-
+    Before the start, the team writes the stop criteria: stop if p99 latency
+    rises by more than 5 ms after 4 weeks. The gate dates are set. The
+    architecture board, not the sponsor, makes the continue-or-stop decision.
+  violating: >-
+    The pilot has no stop criteria. After poor results, the sponsor says "we
+    have invested too much to stop now" and adds more people. The sponsor also
+    makes the decision alone.
+- rule: P21
+  scenario: A lead sets a goal for a platform team this quarter.
+  applying: >-
+    The goal reads "cut median build time from 12 to 6 minutes this quarter".
+    A weekly chart shows progress. For a new technology the goal is to run
+    three spikes and document what the team learned. Each goal has a measure,
+    a deadline and a progress chart.
+  violating: >-
+    The only goal is "do your best". Nobody shows progress, so the team cannot
+    tell whether it is on track.
