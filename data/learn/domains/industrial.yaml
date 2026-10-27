@@ -4,16 +4,17 @@
   scenario: >-
     On an assembly line, workers sometimes fit a bracket the wrong way round.
     Postmortems show the same error each month. The team redesigns the bracket
-    so it fits only one way. A jig that cannot close with a wrong part would
-    make the error visible at once. Any worker who sees a defect can press a
-    stop button on the line. The stop works in every mode, and resetting it does
-    not restart the line.
+    so it fits only one way. A jig that refuses to close on a wrong part was
+    the fallback, but it would only have made the error visible. Any worker
+    who sees a defect can press a stop button on the line. The stop works in
+    every mode, resetting it does not restart the line, and every stop is
+    reviewed without blame.
   shows:
     - rule: P39
       how: >-
         A person makes the same error repeatedly, so the team makes the error
-        impossible, with a bracket that fits one way. If that cannot be done,
-        they would make it visible at once, and then limit its consequence.
+        impossible, with a bracket that fits one way. The jig, which only makes
+        the error visible, is the next level down and is not needed.
     - rule: P4
       how: >-
         Anyone who finds a problem that could cause harm can stop the line
@@ -43,7 +44,8 @@
   scenario: >-
     A worker can be hurt by a press that crushes parts. The team asks first
     whether the hazard can be removed, for example by changing the process so
-    no hand enters the press. It next adds a light curtain, an engineering
+    no hand enters the press. The process still needs hand loading, and a
+    record states why. The team next adds a light curtain, an engineering
     control, and only then training and gloves. Before cleaning or repair, a
     technician isolates the press from power and locks the isolation with a
     personal lock, so nobody can restart it. The maintenance procedure starts
@@ -63,9 +65,10 @@
   scenario: >-
     A warehouse stores packed goods that burn. The team estimates how fast a
     fire can grow to a size that blocks the exits. It then adds up the time for
-    a detector to sense smoke, for the alarm to sound, for staff to get out and
-    for the sprinklers to act. The team measures this total time in a drill.
-    It is shorter than the time until harm, with a margin.
+    a detector to sense smoke, for the alarm to sound and for staff to react
+    and get out. A drill measures the alarm-to-exit part, and detector tests
+    give the detection time. The total is shorter than the time until the
+    exits are blocked, with a margin.
   shows:
     - rule: P73
       how: >-
@@ -79,7 +82,8 @@
     packing stations are the constraint, and the team measures and names it
     before it buys anything. It adds packing capacity first. The packing queue
     is kept well below full utilization, and the new capacity is sized above the
-    expected peak order load.
+    expected peak order load. A peak-day trial shows the stations keep up with
+    the planned margin.
   shows:
     - rule: P50
       how: >-
@@ -88,8 +92,8 @@
     - rule: P44
       how: >-
         The team designs capacity above the expected load and keeps the queue
-        well below full utilization. A load test shows capacity at least the
-        design load times the chosen factor.
+        well below full utilization. A peak-day trial shows capacity at least
+        the design load times the chosen factor.
 - branch: Industrial
   domain: Supply chain engineering
   scenario: >-

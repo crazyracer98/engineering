@@ -2,26 +2,28 @@
 - branch: Cross-cutting
   domain: Professional ethics
   scenario: >-
-    A consulting engineer is asked to approve a bridge bearing design. The
-    design uses a product from a firm in which she holds shares. The project
-    is behind schedule and cheaper bearings are offered. The bearing type is
-    outside her field. She declares the share holding, steps out of the
-    review and asks a bearing expert to check the design. The release gate has
-    a safety sign-off item. The design also reduces material use over its life.
+    A consulting engineer is asked to approve a bridge design. Its bearings
+    come from a firm in which she holds shares, and bearings are outside her
+    field. She declares the share holding on her firm's register of interests
+    and steps out of the bearing review. A named colleague with bearing
+    expertise checks that part instead. The project is behind schedule, and
+    the contractor offers cheaper, untested bearings to save time. The release
+    gate has a safety sign-off item, so the swap waits for the same check.
   shows:
     - rule: P6
       how: >-
-        She decides on work in which she has a personal interest, so she
-        discloses it and steps out of the review. The interest goes on a
-        register that is checked before the approval.
+        She would review work in which she has a personal interest, so she
+        discloses it and steps out of that review. The register is checked
+        before the approval.
     - rule: P2
       how: >-
-        The bearing type is outside her competence, so she involves an expert.
-        The design has a named checker with expertise in its domain.
+        Bearings are outside her competence, so the bearing part goes to a
+        named checker with expertise in that domain.
     - rule: P1
       how: >-
         Public safety goes above cost and schedule. The release gate contains a
-        safety sign-off item, so a late, cheaper option does not skip it.
+        safety sign-off item, so the cheaper, late substitute does not skip
+        it.
 - branch: Cross-cutting
   domain: Systems engineering
   scenario: >-
@@ -115,15 +117,16 @@
     into a region: unacceptable, tolerable or negligible. An unacceptable risk
     must be reduced whatever the cost. A tolerable risk is reduced while it
     is reasonably practicable. A negligible risk needs no further reduction.
-    For the tolerable risk, the owner keeps adding controls until the next one
-    costs grossly more than it gains.
+    The tank's risk falls in the tolerable region, so the owner keeps adding
+    controls until the next one costs grossly more than it gains.
   shows:
     - rule: Master
       how: >-
         The master rule says to keep reducing risk until the cost of the next
         reduction is grossly disproportionate to the benefit (ALARP). The three
-        risk regions set how far to go. The more serious the consequence and the
-        greater the uncertainty, the more rigor the owner applies.
+        risk regions set how far to go. The tank's risk is tolerable, so the
+        owner reduces it while that is reasonably practicable and stops at the
+        grossly disproportionate point.
 - branch: Cross-cutting
   domain: Design engineering
   scenario: >-
@@ -152,5 +155,5 @@
       how: >-
         A decision depends on a model, so it is validated for its intended use
         and used only inside its validated range. Each result is checked against
-        an independent rough estimate. The decision lies inside the stated
-        range.
+        an independent rough estimate. Once the validation is extended to 900
+        degrees, the decision lies inside the stated range.
