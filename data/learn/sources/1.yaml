@@ -111,9 +111,12 @@
   kind: primary
   publisher: U.S. Securities and Exchange Commission
   year: 2013
+  via:
+    title: Internet Archive
+    url: https://web.archive.org/web/20260105080230id_/https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf
   paid: false
   accessed: '2026-10-26'
-  notes: Regulator's administrative order with findings.
+  notes: Regulator's administrative order with findings. sec.gov refuses automated requests (HTTP 403), so the text was read from the Internet Archive snapshot.
 - slug: case-apollo-13-review-board
   title: 'NASA: Report of Apollo 13 Review Board (1970)'
   author:

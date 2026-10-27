@@ -1,18 +1,4 @@
 # Case sources (registry fragment, slugs start with `case-`). Schema: schema/sources.schema.json.
-- slug: case-sec-knight-capital-order
-  title: 'SEC: In the Matter of Knight Capital Americas LLC, Order Instituting Administrative and Cease-and-Desist Proceedings (Release No. 70694)'
-  author:
-  - literal: US Securities and Exchange Commission
-  url: https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf
-  kind: primary
-  publisher: US Securities and Exchange Commission
-  year: 2013
-  via:
-    title: Internet Archive
-    url: https://web.archive.org/web/20260105080230id_/https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf
-  paid: false
-  accessed: '2026-10-26'
-  notes: Regulator's findings. sec.gov refused the automated fetch (rate-limit page), so the text was read from the Internet Archive snapshot.
 - slug: case-cloudflare-outage-2019-07-02
   title: 'Cloudflare: Details of the Cloudflare outage on July 2, 2019'
   author:
@@ -93,19 +79,6 @@
   paid: false
   accessed: '2026-10-26'
   notes: Congressional investigation report (majority staff).
-- slug: case-caib-report-vol1-ch7
-  title: 'Columbia Accident Investigation Board: Report Volume I, Chapter 7, The Accident''s Organizational Causes'
-  author:
-  - literal: Columbia Accident Investigation Board
-  url: https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter7.pdf
-  kind: primary
-  publisher: Columbia Accident Investigation Board
-  year: 2003
-  via:
-    title: UNT Libraries CyberCemetery (archived CAIB website)
-  paid: false
-  accessed: '2026-10-26'
-  notes: Official investigation report.
 - slug: case-caib-report-vol1-ch8
   title: 'Columbia Accident Investigation Board: Report Volume I, Chapter 8, History as Cause: Columbia and Challenger'
   author:
