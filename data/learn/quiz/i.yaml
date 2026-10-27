@@ -85,8 +85,8 @@
     - text: Check whether last sprint's change worked, then keep it or adjust it.
       correct: true
       feedback: >-
-        Right. Check and Act close the cycle. Without them the team plans
-        and does, but does not learn.
+        Right. Check and Act close the P81 cycle. Without them the team
+        plans and does, but does not learn.
     - text: Close each action when the retrospective ends so the list stays short.
       correct: false
       feedback: >-
@@ -132,8 +132,8 @@
     - text: The team writes the same three actions in every retrospective, and none is ever closed.
       correct: false
       feedback: >-
-        Does not meet P81. Listing is not completing. This is the pattern
-        of the same failure happening again with no process change.
+        Does not meet P81. Listing is not completing. The check asks for
+        actions to be tracked until they are completed, and none is.
 - id: q-i-05
   rules: [P82, P80]
   stem: >-
@@ -269,8 +269,8 @@
     - text: Delete old pods to free disk space, then take the snapshot.
       correct: false
       feedback: >-
-        Wrong. Deleting pods destroys evidence before it is captured. The
-        capture comes before any repair or cleanup.
+        Wrong. Deleting pods destroys evidence before it is captured. P83
+        asks you to preserve the as-found state before you change anything.
 - id: q-i-09
   rules: [P83, P73]
   stem: >-
@@ -278,7 +278,7 @@
     is five minutes away. A full manual snapshot would take twenty
     minutes. Which actions fit the taxonomy?
   options:
-    - text: Restart the service first to restore control.
+    - text: Restart the service without waiting for a manual snapshot.
       correct: true
       feedback: >-
         Right. P73 asks that the response is faster than the time until
@@ -329,8 +329,9 @@
     - text: Record who exported the preserved records and when.
       correct: true
       feedback: >-
-        Right. P83 asks you to record who handled the evidence, the chain
-        of custody.
+        Right. The legal hold preserves the records, and the chain of
+        custody from P83, a record of who handled the evidence, keeps them
+        trustworthy.
     - text: Let the manager involved tidy the channel first, to keep it professional.
       correct: false
       feedback: >-
