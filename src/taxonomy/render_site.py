@@ -210,5 +210,6 @@ def build(out: Path, root: Path | None = None, engine: str | None = None) -> Non
     if result.returncode:
         raise RuntimeError(f"{engine} build failed:\n{result.stdout}{result.stderr}")
     if out != final:
-        shutil.rmtree(final, ignore_errors=True)
+        if final.exists():
+            shutil.rmtree(final)
         shutil.copytree(out, final)
