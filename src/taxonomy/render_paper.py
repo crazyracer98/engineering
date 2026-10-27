@@ -60,17 +60,34 @@ SECTION_MAP = {
 _SECTION_REF = re.compile(
     r"\b([Ss])ections?\s+(\d{1,2})((?:\s*(?:,|and)\s*\d{1,2})*)(?!\d|\.\d)"
 )
-#: A relative link or image (any target without a URL scheme such as ``https:``
-#: or ``mailto:``, and not an in-page ``#anchor``). ``method_markdown`` reduces
-#: it to its text; an image, which cannot be fetched from the repository, to
-#: its alt text.
-_REL_LINK = re.compile(r"!?\[([^\]]*)\]\((?![a-zA-Z][a-zA-Z0-9+.-]*:|#)[^)]*\)")
+#: A link target: any run of characters that are not parentheses, or a
+#: parenthesised group one level deep (``img(1).png``).
+_TARGET = r"(?:[^()]|\([^()]*\))*"
+#: The start of a target that is a URL, not a repository path. RFC 3986 allows
+#: ``.`` in a scheme, but a dotted "scheme" followed by a colon, such as
+#: ``README.md:12`` (file and line), is a path: a scheme containing ``.`` counts
+#: only when followed by ``//`` (``a.b://host``). Undotted schemes (``https:``,
+#: ``mailto:``) always count. A protocol-relative ``//host`` target also counts.
+_URL_START = r"(?:[a-zA-Z][a-zA-Z0-9+-]*:|[a-zA-Z][a-zA-Z0-9+.-]*://|//)"
+#: A relative link or image (any target that is not a URL and not an in-page
+#: ``#anchor``). ``method_markdown`` reduces it to its text; an image, which
+#: cannot be fetched from the repository, to its alt text.
+_REL_LINK = re.compile(rf"!?\[([^\]]*)\]\((?!{_URL_START}|#)({_TARGET})\)")
+#: An image whose target is a URL; Pandoc would fetch it at build time.
+_REMOTE_IMAGE = re.compile(rf"!\[[^\]]*\]\(\s*(?={_URL_START})({_TARGET})\)")
+#: ``](history.md)``, ``](./history.md)`` and ``](history.md#anchor)``.
+_HISTORY_LINK = re.compile(r"\]\((?:\./)?history\.md(#[^)\s]*)?\)")
 _APPLIED = "> **Applied in this taxonomy:**"
 #: The published history page; the paper cannot link ``history.md``.
 HISTORY_URL = "https://crazyracer98.github.io/engineering/history/"
 #: An apostrophe after a digit or a link ("P71's") in Pandoc's Typst output.
 #: Typst's smart quotes would typeset it as a prime, so it becomes ``’``.
 _DIGIT_APOSTROPHE = re.compile(r"([0-9]|\])'(?=[A-Za-z])")
+#: Typst spans that are not text: raw blocks and inline raw, backslash escapes,
+#: string literals (URLs, arguments) and labels. They are left untouched.
+_TYPST_VERBATIM = re.compile(
+    r"```.*?```|`[^`\n]*`|\\.|\"(?:\\.|[^\"\\])*\"|<[A-Za-z][\w:.-]*>", re.DOTALL
+)
 
 #: Hosts whose pages are journal articles, for the CSL ``type`` mapping.
 _JOURNAL_HOSTS = (
@@ -170,7 +187,23 @@ def paper_sections(text: str) -> str:
     return _SECTION_REF.sub(sub, text)
 
 
-def method_markdown(text: str) -> str:
+def reject_remote_images(text: str, name: str) -> None:
+    """Raise ``ValueError`` when ``text`` embeds an image by URL.
+
+    Pandoc fetches such an image at build time (and ``run_pandoc`` is not
+    sandboxed), so the paper's Markdown may only use repository paths for
+    images. Regular links to URLs are fine. ``name`` is the file the text came
+    from, for the message.
+    """
+    match = _REMOTE_IMAGE.search(text)
+    if match:
+        raise ValueError(
+            f"{name}: absolute image URL {match.group(1).strip()!r} would be "
+            "fetched at build time; use a repository path"
+        )
+
+
+def method_markdown(text: str, name: str = "docs/methodology.md") -> str:
     """``docs/methodology.md`` as the paper's Method section body.
 
     The ``# Methodology`` title is dropped (the section heading replaces it;
@@ -179,6 +212,7 @@ def method_markdown(text: str) -> str:
     (styled in ``paper/template.typ``), with edition-9 section numbers mapped
     to the paper's. Relative links to other repository files become plain text.
     """
+    reject_remote_images(text, name)
     lines = text.splitlines()
     if lines and lines[0].startswith("# "):
         lines = lines[1:]
@@ -195,7 +229,9 @@ def method_markdown(text: str) -> str:
             continue
         out.append(lines[i])
         i += 1
-    text = "\n".join(out).replace("](history.md)", f"]({HISTORY_URL})")
+    text = _HISTORY_LINK.sub(
+        lambda m: f"]({HISTORY_URL}{m.group(1) or ''})", "\n".join(out)
+    )
     return _REL_LINK.sub(r"\1", text).strip() + "\n"
 
 
@@ -209,6 +245,12 @@ def _typst_close() -> list[str]:
 
 def _cite(slugs: list[str]) -> str:
     return "[" + "; ".join(f"@{s}" for s in slugs) + "]" if slugs else ""
+
+
+def _sentence(text: str) -> str:
+    """``text`` ended by exactly one full stop; empty text stays empty."""
+    text = text.strip()
+    return text.removesuffix(".") + "." if text else ""
 
 
 def _pipe_table(header: list[str], rows: list[list[str]], weights: list[int]) -> str:
@@ -379,7 +421,7 @@ class _Paper:
                 ("Violation", self.c(r["violation"])),
                 ("Related", self.related(r)),
                 ("Evidence", self.evidence(r)),
-                ("Sources", _cite(r["sources"]) + "."),
+                ("Sources", _sentence(_cite(r["sources"]))),
                 ("Source domain", self.c(r["source_domain"])),
                 ("Class (why)", self.c(r["class_note"])),
                 ("Notes", self.c(r.get("notes"))),
@@ -529,7 +571,14 @@ class _Paper:
                         f"{self.link_ids(rid)} {m['name']}",
                         f"**{self.c(m['form_name'])}**: {self.c(m['form'])}. "
                         f"*Example:* {self.c(m['example'])}",
-                        f"{sources}. Evidence: {self.evidence(m)}.",
+                        " ".join(
+                            part
+                            for part in (
+                                _sentence(sources),
+                                _sentence(f"Evidence: {self.evidence(m)}"),
+                            )
+                            if part
+                        ),
                     ]
                 )
             if not rows:
@@ -606,7 +655,9 @@ def assemble(root: Path) -> str:
     sections = root / "paper" / "sections"
 
     def prose(name: str) -> str:
-        return (sections / name).read_text(encoding="utf-8").strip()
+        text = (sections / name).read_text(encoding="utf-8")
+        reject_remote_images(text, f"paper/sections/{name}")
+        return text.strip()
 
     paper = _Paper(ds)
     method_text = (root / "docs" / "methodology.md").read_text(encoding="utf-8")
@@ -679,8 +730,21 @@ def run_pandoc(
 
 
 def typographic_apostrophes(typst_source: str) -> str:
-    """Replace a straight apostrophe after a digit or ``]`` ("P71's") by ``’``."""
-    return _DIGIT_APOSTROPHE.sub("\\1\u2019", typst_source)
+    """Replace a straight apostrophe after a digit or ``]`` ("P71's") by ``’``.
+
+    Only text is changed: raw blocks, string literals (URLs), labels and
+    backslash escapes are copied through.
+    """
+    pieces: list[str] = []
+    last = 0
+    for span in _TYPST_VERBATIM.finditer(typst_source):
+        pieces.append(
+            _DIGIT_APOSTROPHE.sub("\\1\u2019", typst_source[last : span.start()])
+        )
+        pieces.append(span.group(0))
+        last = span.end()
+    pieces.append(_DIGIT_APOSTROPHE.sub("\\1\u2019", typst_source[last:]))
+    return "".join(pieces)
 
 
 def compile_typst(typ: Path, out: Path, date: str) -> None:
