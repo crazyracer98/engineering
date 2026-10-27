@@ -6,7 +6,8 @@
     The Space Shuttle Challenger was lost when the seals in a joint of the
     right Solid Rocket Motor failed. The contractor's engineers had first
     recommended against launch below 53 degrees Fahrenheit. Their management
-    reversed that position at the urging of NASA's Marshall center. The
+    reversed that position at the urging of NASA's Marshall Space Flight
+    Center. The
     Rogers Commission found the decision to launch flawed, and found that it
     was based on incomplete and sometimes misleading information.
   rules: [P1, P15]
@@ -16,13 +17,14 @@
       Safety must outrank the customer and the launch schedule. Here the
       contractor's management reversed its engineers' no-launch advice to
       accommodate a major customer. The Commission found that waiving launch
-      constraints came at the expense of flight safety. A release gate with a
-      binding safety sign-off would have kept the engineers' advice in force.
+      constraints came at the expense of flight safety. A release gate needs
+      a safety sign-off that customer or schedule pressure cannot waive.
   - rule: P15
     text: >-
       The harm was catastrophic and the evidence on cold seals was
-      incomplete. The meeting still asked the engineers to prove that launch
-      was unsafe, instead of asking for enough data to show it was safe.
+      incomplete. One engineer testified that the meeting put them in the
+      position of proving that launch was unsafe, instead of showing there
+      was enough data to launch.
       Precaution turns that burden around: when the harm is irreversible, act
       on the warning without waiting for full proof.
   quotes:
@@ -137,8 +139,8 @@
     overdoses by the Therac-25 radiation therapy machine. The machine relied
     more on software for safety than earlier models, and its maker chose not
     to duplicate all the old hardware interlocks. Its safety analysis, a fault
-    tree, apparently excluded the software. Operators saw cryptic messages
-    such as "Malfunction 54" that no manual explained.
+    tree, apparently excluded the software. Operators saw messages such as
+    "Malfunction 54" that the machine's documentation did not explain.
   rules: [P22, P25]
   lessons:
   - rule: P22
@@ -149,8 +151,8 @@
       can cause harm, software included.
   - rule: P25
     text: >-
-      The machine often paused for minor faults, so operators learned to
-      resume it. Its error messages gave no meaning they could act on. An
+      The machine often stopped or delayed treatment, so operators were used
+      to resuming it. Its error messages gave no meaning they could act on. An
       interface for real operators under real conditions makes a dangerous
       fault look different from a routine one.
   quotes:
@@ -186,18 +188,17 @@
   year: 1999
   summary: >-
     The Mars Climate Orbiter was lost during its Mars Orbit Insertion
-    maneuver. Ground
-    software produced thruster data in English units, while the interface
-    specification required metric units. The trajectory modelers assumed the
-    data were metric.
+    maneuver. Ground software produced thruster data in English units, while
+    the interface specification required metric units. The trajectory
+    modelers assumed the data were metric.
   rules: [P33]
   lessons:
   - rule: P33
     text: >-
-      The interface specification stated the units, but nothing checked them
-      at the interface. One side sent pound-seconds and the other read them
-      as Newton-seconds. A strict interface states units and rejects data
-      that does not match the specification.
+      The interface specification required metric units, but the file held
+      pound-seconds, and the receiving side assumed it followed the
+      specification. A strict interface states its units and checks incoming
+      data against the specification, rejecting data that does not match.
   quotes:
   - source: nasa-mars-climate-orbiter-mishap
     text: >-
@@ -229,10 +230,10 @@
   lessons:
   - rule: P28
     text: >-
-      The error was small at first and grew with running time. The system was
-      not expected to run continuously for long periods, so the growth was
-      not designed for. Design and test for the full time in service, not
-      only for the first hours.
+      The error was small at first and grew with running time, the way wear
+      builds up. The system had not been expected to run continuously for
+      long periods. Design and test for the full time in service, with an
+      endurance run as long as real use, not only for the first hours.
   quotes:
   - source: case-gao-patriot-dhahran
     text: >-
@@ -287,12 +288,14 @@
   title: Apollo 13 oxygen tank heater switches
   year: 1970
   summary: >-
-    The Apollo 13 mission was aborted after oxygen tank no. 2 lost its
-    oxygen. The tank's heater switches were rated for the spacecraft's 28 V
-    dc supply. A revised specification had the heaters run on a 65 V dc
-    ground supply, but the switches were not changed to match. At 65 V the
-    switches failed to open, including during ground detanking at KSC. No
-    review of documentation and no test caught the mismatch.
+    The Apollo 13 mission was aborted after oxygen tank no. 2 rapidly lost
+    its oxygen. The tank's heater switches were rated for the spacecraft's
+    28 V dc supply, but could not open properly at 65 V dc. When Beech
+    ordered switches for the Block II tanks, it did not change their
+    specification to suit 65 V dc. In tests after the accident, the switches
+    failed to open on a 65 V dc supply like the one used at KSC during
+    detanking. No review of documentation and no test had caught the
+    mismatch with the ground support equipment.
   rules: [P29]
   lessons:
   - rule: P29
@@ -389,7 +392,8 @@
       Ariane 5's early trajectory gave much higher horizontal velocity than
       Ariane 4's. One unprotected conversion turned that change in input into
       the loss of both inertial systems. A robust design keeps working when
-      inputs move outside the old range, and tests with the new range.
+      inputs move beyond the range of an earlier use, and is tested with the
+      inputs of the new use.
   quotes:
   - source: case-ariane-501-inquiry-board
     text: >-
@@ -426,10 +430,11 @@
   lessons:
   - rule: P24
     text: >-
-      The harm came after the machine's useful life, when nobody owned it.
-      The source still held its full hazard in an abandoned building. Plan the
-      end of life at design time, so a dangerous part is returned or disposed
-      of instead of left behind.
+      The harm came after the clinic moved out and left the machine behind
+      in the abandoned building. The source was still strongly radioactive.
+      Planning decommissioning at design time gives a dangerous part a set
+      way to be returned or disposed of when its use ends, instead of being
+      left behind.
   quotes:
   - source: case-iaea-goiania
     text: >-
