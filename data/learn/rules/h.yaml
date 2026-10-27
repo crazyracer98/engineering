@@ -30,12 +30,12 @@
   violating: "The alert fires only when the disk is already full. Detection, response and recovery all start after the harm has begun."
   management:
     scenario: "A company can tolerate a payroll outage of at most 5 days."
-    applying: "The company sets the recovery time objective to 3 days, inside the 5-day maximum tolerable disruption, and tests that recovery takes that long."
+    applying: "The company sets the recovery time objective to 3 days, inside the 5-day maximum tolerable disruption, and tests that recovery finishes within the 3 days."
     violating: "Nobody tests payroll recovery. When a failure happens, restoring takes 8 days and staff go unpaid."
 - rule: P74
   scenario: "A plant keeps a fleet of pumps. Bearings wear with age. The control electronics fail at random."
   applying: "The plan replaces the bearings on a schedule and monitors the vibration and temperature of the rest. Each task states the failure pattern it addresses: wear-out or random failure."
-  violating: "A service is restarted every night to hide a memory leak. The task does not say which failure pattern it addresses, and the leak is never fixed."
+  violating: "The plan replaces every pump part every six months, the electronics included, just in case. No task says which failure pattern it addresses, and the electronics still fail at random between replacements."
   management:
     scenario: "An organization reviews access rights for its systems."
     applying: "Access to high-risk systems is reviewed every quarter and access to low-risk tools once a year, according to how each control actually fails."
@@ -51,7 +51,7 @@
 - rule: P76
   scenario: "A team runs a production cutover with a bridge call of fifteen people."
   applying: "The team has defined cutover as a critical phase and written down its communication rules. Only the cutover steps and their status updates are allowed on the bridge."
-  violating: "During an incident, people hold side discussions in the response channel and start a parallel deployment of an unrelated change."
+  violating: "During the cutover, people hold side discussions on the bridge, and one of them starts a parallel deployment of an unrelated change."
   management:
     scenario: "A product team has meetings spread over every day, and its engineers are interrupted often."
     applying: "The team protects blocks of uninterrupted work: no meetings on Tuesday and Thursday mornings. In a crisis it uses one channel with one commander."

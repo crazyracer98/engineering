@@ -97,7 +97,7 @@
       feedback: "Right. It has a limit, monitoring, a corrective action, records and a recent verification, as P72 requires."
     - text: "The outlet temperature has a limit, a probe and a log, but the probe was last tested a year ago."
       correct: false
-      feedback: "Wrong. P72 requires a recent verification that the control works."
+      feedback: "Wrong. It has no predefined corrective action, and a probe test a year ago is not the recent verification that P72's check requires."
     - text: "The outlet temperature has a limit, a log, and an operator who decides what to do on the day."
       correct: false
       feedback: "Wrong. P72 asks for a predefined corrective action, and for monitoring."
@@ -114,9 +114,9 @@
     - text: "Automate the disk expansion so that recovery takes 30 minutes."
       correct: true
       feedback: "Right. This brings detect + alert + respond + recover to about 1 hour 20 minutes, well inside 3 hours."
-    - text: "Alert at 70 percent disk use instead of when the disk is full."
+    - text: "Measure the new detect, respond and recover time, and compare it with 3 hours."
       correct: true
-      feedback: "Right. An alert that fires only when the disk is full is the violation named in P73. An earlier alert starts the response sooner."
+      feedback: "Right. P73's check is that the measured detection-plus-response time is shorter than the time until harm, so the new total is measured, not assumed."
     - text: "Measure only how fast the team detects the leak, since the team is quick."
       correct: false
       feedback: "Wrong. P73 compares the measured detection-plus-response time, including recovery, with the time until harm."
@@ -146,7 +146,7 @@
     - text: "Replace the bearings on a schedule, because they wear out with age."
       correct: true
       feedback: "Right. P74 replaces on a schedule only what wears out with age."
-    - text: "Monitor the vibration and temperature of the parts that fail at random."
+    - text: "Monitor the condition of the control electronics, which fail at random."
       correct: true
       feedback: "Right. P74 asks you to monitor the condition of everything else."
     - text: "State in each task whether it addresses wear-out or random failure."
