@@ -36,7 +36,7 @@
       feedback: Wrong. A stated figure is not a measurement. P44 requires a load test to confirm it.
 - id: q-e-03
   rules: [P44, P52]
-  stem: A team lead plans each person at 100 % for the sprint, because the team also handles unplanned support requests. Every sprint misses its goal. Which changes follow the rules? Select all that apply.
+  stem: A team lead plans each person at 100 % for the sprint, although the team also handles unplanned support requests. Every sprint misses its goal. Which changes follow the rules? Select all that apply.
   options:
     - text: Plan about 70 % of capacity and keep the rest free for unplanned work.
       correct: true
@@ -110,7 +110,7 @@
       feedback: Right. P46 lists the shared dependencies of redundant copies.
     - text: Having two providers means no shared dependency needs a justification.
       correct: false
-      feedback: Wrong. Each remaining shared dependency needs a justification (P46), not only the DNS and regions.
+      feedback: Wrong. Diverse DNS and regions do not cover the shared image. Each shared dependency that remains needs a justification (P46).
     - text: The shared image stays only if the team justifies it.
       correct: true
       feedback: Right. P46 allows a shared dependency if it is justified.
@@ -182,8 +182,8 @@
       correct: false
       feedback: Wrong. Repeated on-off cycles waste resources and destabilize the system (P48).
     - text: An autoscaler that scales up and down every minute is reported as a finding.
-      correct: true
-      feedback: Right. This is the P48 violation, so a review should flag it.
+      correct: false
+      feedback: Wrong. This finding shows the P48 violation, so the check is not met. The review is right to flag it.
 - id: q-e-12
   rules: [P49, P44]
   stem: A CI cluster is congested. The team doubles its size, and it is full again a month later. What should the team have done? Select all that apply.
@@ -221,7 +221,7 @@
       feedback: Wrong. P49 does not reject capacity. It says to manage demand along with it.
 - id: q-e-14
   rules: [P50, P52]
-  stem: Releases take three days from merge. Lint takes 2 minutes, tests take 40 minutes, and changes wait two days in the review queue. Which actions follow the bottleneck rule? Select all that apply.
+  stem: Changes take three days from first commit to release. Lint takes 2 minutes, tests take 40 minutes, and changes wait two days in the review queue. Which actions follow the bottleneck and work-in-progress rules? Select all that apply.
   options:
     - text: Measure and name the review queue as the constraint first.
       correct: true
@@ -234,7 +234,7 @@
       feedback: Right. P50 improves the constraint first.
     - text: Limit the number of changes waiting for review.
       correct: true
-      feedback: Right. A limit on work in progress (P52) keeps the queue short, and it supports P50.
+      feedback: Right. A limit on work in progress (P52) shortens each change's wait at the same throughput. It does not raise output; P50 does that at the constraint.
     - text: Run the tests on faster machines.
       correct: false
       feedback: Wrong. Tests are not the constraint here, so P50 does not support this first.
@@ -253,7 +253,7 @@
       feedback: Right. P50 needs the constraint to be measured and named.
     - text: Skip the review for small launches without a risk assessment.
       correct: false
-      feedback: Wrong. P50 improves the constraint, and it does not remove a control. Skipping review is not a P50 remedy.
+      feedback: Wrong. Dropping a security check to save time puts schedule above safety (P1). P50 improves the constraint step; it does not delete it.
 - id: q-e-16
   rules: [P51, P48]
   stem: A request passes through a front end, an API and a worker service. Each autoscaler reacts to its own queue, and swings grow along the chain. Which changes follow the rule on shared demand? Select all that apply.
@@ -304,7 +304,7 @@
       feedback: Wrong. Without finding the constraint (P50) this may add only more waiting items. P52 limits work in progress.
 - id: q-e-19
   rules: [P52]
-  stem: A manager asks why a change to the process should shorten waiting times when the team's throughput stays the same. Which explanations are correct? Select all that apply.
+  stem: A manager asks why a limit on work in progress should shorten waiting times when the team's throughput stays the same. Which explanations are correct? Select all that apply.
   options:
     - text: At a given throughput, average lead time is proportional to average work in progress.
       correct: true
@@ -362,7 +362,7 @@
       feedback: Right. Documented knowledge is part of the management form of P45.
     - text: Wait until a failure happens, then hire an extra person at once.
       correct: false
-      feedback: Wrong. Adding people to late work is limited by P53, and it does not replace redundancy in advance (P45).
+      feedback: Wrong. A new hire must first learn the job, the training cost P53 names, so the function stays down meanwhile. P45 puts the deputy in place before the loss.
     - text: Ask the one person never to take leave.
       correct: false
       feedback: Wrong. This keeps the single point of failure. P45 needs the function to survive the loss of one person.

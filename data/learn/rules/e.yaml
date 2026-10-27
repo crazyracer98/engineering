@@ -18,7 +18,7 @@
     violating: "Only one person knows how to restore the billing batch job, and nothing is documented. When that person is on leave, a failure stays unfixed for days."
 - rule: P46
   scenario: "A team runs three replicas of a login service. They must survive causes that hit all replicas at once."
-  applying: "The team lists the shared dependencies of the replicas: the cloud region, the base image, the TLS certificate and the DNS provider. Each one is either made different or justified in writing. The certificate is issued separately for each replica, and two DNS providers serve the zone."
+  applying: "The team lists the shared dependencies of the replicas: the cloud region, the base image, the TLS certificate and the DNS provider. Each one is either made different or justified in writing. The certificate is issued separately for each replica with staggered expiry dates, and two DNS providers serve the zone."
   violating: "All three replicas use the same TLS certificate. It expires on a Sunday, and all three fail together although there are three copies."
   management:
     scenario: "An operations manager plans a status page and a review of a risky decision."
@@ -49,7 +49,7 @@
     applying: "The extra budget comes with an explicit scope and a stated end date. The work is not allowed to grow to use up the money."
     violating: "The budget is raised with the words more of the same. The work expands to fill it, and the project is still not finished."
 - rule: P50
-  scenario: "A team wants to ship changes faster. A change takes three days from merge to release."
+  scenario: "A team wants to ship changes faster. A change takes three days from first commit to release."
   applying: "Before choosing an improvement, the team measures each step. Lint takes 2 minutes, integration tests take 40 minutes, and changes wait about two days in the review queue. It names the review queue as the constraint and improves it first."
   violating: "The team spends a sprint making lint twice as fast. Work still piles up in front of the review queue, and the release time does not change."
   management:
