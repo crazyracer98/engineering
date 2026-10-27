@@ -1,2 +1,78 @@
 # Rule examples, category H. Schema: schema/learn-rules.schema.json.
-[]
+# Every example is illustrative: invented, not evidence.
+- rule: P70
+  scenario: "A team runs an online checkout service. Its dashboards show CPU, memory and disk for each host, but nothing about what shoppers experience."
+  applying: "The team adds a dashboard and alerts for the checkout failure rate and page latency, the symptoms shoppers feel. Because the payment queue runs fine until it suddenly fills, it also tracks the queue's remaining headroom. Each service has user-facing dashboards and alerts."
+  violating: "Shoppers cannot pay for two hours. The team learns about it from a flood of support emails, because every host metric looked normal."
+  management:
+    scenario: "A department head reads a weekly report of last month's results and nothing else."
+    applying: "The head tracks leading indicators as well as the lagging results. Each quarter the head also joins an on-call shift, to see where the work happens."
+    violating: "The head reads only the report. A growing backlog of complaints stays invisible until the quarterly results drop."
+- rule: P71
+  scenario: "Once a year, an operations team upgrades the major version of its main database. The work is complex, rare and done in a short maintenance window."
+  applying: "The team uses a one-page checklist. Each item is confirmed by pointing at it and saying its status aloud. After the last upgrade's postmortem, the team added the backup-verification step that was missed."
+  violating: "An engineer does the upgrade from memory. A step is skipped, and nobody notices until the service fails to start."
+  management:
+    scenario: "An office hires and loses staff a few times a year, so offboarding is a rare procedure."
+    applying: "An offboarding checklist lists access removal, knowledge handover and equipment return. Each item is confirmed aloud, and the list is updated after any slip."
+    violating: "A manager offboards a leaver from memory. The leaver's access to the finance system stays active for months."
+- rule: P72
+  scenario: "A bakery pasteurizes cream filling on every batch. The few steps that decide safety are the heating step and the cooling step."
+  applying: "The bakery names the heating and cooling steps as critical control points and ranks them by the harm a failure could cause. Each has a limit, a probe that monitors it, a predefined corrective action, a log, and a verification of the probe done this quarter."
+  violating: "The bakery logs all forty process readings the same way, with no defined limits. Nobody knows which reading matters or what to do when it moves."
+  management:
+    scenario: "A finance team closes the books each month."
+    applying: "The team identifies the few controls that prevent a material misstatement, such as the bank reconciliation. Each gets a limit, an owner, monitoring and a regular test."
+    violating: "The team reviews every ledger line with the same effort. The control that matters most has no owner and was never tested."
+- rule: P73
+  scenario: "A log service fills its disk at a steady rate. The database stops when the disk is full, three hours after the leak starts."
+  applying: "The team measures detection at 10 minutes, response at 20 minutes and automated recovery at 30 minutes. That is one hour in total, well inside the three hours, so the margin is large."
+  violating: "The alert fires only when the disk is already full. Detection, response and recovery all start after the harm has begun."
+  management:
+    scenario: "A company can tolerate a payroll outage of at most 5 days."
+    applying: "The company sets the recovery time objective to 3 days, inside the 5-day maximum tolerable disruption, and tests that recovery finishes within the 3 days."
+    violating: "Nobody tests payroll recovery. When a failure happens, restoring takes 8 days and staff go unpaid."
+- rule: P74
+  scenario: "A plant keeps a fleet of pumps. Bearings wear with age. The control electronics fail at random."
+  applying: "The plan replaces the bearings on a schedule and monitors the vibration and temperature of the rest. Each task states the failure pattern it addresses: wear-out or random failure."
+  violating: "The plan replaces every pump part every six months, the electronics included, just in case. No task says which failure pattern it addresses, and the electronics still fail at random between replacements."
+  management:
+    scenario: "An organization reviews access rights for its systems."
+    applying: "Access to high-risk systems is reviewed every quarter and access to low-risk tools once a year, according to how each control actually fails."
+    violating: "Every control gets one fixed annual review. The high-risk control drifts for months between reviews."
+- rule: P75
+  scenario: "An on-call team receives alerts from its monitoring system in one channel."
+  applying: "Every alert has an owner and a runbook action. The team measures the share of alerts that led to no action, keeps it low, and deletes or changes the noisy alerts."
+  violating: "The alert channel gets hundreds of messages a day. Nobody reads it, so a real alert is lost among the noise."
+  management:
+    scenario: "A programme board receives a status report each week."
+    applying: "The weekly status shows only items outside tolerance. Team leads escalate when a tolerance is forecast to be breached, and reports that lead to no action are dropped."
+    violating: "The board gets a forty-page report every week. It leads to no decisions, and the one overdue item is on page 31."
+- rule: P76
+  scenario: "A team runs a production cutover with a bridge call of fifteen people."
+  applying: "The team has defined cutover as a critical phase and written down its communication rules. Only the cutover steps and their status updates are allowed on the bridge."
+  violating: "During the cutover, people hold side discussions on the bridge, and one of them starts a parallel deployment of an unrelated change."
+  management:
+    scenario: "A product team has meetings spread over every day, and its engineers are interrupted often."
+    applying: "The team protects blocks of uninterrupted work: no meetings on Tuesday and Thursday mornings. In a crisis it uses one channel with one commander."
+    violating: "Messages and meetings can reach engineers at any time. During a crisis, each department opens its own channel."
+- rule: P77
+  scenario: "A bank team runs a model that scores payments for fraud. Customer behavior changes over the year."
+  applying: "The data and the model have versions, and incoming data is validated. A drift monitor alerts when the score distribution moves, and the team re-evaluates the model when it fires."
+  violating: "The model is trained once and then left alone. Over several months it silently gets worse, and nobody notices."
+  management:
+    scenario: "The board report and the HR system both give a headcount figure."
+    applying: "The headcount definition is versioned and shared. Data quality is checked, and the figure is watched for drift, so both reports show the same number."
+    violating: "Each team defines headcount in its own spreadsheet. The board sees a figure that differs from HR's, and nobody knows why."
+- rule: P78
+  scenario: "A company runs hundreds of cloud servers and test environments across many teams."
+  applying: "Each asset has an owner, a condition and a lifecycle stage in the inventory. An automated discovery compares the real assets with the inventory, and it finds no unknown asset."
+  violating: "A test cluster is forgotten after a project ends. It has public access, is not in any inventory, and nobody patches it."
+  management:
+    scenario: "A company holds many supplier contracts."
+    applying: "A contract register lists the owner, status and lifecycle stage of every contract, including end dates and notice periods. It is compared with the payment records to find contracts it missed."
+    violating: "Each department keeps its own list. A contract renews automatically because nobody had its notice period."
+- rule: P79
+  scenario: "A major incident needs many people to work together in one channel."
+  applying: "The incident commander directs five people. Above that, group leads each direct a small team. The incident record lists the roles and how many people each lead directed."
+  violating: "One incident commander coordinates 20 people directly in one channel. Orders overlap, and tasks are missed."

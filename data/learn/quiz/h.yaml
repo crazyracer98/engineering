@@ -1,2 +1,345 @@
 # Quiz questions, category H. Schema: schema/learn-quiz.schema.json.
-[]
+- id: q-h-01
+  rules: [P70]
+  stem: "An online shop's dashboards show CPU, memory and disk for every host. Last week the checkout failed for two hours, and the team heard about it from customer emails. Which of the following changes fit P70, Monitoring in operation?"
+  options:
+    - text: "Add a dashboard and alerts for the checkout failure rate and page latency."
+      correct: true
+      feedback: "Right. P70 asks for alerts on symptoms that users feel, and each service needs user-facing dashboards and alerts."
+    - text: "Add more host alerts, such as one for each CPU core."
+      correct: false
+      feedback: "Wrong. Host metrics can look normal while users fail. P70 asks for alerts on symptoms that users feel."
+    - text: "Count customer emails each week and rely on them as the early warning."
+      correct: false
+      feedback: "Wrong. Learning about an outage from users is the violation named in P70."
+    - text: "Add an alert on the payment queue's remaining headroom, because it works perfectly until it fills."
+      correct: true
+      feedback: "Right. Where the output stays perfect until a sudden collapse (cliff effect), P70 also asks you to monitor the remaining margin."
+    - text: "Add one alert for every log line that contains the word error."
+      correct: false
+      feedback: "Wrong. This creates noise and misses user symptoms. P70 wants user-facing alerts, and P75 wants every alert to be actionable."
+- id: q-h-02
+  rules: [P70, P19]
+  stem: "A department head reads one weekly report of last month's results. A growing backlog of complaints went unseen until the results dropped. Which of the following steps fit the management form of P70?"
+  options:
+    - text: "Set one target number for complaints and reward the team for reaching it."
+      correct: false
+      feedback: "Wrong. A single target is likely to be gamed (P19). P70 asks for leading and lagging indicators and a visit to the work."
+    - text: "Track leading indicators, such as the backlog's age, next to the lagging results."
+      correct: true
+      feedback: "Right. The management form of P70 tracks leading and lagging indicators."
+    - text: "Read the same report more often, every day instead of every week."
+      correct: false
+      feedback: "Wrong. A more frequent look at the same lagging results still shows the problem late. P70 adds leading indicators."
+    - text: "Join an on-call shift each quarter to see where the work happens."
+      correct: true
+      feedback: "Right. P70's management form includes going to the place where the work happens."
+- id: q-h-03
+  rules: [P71, P7]
+  stem: "Once a year, an engineer upgrades the main database's major version in a short maintenance window. Last time a step was skipped. Which of the following approaches fit P71, Checklists?"
+  options:
+    - text: "Use a short checklist, and confirm each item by pointing at it and saying its status aloud."
+      correct: true
+      feedback: "Right. P71 asks for a short checklist and aloud confirmation, for a rare and complex procedure under time pressure."
+    - text: "State the goal and constraints, and let the engineer pick the steps (P7)."
+      correct: false
+      feedback: "Wrong. P7 suits work where people adapt, but P71 conflicts with it here. A rare, complex procedure needs fixed, confirmed steps."
+    - text: "Rely on the senior engineer, who has done the upgrade twice before."
+      correct: false
+      feedback: "Wrong. Doing a rare procedure from memory is the violation named in P71."
+    - text: "Give the engineer the 60-page vendor manual to read during the window."
+      correct: false
+      feedback: "Wrong. P71 asks for a short checklist that can be used under time pressure, not a long document."
+- id: q-h-04
+  rules: [P71]
+  stem: "A failover checklist exists. A postmortem finds that its authors never changed it after the last incident, and that people tick the boxes silently without checking. Which of the following actions fit P71?"
+  options:
+    - text: "Update the checklist after each postmortem, so it reflects what went wrong."
+      correct: true
+      feedback: "Right. P71's check says the checklist is used and updated after postmortems."
+    - text: "Drop the checklist and trust the experienced operators."
+      correct: false
+      feedback: "Wrong. P71 applies because the procedure is rare and done under pressure, when memory fails."
+    - text: "Add forty more items so the list covers every case."
+      correct: false
+      feedback: "Wrong. P71 asks for a short checklist. A long list is skipped under time pressure."
+    - text: "Have the person point at each item and say its status aloud."
+      correct: true
+      feedback: "Right. P71 asks that each item is confirmed by pointing and saying its status aloud, not ticked silently."
+    - text: "Keep the checklist but let operators decide when to use it."
+      correct: false
+      feedback: "Wrong. P71's check requires each critical procedure to have a checklist that is used."
+- id: q-h-05
+  rules: [P72, P7]
+  stem: "A bakery logs forty process readings in the same way. Nobody knows which ones decide food safety. Which of the following steps fit P72, Critical control points?"
+  options:
+    - text: "Rank the steps by how often incidents happen, and control the most frequent first."
+      correct: false
+      feedback: "Wrong. P72 ranks steps by consequence, not by how often incidents happen. A rare step can cause the worst harm."
+    - text: "Give each critical step a limit, monitoring, a predefined corrective action, a record and a regular verification."
+      correct: true
+      feedback: "Right. That is the full set P72 asks for at each critical control point."
+    - text: "Monitor all forty readings equally, so none is missed."
+      correct: false
+      feedback: "Wrong. Monitoring everything equally with no defined limits is the violation named in P72."
+    - text: "Define the few steps where control is essential, such as heating and cooling."
+      correct: true
+      feedback: "Right. P72 starts by defining the few steps where control is essential."
+    - text: "State the desired outcome, and let each baker choose how to control it (P7)."
+      correct: false
+      feedback: "Wrong. P72 conflicts with P7 here. A critical control point needs a defined limit and corrective action, not a free method."
+- id: q-h-06
+  rules: [P72]
+  stem: "A plant has four candidate critical control points for a heating step. Which of them meet the check of P72?"
+  options:
+    - text: "The outlet temperature has a limit, a probe, a divert valve as corrective action, a log, and a probe test last month."
+      correct: true
+      feedback: "Right. It has a limit, monitoring, a corrective action, records and a recent verification, as P72 requires."
+    - text: "The outlet temperature has a limit, a probe and a log, but the probe was last tested a year ago."
+      correct: false
+      feedback: "Wrong. It has no predefined corrective action, and a probe test a year ago is not the recent verification that P72's check requires."
+    - text: "The outlet temperature has a limit, a log, and an operator who decides what to do on the day."
+      correct: false
+      feedback: "Wrong. P72 asks for a predefined corrective action, and for monitoring."
+    - text: "The outlet temperature has a limit, a probe, a written corrective action, a log, and a quarterly test that injects a fault."
+      correct: true
+      feedback: "Right. All five parts of P72 are present, and the test verifies that the control works in practice."
+- id: q-h-07
+  rules: [P73]
+  stem: "A log service fills its disk steadily, and the database stops three hours after the leak starts. Detection takes 10 minutes, the response 40 minutes and the manual recovery 2 hours 20 minutes. Which of the following changes fit P73, Response faster than harm?"
+  options:
+    - text: Accept the total of 3 hours 10 minutes, because it is close to the limit of 3 hours.
+      correct: false
+      feedback: "Wrong. P73 asks for a total shorter than the time until harm, with a margin. 3 hours 10 minutes is longer than 3 hours."
+    - text: "Automate the disk expansion so that recovery takes 30 minutes."
+      correct: true
+      feedback: "Right. This brings detect + alert + respond + recover to about 1 hour 20 minutes, well inside 3 hours."
+    - text: "Measure the new detect, respond and recover time, and compare it with 3 hours."
+      correct: true
+      feedback: "Right. P73's check is that the measured detection-plus-response time is shorter than the time until harm, so the new total is measured, not assumed."
+    - text: "Measure only how fast the team detects the leak, since the team is quick."
+      correct: false
+      feedback: "Wrong. P73 compares the measured detection-plus-response time, including recovery, with the time until harm."
+- id: q-h-08
+  rules: [P73]
+  stem: "A company can tolerate a payroll outage of 5 days. A recovery test shows that restoring payroll takes 6 days. Which of the following actions fit the management form of P73?"
+  options:
+    - text: "Raise the tolerable maximum to 7 days, so the test result passes."
+      correct: false
+      feedback: "Wrong. The harm limit is set by what the business can bear, not by what recovery achieves. P73 sets recovery inside it."
+    - text: "Write a 3-day recovery objective into the plan and leave it untested."
+      correct: false
+      feedback: "Wrong. P73's check needs a measured time, not a stated one."
+    - text: "Add a standby payroll provider and retest until recovery is inside 5 days with a margin."
+      correct: true
+      feedback: "Right. P73 sets the recovery time objective inside the maximum tolerable disruption, with a margin."
+    - text: "Set the objective at 3 days, inside the 5-day maximum, and test that it is met."
+      correct: true
+      feedback: "Right. This is the management form of P73: the objective is inside the tolerable period and checked by measurement."
+- id: q-h-09
+  rules: [P74]
+  stem: "A plant replaces every pump part every six months. Bearings wear with age, while the control electronics fail at random. Which of the following statements fit P74, Maintenance by failure pattern?"
+  options:
+    - text: "Replace the electronics every six months too, so they are as good as new."
+      correct: false
+      feedback: "Wrong. Scheduled replacement helps only parts that wear out with age. Random failures are not prevented by it (P74)."
+    - text: "Replace the bearings on a schedule, because they wear out with age."
+      correct: true
+      feedback: "Right. P74 replaces on a schedule only what wears out with age."
+    - text: "Monitor the condition of the control electronics, which fail at random."
+      correct: true
+      feedback: "Right. P74 asks you to monitor the condition of everything else."
+    - text: "State in each task whether it addresses wear-out or random failure."
+      correct: true
+      feedback: "Right. P74's check is that each maintenance task states the failure pattern it addresses."
+    - text: "Keep one six-month cycle for everything, for simplicity."
+      correct: false
+      feedback: "Wrong. P74 chooses the method by how each part fails, not by one cycle for everything."
+- id: q-h-10
+  rules: [P74, P70]
+  stem: "A service leaks memory, and the team restarts it every night. The restarts are logged as preventive maintenance. Which of the following statements fit P74?"
+  options:
+    - text: "Keep the nightly restart and log it as preventive maintenance."
+      correct: false
+      feedback: "Wrong. Scheduled restarts that hide a memory leak are the violation named in P74."
+    - text: "Track memory growth for each instance, alert on the trend, and find the leak."
+      correct: true
+      feedback: "Right. P74 asks you to monitor condition where the failure does not follow age, and P70 supports monitoring in operation."
+    - text: "Restart every hour so the leak never grows large."
+      correct: false
+      feedback: "Wrong. A shorter cycle hides the leak further. P74 chooses the method by the real failure pattern."
+    - text: "If a restart stays as a stopgap, write in the task that it addresses a leak."
+      correct: true
+      feedback: "Right. P74's check is that each task states the failure pattern it addresses, so the leak stays visible."
+- id: q-h-11
+  rules: [P75, P70]
+  stem: "An on-call channel receives about 300 alerts a day, and 95 percent need no action. Last week a real disk alert was missed in the noise. Which of the following actions fit P75, Actionable alerts?"
+  options:
+    - text: "Give every alert an owner and a runbook action."
+      correct: true
+      feedback: "Right. P75's check is that each alert has an owner and a runbook action."
+    - text: "Mute the channel and rely on users to report problems."
+      correct: false
+      feedback: "Wrong. That drops P70's monitoring of symptoms and returns to learning about outages from users."
+    - text: "Measure the share of alerts with no action, and delete or change the noisy ones."
+      correct: true
+      feedback: "Right. P75 asks you to measure this share, keep it low, and remove or change alerts nobody acts on."
+    - text: "Add more alerts for every metric, so that nothing is missed."
+      correct: false
+      feedback: "Wrong. More alerts add noise. P75 asks that every alert be actionable."
+    - text: "Delete the user-symptom alerts, because they fire rarely."
+      correct: false
+      feedback: "Wrong. Rare firing is not the test. P75 removes alerts that nobody acts on, and P70 needs the user-symptom alerts."
+- id: q-h-12
+  rules: [P75]
+  stem: "A programme board gets a forty-page status report every week. It has not led to a decision in months. Which of the following changes fit the management form of P75?"
+  options:
+    - text: "Add more indicators, so the board sees the whole picture."
+      correct: false
+      feedback: "Wrong. More content adds noise. P75 removes reports that lead to no action."
+    - text: "Send the full report to executives as well, to be safe."
+      correct: false
+      feedback: "Wrong. P75's management form reports to the next level only when a tolerance is forecast to be breached."
+    - text: "Show only items outside tolerance in the weekly status."
+      correct: true
+      feedback: "Right. This is management by exception, the management form of P75."
+    - text: "Remove any report that leads to no action."
+      correct: true
+      feedback: "Right. P75 asks to remove alerts, in management form reports, that nobody acts on."
+- id: q-h-13
+  rules: [P76]
+  stem: "During a production cutover, fifteen people are on a bridge call. One engineer starts a parallel deployment of an unrelated feature, and a sales manager asks for a delivery date in the channel. Which of the following actions fit P76, Sterile critical phase?"
+  options:
+    - text: "Hold the parallel deployment until the cutover finishes."
+      correct: true
+      feedback: "Right. P76 allows only the activity that the critical phase needs."
+    - text: "Let it proceed, because it is a separate service."
+      correct: false
+      feedback: "Wrong. Parallel deployments during a critical phase are the violation named in P76, whatever the service."
+    - text: "Open the call to all stakeholders for transparency."
+      correct: false
+      feedback: "Wrong. P76 limits communication to what the phase needs. A larger audience adds interruptions."
+    - text: "Define cutover as a critical phase, and write down its communication rules."
+      correct: true
+      feedback: "Right. P76's check is that critical phases are defined and their communication rules are written down and used."
+    - text: "Answer the sales question first, since the manager asked politely."
+      correct: false
+      feedback: "Wrong. A side discussion in the response channel breaks the communication rules that P76 asks for."
+- id: q-h-14
+  rules: [P76]
+  stem: "A product team has meetings all day, and its engineers say they cannot concentrate. During the last crisis, each department opened its own channel. Which of the following changes fit the management form of P76?"
+  options:
+    - text: "Expect everyone to answer chat messages within five minutes."
+      correct: false
+      feedback: "Wrong. That adds interruptions. P76 protects blocks of uninterrupted work."
+    - text: "In a crisis, use one channel with one commander."
+      correct: true
+      feedback: "Right. P76's management form limits crisis communication to the response."
+    - text: Let each department keep its own crisis channel, to share the load across the teams.
+      correct: false
+      feedback: "Wrong. Parallel channels spread attention and break the communication rules P76 asks for."
+    - text: "Set aside meeting-free blocks, such as Tuesday and Thursday mornings."
+      correct: true
+      feedback: "Right. P76's management form protects blocks of uninterrupted work."
+- id: q-h-15
+  rules: [P77]
+  stem: "A fraud-scoring model was trained a year ago. Its accuracy has dropped as customer behavior changed, and nobody noticed. Which of the following actions fit P77, Data as a dependency?"
+  options:
+    - text: "Monitor the inputs and scores for drift, with an alert."
+      correct: true
+      feedback: "Right. P77 asks you to monitor for drift, and its check requires an alert."
+    - text: "Monitor only the uptime of the servers that host the model."
+      correct: false
+      feedback: "Wrong. A model can be up and still silently get worse. P77 asks for monitoring of drift."
+    - text: "Version the data and the model, and validate the inputs."
+      correct: true
+      feedback: "Right. P77 treats data and models like code: versioned and validated."
+    - text: "Validate the model once before release, because its valid range does not change."
+      correct: false
+      feedback: "Wrong. The world changes. P77 asks to re-evaluate or retrain when it does (see also P12, Model validity)."
+    - text: "Retrain on a fixed date every year, whatever the data shows."
+      correct: false
+      feedback: "Wrong. P77 ties retraining to drift and to changes in the world, not to the calendar alone."
+- id: q-h-16
+  rules: [P77]
+  stem: "The board report and the HR system show different headcount figures, and nobody knows why. Which of the following actions fit the management form of P77?"
+  options:
+    - text: "Reconcile the two figures by hand before each board meeting."
+      correct: false
+      feedback: "Wrong. This repairs the symptom each time. P77's management form versions the definition."
+    - text: "Let each team define headcount in its own spreadsheet."
+      correct: false
+      feedback: "Wrong. Separate definitions are how the figures diverged. P77 asks for one versioned definition."
+    - text: "Keep one versioned definition of headcount, used by both reports."
+      correct: true
+      feedback: "Right. P77's management form versions the definitions of the data that decisions depend on."
+    - text: "Check the data quality, and watch the figure for drift."
+      correct: true
+      feedback: "Right. P77's management form checks data quality and watches for drift."
+- id: q-h-17
+  rules: [P78, P36]
+  stem: "A scan of a company's cloud accounts finds a test cluster with public access. No team claims it and it is in no inventory. Which of the following actions fit P78, Asset inventory?"
+  options:
+    - text: "Tighten the cluster's access and stop there, since the inventory is not the problem."
+      correct: false
+      feedback: "Wrong. Tighter access (P36) helps, but P78's gap is the unknown asset. Without an inventory the next one is missed too."
+    - text: "Record an owner, a condition and a lifecycle stage for every asset."
+      correct: true
+      feedback: "Right. P78 asks for a complete inventory with owner, condition and lifecycle stage."
+    - text: "Ask teams once a year to update a shared spreadsheet."
+      correct: false
+      feedback: "Wrong. A manual yearly update does not find unknown assets. P78's check is an automated discovery."
+    - text: "Run an automated discovery that compares real assets with the inventory."
+      correct: true
+      feedback: "Right. P78's check is that automated discovery finds no unknown assets."
+    - text: "Drop the inventory because assets change too fast to track."
+      correct: false
+      feedback: "Wrong. P78 applies because you operate many assets. Fast change is a reason for automated discovery, not for no inventory."
+- id: q-h-18
+  rules: [P78]
+  stem: "A supplier contract renewed automatically because nobody knew its notice period. Each department keeps its own contract list. Which of the following actions fit the management form of P78?"
+  options:
+    - text: "Keep one register of all contracts, with owner, status and lifecycle stage, including end date and notice period."
+      correct: true
+      feedback: "Right. P78's management form keeps complete registers with an owner, condition and lifecycle stage."
+    - text: "Register only contracts above a value threshold."
+      correct: false
+      feedback: "Wrong. P78 asks for a complete register. A small contract can still renew silently."
+    - text: "Compare the register with payment records to find contracts it misses."
+      correct: true
+      feedback: "Right. This applies P78's check, comparing the real assets with the register to find unknown ones."
+    - text: "Leave each department to keep its own list."
+      correct: false
+      feedback: "Wrong. Separate lists are not a complete register, and they hide contracts from the owner of the whole."
+- id: q-h-19
+  rules: [P79]
+  stem: "In a major incident, one commander directly coordinates 20 people in a single channel. Orders overlap and tasks are missed. Which of the following actions fit P79, Span of control?"
+  options:
+    - text: "Add group leads, so the commander directs about five people."
+      correct: true
+      feedback: "Right. P79 keeps the number one person directs near five and adds group leads above that."
+    - text: "Keep 20 direct reports, because the commander is experienced."
+      correct: false
+      feedback: "Wrong. P79 sets a guideline of about five, whoever the commander is. 20 direct reports is the violation named in P79."
+    - text: "Split the channel into 20 one-to-one threads."
+      correct: false
+      feedback: "Wrong. The commander still directs 20 people. P79 limits the number directed by one person."
+    - text: "List the roles and the number of people each lead directed in the incident record."
+      correct: true
+      feedback: "Right. P79's check is that each incident record lists the roles and the number of people each lead directed."
+- id: q-h-20
+  rules: [P79]
+  stem: "A team reviews four incident records against the check of P79. Which of the following records pass?"
+  options:
+    - text: "It lists the roles, and each lead directed four people."
+      correct: true
+      feedback: "Right. The numbers are listed and are within the guideline of about five."
+    - text: "It lists names but no roles or counts."
+      correct: false
+      feedback: "Wrong. P79's check needs the roles and the number of people each lead directed."
+    - text: "It lists a lead who directed 12 people, with no note."
+      correct: false
+      feedback: "Wrong. P79 requires values above the guideline to have a reason."
+    - text: "It lists a lead who directed 9 people, with a note that 4 were observers who needed no orders."
+      correct: true
+      feedback: "Right. The value is above the guideline, but P79's check accepts it with a reason."

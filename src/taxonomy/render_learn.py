@@ -93,12 +93,18 @@ def question_category(question: Question) -> str:
 # ---- quiz markup (the HTML contract of docs/plans/2026-10-learning-hub.md) ----
 
 
+#: The same cue on every question, so the number of correct answers is never hinted at.
+#: Keep in step with ``HINT_TEXT`` in site-assets/quiz.js.
+SELECT_CUE = "Select all that apply."
+
+
 def question_html(q: Question, known: set[str]) -> str:
     """One question as a ``form.quiz-q``; no blank lines, so Markdown keeps it raw."""
     qid = esc(q["id"])
     parts = [
         f'<form class="quiz-q" data-qid="{qid}">',
-        f"<fieldset><legend>{esc(q['stem'])}</legend>",
+        f'<fieldset aria-describedby="{qid}-hint"><legend>{esc(q["stem"])}</legend>',
+        f'<p class="quiz-hint" id="{qid}-hint">{SELECT_CUE}</p>',
     ]
     for i, opt in enumerate(q["options"]):
         correct = ' data-correct="1"' if opt["correct"] else ""

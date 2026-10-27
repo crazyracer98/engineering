@@ -1,2 +1,516 @@
 # Cases. Schema: schema/learn-cases.schema.json.
-[]
+- id: case-hawaii-false-missile-alert-safeguards
+  title: Hawaii false ballistic missile alert
+  year: 2018
+  summary: >-
+    On 13 January 2018, a warning officer at the Hawaii Emergency Management
+    Agency (HI-EMA) sent a live ballistic missile alert to the public during a
+    drill. The officer believed the drill was a real emergency. The software
+    listed the test and live missile alerts on the same screen, and its
+    confirmation prompt read the same for a test and a live alert. No second
+    warning officer had to confirm the alert. The correction took 38 minutes.
+  rules: [P39, P42]
+  lessons:
+  - rule: P39
+    text: >-
+      The officer believed the drill was real, and nothing in the software
+      made a live send stand out. Test and live alerts sat on the same
+      screen, and the confirmation prompt read the same for both and did not
+      show the message text. Where an error cannot be made impossible, it
+      should at least be visible at once. The vendor then planned to clearly
+      separate its test environment from its live one.
+  - rule: P42
+    text: >-
+      A missile alert to the public is a critical action: once sent, it has
+      reached the public, and the correction took 38 minutes. One warning
+      officer could send it alone, and HI-EMA lacked procedures to stop a
+      single person from sending it by mistake. The two-person rule asks for
+      a second authorized person at the moment of sending.
+  quotes:
+  - source: case-fcc-hawaii-false-alert-report
+    text: >-
+      While the other warning officers understand that this is a drill, the
+      warning officer at the alert origination terminal believes that this is
+      a real emergency, not a drill.
+  - source: case-fcc-hawaii-false-alert-report
+    text: >-
+      Of particular relevance here, the drop-down menu listed the options for
+      an internal “Test missile alert” together with the “Missile alert”
+      message on the same screen.
+  - source: case-fcc-hawaii-false-alert-report
+    text: >-
+      The prompt contains the same message, irrespective of whether the
+      message is a test or an alert, and it does not offer the officer an
+      opportunity to review the message text that would be sent.
+  - source: case-fcc-hawaii-false-alert-report
+    text: >-
+      Prior to the morning of January 13, 2018, HI-EMA did not require
+      confirmation from a second warning officer before sending a ballistic
+      missile alert.
+  - source: case-fcc-hawaii-false-alert-report
+    text: >-
+      HI-EMA lacked procedures to prevent a single person from mistakenly
+      sending a missile alert to Hawaiian public.
+  - source: case-fcc-hawaii-false-alert-report
+    text: >-
+      HI-EMA issues a CEM to correct the false alert 38 minutes after initial
+      transmission.
+  - source: case-fcc-hawaii-false-alert-report
+    text: >-
+      HI-EMA’s alert origination software vendor intends to clearly
+      differentiate its test environment from its live alert environment
+
+- id: case-barings-singapore-segregation-of-duties
+  title: Barings and the Singapore futures office
+  year: 1995
+  summary: >-
+    In February 1995, the Barings Group collapsed after large trading losses
+    at Barings Futures Singapore (BFS). The head of BFS had traded without
+    authority for about two and a half years. The inquiry by the Board of
+    Banking Supervision found no separation between the front and back
+    offices of BFS, and he effectively controlled both sides of the trading
+    operation.
+  rules: [P43]
+  lessons:
+  - rule: P43
+    text: >-
+      One person controlled both the trading and the back office that should
+      have checked it, and his unauthorised trading went on for about two and
+      a half years. The loss was far above any acceptable risk. Separating the
+      front office from the back office splits these incompatible roles, and
+      where a team is too small for that, an independent review of the
+      records is the compensating control.
+  quotes:
+  - source: case-rba-barings-collapse-bulletin
+    text: >-
+      This followed the discovery of massive trading losses incurred by
+      Barings Futures Singapore (BFS), an indirect subsidiary of the Barings
+      bank, on Singaporean and Japanese exchanges.
+  - source: case-rba-barings-collapse-bulletin
+    text: >-
+      It is now known, however, that Leeson had engaged, for a period of 2½
+      years, in unauthorised position – taking in Nikkei futures and Japanese
+      Government Bond (JGB) futures on SIMEX and Osaka futures exchanges.
+  - source: case-rba-barings-collapse-bulletin
+    text: there was a lack of separation between the front and back offices within BFS.
+  - source: case-rba-barings-collapse-bulletin
+    text: As general manager of the company, Leeson effectively controlled both sides of the trading operation.
+  - source: case-rba-barings-collapse-bulletin
+    text: clear segregation of duties is fundamental to any effective control system;
+
+- id: case-titanic-watertight-compartments
+  title: Titanic's watertight compartments
+  year: 1912
+  summary: >-
+    Titanic's bulkheads were spaced so that the ship would stay afloat with
+    any two compartments open to the sea. The damage it received flooded the
+    four forward compartments and No. 6 boiler room. With five
+    compartments flooded, water rose above the top of a bulkhead and flowed
+    over into the next compartment, and so on in turn, until the ship sank.
+  rules: [P41]
+  lessons:
+  - rule: P41
+    text: >-
+      The compartments held only while the water stayed below the tops of
+      the bulkheads. Past that point, flooding in one compartment spilled into
+      the next, so the damage spread through the whole ship. A compartment
+      isolates a failure only up to the damage it was designed for. Evidence
+      to the inquiry was that, with less damage, bulkheads carried up to C
+      deck might have saved the ship.
+  quotes:
+  - source: case-wreck-commissioner-titanic-observations
+    text: >-
+      Her bulkheads were spaced to enable her to remain afloat with any two
+      compartments in communication with the sea.
+  - source: case-wreck-commissioner-titanic-observations
+    text: >-
+      But she could not remain afloat with the four forward compartments and
+      the forward boiler room (No. 6) also flooded.
+  - source: case-wreck-commissioner-titanic-observations
+    text: >-
+      It has been shown that water came into the five forward compartments to
+      a height of about 14 feet above the keel in the first ten minutes.
+  - source: case-wreck-commissioner-titanic-observations
+    text: >-
+      The flooding of these five compartments alone would have sunk the ship
+      sufficiently deeply to have caused the water to rise above the bulkhead
+      at the after end of the forward boiler room (No. 6) and to flow over into
+      the next boiler room (No. 5), and to fill it up until in turn its after
+      bulkhead would be overwhelmed and the water would thereby flow over and
+      fill No. 4 boiler room, and so on in succession to the other boiler rooms
+      till the ship would ultimately fill and sink.
+  - source: case-wreck-commissioner-titanic-observations
+    text: >-
+      It was stated in evidence that if No. 4 had not been damaged or had only
+      been damaged to an extent within the powers of the pumps to keep under,
+      then, if the bulkheads had been carried to C deck, the ship might have
+      been saved.
+
+- id: case-hyatt-regency-walkway-connections
+  title: Hyatt Regency walkway collapse
+  year: 1981
+  summary: >-
+    On 17 July 1981, two suspended walkways in the atrium of the Hyatt Regency
+    Hotel in Kansas City collapsed. The National Bureau of Standards found
+    that the box beam-hanger rod connections did not meet the Kansas City
+    Building Code, even in the original design. A change of the hanger rods
+    during construction about doubled the load on the fourth floor
+    connections. The walkways fell under loads well below the design loads
+    of the code.
+  rules: [P44, P60]
+  lessons:
+  - rule: P44
+    text: >-
+      At the collapse, the load on a connection was only 31 percent of the
+      capacity the code expected. The walkways had almost no capacity beyond
+      their own weight, so there was no margin above the expected load.
+  - rule: P60
+    text: >-
+      The code sets the minimum capacity. The connections did not meet it as
+      built, and would not have met it in the original design either. Meeting
+      the code was the floor, and here even the floor was missing.
+  quotes:
+  - source: case-nbs-hyatt-regency-walkways-report
+    text: >-
+      On July 17, 1981, two suspended walkways within the atrium area of the
+      Hyatt Regency Hotel in Kansas City, Mo., collapsed, leaving 113 people
+      dead and 186 injured.
+  - source: case-nbs-hyatt-regency-walkways-report
+    text: >-
+      Two factors contributed to the collapse: inadequacy of the original
+      design for the box beam-hanger rod connection, which was identical for
+      all three walkways, and a change in hanger rod arrangement during
+      construction that essentially doubled the load on the box beam-hanger
+      rod connections at the fourth floor walkway.
+  - source: case-nbs-hyatt-regency-walkways-report
+    text: >-
+      the maximum load on a fourth floor box beam-hanger rod connection at the
+      time of collapse was only 31 percent of the ultimate capacity expected of
+      a connection designed under the Kansas City Building Code.
+  - source: case-nbs-hyatt-regency-walkways-report
+    text: >-
+      they had only minimal capacity to resist their own weight and had
+      virtually no capacity to resist additional loads imposed by people.
+  - source: case-nbs-hyatt-regency-walkways-report
+    text: >-
+      Collapse of the walkways occurred under the action of loads that were
+      substantially less than the design loads specified by the Kansas City
+      Building Code.
+  - source: case-nbs-hyatt-regency-walkways-report
+    text: >-
+      As constructed, the box beam-hanger rod connections, the fourth floor to
+      ceiling hanger rods, and the third floor walkway hanger rods did not
+      satisfy the design provisions of the Kansas City Building Code.
+  - source: case-nbs-hyatt-regency-walkways-report
+    text: >-
+      The box beam-hanger rod connection would not have satisfied the Kansas
+      City Building Code under the original hanger rod detail (continuous rod)
+
+- id: case-2003-blackout-alarm-failover-load-shedding
+  title: The 2003 Northeast blackout
+  year: 2003
+  summary: >-
+    On 14 August 2003, a blackout hit an area with about 50 million people in
+    the United States and Canada. At FirstEnergy (FE), the control room alarm
+    software failed. The alarm application then failed over, still stalled,
+    to the back-up server, which failed too. Operators lost their alarms while
+    lines tripped. FE had no automatic load-shedding schemes and did not begin
+    manual load shedding. The task force found that shedding 1,500 MW in the
+    Cleveland-Akron area before a key line outage could have averted the
+    blackout.
+  rules: [P45, P47]
+  lessons:
+  - rule: P45
+    text: >-
+      The alarm system had a back-up server, but the stalled application
+      moved to it intact and the back-up failed too. A back-up only helps if
+      the switch-over does not carry the failure with it, so the switch-over
+      has to be tested under a fault, not only a clean shutdown.
+  - rule: P47
+    text: >-
+      FirstEnergy had no automatic load-shedding schemes and did not start
+      manual load shedding. The task force found that shedding 1,500 MW in
+      the Cleveland-Akron area before a key line outage could have averted
+      the blackout. Load shedding planned in advance switches off some demand
+      so the rest keeps running; once a cascade starts, people cannot stop
+      it.
+  quotes:
+  - source: case-task-force-2003-blackout-report
+    text: >-
+      The outage affected an area with an estimated 50 million people and
+      61,800 megawatts (MW) of electric load
+  - source: case-task-force-2003-blackout-report
+    text: >-
+      Shortly after 14:14 EDT, the alarm and logging system in FE’s control
+      room failed and was not restored until after the blackout.
+  - source: case-task-force-2003-blackout-report
+    text: >-
+      However, because the alarm application moved intact onto the backup
+      while still stalled and ineffective, the backup server failed 13 minutes
+      later, at 14:54 EDT.
+  - source: case-task-force-2003-blackout-report
+    text: >-
+      FirstEnergy had no automatic load-shedding schemes in place, and did not
+      attempt to begin manual load-shedding.
+  - source: case-task-force-2003-blackout-report
+    text: >-
+      if manual or automatic load-shedding of 1,500 MW had occurred within the
+      Cleveland-Akron area before that outage, the blackout could have been
+      averted.
+  - source: case-task-force-2003-blackout-report
+    text: A cascade is a dynamic phenomenon that cannot be stopped by human intervention once started.
+
+- id: case-clapham-junction-signal-wiring
+  title: Clapham Junction rail crash
+  year: 1988
+  summary: >-
+    On 12 December 1988, a crowded commuter train ran into the rear of a
+    stationary train near Clapham Junction, and 35 people died. During
+    signalling work, an old wire was left connected at the fuse end and loose
+    at the relay end. It made contact at a relay and gave a false feed of
+    current that by-passed another relay, so signal WF138 showed a proceed
+    aspect instead of red. The wiring errors were not found
+    by the installer, his supervision or the testing before the signal was
+    put into use. The independent wire count that practice and instructions
+    called for was not done.
+  rules: [P37, P56]
+  lessons:
+  - rule: P37
+    text: >-
+      A signal's safe state is red. The wiring fault made it show a proceed
+      aspect instead, a failure on the wrong side of safety, and the testing
+      before the signal went back into use did not find it. A fail-safe
+      design needs a test that shows a fault still takes the signal to red.
+  - rule: P56
+    text: >-
+      Neither the installer, nor his supervision, nor the testing found his
+      errors. The report says such rare errors have to be guarded against by
+      independent checking of his work, and the independent wire count that
+      good practice called for was not done.
+  quotes:
+  - source: case-hidden-clapham-junction-report
+    text: >-
+      a crowded commuter train ran head-on into the rear of another which was
+      stationary in a cutting just south of Clapham Junction station.
+  - source: case-hidden-clapham-junction-report
+    text: As a result of the accident 35 people died and nearly 500 were injured, 69 of them seriously.
+  - source: case-hidden-clapham-junction-report
+    text: >-
+      signal WF138 would fail to turn to red and would instead show a proceed
+      aspect.
+  - source: case-hidden-clapham-junction-report
+    text: It would be a failure which falls on the wrong side of safety.
+  - source: case-hidden-clapham-junction-report
+    text: >-
+      At the fuse end even more surprisingly he did not disconnect the old
+      wire at all.
+  - source: case-hidden-clapham-junction-report
+    text: >-
+      Although disconnected at the relay end the wire was left loose and made
+      metal-to-metal contact at DM TRR, a false feed of current to by-pass DL
+      TRR.
+  - source: case-hidden-clapham-junction-report
+    text: >-
+      it is actually an independent wire count that both good practice and
+      Departmental Instructions called for.
+  - source: case-hidden-clapham-junction-report
+    text: >-
+      Those errors and their potential for disaster were not discovered by Mr
+      Hemingway himself, were not discovered by any supervision of him, and
+      were not discovered in the testing process before the signal was
+      commissioned that evening and the line put back into public use next
+      morning.
+  - source: case-hidden-clapham-junction-report
+    text: >-
+      It is those unusual and infrequent events that have to be guarded
+      against by a system of independent checking of his work.
+
+- id: case-hubble-primary-mirror-null-corrector
+  title: Hubble Space Telescope primary mirror
+  year: 1990
+  summary: >-
+    After its launch on 24 April 1990, the Hubble Space Telescope could not be
+    properly focused. Its primary mirror had been made in the wrong shape,
+    with an error ten times the specified tolerance. The mirror was shaped
+    and verified with one instrument, the reflective null corrector, whose
+    dimensions were not verified after assembly. Other tests that disagreed
+    with it were dismissed as less precise.
+  rules: [P58]
+  lessons:
+  - rule: P58
+    text: >-
+      The mirror was made and verified with one instrument, whose dimensions
+      were not verified after assembly. When other instruments gave different
+      results, those results were dismissed as less precise. Instruments
+      calibrated against a traceable reference, with the uncertainty of each
+      result stated, make a disagreement a reason to investigate rather than
+      to dismiss.
+  quotes:
+  - source: case-nasa-hubble-optical-failure-report
+    text: >-
+      The Hubble Space Telescope (HST) was launched aboard the Space Shuttle
+      Discovery on April 24, 1990.
+  - source: case-nasa-hubble-optical-failure-report
+    text: >-
+      During checkout on orbit, it was discovered that the telescope could not
+      be properly focused because of a flaw in the optics.
+  - source: case-nasa-hubble-optical-failure-report
+    text: The error is ten times larger than the specified tolerance.
+  - source: case-nasa-hubble-optical-failure-report
+    text: >-
+      The Perkin-Elmer plan for fabricating the primary mirror placed complete
+      reliance on the reflective null corrector as the only test to be used in
+      both manufacturing and verifying the mirror's surface with the required
+      precision.
+  - source: case-nasa-hubble-optical-failure-report
+    text: >-
+      No verification of the reflective null corrector's dimensions was
+      carried out by Perkin-Elmer after the original assembly.
+  - source: case-nasa-hubble-optical-failure-report
+    text: >-
+      This information was dismissed, as it was in the case for the INC,
+      because the RvNC was believed to be less precise than the RNC and
+      therefore not reliable.
+
+- id: case-target-2013-breach-control-layers
+  title: Target data breach
+  year: 2013
+  summary: >-
+    In 2013, attackers stole the information of as many as 110 million
+    Target customers. A Senate committee staff report, based on media reports
+    and expert analyses, describes several points where the attack could have
+    been stopped. The attackers appear to have entered with a vendor's
+    credential and moved to areas storing consumer data. Intrusion software
+    warned of the malware, and the warnings appear to have gone unanswered.
+  rules: [P40]
+  lessons:
+  - rule: P40
+    text: >-
+      The staff analysis, which rests on media reports and expert analyses,
+      names several points where the attack could have been stopped: the
+      vendor's credential, the isolation of sensitive networks, and the
+      response to intrusion warnings. Each appears to have failed or gone
+      unanswered. Defense in depth needs independent layers that are each
+      verified to work, including the people who act on a layer's alerts.
+  quotes:
+  - source: case-senate-target-kill-chain-report
+    text: >-
+      stole the financial and personal information of as many as 110 million
+      Target customers
+  - source: case-senate-target-kill-chain-report
+    text: >-
+      This report presents an explanation of how the Target breach occurred,
+      based on media reports and expert analyses
+  - source: case-senate-target-kill-chain-report
+    text: >-
+      This analysis suggests that Target missed a number of opportunities
+      along the kill chain to stop the attackers and prevent the massive data
+      breach.
+  - source: case-senate-target-kill-chain-report
+    text: >-
+      Attackers who infiltrated Target’s network with a vendor credential
+      appear to have successfully moved from less sensitive areas of Target’s
+      network to areas storing consumer data, suggesting that Target failed to
+      properly isolate its most sensitive network assets.
+  - source: case-senate-target-kill-chain-report
+    text: >-
+      Target appears to have failed to respond to multiple automated warnings
+      from the company’s anti-intrusion software that the attackers were
+      installing malware on Target’s system.
+
+- id: case-heathrow-t5-opening-testing
+  title: Opening of Heathrow Terminal 5
+  year: 2008
+  summary: >-
+    Heathrow Terminal 5 opened in 2008 with serious problems, and 23,205
+    bags needed manual sorting. The House of Commons Transport Committee
+    found two main causes: poor communication between owner and operator,
+    and poor staff training and system testing. British Airways said it had
+    compromised the testing to absorb building delays. The public trials did
+    not get the system to work well enough for the opening.
+  rules: [P54]
+  lessons:
+  - rule: P54
+    text: >-
+      The terminal opened before its systems and staff had been tested well
+      enough together. British Airways said it compromised on the testing
+      regime because the building work was late, and the proving trials did
+      not get the system to the point where it could cope with the opening.
+      Commissioning tests that all parts work together against the owner's
+      requirements before handover.
+  quotes:
+  - source: case-commons-heathrow-t5-opening-report
+    text: >-
+      According to British Airways, 23,205 bags required manual sorting before
+      being returned to their owners.
+  - source: case-commons-heathrow-t5-opening-report
+    text: >-
+      We found that most of these problems were caused by one of two main
+      factors: insufficient communication between owner and operator, and poor
+      staff training and system testing.
+  - source: case-commons-heathrow-t5-opening-report
+    text: >-
+      In particular, we had compromised on the testing regime as result of
+      delays in completing the building programme for T5
+  - source: case-commons-heathrow-t5-opening-report
+    text: >-
+      The proving trials may have succeeded in identifying improvements and
+      enabling members of the public to experience the new terminal but they
+      failed in the ultimate objective of getting the system to a point where
+      it worked well enough to cope with the opening successfully.
+
+- id: case-bayer-institute-mic-elimination
+  title: Bayer CropScience explosion and its MIC stockpile
+  year: 2008
+  summary: >-
+    On 28 August 2008, a pressure vessel (the residue treater) exploded in
+    the pesticide unit of the Bayer CropScience plant in Institute, West
+    Virginia. Two people were killed. Debris struck the blast blanket that
+    shielded a nearby day tank of methyl isocyanate (MIC), but did not
+    penetrate it. In 2009, a House committee asked the Chemical Safety Board
+    (CSB) to study options to reduce or eliminate MIC. That year the company
+    said MIC use would not be eliminated. In 2011 it announced it would end
+    all production, storage and use of MIC.
+  rules: [P38]
+  lessons:
+  - rule: P38
+    text: >-
+      The blast blanket, an engineering control around the MIC day tank, held
+      against the debris. Ending all production, storage and use of MIC, as
+      the company announced in 2011, removes the hazard at its source, the
+      highest control level. In 2009 it had reported that MIC use would not be
+      eliminated.
+  quotes:
+  - source: case-csb-bayer-cropscience-report
+    text: >-
+      On August 28, 2008, at about 10:25 p.m., two Bayer CropScience employees
+      at the Institute, West Virginia, manufacturing facility were asked to
+      investigate why pressure was unexpectedly increasing in the residue
+      treater
+  - source: case-csb-bayer-cropscience-report
+    text: Pesticide Chemical Runaway Reaction Pressure Vessel Explosion (Two Killed, Eight Injured)
+  - source: case-csb-bayer-cropscience-report
+    text: >-
+      Small debris, including conduit, valves, small diameter pipe segments,
+      and insulation, was thrown in all directions, some of which struck, but
+      did not penetrate the MIC day tank blast blanket.
+  - source: case-csb-bayer-cropscience-report
+    text: >-
+      In May 2009, the U.S. House of Representatives Committee on Energy and
+      Commerce sent a letter to the U.S. Chemical Safety Board Chairman
+      requesting that the Board:
+  - source: case-csb-bayer-cropscience-report
+    text: >-
+      Conduct an investigation to determine options for Bayer to reduce or
+      eliminate the use or storage of MIC by switching to alternative
+      chemicals or processes.
+  - source: case-csb-bayer-cropscience-report
+    text: >-
+      In August 2009, the company reported that the use of MIC would not be
+      eliminated at the facility and that in-situ production of MIC at the
+      operating units where MIC is used was not a viable alternative.
+  - source: case-csb-bayer-cropscience-report
+    text: >-
+      On January 11, 2011, Bayer announced plans to end the production of
+      both aldicarb and carbaryl by mid-2012 and thereby eliminate the
+      production, storage, and use of all MIC and phosgene.

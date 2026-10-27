@@ -1,2 +1,509 @@
 # Quiz questions, category C. Schema: schema/learn-quiz.schema.json.
-[]
+- id: q-c-01
+  rules: [P22]
+  stem: A team is about to build a job scheduler with a registry, a queue and two controllers. Which of the following items belong in the analysis it does before building?
+  options:
+    - text: How each part, such as the registry, can fail.
+      correct: true
+      feedback: Right. P22 asks for a list of how each part can fail before you build.
+    - text: How the two controllers can fight over the same job while neither has failed.
+      correct: true
+      feedback: Right. P22 covers unsafe interactions between parts that have not failed.
+    - text: How the scheduler can harm users through foreseeable misuse while it works as designed.
+      correct: true
+      feedback: Right. P22 includes harm that a system causes while working as designed.
+    - text: Which components have a health endpoint that tests can read.
+      correct: false
+      feedback: That is test access, which belongs to P26. It does not list failures or interactions.
+    - text: How long the queue can run before memory leaks make it fail.
+      correct: false
+      feedback: That is accumulated degradation, which P28 covers with a soak test. P22 asks for a list of failure modes before the build.
+- id: q-c-02
+  rules: [P22, P28]
+  stem: A reviewer checks whether a design meets the check of P22. Which of the following findings show that it does?
+  options:
+    - text: A reviewed list of failure modes and unsafe interactions exists for each component.
+      correct: true
+      feedback: Right. This is the check of P22, a list per component that is reviewed.
+    - text: A peak load test passed on the finished system.
+      correct: false
+      feedback: A peak test does not list failure modes or interactions. Short peak tests are also what P28 warns against when used alone.
+    - text: The first failure analysis was written after an incident.
+      correct: false
+      feedback: This is the violation named in P22. The analysis has to come before the build.
+    - text: Each component passed its own unit tests in isolation.
+      correct: false
+      feedback: Isolated tests do not show how parts that have not failed interact unsafely, which P22 requires.
+- id: q-c-03
+  rules: [P23]
+  stem: A platform team packages ten applications. Which of the following choices follow P23?
+  options:
+    - text: Give each application its own Helm chart with one stated purpose.
+      correct: true
+      feedback: Right. P23 asks for modules, and each component has one stated purpose.
+    - text: Remove a chart option that no application uses.
+      correct: true
+      feedback: Right. The check of P23 says that no part is unused.
+    - text: Put all ten applications in one chart so that there is only one thing to maintain.
+      correct: false
+      feedback: One chart for all is the opposite of splitting into modules, which P23 asks for.
+    - text: Add options now for needs that the team imagines for next year.
+      correct: false
+      feedback: P23 names adding features for imagined future needs as its violation.
+- id: q-c-04
+  rules: [P23]
+  stem: A product team wants to apply the management form of P23, simple structures and few priorities. Which of the following actions fit?
+  options:
+    - text: Keep one team backlog with one ranked list.
+      correct: true
+      feedback: Right. P23 in management uses the fewest priorities that meet the objective.
+    - text: Stop a recurring meeting that no longer serves the objective.
+      correct: true
+      feedback: Right. The management form of P23 says to stop work that is not needed.
+    - text: Keep a separate priority list for each stakeholder group.
+      correct: false
+      feedback: Parallel priority lists add priorities. P23 uses the fewest that meet the objective.
+    - text: Add a second approval layer in case of future needs.
+      correct: false
+      feedback: An extra layer for imagined needs is the violation of P23. It uses the fewest layers instead.
+    - text: Give the same task to two owners so that one can cover for the other.
+      correct: false
+      feedback: One accountable owner is the topic of P30, and it does not make a structure simpler.
+- id: q-c-05
+  rules: [P24]
+  stem: A team writes the design document for a new Kubernetes cluster that holds customer data. Which of the following parts of the document satisfy the check of P24?
+  options:
+    - text: A maintenance section.
+      correct: true
+      feedback: Right. P24 checks that each design document has a maintenance section.
+    - text: A decommissioning section that says how to delete the cluster and its data.
+      correct: true
+      feedback: Right. P24 asks to define the deletion before you create the cluster.
+    - text: A note that the end-of-life plan will be written when the cluster is retired.
+      correct: false
+      feedback: P24 says to plan decommissioning at design time. Later leads to orphaned resources.
+    - text: A list of the readiness endpoints of each component.
+      correct: false
+      feedback: Test access is P26. It does not cover maintenance or decommissioning.
+- id: q-c-06
+  rules: [P24]
+  stem: A company signs a contract with a hosting vendor. Which of the following clause sets follow the management form of P24, plan the exit at the start?
+  options:
+    - text: An exit clause and a clause that returns the company's data.
+      correct: true
+      feedback: Right. P24 asks to plan how a contract ends, with an exit and handover.
+    - text: A deletion date for the personal data collected under the contract.
+      correct: true
+      feedback: Right. P24 plans deletion at the start. Personal data has a limit on how long it is kept.
+    - text: A price schedule for the first three years.
+      correct: false
+      feedback: Prices do not say how the contract ends, which P24 asks for.
+    - text: A promise to negotiate the exit terms when the company decides to leave.
+      correct: false
+      feedback: P24 plans the exit when the contract starts, not when it ends.
+- id: q-c-07
+  rules: [P25]
+  stem: A team writes a failover runbook for on-call engineers. Which of the following steps follow P25?
+  options:
+    - text: Test the runbook with real on-call engineers at night.
+      correct: true
+      feedback: Right. P25 checks that critical tasks are tested with real operators, in the real environment.
+    - text: Make the CLI output for success and failure unambiguous.
+      correct: true
+      feedback: Right. P25 asks for a design that works under stress, such as clear CLI output.
+    - text: Test it only with the author, who knows the system best.
+      correct: false
+      feedback: P25 asks for real users and the full range of users, not the one who wrote it.
+    - text: Add a line to the review that engineers who misread the output must be more careful.
+      correct: false
+      feedback: Blaming users for errors that the interface invites is the violation named in P25.
+- id: q-c-08
+  rules: [P25, P26]
+  stem: An engineer ran the wrong command during an incident, because two commands differ by one letter and print similar output. Which of the following responses follow P25?
+  options:
+    - text: Rename the commands so that they differ clearly, and test the change with operators under time pressure.
+      correct: true
+      feedback: Right. P25 changes the interface for the real user and tests critical tasks with real operators.
+    - text: Add a dry-run mode that shows what a command would do.
+      correct: true
+      feedback: Right. A dry run (P26 test access) also helps people avoid the error, and it supports P25.
+    - text: Write in the review that the engineer must read output more carefully.
+      correct: false
+      feedback: This blames the user for an error that the interface invites, the violation of P25.
+    - text: Add a slide about the commands to the next training day.
+      correct: false
+      feedback: Training does not remove the error the interface invites. P25 asks for the design to change.
+- id: q-c-09
+  rules: [P25]
+  stem: A manager applies the management form of P25, work designed for real people, to a new team of eight. Which of the following states show it?
+  options:
+    - text: Each member can name their role and the team's current goal.
+      correct: true
+      feedback: Right. P25 in management asks for clear roles, plans and goals.
+    - text: The workload is one that people can carry.
+      correct: true
+      feedback: Right. P25 asks for a workload people can carry.
+    - text: Roles change weekly, and slips are traced to the people who made them.
+      correct: false
+      feedback: Unclear roles and blaming people for errors the setup invites is the violation of P25.
+    - text: The team designs its work for an average team, and ignores the people who differ.
+      correct: false
+      feedback: P25 designs for the full range of people, not an average person.
+- id: q-c-10
+  rules: [P26]
+  stem: A team builds a payment service. Which of the following designs satisfy the check of P26?
+  options:
+    - text: Each component documents how to set and observe its key states.
+      correct: true
+      feedback: Right. This is the check of P26.
+    - text: A component has a readiness endpoint and a dry-run mode.
+      correct: true
+      feedback: Right. P26 names health and readiness endpoints and dry-run modes as test access.
+    - text: A component can only be tested with live customers.
+      correct: false
+      feedback: A component that can only be tested in production is the violation of P26.
+    - text: The service passes a load test but has no way to read its internal state.
+      correct: false
+      feedback: P26 needs the internal state to be observable and settable, which a load test alone does not give.
+    - text: An extra replica of each component, so that one can fail.
+      correct: false
+      feedback: Extra replicas are redundancy, not test access, which is what P26 asks for.
+- id: q-c-11
+  rules: [P26]
+  stem: An audit team wants the management form of P26, auditable processes, for access approvals. Which of the following choices fit?
+  options:
+    - text: Store each approval as a ticket that an auditor can sample.
+      correct: true
+      feedback: Right. P26 in management makes controls leave evidence that a reviewer can sample.
+    - text: Give approvals by phone, and trust the approver to remember them.
+      correct: false
+      feedback: No record is left, so a reviewer cannot sample the control, which P26 requires.
+    - text: Approve requests by chat, with no link to the ticket system.
+      correct: false
+      feedback: Chat approvals leave no sampled evidence, which P26 requires.
+    - text: Delete tickets after a month to keep the system small.
+      correct: false
+      feedback: Deleting the evidence removes what a reviewer would sample, against P26.
+- id: q-c-12
+  rules: [P27]
+  stem: A service retries failed calls to a partner API, and message order and latency vary. Which of the following choices follow P27?
+  options:
+    - text: Retry with jitter.
+      correct: true
+      feedback: Right. P27 names retries with jitter as a way to tolerate variation.
+    - text: Make operations idempotent.
+      correct: true
+      feedback: Right. P27 names idempotent operations, so repeated calls do not change the result.
+    - text: Run tests with varied latency, clock drift and message order.
+      correct: true
+      feedback: Right. This is the check of P27, tests with varied inputs show stable results.
+    - text: Assume that messages always arrive in order and on time.
+      correct: false
+      feedback: A system that works only when timing is exact is the violation of P27.
+- id: q-c-13
+  rules: [P27, P33]
+  stem: A service receives messages with fields in different forms. A teammate says it should accept anything and guess the meaning. Which of the following statements are correct?
+  options:
+    - text: P27 asks for stable results when inputs vary in ways like latency and order.
+      correct: true
+      feedback: Right. P27 tolerates variation within the specification, such as timing, order or any format the schema allows. Malformed data lies outside it.
+    - text: P33 asks the service to reject and log input that violates the specification.
+      correct: true
+      feedback: Right. P33 rejects and reports invalid input instead of silently accepting it.
+    - text: Guessing the meaning of malformed fields is robustness under P27.
+      correct: false
+      feedback: K3 draws the line between the two rules. P27 tolerates variation within the specification, and P33 rejects and reports input outside it. Guessing at malformed fields is the silent acceptance that P33 rules out.
+    - text: P33 allows silent acceptance of unknown fields if the sender is a trusted team.
+      correct: false
+      feedback: P33 says to reject and report violations instead of silently accepting them.
+- id: q-c-14
+  rules: [P27]
+  stem: A team applies the management form of P27, robust plans, to its yearly roadmap. Which of the following results show it?
+  options:
+    - text: The roadmap still delivers its top objective if one engineer leaves.
+      correct: true
+      feedback: Right. P27 in management makes plans that work when assumptions vary within a credible range.
+    - text: The plan holds only if every estimate is exact and nobody leaves.
+      correct: false
+      feedback: A plan that needs exact assumptions is fragile, the opposite of P27.
+    - text: The plan has a long list of tasks and no spare room.
+      correct: false
+      feedback: This gives no tolerance for variation, which P27 asks for.
+    - text: The plan is rewritten after every change in staffing, and each rewrite resets the schedule.
+      correct: false
+      feedback: Rewriting after each change is not robustness. P27 asks for a plan that works across a credible range.
+- id: q-c-15
+  rules: [P28]
+  stem: A team prepares a message broker for production. Which of the following checks follow P28?
+  options:
+    - text: An endurance test runs for several days at a realistic load.
+      correct: true
+      feedback: Right. P28 checks for an endurance (soak) test that represents real use.
+    - text: The team measures the growth of leaks, wear and fragmentation during the test.
+      correct: true
+      feedback: Right. P28 needs the growth to be measured, not only whether the test passes.
+    - text: A one-hour peak test at the maximum load.
+      correct: false
+      feedback: A short peak test alone is the violation of P28. It misses damage that builds up.
+    - text: A failure list for each component, written before the build.
+      correct: false
+      feedback: That is P22. It is useful, but it does not test accumulated damage over time.
+- id: q-c-16
+  rules: [P28]
+  stem: An operations team applies the management form of P28, sustainable pace. Which of the following actions fit?
+  options:
+    - text: Review on-call load and overtime every month.
+      correct: true
+      feedback: Right. P28 limits sustained overtime and tracks what builds up.
+    - text: Track technical debt and deferred maintenance.
+      correct: true
+      feedback: Right. P28 names debt that builds up slowly, such as technical debt and deferred maintenance.
+    - text: Accept 60-hour weeks as a pattern, since each week is survivable.
+      correct: false
+      feedback: Repeated loads below the maximum cause damage that does not recover. P28 limits sustained overtime.
+    - text: Plan only for the busiest single week of the year.
+      correct: false
+      feedback: P28 asks to design for damage over the whole design life, not only the largest load.
+- id: q-c-17
+  rules: [P29]
+  stem: A platform team will upgrade the CNI plugin of a cluster. Which of the following practices follow P29?
+  options:
+    - text: Keep a tested compatibility matrix of Kubernetes, CNI and CSI versions.
+      correct: true
+      feedback: Right. P29 checks that each interacting pair is on a tested compatibility list.
+    - text: Test the upgrade with the storage driver in the real environment.
+      correct: true
+      feedback: Right. P29 verifies compatibility in the real environment.
+    - text: Upgrade the plugin alone, since it passed its own tests.
+      correct: false
+      feedback: P29 names this as the violation. A good part can still break another that was never tested with it.
+    - text: Put the plugin in one chart with the storage driver to reduce the number of parts to manage.
+      correct: false
+      feedback: Packaging the two together does not test whether they work together, which P29 asks for. It also goes against the modules of P23.
+- id: q-c-18
+  rules: [P29]
+  stem: Two platform teams will merge. Which of the following steps follow the management form of P29?
+  options:
+    - text: Compare the on-call rules and release processes of both teams before the merge.
+      correct: true
+      feedback: Right. P29 checks that teams and processes are compatible, and plans the integration.
+    - text: Merge on a fixed date and sort out the differences later.
+      correct: false
+      feedback: P29 checks compatibility before merging, not after.
+    - text: Keep both release processes, and have both teams apply them to the same service.
+      correct: false
+      feedback: P29 asks to plan how the differences are integrated. Leaving both processes in force on one service skips that plan, and the two processes then fight over the same releases, much like two owners of one property under P30.
+    - text: Choose the larger team's culture for everyone without comparison.
+      correct: false
+      feedback: P29 asks for a comparison and an integration plan, not a decision with no check.
+- id: q-c-19
+  rules: [P30]
+  stem: A deployment is managed by a GitOps tool, and a horizontal autoscaler is enabled. Which of the following setups follow P30?
+  options:
+    - text: The autoscaler owns the replica count, and the manifest leaves the field out.
+      correct: true
+      feedback: Right. P30 gives each managed field exactly one owner.
+    - text: The GitOps tool and the autoscaler both set the replica count.
+      correct: false
+      feedback: Two mechanisms on one property is the violation of P30. They keep reverting each other.
+    - text: A second GitOps tool is added as a backup to set the count.
+      correct: false
+      feedback: A second owner for the property breaks the rule of exactly one owner in P30.
+    - text: Redundant copies of the manifest are kept in two repositories.
+      correct: false
+      feedback: P30 asks for one source of truth per configuration value.
+- id: q-c-20
+  rules: [P30, P35]
+  stem: One backlog gets orders from two managers who disagree. Which of the following actions follow P30 in management?
+  options:
+    - text: Name one product owner for the backlog.
+      correct: true
+      feedback: Right. P30 gives each objective one accountable owner.
+    - text: Make sure each person reports to one person for a given task.
+      correct: true
+      feedback: Right. P30 in management is unity of command.
+    - text: Let both managers keep setting priorities and ask the team to balance them.
+      correct: false
+      feedback: Two owners for one property over-constrain the team, against P30.
+    - text: Give the component to four teams so that all managers are represented.
+      correct: false
+      feedback: P35 wants one owning team for each component boundary, and P30 one accountable owner per objective. Four owning teams do the opposite.
+- id: q-c-21
+  rules: [P31]
+  stem: A team must pick autoscaler settings, and no model predicts good values. Which of the following approaches follow P31?
+  options:
+    - text: Generate several variants and test each one under load.
+      correct: true
+      feedback: Right. P31 generates many variants and tests them.
+    - text: Record which variants each round kept, and repeat the round.
+      correct: true
+      feedback: Right. P31 checks that each round has a defined test and records the variants kept.
+    - text: Choose the settings by opinion in a meeting.
+      correct: false
+      feedback: Choosing by opinion when it could be tested is the violation of P31.
+    - text: Use one set of defaults for years and never test others.
+      correct: false
+      feedback: P31 keeps the best of tested variants and repeats the cycle.
+- id: q-c-22
+  rules: [P31]
+  stem: A portal team cannot predict which onboarding flow works best. Which of the following choices follow the management form of P31?
+  options:
+    - text: A/B-test two flows with real users and keep the better one.
+      correct: true
+      feedback: Right. P31 tests variants with real users and keeps the best.
+    - text: Pick the flow that the most senior person likes.
+      correct: false
+      feedback: Choosing by opinion when it could be tested is the violation of P31.
+    - text: Roll out one flow to everyone and stop.
+      correct: false
+      feedback: P31 repeats the cycle of variants and tests, not one choice.
+    - text: Measure only the team's own ticket times.
+      correct: false
+      feedback: Ticket times say little about the customer outcome. P32 covers end-to-end ownership of that outcome.
+- id: q-c-23
+  rules: [P32]
+  stem: Two services exchange backup files, and the integrity of the data matters. Which of the following choices follow P32?
+  options:
+    - text: Verify a checksum of each backup in the application.
+      correct: true
+      feedback: Right. P32 puts the check at the end points.
+    - text: Authenticate the services to each other with mTLS.
+      correct: true
+      feedback: Right. P32 gives mTLS as an example of an end-to-end check, not only network encryption.
+    - text: Rely on the network layer to deliver the data correctly.
+      correct: false
+      feedback: Trusting the network without an application check is the violation of P32.
+    - text: Add a second network path in place of the application checksum.
+      correct: false
+      feedback: A lower layer can improve performance, but it cannot guarantee the function, which P32 says. A second path is also redundancy (P45), not an integrity check.
+- id: q-c-24
+  rules: [P32]
+  stem: A platform team supports product teams. Which of the following measures follow the management form of P32?
+  options:
+    - text: Time-to-first-deploy for a product team.
+      correct: true
+      feedback: Right. P32 lets the unit closest to the customer verify the outcome.
+    - text: Closure rate of the platform team's own tickets only.
+      correct: false
+      feedback: This is a local result. P32 does not trust each department's local result alone.
+    - text: Number of features the platform team shipped.
+      correct: false
+      feedback: Output does not show that the product team's outcome is reached, which P32 checks.
+    - text: Average response time of the ticket queue only.
+      correct: false
+      feedback: This is another local measure. P32 checks the customer outcome end to end.
+- id: q-c-25
+  rules: [P33]
+  stem: A service receives JSON messages from other teams. Which of the following practices follow P33?
+  options:
+    - text: Every interface has a machine-checked schema in CI.
+      correct: true
+      feedback: Right. This is the check of P33.
+    - text: Invalid input is rejected and logged.
+      correct: true
+      feedback: Right. P33 rejects and reports input that violates the specification.
+    - text: Field names carry units, such as latency_ms, and timestamps are UTC with offset.
+      correct: true
+      feedback: Right. P33 asks for units and time zone to be stated explicitly.
+    - text: Unknown fields are silently ignored to keep senders working.
+      correct: false
+      feedback: Silently ignoring defects is the violation of P33, since they become unofficial standards.
+- id: q-c-26
+  rules: [P33, P27]
+  stem: A sender adds a duration field without a unit. Some receivers read seconds, and others read milliseconds. Which of the following fixes follow P33?
+  options:
+    - text: Rename the field to carry the unit, such as duration_ms.
+      correct: true
+      feedback: Right. P33 asks to state units explicitly in every interface.
+    - text: Reject messages that do not match the schema, and log them.
+      correct: true
+      feedback: Right. P33 requires rejection and reporting of invalid input.
+    - text: Let each receiver guess the unit from the size of the value.
+      correct: false
+      feedback: Guessing is silent tolerance of an unstated unit. P33 asks to state the unit and to reject what does not match. P27 tolerates variation only within the specification (K3).
+    - text: Make receivers retry with jitter until the value looks right.
+      correct: false
+      feedback: Retries with jitter are P27 and help with timing variation. They do not remove an unstated unit.
+- id: q-c-27
+  rules: [P33]
+  stem: A shared service team applies the management form of P33, explicit agreements between units. A request arrives without a cost centre. What should the team do?
+  options:
+    - text: Return the request and point to the definition of ready.
+      correct: true
+      feedback: Right. P33 returns incomplete handovers instead of silently fixing them.
+    - text: Guess the cost centre from the requester's department.
+      correct: false
+      feedback: Guessing is the silent fix that P33 rules out. Over time it becomes the unofficial standard.
+    - text: Accept it and fix the gap quietly for this requester.
+      correct: false
+      feedback: Silent fixes teach senders that incomplete requests are fine, against P33.
+    - text: Hold it until the requester chases it.
+      correct: false
+      feedback: P33 returns the request with the reason, and does not leave it unreported.
+- id: q-c-28
+  rules: [P34]
+  stem: A team tested a storage design on 3 nodes and will run it on 300. Which of the following steps follow P34?
+  options:
+    - text: Estimate the failure rate per component and multiply it by the planned scale.
+      correct: true
+      feedback: Right. This is the check of P34.
+    - text: Test at the target scale, or as close as possible.
+      correct: true
+      feedback: Right. P34 designs and tests for the target scale.
+    - text: Assume that a failure never seen in the 3-node test will not happen at 300 nodes.
+      correct: false
+      feedback: This is the violation of P34. A rare failure becomes frequent in a larger system.
+    - text: Treat a 3-node test as proof that the model is valid at any scale.
+      correct: false
+      feedback: P12 asks to use a model only inside the range it was validated for, and P34 says scale changes failure frequency.
+- id: q-c-29
+  rules: [P34]
+  stem: A company grows from 50 to 500 people. Which of the following expectations follow the management form of P34?
+  options:
+    - text: Rare events, such as fraud or loss of a key person, happen regularly.
+      correct: true
+      feedback: Right. P34 expects rare events to become frequent as the organization grows.
+    - text: Controls need to scale with size.
+      correct: true
+      feedback: Right. P34 scales controls with size.
+    - text: The controls of a 50-person firm are enough.
+      correct: false
+      feedback: P34 expects more events at size, so controls that fit 50 people can miss them.
+    - text: A once-in-500-person-years event is still unlikely to occur in any given year.
+      correct: false
+      feedback: At 500 people, that event happens about every year, as the example of P34 shows.
+- id: q-c-30
+  rules: [P35]
+  stem: A company wants a system of several components, and it has several teams. Which of the following actions follow P35?
+  options:
+    - text: Give each major component boundary one owning team.
+      correct: true
+      feedback: Right. This is the check of P35.
+    - text: Count cross-team dependencies.
+      correct: true
+      feedback: Right. P35 checks that cross-team dependencies are counted.
+    - text: Change the team boundaries when the intended component structure changes.
+      correct: true
+      feedback: Right. P35 changes teams and communication paths when the intended structure changes.
+    - text: Have four teams maintain one component, but without regular contact.
+      correct: false
+      feedback: This is the violation of P35. The design copies the communication gaps of the teams.
+    - text: Give each team a different tool so that nobody depends on another team.
+      correct: false
+      feedback: P35 matches team boundaries to the intended components. Different tools do not do this, and can hurt compatibility (P29).
+- id: q-c-31
+  rules: [P35, P30]
+  stem: A platform team owns the platform API, and product teams own their own code. A product team also edits part of the platform API. Which of the following statements are correct?
+  options:
+    - text: P35 puts the platform API with the platform team, as one owning team for the boundary.
+      correct: true
+      feedback: Right. P35 gives each major component boundary one owning team.
+    - text: P30 gives the shared property one owner instead of two.
+      correct: true
+      feedback: Right. P30 applies the same idea of one owner to what two parties can set.
+    - text: Both teams should edit the API, so that the design follows the people.
+      correct: false
+      feedback: P35 shapes teams to the intended structure, not the other way round. Two editors also break P30.
+    - text: P35 is not needed, because Conway's law applies only to teams of one person.
+      correct: false
+      feedback: The counterexample of P35 is a system built by one person or one small team that communicates as one unit. Several teams are in scope.

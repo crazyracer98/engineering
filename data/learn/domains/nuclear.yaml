@@ -1,2 +1,19 @@
 # Domain examples, branch Nuclear. Schema: schema/learn-domains.schema.json.
-[]
+- branch: Nuclear
+  domain: Nuclear
+  scenario: >-
+    In a research reactor, a loss of power releases the control rods so they
+    drop into the core. This is the defined safe state. A test cuts the power to
+    show that the rods reach it. Loading fuel into the core is critical: a
+    fuel element in the wrong position can cause harm that cannot be undone.
+    So the procedure needs two authorized operators at the moment of action,
+    and the system refuses the move unless a second operator approves.
+  shows:
+    - rule: P37
+      how: >-
+        The design defines a safe state and makes failure move there. Failure
+        injection, a power cut, shows that the rods reach the safe state.
+    - rule: P42
+      how: >-
+        Fuel loading is a critical action whose harm cannot be undone. The
+        system enforces a second approval from a second authorized person.

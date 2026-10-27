@@ -1,2 +1,333 @@
 # Quiz questions, conflict rules K1-K8. Schema: schema/learn-quiz.schema.json.
-[]
+- id: q-k-01
+  rules:
+  - K1
+  stem: 'A payment service has a high consequence of failure. Its design rules pull two ways: P45 (redundancy) and P44 (margin) add parts, and P23 (simplicity) removes them. The team must set up production and a development copy. Which of the following choices follow K1?'
+  options:
+  - text: Run production across several availability zones, because the master rule and the rigor matrix require that much redundancy.
+    correct: true
+    feedback: Right. K1 says to add parts (P45, P44) only as far as the master rule and the rigor matrix require. For this service they require redundancy.
+  - text: Run development in a single availability zone, because nothing in the rigor matrix requires more there.
+    correct: true
+    feedback: Right. K1 keeps P23 in force where the requirement is lower. Extra parts in development add failure risk without a reason.
+  - text: Use a single zone everywhere, because P23 always outranks the rules that add parts.
+    correct: false
+    feedback: Wrong. K1 does not let P23 win by default. Removing parts also changes failure risk, and P45 and P44 apply where the requirement calls for them.
+  - text: Use several zones everywhere, because P45 says a single failure must not stop the function.
+    correct: false
+    feedback: Wrong. K1 limits added parts to what the master rule and the rigor matrix require. Copying production to development breaks P23 for no gain.
+  - text: Let each engineer add whatever parts feel safe, because K1 sets no limit on P44 to P47.
+    correct: false
+    feedback: 'Wrong. K1 sets the limit: only as far as the master rule and the rigor matrix require. Taste is not a requirement.'
+- id: q-k-02
+  rules:
+  - K1
+  stem: For an internal wiki, a reviewer asks to add a different database engine for the replica (P46), isolated compartments (P41) and a second control layer (P40). The author objects with P23 (fewer parts). What does K1 say about this conflict?
+  options:
+  - text: Both adding and removing parts change failure risk, so neither side wins by default.
+    correct: true
+    feedback: Right. This is the reason given in K1. P46, P41 and P40 can lower one risk and P23 can lower another.
+  - text: Add each part only as far as the master rule and the rigor matrix require for a wiki.
+    correct: true
+    feedback: Right. K1 resolves the conflict with the requirement, not with the number of rules cited for or against.
+  - text: A part is justified when the matrix does not require it, as long as one rule from P40 to P47 names it.
+    correct: false
+    feedback: Wrong. K1 ties added parts (P40, P41, P46) to what the master rule and the rigor matrix require, not to a rule merely naming the part.
+  - text: Decide by the time until harm (P73), and use a shorter review path, as in K2.
+    correct: false
+    feedback: Wrong. That is the resolution of K2, which is about review speed. K1 is about how many parts to add against P23.
+  - text: Reject all three parts, because P23 is the rule with the simplest check.
+    correct: false
+    feedback: Wrong. K1 does not rank P23 above the rules that add parts. A part that the requirement demands stays.
+  - text: Add all three, because each one reduces a single point of failure.
+    correct: false
+    feedback: Wrong. K1 allows added parts (P46, P41, P40) only as far as required. A wiki may need fewer than a payment service.
+- id: q-k-03
+  rules:
+  - K2
+  stem: A bug leaks customer records every minute. The fix is one line of config. P64 asks for change review and P65 asks for small verified steps, but both take hours. The time until harm (P73) is far shorter. Which of the following actions follow K2?
+  options:
+  - text: Use the predefined emergency change path, which has a shorter review, for example one approver.
+    correct: true
+    feedback: Right. K2 says to use a predefined emergency path when P73 makes P64 and P65 too slow.
+  - text: Do the full P64 review after the fix is live.
+    correct: true
+    feedback: Right. K2 shortens the review first and completes it afterwards.
+  - text: Skip the review and write it up later, because harm is already happening.
+    correct: false
+    feedback: Wrong. K2 warns that skipping review without a plan removes every check at the moment of highest stress (P64, P65).
+  - text: Hold the fix until the normal P64 review and P65 steps finish, because rules come first and apply to all changes.
+    correct: false
+    feedback: Wrong. K2 exists because P73 (time until harm) can make the full process too slow. The harm continues while the review runs.
+  - text: Invent the review steps during the incident to suit the situation.
+    correct: false
+    feedback: Wrong. K2 requires a predefined path. A path made up under stress is not planned, so P64 and P65 give no protection.
+- id: q-k-04
+  rules:
+  - K2
+  stem: 'A team has an emergency path: one approver, and a mandatory postmortem within 48 hours. Lately engineers use it for features with near deadlines. A lead asks what K2 allows. Which of the following statements are correct?'
+  options:
+  - text: The path is for fixes needed faster than P64 and P65 allow because of P73, the time until harm.
+    correct: true
+    feedback: Right. This is the condition in K2. A deadline alone does not make the full review too slow in the sense of P73.
+  - text: Every emergency change still gets the full P64 review afterwards.
+    correct: true
+    feedback: Right. K2 says to do the full review afterwards, so the shorter review is a delay and not a waiver.
+  - text: The path is justified for any change that is late, because it is already approved.
+    correct: false
+    feedback: Wrong. K2 applies when P73 (time until harm) makes the full P64 and P65 process too slow. Lateness is not harm.
+  - text: The later review can be dropped when the hotfix works, because P65 is satisfied.
+    correct: false
+    feedback: Wrong. K2 requires the full review afterwards (P64). A working fix does not show that its basis and impact were right.
+  - text: The path should be removed, because any shorter review breaks P64.
+    correct: false
+    feedback: Wrong. K2 asks for the predefined path so that emergencies keep some checks. Removing it leaves only improvised shortcuts.
+- id: q-k-05
+  rules:
+  - K3
+  stem: An API specification allows any ISO 8601 timestamp with a UTC offset or the Z suffix and requires the timestamp field. One client sends 2026-10-26T10:00:00+02:00, another sends 2026-10-26T08:00:00Z, and a third sends no timestamp. P27 (robustness) and P33 (strict interfaces) seem to disagree. Which of the following ways of handling the three messages follow K3?
+  options:
+  - text: Accept the message with the +02:00 offset, because the specification allows it.
+    correct: true
+    feedback: Right. K3 tolerates variation within the specification (P27).
+  - text: Accept the message with the Z suffix, because the specification allows it.
+    correct: true
+    feedback: Right. This is also within the specification, so K3 and P27 say to tolerate it.
+  - text: Reject and report the message with no timestamp, because the field is required.
+    correct: true
+    feedback: Right. K3 rejects and reports input outside the specification (P33), and a missing required field is outside it.
+  - text: Fill in the server time for the missing timestamp, so that the client's message is not lost.
+    correct: false
+    feedback: Wrong. Under K3 and P33 the input is outside the specification, so it is rejected and reported, not silently repaired.
+  - text: Reject every format except one, because P33 asks for strict input.
+    correct: false
+    feedback: Wrong. K3 says P33 applies outside the specification. Formats the specification allows fall under P27.
+- id: q-k-06
+  rules:
+  - K3
+  stem: A sensor protocol specifies a temperature field of -50 to 150 degrees Celsius. The specification allows messages to arrive in any order. A gateway receives messages out of order, and one message that says 900. P27 (tolerate variation) and P33 (reject bad input) both seem to apply. What does K3 say to do?
+  options:
+  - text: Process the out-of-order messages normally, because the specification allows any order.
+    correct: true
+    feedback: Right. This is variation within the specification, which K3 tolerates (P27).
+  - text: Reject and log the message that says 900, because it is outside the specification.
+    correct: true
+    feedback: 'Right. K3 sends input outside the specification to P33: reject and report.'
+  - text: Clamp the 900 reading to 150 and accept it, because a robust system keeps running.
+    correct: false
+    feedback: Wrong. Clamping silently accepts bad input. K3 says to reject and report input outside the specification (P33).
+  - text: Reject the out-of-order messages, because strict interfaces mean strict timing.
+    correct: false
+    feedback: Wrong. The specification allows any order, so K3 puts it on the P27 side of the boundary.
+  - text: Accept every message and let the downstream code cope, because K3 says both rules aim at stability.
+    correct: false
+    feedback: Wrong. K3 says both rules aim at stable behavior and differ in where the boundary lies. The specification marks that boundary.
+  - text: Rank P33 above P27 for all input, because rejection is safer.
+    correct: false
+    feedback: Wrong. K3 does not rank either rule. It splits the cases at the edge of the specification.
+- id: q-k-07
+  rules:
+  - K4
+  stem: A service crashes. Orders are lost for every minute it stays down, and the time until harm (P73) is short. P83 asks to preserve the as-found state before a restart. Automation can restart the service now. Which of the following actions follow K4?
+  options:
+  - text: Capture crash dumps and ship logs automatically, and fast, before the restart.
+    correct: true
+    feedback: Right. K4 resolves the conflict between P83 and P73 with fast automatic evidence capture, so the delay is small.
+  - text: If harm is imminent, restart first and keep whatever the automation already captured.
+    correct: true
+    feedback: Right. K4 puts service restoration first when harm is imminent (P73) and keeps the automatic evidence (P83).
+  - text: Wait for a full forensic copy of the host, then restart.
+    correct: false
+    feedback: Wrong. K4 does not let P83 delay recovery beyond the time until harm (P73). A full copy takes too long.
+  - text: Restart now and discard the state, because recovery always outranks evidence in an outage.
+    correct: false
+    feedback: Wrong. K4 keeps whatever the automation captured. It does not drop P83, it only limits its delay.
+  - text: Ask the on-call engineer to snapshot the disks by hand before restarting.
+    correct: false
+    feedback: Wrong. K4 asks for automatic and fast capture. A manual step adds delay and depends on a person under stress (P73).
+- id: q-k-08
+  rules:
+  - K4
+  stem: A design review asks how the platform should handle the P83 (preserve evidence) and P73 (response faster than harm) conflict for automatic restarts. Which of the following designs follow K4?
+  options:
+  - text: Run a dump and log-shipping step as part of every automatic restart.
+    correct: true
+    feedback: Right. This is the example in K4. Capture runs before the restart without a person in the loop.
+  - text: Ship logs off the host continuously, so a restart cannot erase them.
+    correct: true
+    feedback: Right. Continuous capture follows K4's rule of automatic and fast evidence handling (P83) and costs the restart (P73) no time.
+  - text: Keep what the capture step finished when the restart must go ahead.
+    correct: true
+    feedback: Right. K4 says to restore service first when harm is imminent and keep whatever the automation captured.
+  - text: Disable automatic restarts, so that an engineer collects evidence first.
+    correct: false
+    feedback: Wrong. This favors P83 over P73. K4 keeps the restart and makes the evidence capture quick.
+  - text: Require a signed evidence form before any restart.
+    correct: false
+    feedback: Wrong. A manual paper step adds delay that can push recovery past the time until harm (P73). K4 uses automation to keep the trade-off small.
+- id: q-k-09
+  rules:
+  - K5
+  stem: In one week a team plans two decisions. One is a new internal dashboard. The other is deleting historical audit logs. P18 says to decide reversible things fast. P64 and P56 ask for review and an independent checker. Which of the following ways of handling the two decisions follow K5?
+  options:
+  - text: Let the team decide on the dashboard with a peer review or a self-check.
+    correct: true
+    feedback: 'Right. K5: reversible and low consequence means peer review or a self-check (P18, P56).'
+  - text: Require two approvers and a legal review for deleting the audit logs.
+    correct: true
+    feedback: 'Right. K5: irreversible or high consequence means full review (P64), P42 and an external checker (P56).'
+  - text: Give the dashboard the same full review as the audit logs, because P64 says always.
+    correct: false
+    feedback: Wrong. K5 scales the depth with reversibility and consequence. The same depth for both makes the reversible case slow, against P18.
+  - text: Decide the audit logs quickly at team level, because P18 favors speed.
+    correct: false
+    feedback: Wrong. P18 favors speed only for reversible decisions. K5 sends irreversible ones to full review.
+  - text: Give the dashboard an external checker, because P56 requires independence for every change.
+    correct: false
+    feedback: Wrong. P56 raises independence with consequence. K5 allows a peer or self-check for a low-consequence, reversible change.
+- id: q-k-10
+  rules:
+  - K5
+  stem: A developer proposes dropping a production table with no backup. A manager says P18 means the lowest competent level should decide quickly. Which of the following statements follow K5?
+  options:
+  - text: The drop is irreversible and high consequence, so it gets full review (P64).
+    correct: true
+    feedback: Right. K5 sends irreversible or high-consequence decisions to full review, and P18 itself asks for slow decisions with consultation here.
+  - text: Require the two-person rule (P42) when the drop runs.
+    correct: true
+    feedback: Right. K5 names P42 for irreversible or high-consequence actions.
+  - text: Use an external checker (P56) on the change.
+    correct: true
+    feedback: Right. K5 names an external checker for this class, in line with P56's rule that independence rises with consequence.
+  - text: A peer review is enough, because the diff is small.
+    correct: false
+    feedback: Wrong. K5 scales depth by reversibility and consequence, not by diff size. A one-line drop can still be irreversible.
+  - text: Approve it now at team level and review it afterwards, as in K2.
+    correct: false
+    feedback: Wrong. That is the K2 path for harm that develops faster than review allows. K5 asks for full review before an irreversible act.
+- id: q-k-11
+  rules:
+  - K6
+  stem: A manager wants to follow P7 (leave the method to the people who do the work) but a quarterly backup restore is rare and critical (P71). Another task is to improve developer onboarding. Which of the following ways of handling the two tasks follow K6?
+  options:
+  - text: Give the restore a short checklist that the team confirms item by item.
+    correct: true
+    feedback: Right. K6's own example prescribes the restore checklist, a rare and critical procedure where P71 applies.
+  - text: Give the onboarding task as purpose, end state and constraints only.
+    correct: true
+    feedback: Right. K6 says everywhere else, give intent and constraints, as P7 asks.
+  - text: Write step-by-step instructions for onboarding too, so everyone works the same way.
+    correct: false
+    feedback: Wrong. K6 warns that prescribed methods everywhere stop initiative (P7). Onboarding is not a critical control point.
+  - text: Give the restore only as intent, because the team is experienced.
+    correct: false
+    feedback: Wrong. K6 warns that free methods at critical points remove proven protections (P71, P72, P61).
+  - text: Leave the method free in both cases, because P7 is the rule for delegation.
+    correct: false
+    feedback: Wrong. P7 covers delegation, but K6 carves out critical procedures, where the method is prescribed.
+- id: q-k-12
+  rules:
+  - K6
+  stem: A repeated release process has twenty steps. One step, the signing of the production artifact, is where control is essential (P72). Another process has a result that can't be fully checked afterwards (P61). The rest is routine team work. Which of the following choices follow K6?
+  options:
+  - text: Prescribe the method at the signing step, as a critical control point with a limit and monitoring.
+    correct: true
+    feedback: Right. K6 prescribes the method at critical control points (P72).
+  - text: Prescribe the proven, qualified procedure for the result that can't be checked afterwards.
+    correct: true
+    feedback: Right. K6 names qualified or regulated procedures (P61) as places to prescribe the method.
+  - text: Give intent and constraints for the other steps, and let the team pick its method.
+    correct: true
+    feedback: Right. K6 says everywhere else, give intent and constraints, as P7 asks.
+  - text: Prescribe all twenty steps, because one step is critical.
+    correct: false
+    feedback: Wrong. K6 prescribes at critical points only. Prescribing everywhere stops initiative (P7).
+  - text: Leave the signing step to the engineer's judgment, because the team is skilled.
+    correct: false
+    feedback: Wrong. K6 warns that free methods at critical points remove proven protections (P72).
+  - text: Add a checklist (P71) to every step, since checklists are cheap.
+    correct: false
+    feedback: Wrong. P71 applies to critical procedures that are rare, complex or under pressure. K6 limits prescription to critical control points, qualified or regulated procedures and what the rigor matrix requires.
+- id: q-k-13
+  rules:
+  - K7
+  stem: After an outage, two things come out. An engineer ran a wrong command during the incident. Another engineer bypassed the two-person rule on purpose to ship faster. P5 and P80 (blameless) seem to conflict with accountability (P43, P2). Which of the following ways of handling the two cases follow K7?
+  options:
+  - text: Treat the wrong command in a blameless postmortem, and look for the system weakness behind it.
+    correct: true
+    feedback: 'Right. K7: honest errors and system weaknesses are treated without blame (P80, P5).'
+  - text: Treat the deliberate bypass through a defined, fair disciplinary procedure.
+    correct: true
+    feedback: Right. K7 sends deliberate violations, such as bypassing the two-person rule (P42), to a disciplinary procedure. Without a consequence, accountability (P43, P2) and the controls lose their force.
+  - text: Discipline both engineers, so that accountability is clear.
+    correct: false
+    feedback: Wrong. The wrong command was an honest error. K7 treats honest errors without blame, because blame hides information (P5, P80).
+  - text: Run a blameless review for both, because P5 means no one is punished.
+    correct: false
+    feedback: Wrong. K7 warns that no consequence for deliberate violations destroys trust and controls (P43).
+  - text: Give the wrong-command engineer a mild warning as an example, and keep the postmortem.
+    correct: false
+    feedback: Wrong. A warning is still blame for an honest error, and K7 treats honest errors without blame (P5, P80).
+- id: q-k-14
+  rules:
+  - K7
+  stem: An operator reports a near miss. They mistyped a delete command, noticed it and stopped it in time. A manager wants a formal warning, citing P2 (work within competence). The operator acted honestly and followed procedure. What does K7 say?
+  options:
+  - text: Treat the near miss without blame, and look for the system cause, for example a missing confirmation step.
+    correct: true
+    feedback: Right. K7 treats honest errors and system weaknesses without blame (P80).
+  - text: Thank the operator for the report, so that near-miss reports continue.
+    correct: true
+    feedback: Right. P5 says never to punish an honest report, and K7 keeps it in force for honest errors.
+  - text: Issue the warning, because accountability (P2) requires a consequence for every error.
+    correct: false
+    feedback: Wrong. K7 says blame for honest errors hides information. The disciplinary procedure is for deliberate violations, not honest errors.
+  - text: Open the disciplinary procedure, because the operator lacked care.
+    correct: false
+    feedback: Wrong. K7 reserves the procedure for deliberate violations, reckless behavior and fraud, and this was an honest slip.
+  - text: Skip the analysis, because no harm happened.
+    correct: false
+    feedback: Wrong. P82 asks you to investigate anomalies even if nobody was harmed, and K7 keeps that analysis blameless for honest errors. A near miss shows a weakness.
+- id: q-k-15
+  rules:
+  - K8
+  stem: A team has the goal 'halve build time' (P21). Leadership wants to base each engineer's bonus on the build time number. P19 warns that rewarded indicators are gamed. Which of the following ways of handling the goal and the bonus follow K8?
+  options:
+  - text: Keep the goal for direction and learning.
+    correct: true
+    feedback: Right. K8 keeps goals (P21) for direction and learning.
+  - text: Pair the target with a counter-indicator, for example test coverage must not drop.
+    correct: true
+    feedback: Right. K8 requires a counter-indicator for every target (P19).
+  - text: Do not calculate bonuses mechanically from build time.
+    correct: true
+    feedback: Right. K8 says not to tie pay or ranking mechanically to one indicator, because a single rewarded number distorts the work (P19).
+  - text: Drop the goal, because numerical goals distort the work.
+    correct: false
+    feedback: Wrong. K8 keeps goals (P21) for direction and learning. It removes the mechanical link to pay, not the goal.
+  - text: Tie the bonus to build time and add a larger bonus for finishing early.
+    correct: false
+    feedback: Wrong. This strengthens the single rewarded number that K8 warns about (P19).
+- id: q-k-16
+  rules:
+  - K8
+  stem: A support team is ranked by tickets closed per day. Closures rise, but customers reopen more tickets. The director wants to keep the ranking and raise the target (P21). Which of the following actions follow K8?
+  options:
+  - text: Add the reopen rate as a counter-indicator for the closing target.
+    correct: true
+    feedback: Right. K8 pairs every target with a counter-indicator, and P19 expects the closing number to be gamed.
+  - text: Stop ranking people mechanically by tickets closed.
+    correct: true
+    feedback: Right. K8 says not to tie ranking mechanically to one indicator (P19).
+  - text: Use the goal to show where the team should improve and learn.
+    correct: true
+    feedback: Right. K8 uses goals for direction and learning (P21).
+  - text: Raise the target and keep the ranking, because P21 asks for challenging goals.
+    correct: false
+    feedback: Wrong. P21 gives direction, but K8 warns that a single rewarded number distorts the work (P19).
+  - text: Remove all targets from the team, because Deming rejects numerical goals.
+    correct: false
+    feedback: Wrong. K8 keeps goals for direction and learning. It limits how they are tied to pay and ranking.
+  - text: Replace the ranking with a ranking on reopen rate alone.
+    correct: false
+    feedback: Wrong. That swaps one single rewarded number for another. K8 asks for a pair with a counter-indicator, and not a mechanical ranking.

@@ -1,2 +1,290 @@
 # Quiz questions, category D. Schema: schema/learn-quiz.schema.json.
-[]
+- id: q-d-01
+  rules: [P36]
+  stem: A platform team reviews its service accounts after 90 days. Which of the following findings must they act on under least privilege?
+  options:
+    - text: The reporting service holds a database write permission it has not used in 90 days.
+      correct: true
+      feedback: Right. P36 checks that no role holds a permission that was unused for a set period. Remove the write permission.
+    - text: The billing service uses a role limited to read access on one table, and uses it daily.
+      correct: false
+      feedback: This is what P36 asks for. The role is the minimum its function needs, and it is used. Nothing to change.
+    - text: The deploy pipeline runs with cluster-admin rights but only ever updates one namespace.
+      correct: true
+      feedback: Right. P36 gives each process only the access its function needs. Scope the pipeline to that namespace.
+    - text: All services write their logs to an audit store that only the security team can read.
+      correct: false
+      feedback: This is not a P36 finding. It limits who reads the logs, and no service holds more access than it needs.
+    - text: An engineer keeps a standing admin role in case an incident happens one day.
+      correct: true
+      feedback: Right. A permission held just in case is more than the function needs (P36). Grant it when needed, and remove it afterwards.
+- id: q-d-02
+  rules: [P36]
+  stem: A finance director says all team leads should see every employee's salary data, so that they can plan budgets. Which of the following responses follow the management form of least privilege?
+  options:
+    - text: Give each lead the budget and headcount of their own team only.
+      correct: true
+      feedback: Right. P36 in its management form gives each person only the information their role needs.
+    - text: Give all leads the HR export, because they are trusted people.
+      correct: false
+      feedback: Wrong. Trust does not change need. Under P36 the question is what the role needs, and planning does not need salaries.
+    - text: Require two signatures on every payment above a set amount.
+      correct: false
+      feedback: A good control, but it is the two-person rule (P42) at the moment of payment. It does not limit what data a lead can see (P36).
+    - text: Set a written spending limit for each lead, with higher amounts going up a level.
+      correct: true
+      feedback: Right. Written limits of authority are part of P36 in its management form.
+    - text: Remove the spending limits of senior leads to speed up decisions.
+      correct: false
+      feedback: Wrong. P36 keeps decision authority at what the role needs. Speed is handled by deciding reversible things low (P18), not by removing limits.
+- id: q-d-03
+  rules: [P37]
+  stem: An admission webhook that checks image signatures starts to error under load. The team must decide how it behaves when it fails. Which of the following choices follow fail-safe?
+  options:
+    - text: Allow the request through, so that deployments never stall.
+      correct: false
+      feedback: Wrong. This fails open and moves a security control to the dangerous state. P37 designs failure to move to the safe state.
+    - text: Write down that the safe state is to reject, and test it by injecting a failure.
+      correct: true
+      feedback: Right. P37 requires a defined safe state, and its check is a failure injection that shows the system reaches it.
+    - text: Leave the behavior to the client library default, since nobody has tested what it does.
+      correct: false
+      feedback: Wrong. Undefined behavior when a dependency is lost is the violation named in P37.
+    - text: Reject the request while the webhook errors, and raise an alert.
+      correct: true
+      feedback: Right. Rejecting is the defined safe state here, and the alert tells people the system is in it (P37).
+    - text: Run a second copy of the same webhook against the same key service.
+      correct: false
+      feedback: Wrong. Both copies share the key service, so one cause stops both (P46), and neither defines a safe state. Redundancy (P45) does not replace P37.
+- id: q-d-04
+  rules: [P37]
+  stem: A company approves every production change through one change approver. The approver is often away. Which of the following defaults follow the management form of fail-safe?
+  options:
+    - text: Any manager may approve by chat message while the approver is away.
+      correct: false
+      feedback: Wrong. Failure moves to a dangerous state, since anyone can approve. P37 defines the fallback in advance.
+    - text: No change goes ahead, and a named deputy can approve instead.
+      correct: true
+      feedback: Right. P37 asks for a default option and a deputy, so absence moves the process to no change.
+    - text: Leave the matter open and decide each time the approver is away.
+      correct: false
+      feedback: Wrong. P37 defines what happens in advance. Deciding in the moment leaves the behavior undefined.
+    - text: Require two approvers for every change, whoever is available.
+      correct: false
+      feedback: Wrong. This is the two-person rule (P42), for critical irreversible actions. It does not say what happens when approvers are absent.
+- id: q-d-05
+  rules: [P38]
+  stem: A review finds an admin port on a payment service that every office laptop can reach. A vendor tool needs the port in production, so it cannot be removed. Which of the following actions follow the hierarchy of controls?
+  options:
+    - text: Add a README line that says do not connect to the admin port.
+      correct: false
+      feedback: Wrong. A warning is the weakest kind of control. It is the violation named in P38 when it is the only control.
+    - text: Bind the port to localhost, so only the vendor agent can reach it.
+      correct: true
+      feedback: Right. This is an engineering control and acts at the source (P38). It does not depend on people.
+    - text: Add a runbook step that tells operators to avoid the port.
+      correct: false
+      feedback: Wrong. A runbook is an administrative control, and a higher level is possible here (P38).
+    - text: Block the port with a policy rule and record why removal was not possible.
+      correct: true
+      feedback: Right. P38 checks for a record that explains why a higher level was not possible. A policy engine is an engineering control.
+- id: q-d-06
+  rules: [P38]
+  stem: An audit finds that staff share one login to a supplier portal. Which of the following responses follow the hierarchy of controls for management risks?
+  options:
+    - text: Remove the shared account and give each person a personal login.
+      correct: true
+      feedback: Right. Eliminating the risk is the highest level in P38. The shared credential no longer exists.
+    - text: Publish a policy that says do not share credentials.
+      correct: false
+      feedback: Wrong. A policy alone depends on people's behavior. P38 prefers removing shared accounts instead.
+    - text: Run a yearly training session on password habits.
+      correct: false
+      feedback: Wrong. Training is a low level in P38. It leaves the shared login in place.
+    - text: Enforce single sign-on with multi-factor authentication, so sharing stops working.
+      correct: true
+      feedback: Right. Single sign-on with a second factor ties each login to one person, which is how the shared account is removed in practice. It is system-enforced, so it does not rely on people's care (P38).
+    - text: Keep one account, and let a vault hand out a credential to one named person at a time.
+      correct: false
+      feedback: Wrong here. A vault is a lower level than removing the shared account, and removal is possible. P38 uses the highest possible level and records why a higher one was not possible.
+- id: q-d-07
+  rules: [P39]
+  stem: A postmortem shows that three engineers ran a destructive migration against production when they meant to use staging. Which of the following fixes follow error-proofing?
+  options:
+    - text: Send a reminder email every Monday that asks engineers to check the target.
+      correct: false
+      feedback: Wrong. A reminder is the violation named in P39. It relies on memory and leaves the error possible.
+    - text: Make the migration tool refuse a production target unless the command carries a change ticket number.
+      correct: true
+      feedback: Right. P39 first tries to make the error impossible. A technical guard at that level satisfies the check.
+    - text: Add a line about environments to the onboarding guide.
+      correct: false
+      feedback: Wrong. Documentation does not stop a repeated error. P39 asks for a technical guard.
+    - text: Add a dry-run mode that engineers may run if they remember to.
+      correct: false
+      feedback: Wrong. An optional step is not a guard. P39 also prefers impossible over visible, and an impossible fix exists here.
+- id: q-d-08
+  rules: [P39]
+  stem: A purchasing team keeps receiving orders with no contract number. Which of the following responses follow the management form of error-proofing?
+  options:
+    - text: Make the contract number a required field, so the system refuses an order without one.
+      correct: true
+      feedback: Right. P39 makes the error impossible in the process, so nobody has to catch it later.
+    - text: Sample finished orders every month and chase the gaps by hand.
+      correct: false
+      feedback: Wrong. This is inspection after the fact. P39 builds quality into the process instead of relying on it.
+    - text: Reject any number that is not in the contract register.
+      correct: true
+      feedback: Right. A system check on the value closes the gap that a required field leaves open (P39).
+    - text: Train buyers on the importance of contract numbers.
+      correct: false
+      feedback: Wrong. Training asks people not to err. P39 makes the error impossible instead.
+    - text: Ask a second person to sign every order.
+      correct: false
+      feedback: Wrong. The two-person rule (P42) is for critical, irreversible actions. A signature does not stop a missing number getting in.
+- id: q-d-09
+  rules: [P40]
+  stem: A company stores customer records behind one perimeter firewall. Which of the following changes give it defense in depth?
+  options:
+    - text: Add a second firewall of the same make and configuration at the same perimeter.
+      correct: false
+      feedback: Wrong. The copy fails the same way as the first. P40 needs independent layers.
+    - text: Add role-based access and a network policy, and test each layer every quarter.
+      correct: true
+      feedback: Right. P40 checks for at least two independent layers per critical asset, each one verified.
+    - text: Rely on the firewall, since the vendor rates it highly.
+      correct: false
+      feedback: Wrong. Every single control fails at some point (P40). A rating is no substitute for layers.
+    - text: Encrypt the data at rest and prove in a test that a copied disk is unreadable.
+      correct: true
+      feedback: Right. Encryption is a layer independent of the firewall and the access roles, and the test verifies it (P40).
+    - text: Add a third layer that nobody has tested.
+      correct: false
+      feedback: Wrong. P40 requires each layer to be verified. An untested layer may not work when needed.
+- id: q-d-10
+  rules: [P40]
+  stem: A company wants independent lines of defense over access to its production systems. Which of the following arrangements follow the management form of defense in depth?
+  options:
+    - text: The platform team owns the access risk, security monitors it, and internal audit tests both.
+      correct: true
+      feedback: Right. P40 in its management form uses three independent lines, owner, risk function and internal audit.
+    - text: The platform team owns, monitors and audits its own access.
+      correct: false
+      feedback: Wrong. One team in all three roles is one line, so one blind spot defeats all of it (P40).
+    - text: Security owns the risk and also performs the internal audit of it.
+      correct: false
+      feedback: Wrong. The auditor must be independent of the owner and of the risk function (P40).
+    - text: Two platform engineers review each other's access.
+      correct: false
+      feedback: Wrong. This is a peer check inside the first line (P56). It does not add independent lines.
+- id: q-d-11
+  rules: [P41]
+  stem: A software-as-a-service product serves many customers from test, staging and production environments. Which of the following designs follow compartments?
+  options:
+    - text: Run production and testing in separate cloud accounts.
+      correct: true
+      feedback: Right. A separate account isolates one environment's failure from the others (P41).
+    - text: Keep one shared database for all tenants and environments, and index it well.
+      correct: false
+      feedback: Wrong. This is the violation named in P41. One bad query reaches every tenant.
+    - text: Set quotas per namespace, so one runaway job cannot starve the rest.
+      correct: true
+      feedback: Right. A quota contains the damage inside one compartment (P41).
+    - text: Add a standby replica of the one shared database.
+      correct: false
+      feedback: Wrong. A replica is redundancy (P45). Bad data written to the primary copies to the replica, so the failure still spreads.
+    - text: Serve each group of customers from its own cell.
+      correct: true
+      feedback: Right. Cell-based design lets one damaged cell fail alone. P41 checks that a failure test in one compartment leaves the rest working.
+- id: q-d-12
+  rules: [P41]
+  stem: A company launches a risky new product beside its core business. Which of the following arrangements follow the management form of compartments?
+  options:
+    - text: Fund the product from the core budget line, to keep accounts simple.
+      correct: false
+      feedback: Wrong. A shared budget lets a failure spread to the core business. P41 separates budgets.
+    - text: Give the product its own budget and written stop criteria.
+      correct: true
+      feedback: Right. Ring-fencing is the management form of P41. The loss is capped at the product's budget.
+    - text: Run the product as a separate legal entity.
+      correct: true
+      feedback: Right. A separate entity is one way to keep a failure from spreading (P41).
+    - text: Let the core team run both products with shared on-call and shared cash.
+      correct: false
+      feedback: Wrong. Shared people and cash connect the two, so a failure spreads to the core business (P41). Fewer parts (P23) cannot justify removing every compartment.
+- id: q-d-13
+  rules: [P42]
+  stem: A platform team lists the actions that may need a second approver. Which of the following actions fall under the two-person rule?
+  options:
+    - text: Deleting production data after the backup window has passed.
+      correct: true
+      feedback: Right. The action is critical and cannot be undone, so P42 requires two authorized people.
+    - text: Editing a draft page on the team wiki.
+      correct: false
+      feedback: Wrong. The action is neither critical nor irreversible. P42 does not apply.
+    - text: Using break-glass access to production.
+      correct: true
+      feedback: Right. P42 names break-glass access as a case for a live second approver.
+    - text: Restarting a stateless service that has a one-click rollback.
+      correct: false
+      feedback: Wrong. The action can be undone, so a second person would only add cost (P42).
+    - text: Turning off a feature flag that can be switched back in seconds.
+      correct: false
+      feedback: Wrong. It is reversible. Reversible decisions are made fast and low (P18), and P42 does not apply.
+- id: q-d-14
+  rules: [P42]
+  stem: A company releases large payments from its bank account. Which of the following setups follow the management form of the two-person rule?
+  options:
+    - text: A payment above a set amount needs two signatures when it is released.
+      correct: true
+      feedback: Right. P42 requires two authorized people at the moment of action for critical irreversible actions.
+    - text: The second signer approves the next day, after the money has left.
+      correct: false
+      feedback: Wrong. P42 needs the second person at the moment of action, before the payment cannot be recalled.
+    - text: One senior manager can release any payment alone, because they are trusted.
+      correct: false
+      feedback: Wrong. P42 exists because one person can make an error or act with bad intent.
+    - text: Two clerks sign, but both use one shared login.
+      correct: false
+      feedback: Wrong. The system must enforce two distinct approvers (P42). A shared login is one person to the system.
+    - text: A contract above a set value also needs two signatures.
+      correct: true
+      feedback: Right. Contract signature is a named case of a critical, irreversible management action (P42).
+- id: q-d-15
+  rules: [P43]
+  stem: A four-person team runs a cloud account that holds customer data, and the possible loss is above the acceptable risk. Which of the following arrangements satisfy segregation of duties?
+  options:
+    - text: One engineer requests production access and another approves it.
+      correct: true
+      feedback: Right. P43 splits the process so that nobody both requests and approves the same transaction.
+    - text: Anyone may grant themselves admin rights, and the audit log lives in the same account.
+      correct: false
+      feedback: Wrong. One person can grant rights and delete the log, which is the violation named in P43.
+    - text: The one admin also executes and records changes, and a later independent review checks the log.
+      correct: true
+      feedback: Right. Where the team is too small to split a step, P43 allows a compensating control, a later independent review.
+    - text: Two admins share one password so that either can step in.
+      correct: false
+      feedback: Wrong. Shared credentials remove the separation. The system cannot tell who acted (P43).
+    - text: A quarterly access review that only looks for unused permissions.
+      correct: false
+      feedback: Wrong. That is the check of least privilege (P36). P43 checks for people holding two incompatible roles.
+- id: q-d-16
+  rules: [P43, P42, P36]
+  stem: A reviewer finds one person who raises purchase requests, approves them and records the payments. Which of the following fixes satisfy segregation of duties?
+  options:
+    - text: Split request, approval, execution and recording across different people.
+      correct: true
+      feedback: Right. P43 requires that no single person can do all of these steps on one transaction.
+    - text: Require two signatures on the payment only.
+      correct: false
+      feedback: Wrong. That is the two-person rule (P42) at the moment of payment. The same person still requests, approves and records.
+    - text: Write a matrix of incompatible roles and review who holds two of them.
+      correct: true
+      feedback: Right. The check in P43 is a matrix of incompatible roles plus an access review that finds nobody holding two.
+    - text: Cut the person's permissions to what their job needs.
+      correct: false
+      feedback: Wrong. Least privilege (P36) fits access to the job. If the job includes every step, the person still holds all of them (P43).
+    - text: Add a later independent review where the team is too small to split a step.
+      correct: true
+      feedback: Right. P43 allows a compensating control, a later independent review, in a very small team.

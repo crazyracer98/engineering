@@ -9,6 +9,9 @@ function getStorage() {
   }
 }
 
+// Same cue on every question; keep in step with SELECT_CUE in render_learn.py.
+const HINT_TEXT = "Select all that apply.";
+
 function el(tag, attrs = {}, text) {
   const node = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
@@ -18,9 +21,10 @@ function el(tag, attrs = {}, text) {
 
 // Same markup as the static contract. Only feedback_html is trusted HTML.
 function renderQuestion(q) {
-  const form = el("form", { class: "quiz-q", "data-qid": q.id });
-  const fs = el("fieldset");
-  fs.append(el("legend", {}, q.stem));
+  const form = el("form", { class: "quiz-q", "data-qid": q.id, autocomplete: "off" });
+  const hintId = `${q.id}-hint`;
+  const fs = el("fieldset", { "aria-describedby": hintId });
+  fs.append(el("legend", {}, q.stem), el("p", { class: "quiz-hint", id: hintId }, HINT_TEXT));
   q.options.forEach((o, i) => {
     const input = el("input", { type: "checkbox", name: q.id, value: String(i) });
     if (o.correct) input.setAttribute("data-correct", "1");
@@ -65,6 +69,14 @@ function clearQuestion(form) {
   form.querySelectorAll(".quiz-fb").forEach((p) => (p.hidden = true));
   const r = form.querySelector(".quiz-result");
   if (r) r.textContent = "";
+}
+
+// Browsers (Firefox form cache, bfcache) can restore ticks the quiz does not
+// show feedback for; every quiz starts with all options unchecked.
+function uncheckAll(scope) {
+  scope.querySelectorAll("form.quiz-q input[type=checkbox]").forEach((i) => {
+    i.checked = false;
+  });
 }
 
 function setResult(form, ok, text) {
@@ -132,6 +144,7 @@ function initQuiz(root, pageStorage) {
     const mine = ++run;
     root.querySelectorAll(".quiz-error").forEach((e) => e.remove());
     if (!mixed) {
+      uncheckAll(root);
       forms().forEach(bind);
       updateScore();
       return;
@@ -186,6 +199,13 @@ function initAll() {
     initQuiz(root, storage);
   });
 }
+
+// A bfcache restore keeps the whole old DOM, feedback included. The score
+// stays; the per-question state is reset like a fresh load.
+window.addEventListener("pageshow", (ev) => {
+  if (!ev.persisted) return;
+  document.querySelectorAll(".quiz form.quiz-q").forEach(clearQuestion);
+});
 
 // Material instant navigation re-renders the page without a reload and
 // exposes `document$`; otherwise run once the DOM is ready.
