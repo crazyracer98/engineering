@@ -33,6 +33,10 @@ Every quiz on the site meets these constraints:
 - If `localStorage` is unavailable or holds corrupt data, the quiz still
   works; it just does not remember progress. The storage functions never
   throw.
+- On reload a category quiz restores only its running score
+  (`.quiz-score`), counted over the questions on the page; options,
+  feedback and per-question status stay cleared. The mixed quiz is a fresh
+  random draw each time and never reads or writes storage.
 
 ## Source
 
@@ -44,8 +48,9 @@ to build a small quiz engine of our own instead of a third-party plugin.
 
 - Automated, on every commit through the `js-tests` prek hook
   (`node --test`, `tests/js/quiz-core.test.js`): the pure core in
-  `site-assets/quiz-core.js` (scoring, seeded drawing, and progress
-  storage that never throws on a null, throwing or corrupt store).
+  `site-assets/quiz-core.js` (scoring, seeded drawing, progress
+  storage that never throws on a null, throwing or corrupt store, the score
+  restored from stored progress, and the mixed quiz's no-storage rule).
 - Manual, at the learning hub's G3 gate and after any change to
   `site-assets/` or the quiz markup: in a real browser, (1) complete a
   quiz with the keyboard only and check the focus order, the focus after

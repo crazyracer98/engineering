@@ -1,5 +1,5 @@
 // Thin DOM glue for the quizzes; the logic lives in quiz-core.js.
-import { score, draw, loadProgress, saveProgress } from "./quiz-core.js";
+import { score, draw, loadProgress, saveProgress, persistsProgress, scoreFromProgress } from "./quiz-core.js";
 
 function getStorage() {
   try {
@@ -75,9 +75,11 @@ function setResult(form, ok, text) {
   return r;
 }
 
-function initQuiz(root, storage) {
+function initQuiz(root, pageStorage) {
   const name = root.dataset.quiz || "quiz";
   const mixed = name === "mixed";
+  // The mixed test is a fresh draw each time: it never reads or writes storage.
+  const storage = persistsProgress(name) ? pageStorage : null;
   let scoreEl = root.querySelector(".quiz-score");
   let resetBtn = root.querySelector(".quiz-reset");
   if (!scoreEl) {
@@ -88,7 +90,7 @@ function initQuiz(root, storage) {
     resetBtn = el("button", { class: "quiz-reset", type: "button" }, "Reset");
     root.append(resetBtn);
   }
-  // Remember only what this page has run: progress storage is global per quiz.
+  // Category quizzes restore only the running score on reload, not per-question state.
   let progress = storage ? loadProgress(storage, name) : { answered: {} };
   if (!progress || !progress.answered) progress = { answered: {} };
 
@@ -96,22 +98,10 @@ function initQuiz(root, storage) {
 
   function updateScore() {
     const fs = forms();
-    const done = fs.filter((f) => f.dataset.qid in progress.answered);
-    const right = done.filter((f) => progress.answered[f.dataset.qid]).length;
-    scoreEl.textContent = done.length
-      ? `Score: ${right} of ${done.length} answered correctly (${fs.length} questions).`
+    const { right, done } = scoreFromProgress(progress, fs.map((f) => f.dataset.qid));
+    scoreEl.textContent = done
+      ? `Score: ${right} of ${done} answered correctly (${fs.length} questions).`
       : "";
-  }
-
-  function restore() {
-    for (const f of forms()) {
-      const qid = f.dataset.qid;
-      if (qid in progress.answered) {
-        const ok = progress.answered[qid];
-        setResult(f, ok, ok ? "Answered correctly earlier." : "Answered incorrectly earlier.");
-      }
-    }
-    updateScore();
   }
 
   function bind(form) {
@@ -143,7 +133,7 @@ function initQuiz(root, storage) {
     root.querySelectorAll(".quiz-error").forEach((e) => e.remove());
     if (!mixed) {
       forms().forEach(bind);
-      restore();
+      updateScore();
       return;
     }
     const url = new URL(root.dataset.bank, document.baseURI);
@@ -165,7 +155,7 @@ function initQuiz(root, storage) {
       bind(f);
       root.insertBefore(f, scoreEl);
     }
-    restore();
+    updateScore();
   }
 
   resetBtn.addEventListener("click", () => {
