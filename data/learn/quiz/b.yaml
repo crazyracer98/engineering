@@ -424,8 +424,7 @@
   rules: [P15]
   stem: >-
     Finance receives a credible but unproven fraud warning about a supplier's
-    new bank details. Which responses fit the management form of P15? Select
-    all that apply.
+    new bank details. Which response fits the management form of P15?
   options:
     - text: Pause payments to that supplier while the warning is checked
       correct: true
