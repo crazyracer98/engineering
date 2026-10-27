@@ -257,7 +257,7 @@ def test_verbatim_quote_is_not_rewritten(repo: Path, edit: Edit) -> None:
 def test_relative_links_reduced_images_to_alt_text() -> None:
     text = (
         "[doc](history.md) [mail](mailto:a@b.org) [web](https://x.org/a) "
-        "[anchor](#sec) ![diagram](img/d.png) ![web](https://x.org/i.png)\n"
+        "[anchor](#sec) ![diagram](img/d.png)\n"
     )
     out = method_markdown(text)
     assert "doc " not in out and "](history.md)" not in out
@@ -265,5 +265,84 @@ def test_relative_links_reduced_images_to_alt_text() -> None:
     assert "[mail](mailto:a@b.org)" in out
     assert "[web](https://x.org/a)" in out
     assert "[anchor](#sec)" in out
-    assert "diagram " in out and "!diagram" not in out and "img/d.png" not in out
-    assert "![web](https://x.org/i.png)" in out
+    assert (
+        out.endswith("[anchor](#sec) diagram\n")
+        and "!diagram" not in out
+        and "img/d.png" not in out
+    )
+
+
+@pytest.mark.parametrize(
+    "target", ["https://x.org/i.png", "//x.org/i.png", "data:image/png;base64,AA"]
+)
+def test_absolute_image_urls_are_rejected(target: str) -> None:
+    with pytest.raises(ValueError, match=r"docs/m\.md.*absolute image URL.*i\.png|AA"):
+        method_markdown(f"text ![alt]({target}) more\n", name="docs/m.md")
+    # a regular link to a URL stays allowed
+    assert f"[web]({target})" in method_markdown(f"[web]({target})\n")
+
+
+def test_prose_sections_reject_absolute_image_urls(repo: Path) -> None:
+    path = repo / "paper" / "sections" / "01-introduction.md"
+    path.write_text(
+        path.read_text(encoding="utf-8") + "\n![x](http://x.org/a.png)\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="01-introduction.md.*http://x.org/a.png"):
+        assemble(repo)
+
+
+def test_file_line_targets_are_not_url_schemes() -> None:
+    # "README.md:12" is a path with a line number, not a scheme (RFC 3986 would
+    # allow the dot, but a dotted scheme counts only before "//").
+    out = method_markdown("[a](README.md:12) [b](src/x.py:3) [c](a.b://h/p)\n")
+    assert out == "a b [c](a.b://h/p)\n"
+
+
+def test_balanced_parentheses_in_targets_are_consumed() -> None:
+    out = method_markdown("![alt](img(1).png) and [t](docs/a(b).md) end\n")
+    assert out == "alt and t end\n"
+    # a URL link with parentheses is left whole
+    url = "[w](https://x.org/a_(b))"
+    assert method_markdown(url + "\n") == url + "\n"
+
+
+def test_history_link_variants() -> None:
+    url = render_paper.HISTORY_URL
+    out = method_markdown(
+        "[a](history.md) [b](./history.md) [c](history.md#ed-9) [d](./history.md#x)\n"
+    )
+    assert out == f"[a]({url}) [b]({url}) [c]({url}#ed-9) [d]({url}#x)\n"
+
+
+def test_apostrophes_only_in_text() -> None:
+    src = (
+        "P71's and `P71's` and\n```\nx = 'a1'b\n```\n"
+        "#link(\"https://x.org/P1's\")[P1]'s <p1> \\1's"
+    )
+    out = typographic_apostrophes(src)
+    assert out.startswith("P71’s and `P71's` and\n```\nx = 'a1'b\n```\n")
+    assert '#link("https://x.org/P1\'s")[P1]’s' in out
+    assert "<p1>" in out and "\\1's" in out
+
+
+def test_sources_text_with_trailing_period_is_not_doubled(
+    repo: Path, edit: Edit
+) -> None:
+    def seed(doc: Any) -> None:
+        for rule in doc if isinstance(doc, list) else doc["rules"]:
+            m = rule.get("management")
+            if m and not m["sources"]:
+                m["sources_text"] = "cross-reference only."
+                return
+
+    edit("data/rules.yaml", seed)
+    appendix = assemble(repo).split("# Management form of each rule", 1)[1]
+    assert "cross-reference only.." not in appendix
+    assert "cross-reference only. Evidence: " in appendix
+
+
+def test_empty_sources_leave_no_stray_period() -> None:
+    assert render_paper._sentence("") == ""
+    assert render_paper._sentence("[@a].") == "[@a]."
+    assert render_paper._sentence("Evidence: x") == "Evidence: x."
