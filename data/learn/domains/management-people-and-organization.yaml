@@ -1,12 +1,12 @@
 # Domain examples, branch Management: People and organization. Schema: schema/learn-domains.schema.json.
 - branch: 'Management: People and organization'
   domain: Team leadership
-  scenario: A new team lead runs a weekly review for a support team. After a bad week she thanks the engineer who reported that he had pushed a wrong setting. She asks the team what slowed them down. Every few months an anonymous survey asks whether people feel safe to speak up. She also checks that the team's tools fit how agents really work on a busy shift, not on a calm one.
+  scenario: A new team lead runs a weekly review for a support team. After a bad week she thanks the engineer who reported that he had pushed a wrong setting. She asks the team what slowed them down. Every few months an anonymous survey asks whether people feel safe to speak up. Each agent can name their role on the shift and the team's goal for the week. Before a new ticket tool is adopted, agents try it on a busy shift, not on a calm one.
   shows:
   - rule: P5
     how: The lead thanks the person who reports a mistake and asks for input. That makes it safe to report errors, ask questions and disagree. The anonymous survey item on speaking up is the rule's check.
   - rule: P25
-    how: The lead designs the team's tools for the real users in the real environment, a busy shift under stress. She does not design for an average user on a calm day.
+    how: The work is designed for real people under real conditions. Roles and goals are clear, and the tool is tried by the agents who will use it, under the stress of a busy shift, not judged for an average user on a calm day.
 - branch: 'Management: People and organization'
   domain: Personnel selection
   scenario: A company needs a new shift supervisor. Every candidate gets the same job-related questions. Each answer is rated on a scale tied to the job's requirements. Each candidate also does a short work sample, planning a rota with a mock staff shortage. The three interviewers score on their own before they meet to talk.
@@ -21,7 +21,7 @@
     how: The feedback is about a named task and how to improve it, not about character or ranking. The manager checks at the next review whether performance improved.
 - branch: 'Management: People and organization'
   domain: Goals and performance measurement
-  scenario: A sales director sets each team three specific goals for the year. Each goal has a measure, a deadline and a progress chart that is reviewed every month. One goal rewards the number of closed tickets. Teams start closing tickets early, and some close them without a fix. So the director pairs the count with a reopened-ticket rate, and reviews each year whether the count still tracks service quality. Each goal is also written so that it can be measured, and it links to a customer need.
+  scenario: A customer service director sets each team three specific, challenging goals for the year. Each goal has a measure, a deadline and a progress chart that is reviewed every month. One goal rewards the number of closed tickets. Teams start closing tickets early, and some close them without a fix. So the director pairs the count with a reopened-ticket rate, and reviews each year whether the count still tracks service quality. Each goal is also written so that it can be measured, and it links to a customer need.
   shows:
   - rule: P21
     how: The goals are few, specific and challenging, and each has a measure, a deadline and a progress chart with regular feedback.
@@ -31,10 +31,10 @@
     how: Each goal is written as measurable and linked to a user need, here a customer need.
 - branch: 'Management: People and organization'
   domain: Working time and health
-  scenario: A logistics firm sees errors rise in the last weeks of its peak season. Staff have worked long shifts for months. The planner sets the rota for the whole season, not only for the busiest day. The firm tracks fatigue-related errors over the full season, and finds they grow week by week, long before any single day is the heaviest.
+  scenario: Last year a logistics firm saw errors rise in the final weeks of its peak season, after months of long shifts, although those weeks were not the busiest. For this season the planner sets the rota for the whole season, not only for the busiest day, and caps each person's overtime per week. The firm tracks overtime and fatigue-related errors week by week over the full season.
   shows:
   - rule: P28
-    how: The rota is designed for the damage that builds up over the whole season, not only for the single largest load. The firm measures how the errors grow over the full period.
+    how: The rota is designed for the strain that builds up over the whole season, not only for the single largest load, and sustained overtime is limited. The firm measures how overtime and errors grow over the full period.
 - branch: 'Management: People and organization'
   domain: Work design and focus
   scenario: A finance team closes its books each month. During the three-day close, the team lead writes down which activity and communication the close needs. Routine requests wait until it ends. Chat is limited to the close channel. The rules are written down and the team uses them each month.

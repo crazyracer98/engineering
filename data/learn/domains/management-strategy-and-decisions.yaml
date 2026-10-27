@@ -1,14 +1,14 @@
 # Domain examples, branch Management: Strategy and decisions. Schema: schema/learn-domains.schema.json.
 - branch: 'Management: Strategy and decisions'
   domain: Enterprise risk management
-  scenario: A retailer decides how to enter a new market. The board scales the rigor of its analysis to the consequence of failure times the uncertainty, so a small pilot gets light checks and a major acquisition gets deep ones. Early on, uncertainty is high, so the team keeps three entry options alive in parallel and drops the weak ones as evidence arrives. For each option it lists how it can fail and how parts could interact badly.
+  scenario: A retailer decides how to enter a new market. The board scales the rigor of its analysis to the consequence of failure times the uncertainty, so a small pilot gets light checks and a major acquisition gets deep ones. Early on, uncertainty is high, so the team keeps three entry options alive in parallel and drops the weak ones as evidence arrives. It commits to one only after a local trial shows that option can work. Before it commits, the team lists how each part of the chosen plan, such as supply, staffing and pricing, can fail, and how the entry could clash with the retailer's other projects.
   shows:
   - rule: Master
     how: The rigor of the analysis follows consequence times uncertainty. The pilot and the acquisition get different depth.
   - rule: P16
     how: Uncertainty is high early, so several options run in parallel. Weak ones are eliminated as evidence arrives, and the team commits only after feasibility is shown.
   - rule: P22
-    how: Before committing, the team lists how each option can fail and how its parts can interact unsafely.
+    how: Before committing, the team lists how each part of the plan can fail and how the entry can interfere with parallel initiatives, the portfolio view in the rule's management form.
 - branch: 'Management: Strategy and decisions'
   domain: Decision making
   scenario: A leadership team sorts its decisions. Changing the price of a trial plan is reversible, so a team lead decides it the same day. Selling a business unit cannot be undone, so it is slow and the board consults experts and reviews it. Each decision record states its class and the process used.
@@ -20,7 +20,7 @@
   scenario: Before a board approves a new strategy, a group outside the planning team is asked to attack it. The group is told to find weak assumptions. The strategy's author does not review it. Because the planning team and the red team would share the same data sources and the same advisors, the board has them draw on different ones.
   shows:
   - rule: P56
-    how: A checker who is not the author reviews the strategy. The checker sits outside the planning team, so independence rises with the consequence of failure.
+    how: A checker who is not the author reviews the strategy. A board-level strategy has a high consequence of failure, so the checker sits outside the planning team.
   - rule: P46
     how: The two groups are made different in their sources and advisors, so that one shared cause does not affect both.
 - branch: 'Management: Strategy and decisions'

@@ -15,7 +15,7 @@
     how: The payment process is split so no single person can request, approve, execute and record the same transaction. The small branch uses a compensating control, a later independent review.
 - branch: 'Management: Finance'
   domain: Budgeting
-  scenario: A city transport agency adds a lane to a busy road. The budget includes a forecast that traffic will grow into the new lane. It also pays for a demand control, a congestion charge that is set in the plan. The agency does not expect the lane alone to relieve the congestion.
+  scenario: A department asks for a larger IT budget because its current one is always fully spent. The finance lead expects spending to grow into whatever is added. The increase is approved with a forecast of how spending will grow and an explicit scope, two named projects. Any other new request goes onto a priority list that the finance lead reviews each quarter.
   shows:
   - rule: P49
-    how: The capacity increase comes with a forecast of demand growth and a demand control, here a price.
+    how: The added budget is treated as added capacity that demand will fill. It comes with a forecast of spending growth and a demand control, here a fixed scope and a priority list.
