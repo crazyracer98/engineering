@@ -134,13 +134,61 @@ def assemble(root: Path) -> Path:
     return src
 
 
-def build(out: Path, root: Path | None = None) -> None:
-    """Assemble the site sources and build the site into ``out``."""
+ENGINES = ("mkdocs", "zensical")
+
+
+def _zensical_config(root: Path, out: Path) -> Path:
+    """Write a copy of ``mkdocs.yml`` that builds into ``out`` (inside ``root``).
+
+    ``zensical build`` has no ``-d``; it takes the output directory from
+    ``site_dir``, resolved against the config file. The copy lives in
+    ``build/`` with ``docs_dir`` and ``site_dir`` relative to it.
+    """
+    from ruamel.yaml import YAML
+
+    yaml = YAML()
+    config = yaml.load((root / "mkdocs.yml").read_text(encoding="utf-8"))
+    path = root / "build" / "zensical-spike.yml"
+    # Absolute paths panic Zensical 0.0.73 (Id(Format(Path(RootDir)))), so
+    # both are written relative to the config file.
+    config["docs_dir"] = os.path.relpath(root / SITE_SRC, path.parent)
+    config["site_dir"] = os.path.relpath(out.resolve(), path.parent)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8") as handle:
+        yaml.dump(config, handle)
+    return path
+
+
+def build(out: Path, root: Path | None = None, engine: str | None = None) -> None:
+    """Assemble the site sources and build the site into ``out``.
+
+    ``engine="zensical"`` (or ``TAXONOMY_SITE_ENGINE=zensical``) is the opt-in
+    spike for issue #9 (``docs/zensical-spike.md``); MkDocs stays the default.
+    """
+    engine = engine or os.environ.get("TAXONOMY_SITE_ENGINE") or "mkdocs"
+    if engine not in ENGINES:
+        raise ValueError(f"unknown engine {engine!r}; expected one of {ENGINES}")
     root = root or find_root()
     assemble(root)
     env = {**os.environ, "NO_MKDOCS_2_WARNING": "1"}
-    result = subprocess.run(
-        [
+    final = out
+    if engine == "zensical":
+        # Zensical rejects a site_dir outside the project root
+        # ("site_dir must be within project root"); build inside and copy out.
+        if not out.resolve().is_relative_to(root.resolve()):
+            out = root / "build" / "zensical-out"
+        command = [
+            sys.executable,
+            "-m",
+            "zensical",
+            "build",
+            "--clean",
+            "--strict",
+            "-f",
+            str(_zensical_config(root, out)),
+        ]
+    else:
+        command = [
             sys.executable,
             "-m",
             "mkdocs",
@@ -150,11 +198,12 @@ def build(out: Path, root: Path | None = None) -> None:
             str(root / "mkdocs.yml"),
             "-d",
             str(out.resolve()),
-        ],
-        capture_output=True,
-        text=True,
-        env=env,
-        check=False,
+        ]
+    result = subprocess.run(
+        command, capture_output=True, text=True, env=env, check=False, cwd=root
     )
     if result.returncode:
-        raise RuntimeError(f"mkdocs build failed:\n{result.stdout}{result.stderr}")
+        raise RuntimeError(f"{engine} build failed:\n{result.stdout}{result.stderr}")
+    if out != final:
+        shutil.rmtree(final, ignore_errors=True)
+        shutil.copytree(out, final)

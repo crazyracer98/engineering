@@ -18,6 +18,8 @@ AI-assisted coding workflow (`CLAUDE.md` at the repo root covers that).
   edition.
 - `methodology-references.yaml` — the sources cited in those two pages that
   no other file defines.
+- `zensical-spike.md` — findings of the spike that built the site with
+  Zensical (issue #9), with the migration estimate and plan outline.
 - `plans/` — working plans for in-progress or upcoming work. See
   `plans/README.md`.
 - `frs/` — functional requirements: what the system must do. See
