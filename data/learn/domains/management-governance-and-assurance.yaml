@@ -2,14 +2,17 @@
 - branch: 'Management: Governance and assurance'
   domain: Corporate governance
   scenario: A mid-sized manufacturer's board meets to choose a new logistics provider. One director owns
-    shares in a bidder. The board also reviews how its own decisions get checked.
+    shares in a bidder. She declares it, the company secretary adds it to the register of declared interests,
+    and she leaves the room for that item. At the same meeting, the CEO's pay proposal goes to the board's
+    remuneration committee of non-executive directors, not to the CEO.
   shows:
   - rule: P6
     how: The director has a personal interest in a bidder. She discloses it, it goes into the register
       of declared interests, and she steps out of the vendor decision.
   - rule: P56
-    how: The CEO's pay proposal is not approved by the CEO. The board's remuneration committee reviews
-      it. The checker is not the author, and independence rises with the consequence.
+    how: The CEO's pay proposal is not approved by the CEO. The board's remuneration committee, which is
+      independent of management, reviews it. The checker is not the author, and independence rises with
+      the consequence.
 - branch: 'Management: Governance and assurance'
   domain: Internal audit and assurance
   scenario: A retailer's online shop handles customer payment data. The shop team owns the access risk.
@@ -23,8 +26,10 @@
       matches the consequence of failure.
 - branch: 'Management: Governance and assurance'
   domain: Statutory audit
-  scenario: A listed company has used the same audit firm for many years. Its audit committee decides
-    whether to keep the firm or change it. It also requires the firm to rotate the lead audit partner.
+  scenario: A listed company has used the same audit firm for many years. Its audit committee puts the
+    audit out to tender and appoints a new firm, because the current one has reached the longest term
+    the committee's policy allows. It also requires the new firm to rotate the lead audit partner after
+    a set number of years.
   shows:
   - rule: P56
     how: The accounts are checked by an external auditor, the highest level of independence. Long-serving
@@ -32,18 +37,21 @@
 - branch: 'Management: Governance and assurance'
   domain: Internal control
   scenario: A finance team at a distributor lets one clerk set up suppliers, approve invoices and release
-    payments. Internal control splits these steps between roles.
+    payments. Internal control splits these steps between roles and writes down a matrix of incompatible
+    roles. Payments above a set amount also need two authorized people to release them.
   shows:
   - rule: P43
     how: No single person can request, approve, execute and record the same payment. A matrix lists the
-      incompatible roles. A small team would add a later independent review as a compensating control.
+      incompatible roles.
   - rule: P42
     how: A payment above a set threshold needs two authorized signatures at the moment of release. Payments
       that cannot be undone get two people.
 - branch: 'Management: Governance and assurance'
   domain: Compliance management
   scenario: A services firm keeps a register of its legal obligations. Each entry points to an owner,
-    a control and a test of that control. The firm treats the legal minimum as the floor, not the goal.
+    a control and a test of that control, and a yearly report shows no obligation without a test and no
+    test without an obligation. The firm treats the legal minimum as the floor, not the goal. For example,
+    it caps overtime below the limit that working-time law sets.
   shows:
   - rule: P60
     how: The firm meets the law as the minimum and then applies other rules, such as limits on overtime.
@@ -53,17 +61,22 @@
       lacks a test, and no test lacks an obligation.
 - branch: 'Management: Governance and assurance'
   domain: Whistleblowing and speak-up
-  scenario: A warehouse employee sees that safety checks are signed off without being done. The company
-    runs a confidential reporting channel. Every report gets a follow-up.
+  scenario: A warehouse employee sees that safety checks are signed off without being done. She reports
+    it through the company's confidential reporting channel without asking her manager first. The company
+    forbids retaliation against anyone who reports. Every report gets a follow-up, and each case is
+    reviewed without blame.
   shows:
   - rule: P4
     how: The employee can raise the concern without permission and without retaliation. A confidential
       channel exists, every report is followed up, and each use is reviewed without blame.
 - branch: 'Management: Governance and assurance'
   domain: Anti-bribery
-  scenario: A procurement officer is offered a gift by a bidder before a tender closes. The company requires
-    her to declare it and to step out of the award.
+  scenario: A procurement officer sits on a tender panel. Her brother has just joined one of the bidders
+    as a sales manager. Under the company's anti-bribery management system, she declares this in the
+    register of declared interests. The compliance officer checks the register before the award, and she
+    steps out of the evaluation.
   shows:
   - rule: P6
-    how: A person who decides on a tender has a personal interest. She discloses it, it is recorded in
-      the register, and she leaves the decision.
+    how: A person who decides on a tender has a personal interest through a close relative. She discloses
+      it, it is recorded in the register, the register is checked before the award, and she leaves the
+      decision.

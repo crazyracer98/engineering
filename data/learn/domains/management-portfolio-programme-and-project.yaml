@@ -2,47 +2,56 @@
 - branch: 'Management: Portfolio, programme and project'
   domain: Project management
   scenario: A company moves its office to a new building. The project plan lists tasks and their dependencies.
-    Network installation is on the longest chain. Furniture delivery has slack. The sponsor sets gates,
-    and the plan is sized to the project.
+    Network installation is on the longest chain. Furniture delivery has slack. Before the project starts,
+    the team writes down the evidence that would stop the move, such as a failed fire inspection, and
+    the gate dates. A steering board, not the sponsor, decides at each gate. Staff move floor by floor,
+    and each floor is checked before the next one moves. The weekly status report lists only items outside
+    tolerance. The plan is lighter than the one the company used for its data-centre move, where a failure
+    would have cost far more.
   shows:
   - rule: P67
     how: The plan marks the critical path. Network installation is critical, so it is protected first.
       Furniture has slack and can move.
   - rule: P65
-    how: The move is done floor by floor. Each step is checked before the next, and the team decides at
-      the end of each stage whether to continue.
+    how: The move is done floor by floor. Each step is checked before the next, and the steering board
+      decides at each gate whether to continue.
   - rule: P75
-    how: The weekly status shows only items outside tolerance. Reports that lead to no action are removed.
+    how: The weekly status shows only items outside tolerance, so every item in it calls for action.
   - rule: P20
     how: Before the project starts, the team writes the evidence and the gate dates at which it stops.
       The gate decision is made by someone other than the sponsor.
   - rule: Master
-    how: A two-room office move gets a light plan. A hospital move gets a strict one. The method is adapted
-      to the size, risk and context of the work (tailoring).
+    how: The office move gets a lighter plan than the data-centre move, which had a higher consequence
+      of failure. The method is adapted to the size, risk and context of the work (tailoring).
 - branch: 'Management: Portfolio, programme and project'
   domain: Portfolio management
-  scenario: A company holds twelve proposed projects and funds five. Every funded project has written
-    stop criteria. A review board that did not start the projects checks them at each gate.
+  scenario: A company holds twelve proposed projects and funds five. Before funding, the board imagines
+    that the portfolio has failed and lists why. It finds that two of the five need the same data team
+    in the same quarter, and moves one of them. Every funded project has written stop criteria. A review
+    board that did not start the projects checks them at each gate.
   shows:
   - rule: P20
     how: Each project has written stop criteria and gate dates. The review board decides to continue or
       stop, not the sponsor.
   - rule: P22
     how: Before funding, the board assumes the portfolio has failed and lists the reasons. It also lists
-      how parallel projects can interfere, for example two projects that need the same team in the same
-      quarter.
+      how parallel projects can interfere, here two projects that need the same team in the same quarter.
 - branch: 'Management: Portfolio, programme and project'
   domain: Forecasting of large projects
   scenario: A city plans a large transit line. The planners compare the cost estimate with the outcomes
-    of similar past projects, not only with their own plan.
+    of similar past projects, not only with their own plan. The past projects overran their budgets
+    on average, so the planners raise the estimate and the contingency before the business case is
+    approved.
   shows:
   - rule: P12
-    how: The business case is checked against a reference class of similar past projects. If those projects
-      overran on average, the own plan is questioned.
+    how: The business case is checked against a reference class of similar past projects. Those projects
+      overran on average, so the own estimate is raised instead of trusted.
 - branch: 'Management: Portfolio, programme and project'
   domain: Agile and Scrum
-  scenario: A product team runs two-week sprints. New requests wait for the next sprint. The team keeps
-    one ranked backlog, and a retrospective ends every sprint.
+  scenario: A product team runs two-week sprints. New requests wait for the next sprint, and only the
+    Product Owner may cancel a sprint. The team keeps one ranked backlog and removes items nobody needs.
+    A retrospective ends every sprint, and its actions are tracked until they are done. Each month the
+    team reviews its overtime and technical debt.
   shows:
   - rule: P66
     how: While the team works on the sprint goal, it is protected from unplanned changes. Only the Product
@@ -65,8 +74,10 @@
 - branch: 'Management: Portfolio, programme and project'
   domain: Software project staffing
   scenario: A software project is three weeks behind. A manager is asked to add six engineers. She first
-    cuts scope, and she records the expected training and coordination cost before anyone joins.
+    cuts scope, and she records the expected training and coordination cost before anyone joins. She
+    adds two engineers, only to a reporting module that can be split off from the rest of the work.
   shows:
   - rule: P53
     how: The work is late and needs coordination. The manager does not expect added people to recover
-      the schedule soon. She cuts scope first and records the cost of adding people.
+      the schedule soon. She cuts scope first, records the cost of adding people, and adds them only where
+      the work can be split.

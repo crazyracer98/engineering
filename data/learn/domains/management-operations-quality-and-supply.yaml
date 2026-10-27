@@ -1,22 +1,25 @@
 # Domain examples, branch Management: Operations, quality and supply. Schema: schema/learn-domains.schema.json.
 - branch: 'Management: Operations, quality and supply'
   domain: Quality management
-  scenario: A food producer runs its quality system on a yearly cycle. The purchase system refuses an
-    order without a contract number. Management reviews its defect rate but does not pay bonuses on it
-    alone.
+  scenario: A food producer runs its quality system as a yearly cycle, and every action from the last
+    management review is tracked until it is closed. Two days before a large delivery, a batch fails an
+    allergen test, and the quality manager stops the shipment although the delivery date is missed. The
+    purchase system refuses an order without a contract number. Part of the plant managers' bonus depends
+    on the defect rate, so management pairs it with customer complaints and checks each year that the
+    pair still tracks real quality.
   shows:
   - rule: P81
     how: The company plans, does, checks and acts in a repeating cycle. Actions from earlier cycles are
       tracked until they are completed.
   - rule: P1
-    how: The manager stops a shipment with a known safety defect, even when the deadline is near. Safety
-      comes before cost and schedule.
+    how: The quality manager stops a shipment with a known safety defect and misses the deadline. The safety
+      of customers comes before cost and schedule.
   - rule: P39
     how: 'The purchase system makes the error impossible: it refuses an order without a contract number.
       It does not rely on inspection later.'
   - rule: P19
-    how: The defect rate is paired with a counter-indicator, such as customer complaints. A yearly review
-      checks that it still tracks the real objective.
+    how: The defect rate is used to reward people, so it is paired with a counter-indicator, customer complaints.
+      A yearly review checks that it still tracks the real objective.
 - branch: 'Management: Operations, quality and supply'
   domain: Lean production
   scenario: On an assembly line, any worker who sees a defect can pull a cord and stop the line. Every
@@ -28,7 +31,8 @@
 - branch: 'Management: Operations, quality and supply'
   domain: Operations and queueing
   scenario: A service desk gets a steady flow of requests. Management plans 70 % of staff capacity and
-    keeps 30 % free. It also limits the number of open tickets per agent.
+    keeps 30 % free. It also limits the number of open tickets per agent. Agents finish a ticket before
+    they take a new one, and the desk tracks lead time and open tickets.
   shows:
   - rule: P52
     how: A WIP limit caps the items in progress. Agents finish tickets before they start new ones, and
@@ -43,11 +47,12 @@
   shows:
   - rule: P51
     how: Every stage of the chain sees the real end demand, not only the order of the next stage. This
-      stops the swings growing.
+      reduces how much the swings grow along the chain.
 - branch: 'Management: Operations, quality and supply'
   domain: Procurement
-  scenario: A public body buys a large IT system. Bidders must declare their interests. The tender also
-    scores the whole life cycle impact of each offer, including energy use.
+  scenario: A public body buys a large IT system. Every member of the evaluation panel must declare personal
+    interests in a register, which is checked before the vendor is selected. The tender also scores the
+    whole life cycle impact of each offer, including energy use.
   shows:
   - rule: P6
     how: Anyone who evaluates a bid declares personal interests. The register is checked before the vendor
@@ -60,8 +65,8 @@
     and acts on them before it signs a new contract.
   shows:
   - rule: P14
-    how: The brand knows each supplier and the risks in its supply chain, and it acts on what it finds.
-      Parts and materials are traced to their origin.
+    how: The brand knows each supplier and the risks in its supply chain, and it acts on what it finds
+      before it signs. This is supplier due diligence, the rule's management form.
 - branch: 'Management: Operations, quality and supply'
   domain: Asset management
   scenario: A water utility keeps a register of its pumps and pipes. Each entry has an owner, a condition
@@ -72,8 +77,9 @@
       assets are found by comparing reality with the inventory.
 - branch: 'Management: Operations, quality and supply'
   domain: IT service management
-  scenario: An IT service team runs changes through a reviewed process. The on-call policy is versioned.
-    A request without a cost centre is returned, not guessed.
+  scenario: An IT service team runs changes through a reviewed process. The on-call policy is versioned,
+    and on-call staff are told about each change before it applies. A request without a cost centre is
+    returned, not guessed.
   shows:
   - rule: P64
     how: Policies are versioned and changed only by a reviewed change. The review covers the effects and

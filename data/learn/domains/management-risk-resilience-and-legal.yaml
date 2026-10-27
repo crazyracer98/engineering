@@ -7,8 +7,8 @@
   - rule: P73
     how: The recovery time objective of 3 days is shorter than the 5-day tolerable maximum, with a margin.
   - rule: P47
-    how: The plan says in advance which work stops first when demand exceeds capacity. Payroll resumes
-      at a minimum capacity.
+    how: The plan says in advance which work stops first when demand exceeds capacity. Payroll is the
+      activity that keeps running at a minimum capacity.
 - branch: 'Management: Risk, resilience and legal'
   domain: Incident and crisis management
   scenario: A company faces a data outage. One incident commander leads. Group leads manage teams of about
@@ -29,14 +29,15 @@
     of its information assets with owners.
   shows:
   - rule: P36
-    how: Each person gets only the information and decision authority their role needs, with written limits.
+    how: Each person gets only the information their role needs.
   - rule: P78
     how: The register of information assets has an owner, a condition and a life-cycle stage for each
       asset.
 - branch: 'Management: Risk, resilience and legal'
   domain: Data protection
-  scenario: A company collects customer data. Only the customer service team can see it. Each data set
-    has a purpose, a retention period and a deletion date. Changes to records keep the original entry.
+  scenario: A company collects customer data. Only the customer service team can see it. When a collection
+    starts, each data set gets a purpose, a retention period and a deletion date. Changes to records keep
+    the original entry.
   shows:
   - rule: P36
     how: Personal data is visible only to the roles that need it.
@@ -64,11 +65,13 @@
 - branch: 'Management: Risk, resilience and legal'
   domain: Occupational health and safety
   scenario: A warehouse has forklifts and walkers on the same aisle. A sign tells walkers to take care.
-    The safety manager adds a separate walkway instead.
+    The forklifts must use the aisle, so the hazard cannot be removed. The safety manager adds a walkway
+    behind a fixed barrier instead of relying on the sign, and records why elimination was not possible.
   shows:
   - rule: P38
-    how: The manager uses the highest possible control level. A separate walkway removes the shared path.
-      A sign is an administrative control, which ranks lower.
+    how: The manager uses the highest possible control level. Elimination is not possible, and the record
+      says why. A walkway behind a fixed barrier is an engineering control that does not depend on how
+      walkers behave. A sign is an administrative control, which ranks lower.
 - branch: 'Management: Risk, resilience and legal'
   domain: Environmental management
   scenario: A company reviews its energy and waste each quarter alongside the budget. It also looks at
