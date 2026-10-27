@@ -85,16 +85,27 @@ def branches(ds: Dataset) -> list[str]:
     return out
 
 
+def conflict_range(ds: Dataset) -> str:
+    """``K1 to K8`` from the conflict rules in the data (``K1`` for a single one)."""
+    ids = sorted((k["id"] for k in ds.conflicts), key=lambda i: int(i[1:]))
+    if not ids:
+        return "K rules"
+    return ids[0] if len(ids) == 1 else f"{ids[0]} to {ids[-1]}"
+
+
 def question_category(question: Question) -> str:
-    """``a``..``i`` or ``k`` from a ``q-<cat>-NN`` ID."""
-    return question["id"].split("-")[1]
+    """``a``..``i`` or ``k`` from a ``q-<cat>-NN`` ID.
+
+    The learn-quiz schema pins the ID pattern, so a malformed ID never gets here.
+    """
+    return question["id"][2]
 
 
 # ---- quiz markup (the HTML contract of docs/plans/2026-10-learning-hub.md) ----
 
 
 #: The same cue on every question, so the number of correct answers is never hinted at.
-#: Keep in step with ``HINT_TEXT`` in site-assets/quiz.js.
+#: The mixed test passes it to site-assets/quiz.js as ``data-cue``.
 SELECT_CUE = "Select all that apply."
 
 
@@ -102,7 +113,8 @@ def question_html(q: Question, known: set[str]) -> str:
     """One question as a ``form.quiz-q``; no blank lines, so Markdown keeps it raw."""
     qid = esc(q["id"])
     parts = [
-        f'<form class="quiz-q" data-qid="{qid}">',
+        # autocomplete="off": the browser must not restore ticks without feedback.
+        f'<form class="quiz-q" data-qid="{qid}" autocomplete="off">',
         f'<fieldset aria-describedby="{qid}-hint"><legend>{esc(q["stem"])}</legend>',
         f'<p class="quiz-hint" id="{qid}-hint">{SELECT_CUE}</p>',
     ]
@@ -154,7 +166,7 @@ def mixed_block(categories: list[tuple[str, str]]) -> str:
     return "\n".join(
         [
             f'<div class="quiz" data-quiz="mixed" data-bank="{BANK_URL}" '
-            f'data-draw="{MIXED_DRAW}">',
+            f'data-draw="{MIXED_DRAW}" data-cue="{esc(SELECT_CUE)}">',
             "<noscript><p>The mixed test needs JavaScript. Without it, take the "
             f"category quizzes: {links}.</p></noscript>",
             '<p class="quiz-score" aria-live="polite"></p>',
@@ -216,17 +228,22 @@ def _example_html(ex: RuleExample | None) -> str:
     return "\n".join(parts)
 
 
-def _case_html(
-    case: Any, rule_id: str, registry: dict[str, Source], known: set[str]
-) -> str:
+def _lessons_html(case: Any, rule_id: str) -> list[str]:
+    return [
+        _p(f"What it shows for {rule_id}.", lesson["text"])
+        for lesson in case["lessons"]
+        if lesson["rule"] == rule_id
+    ]
+
+
+def _case_html(case: Any, rule_id: str, registry: dict[str, Source]) -> str:
+    """The full case with its quotes: shown once per page, under its first rule."""
     parts = [
-        '<div class="learn-case">',
+        f'<div class="learn-case" id="{esc(case["id"])}">',
         f"<p><strong>Real case: {esc(case['title'])} ({case['year']}).</strong></p>",
         f"<p>{esc(case['summary'])}</p>",
+        *_lessons_html(case, rule_id),
     ]
-    for lesson in case["lessons"]:
-        if lesson["rule"] == rule_id:
-            parts.append(_p(f"What it shows for {rule_id}.", lesson["text"]))
     for quote in case["quotes"]:
         src = registry.get(quote["source"])
         if src:
@@ -240,10 +257,21 @@ def _case_html(
     return "\n".join(parts)
 
 
+def _case_ref_html(case: Any, rule_id: str) -> str:
+    """A short entry for a case already shown in full higher up the same page."""
+    parts = [
+        '<div class="learn-case learn-case-ref">',
+        f"<p><strong>Real case: {esc(case['title'])} ({case['year']}).</strong> "
+        f'<a href="#{esc(case["id"])}">Read the full case above</a>.</p>',
+        *_lessons_html(case, rule_id),
+        "</div>",
+    ]
+    return "\n".join(parts)
+
+
 def category_page(
     ds: Dataset, learn: Learn, registry: dict[str, Source], cat: Category
 ) -> str:
-    known = ds.all_ids()
     rules = ds.rule_by_id()
     examples = {e["rule"]: e for e in learn.rule_examples}
     lines = [
@@ -255,6 +283,7 @@ def category_page(
         "quiz</a> when you have read the examples.</p>",
         "",
     ]
+    shown: set[str] = set()  # cases already printed in full on this page
     for rid in cat["rules"]:
         rule = rules[rid]
         lines += [
@@ -266,21 +295,38 @@ def category_page(
             "",
         ]
         for case in learn.cases:
-            if rid in case["rules"]:
-                lines += [_case_html(case, rid, registry, known), ""]
+            if rid not in case["rules"]:
+                continue
+            if case["id"] in shown:
+                lines += [_case_ref_html(case, rid), ""]
+            else:
+                shown.add(case["id"])
+                lines += [_case_html(case, rid, registry), ""]
     return "\n".join(lines)
+
+
+def unique_anchor(domain: str, used: set[str]) -> str:
+    """A non-empty heading anchor for ``domain`` that is not in ``used``; adds it."""
+    base = slug(domain) or "domain"
+    anchor, n = base, 1
+    while anchor in used:
+        n += 1
+        anchor = f"{base}-{n}"
+    used.add(anchor)
+    return anchor
 
 
 def branch_page(ds: Dataset, learn: Learn, branch: str) -> str:
     known = ds.all_ids()
     examples = {e["domain"]: e for e in learn.domain_examples if e["branch"] == branch}
     lines = [f"# {esc(branch)}", ""]
+    used: set[str] = set()
     for row in ds.domains["domains"]:
         if row["branch"] != branch:
             continue
         domain = row["domain"]
         lines += [
-            f"## {esc(domain)} {{#{slug(domain)}}}",
+            f"## {esc(domain)} {{#{unique_anchor(domain, used)}}}",
             "",
             f"<p>Rules found in this domain: {rule_links(row['rules'], known)}.</p>",
             "",
@@ -333,8 +379,8 @@ def quiz_index(ds: Dataset) -> str:
         "when you select exactly the right options. Each option has its own "
         "feedback after you check. Your progress stays in this browser.",
         "",
-        "- [Mixed test](mixed.md): 10 random questions from all quizzes",
-        "- [Conflict rules (K1 to K8)](conflicts.md)",
+        f"- [Mixed test](mixed.md): {MIXED_DRAW} random questions from all quizzes",
+        f"- [Conflict rules ({conflict_range(ds)})](conflicts.md)",
     ]
     lines += [
         f"- [{c['id']}. {esc(c['name'])}]({c['id'].lower()}.md)" for c in ds.categories
@@ -348,7 +394,7 @@ def quiz_page(ds: Dataset, learn: Learn, quiz: str, questions: list[Question]) -
     if quiz == "conflicts":
         title = "Conflict rules quiz"
         intro = (
-            '<p>Rules K1 to K8 in the <a href="../../08-conflicts/">'
+            f'<p>Rules {conflict_range(ds)} in the <a href="../../08-conflicts/">'
             "conflict chapter</a>.</p>"
         )
     else:
