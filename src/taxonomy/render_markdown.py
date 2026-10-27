@@ -15,6 +15,7 @@ from dataclasses import dataclass
 from taxonomy.ids import link_ids
 from taxonomy.model import (
     CHECKER_LEVEL_RULE,
+    CLASS_LETTER,
     RELATION_LABELS,
     Dataset,
     Management,
@@ -423,7 +424,7 @@ class _Builder:
                 detail.append(
                     [
                         rid,
-                        f"{r['class']} ({r['class'][0].upper()}), category "
+                        f"{r['class']} ({CLASS_LETTER[r['class']]}), category "
                         f"{r['category']}: {r['class_note']}",
                         self.c(r["check"]),
                         self.c(r["violation"]),

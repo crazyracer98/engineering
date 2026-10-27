@@ -13,9 +13,26 @@ from functools import lru_cache
 #: Separators of an ID range ("P3–P5", "P3-P5"): en dash or hyphen, with
 #: optional spaces around it.
 _RANGE_SEP = r"[ \t]*[–-][ \t]*"
-#: Not inside a word, path or anchor, and not the tail of a hyphenated word
-#: ("ISO-P1"). A hyphen after a digit ("P3-P5") is a range separator.
-_BEFORE = r"(?<![\w/#])(?<![A-Za-z]-)"
+#: Longest number (in digits) of an ID that may precede a range hyphen.
+_MAX_DIGITS = 12
+#: Most IDs one range ("P1–P500") may expand to.
+MAX_RANGE = 100
+
+
+def _before(prefixes: tuple[str, ...]) -> str:
+    """Lookbehinds: not inside a word, path or anchor, and not the tail of a
+    hyphenated word ("ISO-P1", "ISO27001-P1", "2024-P1").
+
+    A hyphen after a digit is allowed only when what precedes it is itself a
+    whole ID ("P3-P5": a range separator).
+    """
+    whole_id = "|".join(
+        rf"(?<=(?<!\w){re.escape(p)}\d{{{n}}}-)"
+        for p in prefixes
+        for n in range(1, _MAX_DIGITS + 1)
+    )
+    after_digit = rf"(?:(?<!\d-)|{whole_id})" if whole_id else r"(?<!\d-)"
+    return rf"(?<![\w/#])(?<![A-Za-z]-){after_digit}"
 
 
 def prefix_alt(prefixes: Iterable[str]) -> str:
@@ -29,14 +46,14 @@ def id_pattern(prefixes: Iterable[str]) -> str:
 
 
 @lru_cache(maxsize=32)
-def _key_pattern(order: tuple[str, ...]) -> re.Pattern[str]:
-    return re.compile(rf"({prefix_alt(order)})([1-9][0-9]*)")
+def _key_pattern(prefixes: frozenset[str]) -> re.Pattern[str]:
+    return re.compile(rf"({prefix_alt(prefixes)})([1-9][0-9]*)")
 
 
 def id_key(rule_id: str, prefixes: Iterable[str]) -> tuple[int, int]:
     """Sort key: prefix in ``prefixes`` order, then number; unknown IDs last."""
     order = tuple(prefixes)
-    match = _key_pattern(order).fullmatch(rule_id)
+    match = _key_pattern(frozenset(order)).fullmatch(rule_id)
     if not match:
         return (len(order), 0)
     return (order.index(match.group(1)), int(match.group(2)))
@@ -44,7 +61,7 @@ def id_key(rule_id: str, prefixes: Iterable[str]) -> tuple[int, int]:
 
 @lru_cache(maxsize=32)
 def _finder(prefixes: tuple[str, ...]) -> re.Pattern[str]:
-    return re.compile(rf"{_BEFORE}{id_pattern(prefixes)}\b")
+    return re.compile(rf"{_before(prefixes)}{id_pattern(prefixes)}\b")
 
 
 def id_finder(prefixes: Iterable[str]) -> re.Pattern[str]:
@@ -57,7 +74,7 @@ def _one_and_tail(
     prefixes: tuple[str, ...],
 ) -> tuple[re.Pattern[str], re.Pattern[str]]:
     alt = prefix_alt(prefixes)
-    one = re.compile(rf"{_BEFORE}({alt})([1-9][0-9]*)\b")
+    one = re.compile(rf"{_before(prefixes)}({alt})([1-9][0-9]*)\b")
     tail = re.compile(rf"{_RANGE_SEP}({alt})([1-9][0-9]*)\b")
     return one, tail
 
@@ -113,7 +130,9 @@ def link_ids(
 
 def expand_ids(text: str, prefixes: Iterable[str]) -> list[str]:
     """Every ID named in ``text`` in order, a range ("P3–P5") counting as all
-    of its IDs (P3, P4, P5)."""
+    of its IDs (P3, P4, P5).
+
+    Raises ``ValueError`` for a range of more than ``MAX_RANGE`` IDs."""
     one, tail = _one_and_tail(tuple(prefixes))
     found: list[str] = []
     pos = 0
@@ -121,7 +140,13 @@ def expand_ids(text: str, prefixes: Iterable[str]) -> list[str]:
         pos = m.end()
         end = _range_end(m, text, tail)
         if end:
-            found.extend(f"{m[1]}{n}" for n in range(int(m[2]), int(end[2]) + 1))
+            lo, hi = int(m[2]), int(end[2])
+            if hi - lo + 1 > MAX_RANGE:
+                raise ValueError(
+                    f"ID range {m[1]}{lo}-{end[1]}{hi} names {hi - lo + 1} IDs; "
+                    f"the limit is {MAX_RANGE}"
+                )
+            found.extend(f"{m[1]}{n}" for n in range(lo, hi + 1))
             pos = end.end()
         else:
             found.append(m.group(0))

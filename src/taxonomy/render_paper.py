@@ -28,6 +28,7 @@ from taxonomy.ids import link_ids
 from taxonomy.load import find_root, load_dataset, load_registry, load_yaml
 from taxonomy.model import (
     CHECKER_LEVEL_RULE,
+    CLASS_LETTER,
     RELATION_LABELS,
     Dataset,
     Management,
@@ -364,7 +365,7 @@ class _Paper:
     def rule_card(self, r: Rule) -> str:
         rid = r["id"]
         tagline = (
-            f"**{r['strength']}** · {r['class']} ({r['class'][0].upper()}) · "
+            f"**{r['strength']}** · {r['class']} ({CLASS_LETTER[r['class']]}) · "
             f"category {r['category']} · evidence: {r['evidence']}"
         )
         fields = self.terms(

@@ -12,11 +12,17 @@ import re
 from dataclasses import dataclass, field
 from typing import Any, TypedDict
 
-# Rule ID shapes, as in the schemas.
-RULE_ID = re.compile(r"^P[1-9][0-9]*$")
-CONFLICT_ID = re.compile(r"^K[1-9][0-9]*$")
 #: The rule named in every rigor-matrix cell ("Checker level: peer (P56)").
+#: ``validate`` checks that it exists and is still the independent-checker rule.
 CHECKER_LEVEL_RULE = "P56"
+#: The ``name`` the checker-level rule must have (a stable field of the rule).
+CHECKER_LEVEL_RULE_NAME = "Independent checker"
+#: The letter shown for each value of a rule's ``class`` field.
+CLASS_LETTER: dict[str, str] = {
+    "universal": "U",
+    "risk-scaled": "R",
+    "conditional": "C",
+}
 SLUG = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 
 #: Relation keys of ``rules.related``, in the order edition 9 prints them,
