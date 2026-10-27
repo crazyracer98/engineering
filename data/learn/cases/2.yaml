@@ -6,8 +6,9 @@
     On 4 June 1996, the first Ariane 5 broke up about 40 seconds after the
     flight sequence started. Its guidance used two inertial reference systems
     (SRIs) in parallel, with identical hardware and software. Software reused
-    from Ariane 4 hit a value it could not handle, because Ariane 5 flies a
-    faster trajectory. The back-up SRI failed first, and the active SRI failed
+    from Ariane 4 hit a value it could not handle, because Ariane 5's early
+    trajectory gives much higher horizontal velocity. The back-up SRI failed
+    first, and the active SRI failed
     0.05 seconds later for the same reason. The Ariane 5 trajectory data were
     not in the SRI specification, so the function was never tested under
     simulated Ariane 5 flight conditions.
@@ -21,10 +22,11 @@
       the shared dependency needs to be justified.
   - rule: P57
     text: >-
-      The SRI was tested at equipment level without the Ariane 5 trajectory
-      data. The test conditions differed from real flight, and the difference
-      was not listed and justified. A test in flight-like conditions could
-      have found the error.
+      The Ariane 5 trajectory data were left out of the SRI specification, so
+      the realignment function was never tested under simulated Ariane 5
+      flight conditions, and the design error was not found. A readiness test
+      runs in the conditions of real operation, and each difference from them
+      is listed and justified.
   quotes:
   - source: case-esa-ariane-501-inquiry-press-release
     text: >-
@@ -74,17 +76,19 @@
   lessons:
   - rule: P39
     text: >-
-      Choosing the live template instead of the test template is an error any
-      operator can repeat. The software did not make it impossible, and its
-      prompt did not make it visible: it showed neither the message text nor
-      whether the alert was live. The vendor then planned to separate and mark
-      the two environments.
+      The officer believed the drill was real, and nothing in the software
+      made a live send stand out. Test and live alerts sat on the same
+      screen, and the confirmation prompt read the same for both and did not
+      show the message text. Where an error cannot be made impossible, it
+      should at least be visible at once. The vendor then planned to clearly
+      separate its test environment from its live one.
   - rule: P42
     text: >-
-      A public missile alert is critical, and once sent it cannot be called
-      back from phones, radios and televisions. One person could send it alone.
-      A second authorized person at the moment of sending would have been a
-      check on the error.
+      A missile alert to the public is a critical action: once sent, it has
+      reached the public, and the correction took 38 minutes. One warning
+      officer could send it alone, and HI-EMA lacked procedures to stop a
+      single person from sending it by mistake. The two-person rule asks for
+      a second authorized person at the moment of sending.
   quotes:
   - source: case-fcc-hawaii-false-alert-report
     text: >-
@@ -134,11 +138,11 @@
   - rule: P43
     text: >-
       One person controlled both the trading and the back office that should
-      have checked it, so his unauthorised positions stayed hidden for over
-      two years. The loss was
-      far above any acceptable risk. Separating the front office from the back
-      office, or an independent check of the records, would have split these
-      incompatible roles.
+      have checked it, and his unauthorised trading went on for about two and
+      a half years. The loss was far above any acceptable risk. Separating the
+      front office from the back office splits these incompatible roles, and
+      where a team is too small for that, an independent review of the
+      records is the compensating control.
   quotes:
   - source: case-rba-barings-collapse-bulletin
     text: >-
@@ -162,7 +166,8 @@
   year: 1912
   summary: >-
     Titanic's bulkheads were spaced so that the ship would stay afloat with
-    any two compartments open to the sea. The damage it received flooded the four forward compartments and No. 6 boiler room. With five
+    any two compartments open to the sea. The damage it received flooded the
+    four forward compartments and No. 6 boiler room. With five
     compartments flooded, water rose above the top of a bulkhead and flowed
     over into the next compartment, and so on in turn, until the ship sank.
   rules: [P41]
@@ -172,8 +177,9 @@
       The compartments held only while the water stayed below the tops of
       the bulkheads. Past that point, flooding in one compartment spilled into
       the next, so the damage spread through the whole ship. A compartment
-      isolates a failure only up to the damage it was designed for, and the
-      inquiry found that bulkheads carried higher might have saved the ship.
+      isolates a failure only up to the damage it was designed for. Evidence
+      to the inquiry was that, with less damage, bulkheads carried up to C
+      deck might have saved the ship.
   quotes:
   - source: case-wreck-commissioner-titanic-observations
     text: >-
@@ -280,14 +286,17 @@
   - rule: P45
     text: >-
       The alarm system had a back-up server, but the stalled application
-      moved to it and stopped it too. The back-up only helps if the
-      switch-over does not carry the failure with it. A test that removes the
-      primary under a real fault would show this.
+      moved to it intact and the back-up failed too. A back-up only helps if
+      the switch-over does not carry the failure with it, so the switch-over
+      has to be tested under a fault, not only a clean shutdown.
   - rule: P47
     text: >-
-      Demand on the lines exceeded what the grid could carry. Shedding some
-      load, decided in advance, could have kept the rest of the system
-      running. Without it, the overload spread as a cascade.
+      FirstEnergy had no automatic load-shedding schemes and did not start
+      manual load shedding. The task force found that shedding 1,500 MW in
+      the Cleveland-Akron area before a key line outage could have averted
+      the blackout. Load shedding planned in advance switches off some demand
+      so the rest keeps running; once a cascade starts, people cannot stop
+      it.
   quotes:
   - source: case-task-force-2003-blackout-report
     text: >-
@@ -321,8 +330,9 @@
     On 12 December 1988, a crowded commuter train ran into the rear of a
     stationary train near Clapham Junction, and 35 people died. During
     signalling work, an old wire was left connected at the fuse end and loose
-    at the relay end. It sent a false feed of current to signal WF138, so the signal
-    showed a proceed aspect instead of red. The wiring errors were not found
+    at the relay end. It made contact at a relay and gave a false feed of
+    current that by-passed another relay, so signal WF138 showed a proceed
+    aspect instead of red. The wiring errors were not found
     by the installer, his supervision or the testing before the signal was
     put into use. The independent wire count that practice and instructions
     called for was not done.
@@ -330,15 +340,16 @@
   lessons:
   - rule: P37
     text: >-
-      A signal's safe state is red. The wiring fault moved it to a proceed
-      aspect, a failure on the wrong side of safety. The design was meant to
-      fail safe, but nobody showed after the work that a fault would still
-      take the signal to red.
+      A signal's safe state is red. The wiring fault made it show a proceed
+      aspect instead, a failure on the wrong side of safety, and the testing
+      before the signal went back into use did not find it. A fail-safe
+      design needs a test that shows a fault still takes the signal to red.
   - rule: P56
     text: >-
-      The installer's work was not checked by anyone else. The report says
-      rare errors have to be guarded against by independent checking, and the
-      independent wire count was the check that was missed.
+      Neither the installer, nor his supervision, nor the testing found his
+      errors. The report says such rare errors have to be guarded against by
+      independent checking of his work, and the independent wire count that
+      good practice called for was not done.
   quotes:
   - source: case-hidden-clapham-junction-report
     text: >-
@@ -391,11 +402,12 @@
   lessons:
   - rule: P58
     text: >-
-      Every measurement of the mirror depended on one instrument that was not
-      checked against an independent reference. When other instruments gave
-      different results, the results were not reconciled. Checking the null
-      corrector against a known reference would have found the error before
-      launch.
+      The mirror was made and verified with one instrument, whose dimensions
+      were not verified after assembly. When other instruments gave different
+      results, those results were dismissed as less precise. Instruments
+      calibrated against a traceable reference, with the uncertainty of each
+      result stated, make a disagreement a reason to investigate rather than
+      to dismiss.
   quotes:
   - source: case-nasa-hubble-optical-failure-report
     text: >-
@@ -437,11 +449,12 @@
   lessons:
   - rule: P40
     text: >-
-      Target had several control layers: vendor access, network isolation and
-      intrusion detection. Each one appears to have failed or not been acted
-      on, so the layers did not stop the attack together. A layer only counts
-      when it is verified to work, including the people who respond to its
-      alerts.
+      The staff analysis, which rests on media reports and expert analyses,
+      names several points where the attack could have been stopped: the
+      vendor's credential, the isolation of sensitive networks, and the
+      response to intrusion warnings. Each appears to have failed or gone
+      unanswered. Defense in depth needs independent layers that are each
+      verified to work, including the people who act on a layer's alerts.
   quotes:
   - source: case-senate-target-kill-chain-report
     text: >-
@@ -482,10 +495,12 @@
   lessons:
   - rule: P54
     text: >-
-      The terminal was handed over to operation before the whole system had
-      been tested together under real conditions. Trials ran, but the
-      commissioning was cut short to keep the opening date, and the system
-      failed to meet the operator's needs in the first days.
+      The terminal opened before its systems and staff had been tested well
+      enough together. British Airways said it compromised on the testing
+      regime because the building work was late, and the proving trials did
+      not get the system to the point where it could cope with the opening.
+      Commissioning tests that all parts work together against the owner's
+      requirements before handover.
   quotes:
   - source: case-commons-heathrow-t5-opening-report
     text: >-
@@ -523,10 +538,11 @@
   lessons:
   - rule: P38
     text: >-
-      The blast blanket was an engineering control at the receiver, and it
-      held. Eliminating the MIC stockpile acts at the source and removes the
-      hazard, the highest level. The company first recorded why elimination
-      was not viable, and later chose it.
+      The blast blanket, an engineering control around the MIC day tank, held
+      against the debris. Ending all production, storage and use of MIC, as
+      the company announced in 2011, removes the hazard at its source, the
+      highest control level. In 2009 it had reported that MIC use would not be
+      eliminated.
   quotes:
   - source: case-csb-bayer-cropscience-report
     text: >-
