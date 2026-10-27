@@ -616,10 +616,12 @@
     "url": "https://www.troutman.com/insights/sedona-provides-updated-practical-guidance-for-legal-holds.html"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.energy.gov/sites/prod/files/oeprod/DocumentsandMedia/BlackoutFinal-Web.pdf",
     "id": "case-2003-blackout-alarm-failover-load-shedding#1",
     "method": "origin",
+    "quote_sha256": "16a3f267793a91de7ea1665d50d42170517cdc70d7948b808303742cc5ac8d84",
     "result": "matched",
     "score": 1.0,
     "sha256": "118b854a588297c019afc917cddf1c7406be0ce3fdcc3eed412dcea2e51c7397",
@@ -627,10 +629,12 @@
     "url": "https://www.energy.gov/sites/prod/files/oeprod/DocumentsandMedia/BlackoutFinal-Web.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.energy.gov/sites/prod/files/oeprod/DocumentsandMedia/BlackoutFinal-Web.pdf",
     "id": "case-2003-blackout-alarm-failover-load-shedding#2",
     "method": "origin",
+    "quote_sha256": "524b830f67e8e60ed6c43784b81f4481cb41b61a8164f589ebc12127bfd7cfc3",
     "result": "matched",
     "score": 1.0,
     "sha256": "118b854a588297c019afc917cddf1c7406be0ce3fdcc3eed412dcea2e51c7397",
@@ -638,10 +642,12 @@
     "url": "https://www.energy.gov/sites/prod/files/oeprod/DocumentsandMedia/BlackoutFinal-Web.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.energy.gov/sites/prod/files/oeprod/DocumentsandMedia/BlackoutFinal-Web.pdf",
     "id": "case-2003-blackout-alarm-failover-load-shedding#3",
     "method": "origin",
+    "quote_sha256": "e5c2339cce4465bc30b281b3d72b729f7a27c56d31607dda3de5e3110663610b",
     "result": "matched",
     "score": 1.0,
     "sha256": "118b854a588297c019afc917cddf1c7406be0ce3fdcc3eed412dcea2e51c7397",
@@ -649,10 +655,12 @@
     "url": "https://www.energy.gov/sites/prod/files/oeprod/DocumentsandMedia/BlackoutFinal-Web.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.energy.gov/sites/prod/files/oeprod/DocumentsandMedia/BlackoutFinal-Web.pdf",
     "id": "case-2003-blackout-alarm-failover-load-shedding#4",
     "method": "origin",
+    "quote_sha256": "6b8a9caac75207ba79de71016e71c676907429b6952f2a6467598bdf73b42aee",
     "result": "matched",
     "score": 1.0,
     "sha256": "118b854a588297c019afc917cddf1c7406be0ce3fdcc3eed412dcea2e51c7397",
@@ -660,10 +668,12 @@
     "url": "https://www.energy.gov/sites/prod/files/oeprod/DocumentsandMedia/BlackoutFinal-Web.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.energy.gov/sites/prod/files/oeprod/DocumentsandMedia/BlackoutFinal-Web.pdf",
     "id": "case-2003-blackout-alarm-failover-load-shedding#5",
     "method": "origin",
+    "quote_sha256": "4a224b2cd53c7153da7d5bb1d3a3981ba15cfc52fbb507c410303bab6c5bb211",
     "result": "matched",
     "score": 1.0,
     "sha256": "118b854a588297c019afc917cddf1c7406be0ce3fdcc3eed412dcea2e51c7397",
@@ -671,10 +681,12 @@
     "url": "https://www.energy.gov/sites/prod/files/oeprod/DocumentsandMedia/BlackoutFinal-Web.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.energy.gov/sites/prod/files/oeprod/DocumentsandMedia/BlackoutFinal-Web.pdf",
     "id": "case-2003-blackout-alarm-failover-load-shedding#6",
     "method": "origin",
+    "quote_sha256": "65903c432ba93c765996f516cd171c3811cb8ae3bc0f223e490f206a07c1a167",
     "result": "matched",
     "score": 1.0,
     "sha256": "118b854a588297c019afc917cddf1c7406be0ce3fdcc3eed412dcea2e51c7397",
@@ -682,10 +694,12 @@
     "url": "https://www.energy.gov/sites/prod/files/oeprod/DocumentsandMedia/BlackoutFinal-Web.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR0201.pdf",
     "id": "case-alaska-261-2000-maintenance-intervals#1",
     "method": "origin",
+    "quote_sha256": "3affed08aa2835aac9545cf2753fc3e651a5db73479159672c6bd97556d3286e",
     "result": "matched",
     "score": 1.0,
     "sha256": "d49eb9829f522d90427e9a931709e88d39dadff7c816c0c1ee185fce3b502a6b",
@@ -693,10 +707,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR0201.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR0201.pdf",
     "id": "case-alaska-261-2000-maintenance-intervals#2",
     "method": "origin",
+    "quote_sha256": "b3a64b317877fa82c6a1dbd38d7f1172de069771ba26c7cb337fd473c654056a",
     "result": "matched",
     "score": 1.0,
     "sha256": "d49eb9829f522d90427e9a931709e88d39dadff7c816c0c1ee185fce3b502a6b",
@@ -704,10 +720,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR0201.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR0201.pdf",
     "id": "case-alaska-261-2000-maintenance-intervals#3",
     "method": "origin",
+    "quote_sha256": "4e9b9dae838dc9ffbe1d908e2544cc916073f1cf22adb6ae6a1e291cb4bcd720",
     "result": "matched",
     "score": 1.0,
     "sha256": "d49eb9829f522d90427e9a931709e88d39dadff7c816c0c1ee185fce3b502a6b",
@@ -715,10 +733,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR0201.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR0201.pdf",
     "id": "case-alaska-261-2000-maintenance-intervals#4",
     "method": "origin",
+    "quote_sha256": "4e905fb720e17f2f34b75750342c75033b411984c68a81c348b88293e6e497ca",
     "result": "matched",
     "score": 1.0,
     "sha256": "d49eb9829f522d90427e9a931709e88d39dadff7c816c0c1ee185fce3b502a6b",
@@ -726,10 +746,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR0201.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR0201.pdf",
     "id": "case-alaska-261-2000-maintenance-intervals#5",
     "method": "origin",
+    "quote_sha256": "c2d8dd9217288e95ea9d391e1e2176b6728dee99bd58b6899c10930d6ff42d88",
     "result": "matched",
     "score": 1.0,
     "sha256": "d49eb9829f522d90427e9a931709e88d39dadff7c816c0c1ee185fce3b502a6b",
@@ -737,10 +759,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR0201.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR0201.pdf",
     "id": "case-alaska-261-2000-maintenance-intervals#6",
     "method": "origin",
+    "quote_sha256": "82feb0c06624c3905fa7406e4fe6d34e9eb71dd9cd40acef43478a6691bfa3a8",
     "result": "matched",
     "score": 1.0,
     "sha256": "d49eb9829f522d90427e9a931709e88d39dadff7c816c0c1ee185fce3b502a6b",
@@ -748,10 +772,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR0201.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR0201.pdf",
     "id": "case-alaska-261-2000-maintenance-intervals#7",
     "method": "origin",
+    "quote_sha256": "9e4464d336982ed8f792eba8b0b59d9ce582d456bbec3ff55e55149d4cec1aab",
     "result": "matched",
     "score": 1.0,
     "sha256": "d49eb9829f522d90427e9a931709e88d39dadff7c816c0c1ee185fce3b502a6b",
@@ -759,10 +785,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR0201.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR0201.pdf",
     "id": "case-alaska-261-2000-maintenance-intervals#8",
     "method": "origin",
+    "quote_sha256": "216182dd15abd34b9726e930a2670b93c18767b0cf27668b7d1544423693e97a",
     "result": "matched",
     "score": 1.0,
     "sha256": "d49eb9829f522d90427e9a931709e88d39dadff7c816c0c1ee185fce3b502a6b",
@@ -770,10 +798,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR0201.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR0201.pdf",
     "id": "case-alaska-261-2000-maintenance-intervals#9",
     "method": "origin",
+    "quote_sha256": "c3c13ce986923cd5456b2f6dd6fbcebd00e7c02972695d5129546dfae145123f",
     "result": "matched",
     "score": 1.0,
     "sha256": "d49eb9829f522d90427e9a931709e88d39dadff7c816c0c1ee185fce3b502a6b",
@@ -781,10 +811,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR0201.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_13_review_board.txt",
     "id": "case-apollo-13#1",
     "method": "origin",
+    "quote_sha256": "d18930d5fef3c11c3a657edc0e7ad2715fc048237806456c62a515a2b38b555c",
     "result": "matched",
     "score": 1.0,
     "sha256": "767cd0124a1a5c3e4c0787f89188d9887ad03ce619953b0d9f2d0d9fd70ed379",
@@ -792,10 +824,12 @@
     "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_13_review_board.txt"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_13_review_board.txt",
     "id": "case-apollo-13#2",
     "method": "origin",
+    "quote_sha256": "235aad059fd72ffb9e5c1c9791b55780faaf32b242728d35de704ae86b2638ff",
     "result": "matched",
     "score": 1.0,
     "sha256": "767cd0124a1a5c3e4c0787f89188d9887ad03ce619953b0d9f2d0d9fd70ed379",
@@ -803,10 +837,12 @@
     "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_13_review_board.txt"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_13_review_board.txt",
     "id": "case-apollo-13#3",
     "method": "origin",
+    "quote_sha256": "4474463de95aeca1e7808e694c0a4085e4fdb6e0193e5adfa68aa9d50b112445",
     "result": "matched",
     "score": 1.0,
     "sha256": "767cd0124a1a5c3e4c0787f89188d9887ad03ce619953b0d9f2d0d9fd70ed379",
@@ -814,10 +850,12 @@
     "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_13_review_board.txt"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_13_review_board.txt",
     "id": "case-apollo-13#4",
     "method": "origin",
+    "quote_sha256": "e4c65ef950c017729b63578286429c445c4eadba84998fa63fec56c3119dcba6",
     "result": "matched",
     "score": 1.0,
     "sha256": "767cd0124a1a5c3e4c0787f89188d9887ad03ce619953b0d9f2d0d9fd70ed379",
@@ -825,10 +863,12 @@
     "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_13_review_board.txt"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_13_review_board.txt",
     "id": "case-apollo-13#5",
     "method": "origin",
+    "quote_sha256": "4e57b9233840c181e604061d406401b5d03edbee6507dee7c3200c67bf1c1406",
     "result": "matched",
     "score": 1.0,
     "sha256": "767cd0124a1a5c3e4c0787f89188d9887ad03ce619953b0d9f2d0d9fd70ed379",
@@ -836,10 +876,12 @@
     "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_13_review_board.txt"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.esa.int/Newsroom/Press_Releases/Ariane_501_-_Presentation_of_Inquiry_Board_report",
     "id": "case-ariane-501#1",
     "method": "origin",
+    "quote_sha256": "460070f7356422e9ec32b5429ded596a46c7b2c52776230994cda153a0dda19e",
     "result": "matched",
     "score": 1.0,
     "sha256": "a6dbd1aa0d40ea7730101dfa5abcdd114b3615e1b1041bd899ecad4e099c23df",
@@ -847,10 +889,12 @@
     "url": "https://www.esa.int/Newsroom/Press_Releases/Ariane_501_-_Presentation_of_Inquiry_Board_report"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www-users.cse.umn.edu/~arnold/disasters/ariane5rep.html",
     "id": "case-ariane-501#2",
     "method": "origin",
+    "quote_sha256": "e05d10478fc08142a0ae0d38c2c8c1aa7ce5f92c9556c9fc1c7483db467209a7",
     "result": "matched",
     "score": 1.0,
     "sha256": "0452600071388e47c36189e457a0666329a1bb64c12bb7597f6e4f9d5361e045",
@@ -858,10 +902,12 @@
     "url": "https://www-users.cse.umn.edu/~arnold/disasters/ariane5rep.html"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www-users.cse.umn.edu/~arnold/disasters/ariane5rep.html",
     "id": "case-ariane-501#3",
     "method": "origin",
+    "quote_sha256": "f52d6812f8aad9df2d7f5045c48aa59edc51711d9580d4f65c35bdab9605d73d",
     "result": "matched",
     "score": 1.0,
     "sha256": "0452600071388e47c36189e457a0666329a1bb64c12bb7597f6e4f9d5361e045",
@@ -869,10 +915,12 @@
     "url": "https://www-users.cse.umn.edu/~arnold/disasters/ariane5rep.html"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www-users.cse.umn.edu/~arnold/disasters/ariane5rep.html",
     "id": "case-ariane-501#4",
     "method": "origin",
+    "quote_sha256": "85fc5fa5c8976fb1fbc05e3ab695e491ea94c71f9c8cf44c1710643e9fac2699",
     "result": "matched",
     "score": 1.0,
     "sha256": "0452600071388e47c36189e457a0666329a1bb64c12bb7597f6e4f9d5361e045",
@@ -880,10 +928,12 @@
     "url": "https://www-users.cse.umn.edu/~arnold/disasters/ariane5rep.html"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www-users.cse.umn.edu/~arnold/disasters/ariane5rep.html",
     "id": "case-ariane-501#5",
     "method": "origin",
+    "quote_sha256": "17f077abd4183acf2c9ef77d5276df60f79b5b89f478054f839c5092c74a1691",
     "result": "matched",
     "score": 1.0,
     "sha256": "0452600071388e47c36189e457a0666329a1bb64c12bb7597f6e4f9d5361e045",
@@ -891,10 +941,12 @@
     "url": "https://www-users.cse.umn.edu/~arnold/disasters/ariane5rep.html"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www-users.cse.umn.edu/~arnold/disasters/ariane5rep.html",
     "id": "case-ariane-501#6",
     "method": "origin",
+    "quote_sha256": "c6e139b003aeb5371e15aca9994b482f1c3945dbadcf7c0018f0b94820f357bc",
     "result": "matched",
     "score": 1.0,
     "sha256": "0452600071388e47c36189e457a0666329a1bb64c12bb7597f6e4f9d5361e045",
@@ -902,10 +954,12 @@
     "url": "https://www-users.cse.umn.edu/~arnold/disasters/ariane5rep.html"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www-users.cse.umn.edu/~arnold/disasters/ariane5rep.html",
     "id": "case-ariane-501#7",
     "method": "origin",
+    "quote_sha256": "d0f912226984e0b0ce18bd6343e656dec39c424fe4ef50a96464e0fbd36d62a7",
     "result": "matched",
     "score": 1.0,
     "sha256": "0452600071388e47c36189e457a0666329a1bb64c12bb7597f6e4f9d5361e045",
@@ -913,10 +967,12 @@
     "url": "https://www-users.cse.umn.edu/~arnold/disasters/ariane5rep.html"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www-users.cse.umn.edu/~arnold/disasters/ariane5rep.html",
     "id": "case-ariane-501#8",
     "method": "origin",
+    "quote_sha256": "cd4b1c9ccdd07d9788eeabe3bab6349b956f29fbbaeb1718bf501af8612af814",
     "result": "matched",
     "score": 1.0,
     "sha256": "0452600071388e47c36189e457a0666329a1bb64c12bb7597f6e4f9d5361e045",
@@ -924,10 +980,12 @@
     "url": "https://www-users.cse.umn.edu/~arnold/disasters/ariane5rep.html"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www-users.cse.umn.edu/~arnold/disasters/ariane5rep.html",
     "id": "case-ariane-501#9",
     "method": "origin",
+    "quote_sha256": "8f01d640b2190fcedcfa2026b13b9b30fbfb897889e7ce92b5b195f744cde351",
     "result": "matched",
     "score": 1.0,
     "sha256": "0452600071388e47c36189e457a0666329a1bb64c12bb7597f6e4f9d5361e045",
@@ -935,10 +993,12 @@
     "url": "https://www-users.cse.umn.edu/~arnold/disasters/ariane5rep.html"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.esa.int/Newsroom/Press_Releases/Ariane_501_-_Presentation_of_Inquiry_Board_report",
     "id": "case-ariane-501#10",
     "method": "origin",
+    "quote_sha256": "9a0f47c3b9834fcc4722ce35abab72a876f6a6706f8e16b7f58cba7ef252e96a",
     "result": "matched",
     "score": 1.0,
     "sha256": "a6dbd1aa0d40ea7730101dfa5abcdd114b3615e1b1041bd899ecad4e099c23df",
@@ -946,10 +1006,12 @@
     "url": "https://www.esa.int/Newsroom/Press_Releases/Ariane_501_-_Presentation_of_Inquiry_Board_report"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.rba.gov.au/publications/bulletin/1995/nov/1.html",
     "id": "case-barings-singapore-segregation-of-duties#1",
     "method": "origin",
+    "quote_sha256": "ea36c241e2db5375f83bdadd4a42c3923021af53de31c56adace3604394bc1ad",
     "result": "matched",
     "score": 1.0,
     "sha256": "47073985dde7b823fce25d462d2171dcba243666e1a07a6e786dfe4517be0bb8",
@@ -957,10 +1019,12 @@
     "url": "https://www.rba.gov.au/publications/bulletin/1995/nov/1.html"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.rba.gov.au/publications/bulletin/1995/nov/1.html",
     "id": "case-barings-singapore-segregation-of-duties#2",
     "method": "origin",
+    "quote_sha256": "9936c3ec16bd83467b645266607d1efa3619b9adfa832a7c487b2e9e4ebd451e",
     "result": "matched",
     "score": 1.0,
     "sha256": "47073985dde7b823fce25d462d2171dcba243666e1a07a6e786dfe4517be0bb8",
@@ -968,10 +1032,12 @@
     "url": "https://www.rba.gov.au/publications/bulletin/1995/nov/1.html"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.rba.gov.au/publications/bulletin/1995/nov/1.html",
     "id": "case-barings-singapore-segregation-of-duties#3",
     "method": "origin",
+    "quote_sha256": "300985a821fa2e0e7e9befd75895004d40cc42a8a4bd007a73ab3c756048d597",
     "result": "matched",
     "score": 1.0,
     "sha256": "47073985dde7b823fce25d462d2171dcba243666e1a07a6e786dfe4517be0bb8",
@@ -979,10 +1045,12 @@
     "url": "https://www.rba.gov.au/publications/bulletin/1995/nov/1.html"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.rba.gov.au/publications/bulletin/1995/nov/1.html",
     "id": "case-barings-singapore-segregation-of-duties#4",
     "method": "origin",
+    "quote_sha256": "c45e684b4c0b558b86acbf38b9861141ca3e7697a3ead263223783dfadf2b7da",
     "result": "matched",
     "score": 1.0,
     "sha256": "47073985dde7b823fce25d462d2171dcba243666e1a07a6e786dfe4517be0bb8",
@@ -990,10 +1058,12 @@
     "url": "https://www.rba.gov.au/publications/bulletin/1995/nov/1.html"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.rba.gov.au/publications/bulletin/1995/nov/1.html",
     "id": "case-barings-singapore-segregation-of-duties#5",
     "method": "origin",
+    "quote_sha256": "fece3d0cf0fcd4ef5b4a5e0d23d5d043dc8e32dc4e4add2f32d45bf6af48398d",
     "result": "matched",
     "score": 1.0,
     "sha256": "47073985dde7b823fce25d462d2171dcba243666e1a07a6e786dfe4517be0bb8",
@@ -1001,10 +1071,12 @@
     "url": "https://www.rba.gov.au/publications/bulletin/1995/nov/1.html"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.csb.gov/assets/1/20/bayer_report_final.pdf",
     "id": "case-bayer-institute-mic-elimination#1",
     "method": "origin",
+    "quote_sha256": "466fe33aa1f5f0e190158f4f028ed6c1705e6407433ff464c7be3d7ee59680df",
     "result": "matched",
     "score": 1.0,
     "sha256": "6b4c944c7c5c8b5537c32e86d247064c164fe50c15d08ea64083975e574cf619",
@@ -1012,10 +1084,12 @@
     "url": "https://www.csb.gov/assets/1/20/bayer_report_final.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.csb.gov/assets/1/20/bayer_report_final.pdf",
     "id": "case-bayer-institute-mic-elimination#2",
     "method": "origin",
+    "quote_sha256": "9b3aac4d16c6637b31e3db74f63f98c876428b692f39a54ef2eda71ecc1cd3d8",
     "result": "matched",
     "score": 1.0,
     "sha256": "6b4c944c7c5c8b5537c32e86d247064c164fe50c15d08ea64083975e574cf619",
@@ -1023,10 +1097,12 @@
     "url": "https://www.csb.gov/assets/1/20/bayer_report_final.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.csb.gov/assets/1/20/bayer_report_final.pdf",
     "id": "case-bayer-institute-mic-elimination#3",
     "method": "origin",
+    "quote_sha256": "4bb3df49c8d0b9373edbf5b0aeac0621631593ce6c59088f5ddd6cf850b5befb",
     "result": "matched",
     "score": 1.0,
     "sha256": "6b4c944c7c5c8b5537c32e86d247064c164fe50c15d08ea64083975e574cf619",
@@ -1034,10 +1110,12 @@
     "url": "https://www.csb.gov/assets/1/20/bayer_report_final.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.csb.gov/assets/1/20/bayer_report_final.pdf",
     "id": "case-bayer-institute-mic-elimination#4",
     "method": "origin",
+    "quote_sha256": "62024794617130c02c1e5fa816591706dafe390d30b99f274f352c788f5367d7",
     "result": "matched",
     "score": 1.0,
     "sha256": "6b4c944c7c5c8b5537c32e86d247064c164fe50c15d08ea64083975e574cf619",
@@ -1045,10 +1123,12 @@
     "url": "https://www.csb.gov/assets/1/20/bayer_report_final.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.csb.gov/assets/1/20/bayer_report_final.pdf",
     "id": "case-bayer-institute-mic-elimination#5",
     "method": "origin",
+    "quote_sha256": "2a1cc91b3ff2c0a884602eb5fbbb2e57725adda0a57c05d8a70745a829b2217d",
     "result": "matched",
     "score": 1.0,
     "sha256": "6b4c944c7c5c8b5537c32e86d247064c164fe50c15d08ea64083975e574cf619",
@@ -1056,10 +1136,12 @@
     "url": "https://www.csb.gov/assets/1/20/bayer_report_final.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.csb.gov/assets/1/20/bayer_report_final.pdf",
     "id": "case-bayer-institute-mic-elimination#6",
     "method": "origin",
+    "quote_sha256": "0c5018e546c689c0375fe8ca1863f3bc5e91ba805b83d5d58983747e8bd77473",
     "result": "matched",
     "score": 1.0,
     "sha256": "6b4c944c7c5c8b5537c32e86d247064c164fe50c15d08ea64083975e574cf619",
@@ -1067,10 +1149,12 @@
     "url": "https://www.csb.gov/assets/1/20/bayer_report_final.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.csb.gov/assets/1/20/bayer_report_final.pdf",
     "id": "case-bayer-institute-mic-elimination#7",
     "method": "origin",
+    "quote_sha256": "06c55989c81e84dd18b1196d813c0d01937e2b81416de1b0f101f7dd340f9ec6",
     "result": "matched",
     "score": 1.0,
     "sha256": "6b4c944c7c5c8b5537c32e86d247064c164fe50c15d08ea64083975e574cf619",
@@ -1078,10 +1162,12 @@
     "url": "https://www.csb.gov/assets/1/20/bayer_report_final.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1503.pdf",
     "id": "case-bedford-g4-2014-checklists#1",
     "method": "origin",
+    "quote_sha256": "176c2f2a799d456454150e5054c3be4f601bee37e1a45280ba910c67a2d8aaed",
     "result": "matched",
     "score": 1.0,
     "sha256": "a2fd407e9fa0f3b90996da2a5be97813726ed49f01d5d1977978bf132fdcb215",
@@ -1089,10 +1175,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1503.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1503.pdf",
     "id": "case-bedford-g4-2014-checklists#2",
     "method": "origin",
+    "quote_sha256": "05f8f284382389f50f9b9b19a2cb09f3bedf4072288bb2d7ff926d9342e28dd9",
     "result": "matched",
     "score": 1.0,
     "sha256": "a2fd407e9fa0f3b90996da2a5be97813726ed49f01d5d1977978bf132fdcb215",
@@ -1100,10 +1188,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1503.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1503.pdf",
     "id": "case-bedford-g4-2014-checklists#3",
     "method": "origin",
+    "quote_sha256": "01737a270222a6a3a34ba63ff09e42c37327ed3c3887853a4677b1a17decd1b1",
     "result": "matched",
     "score": 1.0,
     "sha256": "a2fd407e9fa0f3b90996da2a5be97813726ed49f01d5d1977978bf132fdcb215",
@@ -1111,10 +1201,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1503.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1503.pdf",
     "id": "case-bedford-g4-2014-checklists#4",
     "method": "origin",
+    "quote_sha256": "76623b93263d09ee240345c3714bef8b490e3a31ed80b93791fb92ed7a01b259",
     "result": "matched",
     "score": 1.0,
     "sha256": "a2fd407e9fa0f3b90996da2a5be97813726ed49f01d5d1977978bf132fdcb215",
@@ -1122,10 +1214,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1503.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1503.pdf",
     "id": "case-bedford-g4-2014-checklists#5",
     "method": "origin",
+    "quote_sha256": "7b07f524b08a29fb23e96dc0f5f6112ea6e1d6f2ced5834726a77a8410bf1531",
     "result": "matched",
     "score": 1.0,
     "sha256": "a2fd407e9fa0f3b90996da2a5be97813726ed49f01d5d1977978bf132fdcb215",
@@ -1133,10 +1227,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1503.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1503.pdf",
     "id": "case-bedford-g4-2014-checklists#6",
     "method": "origin",
+    "quote_sha256": "40ffd11f3bd61289856ea33ff1c014e9306d32255d96d05d5ae2ac9065bd7a5a",
     "result": "matched",
     "score": 1.0,
     "sha256": "a2fd407e9fa0f3b90996da2a5be97813726ed49f01d5d1977978bf132fdcb215",
@@ -1144,10 +1240,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1503.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.nasa.gov/history/rogersrep/v1ch4.htm",
     "id": "case-challenger#1",
     "method": "origin",
+    "quote_sha256": "1f0f2407add6748da7b95b086d61b92e3e72c85f41e4910a842d9cf63bfb9c80",
     "result": "matched",
     "score": 1.0,
     "sha256": "3dc332e3ae7ae206dbfcda5e50ea36137cc261a76bebd0fc727a0070fc91cf83",
@@ -1155,10 +1253,12 @@
     "url": "https://www.nasa.gov/history/rogersrep/v1ch4.htm"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.nasa.gov/history/rogersrep/v1ch5.htm",
     "id": "case-challenger#2",
     "method": "origin",
+    "quote_sha256": "27e34611cb07642e62e05b6737dc352749e48b9d97397d5833ca9a64d0d31bfa",
     "result": "matched",
     "score": 1.0,
     "sha256": "a5c5b63aaccad7691fc3ce9a032f490410c73cb58e3c32feeaa2fe1eec3c11a4",
@@ -1166,10 +1266,12 @@
     "url": "https://www.nasa.gov/history/rogersrep/v1ch5.htm"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.nasa.gov/history/rogersrep/v1ch5.htm",
     "id": "case-challenger#3",
     "method": "origin",
+    "quote_sha256": "198658768bedde301fe535e1a94df825ab19298d0695592bcc7bb436948341e0",
     "result": "matched",
     "score": 1.0,
     "sha256": "a5c5b63aaccad7691fc3ce9a032f490410c73cb58e3c32feeaa2fe1eec3c11a4",
@@ -1177,10 +1279,12 @@
     "url": "https://www.nasa.gov/history/rogersrep/v1ch5.htm"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.nasa.gov/history/rogersrep/v1ch5.htm",
     "id": "case-challenger#4",
     "method": "origin",
+    "quote_sha256": "ae620b1ad8f96bd623bd985c9af4f8a27c529580fcf6d5c6988c61e70eb4aad1",
     "result": "matched",
     "score": 1.0,
     "sha256": "a5c5b63aaccad7691fc3ce9a032f490410c73cb58e3c32feeaa2fe1eec3c11a4",
@@ -1188,10 +1292,12 @@
     "url": "https://www.nasa.gov/history/rogersrep/v1ch5.htm"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.nasa.gov/history/rogersrep/v1ch5.htm",
     "id": "case-challenger#5",
     "method": "origin",
+    "quote_sha256": "94b0e6debf597ac197ea987252be39881109db314b05889254d839ce1e1fe36e",
     "result": "matched",
     "score": 1.0,
     "sha256": "a5c5b63aaccad7691fc3ce9a032f490410c73cb58e3c32feeaa2fe1eec3c11a4",
@@ -1199,10 +1305,12 @@
     "url": "https://www.nasa.gov/history/rogersrep/v1ch5.htm"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.nasa.gov/history/rogersrep/v1ch5.htm",
     "id": "case-challenger#6",
     "method": "origin",
+    "quote_sha256": "50c53bf895f90c3827434cbb7383c64b8d3e3a25ad338856430ae3ee4f5e621f",
     "result": "matched",
     "score": 1.0,
     "sha256": "a5c5b63aaccad7691fc3ce9a032f490410c73cb58e3c32feeaa2fe1eec3c11a4",
@@ -1210,10 +1318,12 @@
     "url": "https://www.nasa.gov/history/rogersrep/v1ch5.htm"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.nasa.gov/history/rogersrep/v1ch5.htm",
     "id": "case-challenger#7",
     "method": "origin",
+    "quote_sha256": "8c8caa22725fa3f7c7779d7e46ee20f32b3de42beece9290b464f719c3408f12",
     "result": "matched",
     "score": 1.0,
     "sha256": "a5c5b63aaccad7691fc3ce9a032f490410c73cb58e3c32feeaa2fe1eec3c11a4",
@@ -1221,10 +1331,12 @@
     "url": "https://www.nasa.gov/history/rogersrep/v1ch5.htm"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.nasa.gov/history/rogersrep/v1ch6.htm",
     "id": "case-challenger#8",
     "method": "origin",
+    "quote_sha256": "e9a6dcec0be5f169da1e0cba172d51933a4aa456e6f1e4b6e68436d83faac28f",
     "result": "matched",
     "score": 1.0,
     "sha256": "dd6d3198e8ba43f1776f029a59a5865b83ffb35330eb3ac8d41c3fa9357e7210",
@@ -1232,10 +1344,12 @@
     "url": "https://www.nasa.gov/history/rogersrep/v1ch6.htm"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.nasa.gov/history/rogersrep/v1ch6.htm",
     "id": "case-challenger#9",
     "method": "origin",
+    "quote_sha256": "296af60fd8af35dddad05f686f071b302cb9480089ef5ad2fb209f5434e51cbd",
     "result": "matched",
     "score": 1.0,
     "sha256": "dd6d3198e8ba43f1776f029a59a5865b83ffb35330eb3ac8d41c3fa9357e7210",
@@ -1243,10 +1357,12 @@
     "url": "https://www.nasa.gov/history/rogersrep/v1ch6.htm"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.nasa.gov/history/rogersrep/v1ch6.htm",
     "id": "case-challenger#10",
     "method": "origin",
+    "quote_sha256": "47bea3c16b46f28d9d1a0726a51d12c3febfe670172823a0641d47e7b95d46e1",
     "result": "matched",
     "score": 1.0,
     "sha256": "dd6d3198e8ba43f1776f029a59a5865b83ffb35330eb3ac8d41c3fa9357e7210",
@@ -1254,10 +1370,12 @@
     "url": "https://www.nasa.gov/history/rogersrep/v1ch6.htm"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.nasa.gov/history/rogersrep/v1ch6.htm",
     "id": "case-challenger#11",
     "method": "origin",
+    "quote_sha256": "8f9f2f3fed6efad6340e86de507ad658bd2dec14252630c08b10d5520a6733a3",
     "result": "matched",
     "score": 1.0,
     "sha256": "dd6d3198e8ba43f1776f029a59a5865b83ffb35330eb3ac8d41c3fa9357e7210",
@@ -1265,10 +1383,12 @@
     "url": "https://www.nasa.gov/history/rogersrep/v1ch6.htm"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.nasa.gov/history/rogersrep/v1ch6.htm",
     "id": "case-challenger#12",
     "method": "origin",
+    "quote_sha256": "37f3b62243d1c69eb39441968c53067baa595141640b6a3a83f59e794a811a1a",
     "result": "matched",
     "score": 1.0,
     "sha256": "dd6d3198e8ba43f1776f029a59a5865b83ffb35330eb3ac8d41c3fa9357e7210",
@@ -1276,10 +1396,12 @@
     "url": "https://www.nasa.gov/history/rogersrep/v1ch6.htm"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.nasa.gov/history/rogersrep/v1ch6.htm",
     "id": "case-challenger#13",
     "method": "origin",
+    "quote_sha256": "965d3558a01f25bf8cc372ea31e6ce1ce987fa0195de3acca1555e9eeaf3fcb2",
     "result": "matched",
     "score": 1.0,
     "sha256": "dd6d3198e8ba43f1776f029a59a5865b83ffb35330eb3ac8d41c3fa9357e7210",
@@ -1287,10 +1409,12 @@
     "url": "https://www.nasa.gov/history/rogersrep/v1ch6.htm"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.jesip.org.uk/wp-content/uploads/2022/03/Clapham-Rail-Crash.pdf",
     "id": "case-clapham-junction-signal-wiring#1",
     "method": "origin",
+    "quote_sha256": "71de3e78644ebc8e4ec9f5677b1da62ed28842fb27874ff9a7a80ebc5c290706",
     "result": "matched",
     "score": 1.0,
     "sha256": "73a3c9d660b468633c301ffb79623972a14c334d89074403d2797c153ac24f31",
@@ -1298,10 +1422,12 @@
     "url": "https://www.jesip.org.uk/wp-content/uploads/2022/03/Clapham-Rail-Crash.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.jesip.org.uk/wp-content/uploads/2022/03/Clapham-Rail-Crash.pdf",
     "id": "case-clapham-junction-signal-wiring#2",
     "method": "origin",
+    "quote_sha256": "b73bfa424371866ab74ec24ed5333076833c8fc6a91f877269e5ee7a996bf25c",
     "result": "matched",
     "score": 1.0,
     "sha256": "73a3c9d660b468633c301ffb79623972a14c334d89074403d2797c153ac24f31",
@@ -1309,10 +1435,12 @@
     "url": "https://www.jesip.org.uk/wp-content/uploads/2022/03/Clapham-Rail-Crash.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.jesip.org.uk/wp-content/uploads/2022/03/Clapham-Rail-Crash.pdf",
     "id": "case-clapham-junction-signal-wiring#3",
     "method": "origin",
+    "quote_sha256": "56ea6fbdbf82ed809f2d1278f7191bd50acb081491457a6957bada607f3b7878",
     "result": "matched",
     "score": 1.0,
     "sha256": "73a3c9d660b468633c301ffb79623972a14c334d89074403d2797c153ac24f31",
@@ -1320,10 +1448,12 @@
     "url": "https://www.jesip.org.uk/wp-content/uploads/2022/03/Clapham-Rail-Crash.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.jesip.org.uk/wp-content/uploads/2022/03/Clapham-Rail-Crash.pdf",
     "id": "case-clapham-junction-signal-wiring#4",
     "method": "origin",
+    "quote_sha256": "a93a0070f03db741078268843670404ea43b51d2219158a511c8477398de4fb2",
     "result": "matched",
     "score": 1.0,
     "sha256": "73a3c9d660b468633c301ffb79623972a14c334d89074403d2797c153ac24f31",
@@ -1331,10 +1461,12 @@
     "url": "https://www.jesip.org.uk/wp-content/uploads/2022/03/Clapham-Rail-Crash.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.jesip.org.uk/wp-content/uploads/2022/03/Clapham-Rail-Crash.pdf",
     "id": "case-clapham-junction-signal-wiring#5",
     "method": "origin",
+    "quote_sha256": "630d323e133a7dacfa581d9d2d6ae336262d86c5ad3b98c06882af2f35e75a31",
     "result": "matched",
     "score": 1.0,
     "sha256": "73a3c9d660b468633c301ffb79623972a14c334d89074403d2797c153ac24f31",
@@ -1342,10 +1474,12 @@
     "url": "https://www.jesip.org.uk/wp-content/uploads/2022/03/Clapham-Rail-Crash.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.jesip.org.uk/wp-content/uploads/2022/03/Clapham-Rail-Crash.pdf",
     "id": "case-clapham-junction-signal-wiring#6",
     "method": "origin",
+    "quote_sha256": "4bd25acc151337e536f3342dfeb5e40ca9d44ffcc7d7ca9f5d5400a482a3e24d",
     "result": "matched",
     "score": 1.0,
     "sha256": "73a3c9d660b468633c301ffb79623972a14c334d89074403d2797c153ac24f31",
@@ -1353,10 +1487,12 @@
     "url": "https://www.jesip.org.uk/wp-content/uploads/2022/03/Clapham-Rail-Crash.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.jesip.org.uk/wp-content/uploads/2022/03/Clapham-Rail-Crash.pdf",
     "id": "case-clapham-junction-signal-wiring#7",
     "method": "origin",
+    "quote_sha256": "d3a0a2402a87769355399d9b997877d19083f03aefd13d660a98f2c6d425a66a",
     "result": "matched",
     "score": 1.0,
     "sha256": "73a3c9d660b468633c301ffb79623972a14c334d89074403d2797c153ac24f31",
@@ -1364,10 +1500,12 @@
     "url": "https://www.jesip.org.uk/wp-content/uploads/2022/03/Clapham-Rail-Crash.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.jesip.org.uk/wp-content/uploads/2022/03/Clapham-Rail-Crash.pdf",
     "id": "case-clapham-junction-signal-wiring#8",
     "method": "origin",
+    "quote_sha256": "ff6e8f7687b52a03c376834975a7b66a20e942bf219eb9bcfa119fdaa3daefee",
     "result": "matched",
     "score": 1.0,
     "sha256": "73a3c9d660b468633c301ffb79623972a14c334d89074403d2797c153ac24f31",
@@ -1375,10 +1513,12 @@
     "url": "https://www.jesip.org.uk/wp-content/uploads/2022/03/Clapham-Rail-Crash.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.jesip.org.uk/wp-content/uploads/2022/03/Clapham-Rail-Crash.pdf",
     "id": "case-clapham-junction-signal-wiring#9",
     "method": "origin",
+    "quote_sha256": "1ae7e724f0255786700774a3f8ccb7701a9037f94543778de2252905bd921147",
     "result": "matched",
     "score": 1.0,
     "sha256": "73a3c9d660b468633c301ffb79623972a14c334d89074403d2797c153ac24f31",
@@ -1386,10 +1526,12 @@
     "url": "https://www.jesip.org.uk/wp-content/uploads/2022/03/Clapham-Rail-Crash.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/",
     "id": "case-cloudflare-2019-waf-rollout#1",
     "method": "origin",
+    "quote_sha256": "ea6a583a72861d9431e4b5d119df2e65a3b059d37c2284c9f2a4210c39fda0d1",
     "result": "matched",
     "score": 1.0,
     "sha256": "661965786e3ea456523f75ae2338f1700770594a453834719eae9e84ba445273",
@@ -1397,10 +1539,12 @@
     "url": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/",
     "id": "case-cloudflare-2019-waf-rollout#2",
     "method": "origin",
+    "quote_sha256": "743df466745568d7bd502a9476d8b1edaf9a96ad87a1a8757852133f6355293a",
     "result": "matched",
     "score": 1.0,
     "sha256": "661965786e3ea456523f75ae2338f1700770594a453834719eae9e84ba445273",
@@ -1408,10 +1552,12 @@
     "url": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/",
     "id": "case-cloudflare-2019-waf-rollout#3",
     "method": "origin",
+    "quote_sha256": "12d9e11ea4371cbcaa3392909cef980b5530818283821ed225b108de5ee62d7f",
     "result": "matched",
     "score": 1.0,
     "sha256": "661965786e3ea456523f75ae2338f1700770594a453834719eae9e84ba445273",
@@ -1419,10 +1565,12 @@
     "url": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/",
     "id": "case-cloudflare-2019-waf-rollout#4",
     "method": "origin",
+    "quote_sha256": "b0268239bcc9bcb9d929b086f0b2255eec76bdd509aba7f7e6b206aa9f188a10",
     "result": "matched",
     "score": 1.0,
     "sha256": "661965786e3ea456523f75ae2338f1700770594a453834719eae9e84ba445273",
@@ -1430,10 +1578,12 @@
     "url": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/",
     "id": "case-cloudflare-2019-waf-rollout#5",
     "method": "origin",
+    "quote_sha256": "863e4e2a3475e93fed7886f0a4936ab12799bd6efb0ebbff0bd0549b2fdbe181",
     "result": "matched",
     "score": 1.0,
     "sha256": "661965786e3ea456523f75ae2338f1700770594a453834719eae9e84ba445273",
@@ -1441,10 +1591,12 @@
     "url": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/",
     "id": "case-cloudflare-2019-waf-rollout#6",
     "method": "origin",
+    "quote_sha256": "b3e89d31c20e266529d1103a8296a46dcaee004896969a0b20a296a2b1e5b77f",
     "result": "matched",
     "score": 1.0,
     "sha256": "661965786e3ea456523f75ae2338f1700770594a453834719eae9e84ba445273",
@@ -1452,10 +1604,12 @@
     "url": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/",
     "id": "case-cloudflare-2019-waf-rollout#7",
     "method": "origin",
+    "quote_sha256": "818f6fd838adda87bd541437404837d152af676b6656cd43c86e5f373f285fd3",
     "result": "matched",
     "score": 1.0,
     "sha256": "661965786e3ea456523f75ae2338f1700770594a453834719eae9e84ba445273",
@@ -1463,10 +1617,12 @@
     "url": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1001.pdf",
     "id": "case-colgan-3407-2009-sterile-cockpit#1",
     "method": "origin",
+    "quote_sha256": "9d3df8d0fae540e154b0a33d8d48f9881b9afe86a53a1646a6e449ec6fe5b9fc",
     "result": "matched",
     "score": 1.0,
     "sha256": "1baff6efee24d19137567af6918f3fa83a6d88f1283623536388c6cbab122cdd",
@@ -1474,10 +1630,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1001.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1001.pdf",
     "id": "case-colgan-3407-2009-sterile-cockpit#2",
     "method": "origin",
+    "quote_sha256": "6640f46fadc303430e8c8f07b5e5fb68a60ed67dad0f9d012715bbd3de5bb57d",
     "result": "matched",
     "score": 1.0,
     "sha256": "1baff6efee24d19137567af6918f3fa83a6d88f1283623536388c6cbab122cdd",
@@ -1485,10 +1643,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1001.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1001.pdf",
     "id": "case-colgan-3407-2009-sterile-cockpit#3",
     "method": "origin",
+    "quote_sha256": "a7f7c4cbb3679ef98cf9c4fe31a1e58ca07146781d59ba961202c130ad795ed5",
     "result": "matched",
     "score": 1.0,
     "sha256": "1baff6efee24d19137567af6918f3fa83a6d88f1283623536388c6cbab122cdd",
@@ -1496,10 +1656,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1001.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1001.pdf",
     "id": "case-colgan-3407-2009-sterile-cockpit#4",
     "method": "origin",
+    "quote_sha256": "cb55865c92ff28f4d7760c9bf613eee7bfe0c60b65d1c179f5c9a6c1ac3f77de",
     "result": "matched",
     "score": 1.0,
     "sha256": "1baff6efee24d19137567af6918f3fa83a6d88f1283623536388c6cbab122cdd",
@@ -1507,10 +1669,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1001.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1001.pdf",
     "id": "case-colgan-3407-2009-sterile-cockpit#5",
     "method": "origin",
+    "quote_sha256": "add6481ce0c1bd12ba169927af14bb534fb8e9db3ba4bfd6c8434e1bf62539d5",
     "result": "matched",
     "score": 1.0,
     "sha256": "1baff6efee24d19137567af6918f3fa83a6d88f1283623536388c6cbab122cdd",
@@ -1518,10 +1682,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1001.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1001.pdf",
     "id": "case-colgan-3407-2009-sterile-cockpit#6",
     "method": "origin",
+    "quote_sha256": "8983daef6fbecb6e874c84737b412170c64347944dc116bd5d89c9e0c8a37db1",
     "result": "matched",
     "score": 1.0,
     "sha256": "1baff6efee24d19137567af6918f3fa83a6d88f1283623536388c6cbab122cdd",
@@ -1529,10 +1695,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1001.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1001.pdf",
     "id": "case-colgan-3407-2009-sterile-cockpit#7",
     "method": "origin",
+    "quote_sha256": "95d6a314c9fec69ac963d4e8f69c69cc2a03297fe3b5b8a1fc40d5f3e2f34858",
     "result": "matched",
     "score": 1.0,
     "sha256": "1baff6efee24d19137567af6918f3fa83a6d88f1283623536388c6cbab122cdd",
@@ -1540,10 +1708,12 @@
     "url": "https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR1001.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter3.pdf",
     "id": "case-columbia#1",
     "method": "origin",
+    "quote_sha256": "13e6a8b8e4f6c5cd22e273c1bf4ed76b2f2d0707de060f463620bff32ec71a11",
     "result": "matched",
     "score": 1.0,
     "sha256": "4744742de5abb39df33b656c4a42788df8f68e00fa68df166362b37a91b05953",
@@ -1551,10 +1721,12 @@
     "url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter3.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter3.pdf",
     "id": "case-columbia#2",
     "method": "origin",
+    "quote_sha256": "39f98d430dbecfd7df43d15e6a309118cbba867722b41e1871e7ae04765feb65",
     "result": "matched",
     "score": 1.0,
     "sha256": "4744742de5abb39df33b656c4a42788df8f68e00fa68df166362b37a91b05953",
@@ -1562,10 +1734,12 @@
     "url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter3.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter3.pdf",
     "id": "case-columbia#3",
     "method": "origin",
+    "quote_sha256": "421a936270424117cf16d0dc2e5f26645bfa48ee43b2f1ee245a37bedfad4305",
     "result": "matched",
     "score": 1.0,
     "sha256": "4744742de5abb39df33b656c4a42788df8f68e00fa68df166362b37a91b05953",
@@ -1573,10 +1747,12 @@
     "url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter3.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter6.pdf",
     "id": "case-columbia#4",
     "method": "origin",
+    "quote_sha256": "33d286b8d18a7ed8a1a07207a645a291bd529f35b35eb3104864a14c7f8570ca",
     "result": "matched",
     "score": 1.0,
     "sha256": "8289da453f4665274d17cc92e6d2dfacb0f527dfcc866df59274efc17d4e198d",
@@ -1584,10 +1760,12 @@
     "url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter6.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter6.pdf",
     "id": "case-columbia#5",
     "method": "origin",
+    "quote_sha256": "c1431e829bcb54a9e81b69d80b1cb4df0950bfc61434c0821d0719a6005ad562",
     "result": "matched",
     "score": 1.0,
     "sha256": "8289da453f4665274d17cc92e6d2dfacb0f527dfcc866df59274efc17d4e198d",
@@ -1595,10 +1773,12 @@
     "url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter6.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter6.pdf",
     "id": "case-columbia#6",
     "method": "origin",
+    "quote_sha256": "5ffb4d936aa10c455e1a248b23519481919c4568129f6c39d1ed7d038d69b2ca",
     "result": "matched",
     "score": 1.0,
     "sha256": "8289da453f4665274d17cc92e6d2dfacb0f527dfcc866df59274efc17d4e198d",
@@ -1606,10 +1786,12 @@
     "url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter6.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter6.pdf",
     "id": "case-columbia#7",
     "method": "origin",
+    "quote_sha256": "a7fa2abcd53574abec22029f053542821e43ce2be3714998754c326512eab58f",
     "result": "matched",
     "score": 1.0,
     "sha256": "8289da453f4665274d17cc92e6d2dfacb0f527dfcc866df59274efc17d4e198d",
@@ -1617,10 +1799,12 @@
     "url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter6.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter6.pdf",
     "id": "case-columbia#8",
     "method": "origin",
+    "quote_sha256": "28d12e5cad479354ee3f0c2ddb8cdaf0b709ba95267ede8b0878c51808974aa7",
     "result": "matched",
     "score": 1.0,
     "sha256": "8289da453f4665274d17cc92e6d2dfacb0f527dfcc866df59274efc17d4e198d",
@@ -1628,10 +1812,12 @@
     "url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter6.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter7.pdf",
     "id": "case-columbia#9",
     "method": "origin",
+    "quote_sha256": "30cb5d3743cbada2e87aea56fbd06e5a85d5e6b9f378a8590102164c73a181fd",
     "result": "matched",
     "score": 1.0,
     "sha256": "3af9b8c9c68f50841532494ab76b9f06c0dcecc27137d3dc8b7630f21dd5c657",
@@ -1639,10 +1825,12 @@
     "url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter7.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter7.pdf",
     "id": "case-columbia#10",
     "method": "origin",
+    "quote_sha256": "77e12a358ac64f4296a36eba3c5f1adc51a5661a998d3ef02111a38f6f95c0ea",
     "result": "matched",
     "score": 1.0,
     "sha256": "3af9b8c9c68f50841532494ab76b9f06c0dcecc27137d3dc8b7630f21dd5c657",
@@ -1650,10 +1838,12 @@
     "url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter7.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter7.pdf",
     "id": "case-columbia#11",
     "method": "origin",
+    "quote_sha256": "34fafc988d22ecd8b3dbe95fbe3edd350ec525335835a8cf04d6aa5dbed0eae1",
     "result": "matched",
     "score": 1.0,
     "sha256": "3af9b8c9c68f50841532494ab76b9f06c0dcecc27137d3dc8b7630f21dd5c657",
@@ -1661,10 +1851,12 @@
     "url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter7.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter7.pdf",
     "id": "case-columbia#12",
     "method": "origin",
+    "quote_sha256": "a90f21bf2e2cb78d1fe7ccea2ec73877b74f4af8bd2f333798da2b2c4b451d3f",
     "result": "matched",
     "score": 1.0,
     "sha256": "3af9b8c9c68f50841532494ab76b9f06c0dcecc27137d3dc8b7630f21dd5c657",
@@ -1672,10 +1864,12 @@
     "url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter7.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter7.pdf",
     "id": "case-columbia#13",
     "method": "origin",
+    "quote_sha256": "71cc46909f5068a6a71d660dee19dda846e89474bcac2308c685c1ebec8d7d30",
     "result": "matched",
     "score": 1.0,
     "sha256": "3af9b8c9c68f50841532494ab76b9f06c0dcecc27137d3dc8b7630f21dd5c657",
@@ -1683,10 +1877,12 @@
     "url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter7.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter7.pdf",
     "id": "case-columbia#14",
     "method": "origin",
+    "quote_sha256": "27f091cc52ba7f48a232efd272ebb287146b5cb58029ce2688dc55faa96c86a7",
     "result": "matched",
     "score": 1.0,
     "sha256": "3af9b8c9c68f50841532494ab76b9f06c0dcecc27137d3dc8b7630f21dd5c657",
@@ -1694,10 +1890,12 @@
     "url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter7.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter7.pdf",
     "id": "case-columbia#15",
     "method": "origin",
+    "quote_sha256": "ce4d4d67bc34e9870aaf80f1ad1f921c61055590921c4dd20a8708de49835e5e",
     "result": "matched",
     "score": 1.0,
     "sha256": "3af9b8c9c68f50841532494ab76b9f06c0dcecc27137d3dc8b7630f21dd5c657",
@@ -1705,10 +1903,12 @@
     "url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter7.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter7.pdf",
     "id": "case-columbia#16",
     "method": "origin",
+    "quote_sha256": "14f30d6c8c79bfb6df8223747c85fb9c66b77eac77477348da94d66ec567f368",
     "result": "matched",
     "score": 1.0,
     "sha256": "3af9b8c9c68f50841532494ab76b9f06c0dcecc27137d3dc8b7630f21dd5c657",
@@ -1716,10 +1916,12 @@
     "url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter7.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter8.pdf",
     "id": "case-columbia#17",
     "method": "origin",
+    "quote_sha256": "edce3d4d8563e22dae85167cc69de8ccbf9443f8f3725e768b989a447e22a36e",
     "result": "matched",
     "score": 1.0,
     "sha256": "1177ee4abec493c74efe545de2cb73a30a7a9901d19e7ed5513482028e90a3d4",
@@ -1727,10 +1929,12 @@
     "url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter8.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter8.pdf",
     "id": "case-columbia#18",
     "method": "origin",
+    "quote_sha256": "876ac6f254b708a31e8bc673a6181744d2ef55732b3af55e51823d988e280b8b",
     "result": "matched",
     "score": 1.0,
     "sha256": "1177ee4abec493c74efe545de2cb73a30a7a9901d19e7ed5513482028e90a3d4",
@@ -1738,10 +1942,12 @@
     "url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter8.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter8.pdf",
     "id": "case-columbia#19",
     "method": "origin",
+    "quote_sha256": "f77c51ffd40af0d3f4c662c21e437340b3200b557e675b912e439642339c9e69",
     "result": "matched",
     "score": 1.0,
     "sha256": "1177ee4abec493c74efe545de2cb73a30a7a9901d19e7ed5513482028e90a3d4",
@@ -1749,10 +1955,12 @@
     "url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter8.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter8.pdf",
     "id": "case-columbia#20",
     "method": "origin",
+    "quote_sha256": "a621a30091a12a4cf2233ac0ae58607d3176c302ef864a0993c1047e0a6d25f6",
     "result": "matched",
     "score": 1.0,
     "sha256": "1177ee4abec493c74efe545de2cb73a30a7a9901d19e7ed5513482028e90a3d4",
@@ -1760,10 +1968,12 @@
     "url": "https://govinfo.library.unt.edu/caib/news/report/pdf/vol1/chapters/chapter8.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.csb.gov/userfiles/file/dupont_final_report.pdf",
     "id": "case-dupont-yerkes-2010-tank-isolation#1",
     "method": "origin",
+    "quote_sha256": "274fe6efff193708cc59f2a6ab31e295cd8dab31307e18397527f34ff4a8b168",
     "result": "matched",
     "score": 1.0,
     "sha256": "85c773d406f521751166ac1496925bd1fced63427cdc997c59897c77aa596792",
@@ -1771,10 +1981,12 @@
     "url": "https://www.csb.gov/userfiles/file/dupont_final_report.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.csb.gov/userfiles/file/dupont_final_report.pdf",
     "id": "case-dupont-yerkes-2010-tank-isolation#2",
     "method": "origin",
+    "quote_sha256": "62912029aa99a72059c57988a4cdab08a460fa5e49c16b6af3243e7f21748d53",
     "result": "matched",
     "score": 1.0,
     "sha256": "85c773d406f521751166ac1496925bd1fced63427cdc997c59897c77aa596792",
@@ -1782,10 +1994,12 @@
     "url": "https://www.csb.gov/userfiles/file/dupont_final_report.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.csb.gov/userfiles/file/dupont_final_report.pdf",
     "id": "case-dupont-yerkes-2010-tank-isolation#3",
     "method": "origin",
+    "quote_sha256": "5ce99bf8c42e5585832c4f4880b35e319c204cca9ccae988847ae87da0799621",
     "result": "matched",
     "score": 1.0,
     "sha256": "85c773d406f521751166ac1496925bd1fced63427cdc997c59897c77aa596792",
@@ -1793,10 +2007,12 @@
     "url": "https://www.csb.gov/userfiles/file/dupont_final_report.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.csb.gov/userfiles/file/dupont_final_report.pdf",
     "id": "case-dupont-yerkes-2010-tank-isolation#4",
     "method": "origin",
+    "quote_sha256": "dda8413bfeee07a9762bfb98b3e6de7c56fa3dfb594c41ae195f18b4830c1f32",
     "result": "matched",
     "score": 1.0,
     "sha256": "85c773d406f521751166ac1496925bd1fced63427cdc997c59897c77aa596792",
@@ -1804,10 +2020,12 @@
     "url": "https://www.csb.gov/userfiles/file/dupont_final_report.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.csb.gov/userfiles/file/dupont_final_report.pdf",
     "id": "case-dupont-yerkes-2010-tank-isolation#5",
     "method": "origin",
+    "quote_sha256": "d0bc8bdf7fd4200ae4214c53628c0c146e8ede5502f5fc6c13408947f508ea7e",
     "result": "matched",
     "score": 1.0,
     "sha256": "85c773d406f521751166ac1496925bd1fced63427cdc997c59897c77aa596792",
@@ -1815,10 +2033,12 @@
     "url": "https://www.csb.gov/userfiles/file/dupont_final_report.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.csb.gov/userfiles/file/dupont_final_report.pdf",
     "id": "case-dupont-yerkes-2010-tank-isolation#6",
     "method": "origin",
+    "quote_sha256": "a54057113a09f08bd8aa0da40c7d489b9571739b9e5d71761d2e4a1a82478e33",
     "result": "matched",
     "score": 1.0,
     "sha256": "85c773d406f521751166ac1496925bd1fced63427cdc997c59897c77aa596792",
@@ -1826,10 +2046,12 @@
     "url": "https://www.csb.gov/userfiles/file/dupont_final_report.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.csb.gov/userfiles/file/dupont_final_report.pdf",
     "id": "case-dupont-yerkes-2010-tank-isolation#7",
     "method": "origin",
+    "quote_sha256": "10c1ac2e32bd7e790ef5a0e7171cfef0a5cfba11aa2253b3ece27bc5caa85748",
     "result": "matched",
     "score": 1.0,
     "sha256": "85c773d406f521751166ac1496925bd1fced63427cdc997c59897c77aa596792",
@@ -1837,10 +2059,12 @@
     "url": "https://www.csb.gov/userfiles/file/dupont_final_report.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.csb.gov/userfiles/file/dupont_final_report.pdf",
     "id": "case-dupont-yerkes-2010-tank-isolation#8",
     "method": "origin",
+    "quote_sha256": "cdbba913f6c904c44019b0945609975e1b3d99c0df615bca8417069f9483ea14",
     "result": "matched",
     "score": 1.0,
     "sha256": "85c773d406f521751166ac1496925bd1fced63427cdc997c59897c77aa596792",
@@ -1848,10 +2072,12 @@
     "url": "https://www.csb.gov/userfiles/file/dupont_final_report.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://oversight.house.gov/wp-content/uploads/2018/12/Equifax-Report.pdf",
     "id": "case-equifax-2017-asset-inventory#1",
     "method": "origin",
+    "quote_sha256": "5d653cc987e0f9799f2ecfe3e73d5babb3eff7edc93561d8495e85170306a58e",
     "result": "matched",
     "score": 1.0,
     "sha256": "d59b6463f2c3e197836946e72112e69dcc896a055e900cf0138729192851fc17",
@@ -1859,10 +2085,12 @@
     "url": "https://oversight.house.gov/wp-content/uploads/2018/12/Equifax-Report.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://oversight.house.gov/wp-content/uploads/2018/12/Equifax-Report.pdf",
     "id": "case-equifax-2017-asset-inventory#2",
     "method": "origin",
+    "quote_sha256": "e5c9a76097075597c5953e5697231128c2f5edf6b101d74b06670a740cbe700e",
     "result": "matched",
     "score": 1.0,
     "sha256": "d59b6463f2c3e197836946e72112e69dcc896a055e900cf0138729192851fc17",
@@ -1870,10 +2098,12 @@
     "url": "https://oversight.house.gov/wp-content/uploads/2018/12/Equifax-Report.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://oversight.house.gov/wp-content/uploads/2018/12/Equifax-Report.pdf",
     "id": "case-equifax-2017-asset-inventory#3",
     "method": "origin",
+    "quote_sha256": "cbf3a6cbc82b7720e85faf90701700d7191202f8bd4e8e4f0ada351bb10566dc",
     "result": "matched",
     "score": 1.0,
     "sha256": "d59b6463f2c3e197836946e72112e69dcc896a055e900cf0138729192851fc17",
@@ -1881,10 +2111,12 @@
     "url": "https://oversight.house.gov/wp-content/uploads/2018/12/Equifax-Report.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://oversight.house.gov/wp-content/uploads/2018/12/Equifax-Report.pdf",
     "id": "case-equifax-2017-asset-inventory#4",
     "method": "origin",
+    "quote_sha256": "df7e38ac0fd3a99ab18ba251de140f7dfcd0e1d78e9ef647bf3a4f1164fb7330",
     "result": "matched",
     "score": 1.0,
     "sha256": "d59b6463f2c3e197836946e72112e69dcc896a055e900cf0138729192851fc17",
@@ -1892,10 +2124,12 @@
     "url": "https://oversight.house.gov/wp-content/uploads/2018/12/Equifax-Report.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://oversight.house.gov/wp-content/uploads/2018/12/Equifax-Report.pdf",
     "id": "case-equifax-2017-asset-inventory#5",
     "method": "origin",
+    "quote_sha256": "1f27d8a9d03fc98a8fba2175aaa7fb169675eafd563e79f7f443b268141b036a",
     "result": "matched",
     "score": 1.0,
     "sha256": "d59b6463f2c3e197836946e72112e69dcc896a055e900cf0138729192851fc17",
@@ -1903,10 +2137,12 @@
     "url": "https://oversight.house.gov/wp-content/uploads/2018/12/Equifax-Report.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://oversight.house.gov/wp-content/uploads/2018/12/Equifax-Report.pdf",
     "id": "case-equifax-2017-asset-inventory#6",
     "method": "origin",
+    "quote_sha256": "13cca6b3081c78d4fdeb03529c75aa85931a53b3466216913f79e2286d8f737b",
     "result": "matched",
     "score": 1.0,
     "sha256": "d59b6463f2c3e197836946e72112e69dcc896a055e900cf0138729192851fc17",
@@ -1914,10 +2150,12 @@
     "url": "https://oversight.house.gov/wp-content/uploads/2018/12/Equifax-Report.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://oversight.house.gov/wp-content/uploads/2018/12/Equifax-Report.pdf",
     "id": "case-equifax-2017-asset-inventory#7",
     "method": "origin",
+    "quote_sha256": "35a6c259f4211fa2a7c91f1167d830ac6c37c572e7af2c7745adf281d965b092",
     "result": "matched",
     "score": 1.0,
     "sha256": "d59b6463f2c3e197836946e72112e69dcc896a055e900cf0138729192851fc17",
@@ -1925,10 +2163,12 @@
     "url": "https://oversight.house.gov/wp-content/uploads/2018/12/Equifax-Report.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://oversight.house.gov/wp-content/uploads/2018/12/Equifax-Report.pdf",
     "id": "case-equifax-2017-asset-inventory#8",
     "method": "origin",
+    "quote_sha256": "89815700ca461f348b90239b54b58560b6c9e8845416bcecfcb8d580ae05977e",
     "result": "matched",
     "score": 1.0,
     "sha256": "d59b6463f2c3e197836946e72112e69dcc896a055e900cf0138729192851fc17",
@@ -1936,10 +2176,12 @@
     "url": "https://oversight.house.gov/wp-content/uploads/2018/12/Equifax-Report.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://oversight.house.gov/wp-content/uploads/2018/12/Equifax-Report.pdf",
     "id": "case-equifax-2017-asset-inventory#9",
     "method": "origin",
+    "quote_sha256": "481fb6a1ffe3c58f27e78f57315c4ed44eb435bfffcb3c3864229dd5c63e082e",
     "result": "matched",
     "score": 1.0,
     "sha256": "d59b6463f2c3e197836946e72112e69dcc896a055e900cf0138729192851fc17",
@@ -1947,10 +2189,12 @@
     "url": "https://oversight.house.gov/wp-content/uploads/2018/12/Equifax-Report.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www-pub.iaea.org/MTCD/publications/PDF/Pub815_web.pdf",
     "id": "case-goiania#1",
     "method": "origin",
+    "quote_sha256": "7386b06a420534b35c61d3cfda354edead84a88fa7997c092411b6f66324af8d",
     "result": "matched",
     "score": 1.0,
     "sha256": "fb83845a65ca3bb5fc1759557d3908bf41c4a1c3f48883042eb677989703d537",
@@ -1958,10 +2202,12 @@
     "url": "https://www-pub.iaea.org/MTCD/publications/PDF/Pub815_web.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www-pub.iaea.org/MTCD/publications/PDF/Pub815_web.pdf",
     "id": "case-goiania#2",
     "method": "origin",
+    "quote_sha256": "e7e6cdeb39ab011bab67b30871e8d45b3219a950e698dcf53d69ac5ef7b93784",
     "result": "matched",
     "score": 1.0,
     "sha256": "fb83845a65ca3bb5fc1759557d3908bf41c4a1c3f48883042eb677989703d537",
@@ -1969,10 +2215,12 @@
     "url": "https://www-pub.iaea.org/MTCD/publications/PDF/Pub815_web.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www-pub.iaea.org/MTCD/publications/PDF/Pub815_web.pdf",
     "id": "case-goiania#3",
     "method": "origin",
+    "quote_sha256": "98030f4368f3edb21ab81ffa6ef8b3c6a6b7e46794c732b0a8beca22e0ac9d0f",
     "result": "matched",
     "score": 1.0,
     "sha256": "fb83845a65ca3bb5fc1759557d3908bf41c4a1c3f48883042eb677989703d537",
@@ -1980,10 +2228,12 @@
     "url": "https://www-pub.iaea.org/MTCD/publications/PDF/Pub815_web.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www-pub.iaea.org/MTCD/publications/PDF/Pub815_web.pdf",
     "id": "case-goiania#4",
     "method": "origin",
+    "quote_sha256": "1983fbe67f410df6ad2f32753648fe34a03727965c58afa8ed7f094651fc5191",
     "result": "matched",
     "score": 1.0,
     "sha256": "fb83845a65ca3bb5fc1759557d3908bf41c4a1c3f48883042eb677989703d537",
@@ -1991,10 +2241,12 @@
     "url": "https://www-pub.iaea.org/MTCD/publications/PDF/Pub815_web.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://docs.fcc.gov/public/attachments/DOC-350119A1.pdf",
     "id": "case-hawaii-false-missile-alert-safeguards#1",
     "method": "origin",
+    "quote_sha256": "a92af09628a104f4f35c82e2d93fa23f6856e7e2c07b049e6177cbe04ff80fc2",
     "result": "matched",
     "score": 1.0,
     "sha256": "d19c432a20ac86e14165221aa906d780c97c87489afabc23a6b61a04d48235c0",
@@ -2002,10 +2254,12 @@
     "url": "https://docs.fcc.gov/public/attachments/DOC-350119A1.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://docs.fcc.gov/public/attachments/DOC-350119A1.pdf",
     "id": "case-hawaii-false-missile-alert-safeguards#2",
     "method": "origin",
+    "quote_sha256": "bce0630a83206f514b5cf01c56e2eaee5677e3f17851c5ed5c9f77b82f40315a",
     "result": "matched",
     "score": 1.0,
     "sha256": "d19c432a20ac86e14165221aa906d780c97c87489afabc23a6b61a04d48235c0",
@@ -2013,10 +2267,12 @@
     "url": "https://docs.fcc.gov/public/attachments/DOC-350119A1.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://docs.fcc.gov/public/attachments/DOC-350119A1.pdf",
     "id": "case-hawaii-false-missile-alert-safeguards#3",
     "method": "origin",
+    "quote_sha256": "210d112e03b21ab1d68ea3096343b34680ee66cd79d950dfc5e4c84396a4bdd4",
     "result": "matched",
     "score": 1.0,
     "sha256": "d19c432a20ac86e14165221aa906d780c97c87489afabc23a6b61a04d48235c0",
@@ -2024,10 +2280,12 @@
     "url": "https://docs.fcc.gov/public/attachments/DOC-350119A1.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://docs.fcc.gov/public/attachments/DOC-350119A1.pdf",
     "id": "case-hawaii-false-missile-alert-safeguards#4",
     "method": "origin",
+    "quote_sha256": "a69dcab0c2eeea708a8a8e151c20311555feba77274351493a86d8440c7760d2",
     "result": "matched",
     "score": 1.0,
     "sha256": "d19c432a20ac86e14165221aa906d780c97c87489afabc23a6b61a04d48235c0",
@@ -2035,10 +2293,12 @@
     "url": "https://docs.fcc.gov/public/attachments/DOC-350119A1.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://docs.fcc.gov/public/attachments/DOC-350119A1.pdf",
     "id": "case-hawaii-false-missile-alert-safeguards#5",
     "method": "origin",
+    "quote_sha256": "b4ce169646cf86276a5a1950afc413b089534c16831273cf632c30cca8460e6b",
     "result": "matched",
     "score": 1.0,
     "sha256": "d19c432a20ac86e14165221aa906d780c97c87489afabc23a6b61a04d48235c0",
@@ -2046,10 +2306,12 @@
     "url": "https://docs.fcc.gov/public/attachments/DOC-350119A1.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://docs.fcc.gov/public/attachments/DOC-350119A1.pdf",
     "id": "case-hawaii-false-missile-alert-safeguards#6",
     "method": "origin",
+    "quote_sha256": "0bdbfccefba60103a5569cabd9f053e1445a97c99fc67afa25540455d53c37e2",
     "result": "matched",
     "score": 1.0,
     "sha256": "d19c432a20ac86e14165221aa906d780c97c87489afabc23a6b61a04d48235c0",
@@ -2057,10 +2319,12 @@
     "url": "https://docs.fcc.gov/public/attachments/DOC-350119A1.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://docs.fcc.gov/public/attachments/DOC-350119A1.pdf",
     "id": "case-hawaii-false-missile-alert-safeguards#7",
     "method": "origin",
+    "quote_sha256": "edda6ea7019039d466ad50605a8f6c012eecebaee1f7471d2d03a68197e8ced7",
     "result": "matched",
     "score": 1.0,
     "sha256": "d19c432a20ac86e14165221aa906d780c97c87489afabc23a6b61a04d48235c0",
@@ -2068,10 +2332,12 @@
     "url": "https://docs.fcc.gov/public/attachments/DOC-350119A1.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://publications.parliament.uk/pa/cm200708/cmselect/cmtran/543/543.pdf",
     "id": "case-heathrow-t5-opening-testing#1",
     "method": "origin",
+    "quote_sha256": "a0b833eee75e0ef780ef2cfa5b35ee48a2105d0745b73cedd46d2369158f805c",
     "result": "matched",
     "score": 1.0,
     "sha256": "ace7891d82170909e6e14695bcaf7f322b31e6ec83e4509123ef2e286c2359a2",
@@ -2079,10 +2345,12 @@
     "url": "https://publications.parliament.uk/pa/cm200708/cmselect/cmtran/543/543.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://publications.parliament.uk/pa/cm200708/cmselect/cmtran/543/543.pdf",
     "id": "case-heathrow-t5-opening-testing#2",
     "method": "origin",
+    "quote_sha256": "2090394a6e3b9624a24f5845b219ba39e1bfff989d604fdd8b7ddee471c74850",
     "result": "matched",
     "score": 1.0,
     "sha256": "ace7891d82170909e6e14695bcaf7f322b31e6ec83e4509123ef2e286c2359a2",
@@ -2090,10 +2358,12 @@
     "url": "https://publications.parliament.uk/pa/cm200708/cmselect/cmtran/543/543.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://publications.parliament.uk/pa/cm200708/cmselect/cmtran/543/543.pdf",
     "id": "case-heathrow-t5-opening-testing#3",
     "method": "origin",
+    "quote_sha256": "7700ddfba998b10f0f3ef0c3f87a4f0f8fa926920147ed8c8edb241dbb0d98fe",
     "result": "matched",
     "score": 1.0,
     "sha256": "ace7891d82170909e6e14695bcaf7f322b31e6ec83e4509123ef2e286c2359a2",
@@ -2101,10 +2371,12 @@
     "url": "https://publications.parliament.uk/pa/cm200708/cmselect/cmtran/543/543.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://publications.parliament.uk/pa/cm200708/cmselect/cmtran/543/543.pdf",
     "id": "case-heathrow-t5-opening-testing#4",
     "method": "origin",
+    "quote_sha256": "39b78ecec850267ad46043ba6008ead232ec3debb0086316e418c2f961d793be",
     "result": "matched",
     "score": 1.0,
     "sha256": "ace7891d82170909e6e14695bcaf7f322b31e6ec83e4509123ef2e286c2359a2",
@@ -2112,10 +2384,12 @@
     "url": "https://publications.parliament.uk/pa/cm200708/cmselect/cmtran/543/543.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://ntrs.nasa.gov/api/citations/19910003124/downloads/19910003124.pdf",
     "id": "case-hubble-primary-mirror-null-corrector#1",
     "method": "origin",
+    "quote_sha256": "6286f17987707c8134e65330a241b149921c9832b572c0ccfa14b4374c352de1",
     "result": "matched",
     "score": 1.0,
     "sha256": "f816196f77cfe4f2d24e96700d87716ab75e4a0d207297fcc3b970f937bbef3d",
@@ -2123,10 +2397,12 @@
     "url": "https://ntrs.nasa.gov/api/citations/19910003124/downloads/19910003124.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://ntrs.nasa.gov/api/citations/19910003124/downloads/19910003124.pdf",
     "id": "case-hubble-primary-mirror-null-corrector#2",
     "method": "origin",
+    "quote_sha256": "8e08cdac538e7aa714e73bf13246c6efba6e970722b19ba9aa0a6d3f79e94d6a",
     "result": "matched",
     "score": 1.0,
     "sha256": "f816196f77cfe4f2d24e96700d87716ab75e4a0d207297fcc3b970f937bbef3d",
@@ -2134,10 +2410,12 @@
     "url": "https://ntrs.nasa.gov/api/citations/19910003124/downloads/19910003124.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://ntrs.nasa.gov/api/citations/19910003124/downloads/19910003124.pdf",
     "id": "case-hubble-primary-mirror-null-corrector#3",
     "method": "origin",
+    "quote_sha256": "4ef0065be453fc9df27953e1bf8606e3b4ee31bd075ec02cfaebe8c5ab57c8e1",
     "result": "matched",
     "score": 1.0,
     "sha256": "f816196f77cfe4f2d24e96700d87716ab75e4a0d207297fcc3b970f937bbef3d",
@@ -2145,10 +2423,12 @@
     "url": "https://ntrs.nasa.gov/api/citations/19910003124/downloads/19910003124.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://ntrs.nasa.gov/api/citations/19910003124/downloads/19910003124.pdf",
     "id": "case-hubble-primary-mirror-null-corrector#4",
     "method": "origin",
+    "quote_sha256": "5f46e8c8026ebe353dd1476d33d45e5305f47261974cddcec2f2e4a6b1399a84",
     "result": "matched",
     "score": 1.0,
     "sha256": "f816196f77cfe4f2d24e96700d87716ab75e4a0d207297fcc3b970f937bbef3d",
@@ -2156,10 +2436,12 @@
     "url": "https://ntrs.nasa.gov/api/citations/19910003124/downloads/19910003124.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://ntrs.nasa.gov/api/citations/19910003124/downloads/19910003124.pdf",
     "id": "case-hubble-primary-mirror-null-corrector#5",
     "method": "origin",
+    "quote_sha256": "40f8aca2609da95f7741addb21e838766a54556d2590d3129f1a7193c46105cc",
     "result": "matched",
     "score": 1.0,
     "sha256": "f816196f77cfe4f2d24e96700d87716ab75e4a0d207297fcc3b970f937bbef3d",
@@ -2167,10 +2449,12 @@
     "url": "https://ntrs.nasa.gov/api/citations/19910003124/downloads/19910003124.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://ntrs.nasa.gov/api/citations/19910003124/downloads/19910003124.pdf",
     "id": "case-hubble-primary-mirror-null-corrector#6",
     "method": "origin",
+    "quote_sha256": "31c326be7fe703bd079a5dec087e5ffe0f4c43f739dfcb11365873cbbb80cd35",
     "result": "matched",
     "score": 1.0,
     "sha256": "f816196f77cfe4f2d24e96700d87716ab75e4a0d207297fcc3b970f937bbef3d",
@@ -2178,10 +2462,12 @@
     "url": "https://ntrs.nasa.gov/api/citations/19910003124/downloads/19910003124.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/BSS/nbsbuildingscience143.pdf",
     "id": "case-hyatt-regency-walkway-connections#1",
     "method": "origin",
+    "quote_sha256": "4d2c139c04cd8a7d00a540294b4e7e9b3f939bb8ba85108e5c694286055d4e47",
     "result": "matched",
     "score": 1.0,
     "sha256": "5f75a7b2c28883e3f989afc9bd89f0aa8d2c04dbf1ddc10f851978b45cae0fc3",
@@ -2189,10 +2475,12 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/BSS/nbsbuildingscience143.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/BSS/nbsbuildingscience143.pdf",
     "id": "case-hyatt-regency-walkway-connections#2",
     "method": "origin",
+    "quote_sha256": "4b4fe5e0a529b1bd5d0f61063de3eea9803dfbd45621f2ef4d48809b9dd42b4d",
     "result": "matched",
     "score": 1.0,
     "sha256": "5f75a7b2c28883e3f989afc9bd89f0aa8d2c04dbf1ddc10f851978b45cae0fc3",
@@ -2200,10 +2488,12 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/BSS/nbsbuildingscience143.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/BSS/nbsbuildingscience143.pdf",
     "id": "case-hyatt-regency-walkway-connections#3",
     "method": "origin",
+    "quote_sha256": "98114cd6afb7cea5e8f35d8c3192dbed6211e39e65efcf834184ea327052f339",
     "result": "matched",
     "score": 1.0,
     "sha256": "5f75a7b2c28883e3f989afc9bd89f0aa8d2c04dbf1ddc10f851978b45cae0fc3",
@@ -2211,10 +2501,12 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/BSS/nbsbuildingscience143.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/BSS/nbsbuildingscience143.pdf",
     "id": "case-hyatt-regency-walkway-connections#4",
     "method": "origin",
+    "quote_sha256": "454b41098c633fdc3566ca66ffe793ae64f372c96a2f092721c6045bad2c0bc9",
     "result": "matched",
     "score": 1.0,
     "sha256": "5f75a7b2c28883e3f989afc9bd89f0aa8d2c04dbf1ddc10f851978b45cae0fc3",
@@ -2222,10 +2514,12 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/BSS/nbsbuildingscience143.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/BSS/nbsbuildingscience143.pdf",
     "id": "case-hyatt-regency-walkway-connections#5",
     "method": "origin",
+    "quote_sha256": "c15dae4e19e701fef34f42374cf22bf7ac41b0a8aba48dd2396389ab977b2b51",
     "result": "matched",
     "score": 1.0,
     "sha256": "5f75a7b2c28883e3f989afc9bd89f0aa8d2c04dbf1ddc10f851978b45cae0fc3",
@@ -2233,10 +2527,12 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/BSS/nbsbuildingscience143.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/BSS/nbsbuildingscience143.pdf",
     "id": "case-hyatt-regency-walkway-connections#6",
     "method": "origin",
+    "quote_sha256": "fd1ec23ba9ef215b6fe98318dd82fcd4cdb305ce887d76042868ee1c017234bb",
     "result": "matched",
     "score": 1.0,
     "sha256": "5f75a7b2c28883e3f989afc9bd89f0aa8d2c04dbf1ddc10f851978b45cae0fc3",
@@ -2244,10 +2540,12 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/BSS/nbsbuildingscience143.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/BSS/nbsbuildingscience143.pdf",
     "id": "case-hyatt-regency-walkway-connections#7",
     "method": "origin",
+    "quote_sha256": "6acbe9328308179738452b9f1bd180a0564c69eb5f335b8f7e2e02be52ae9527",
     "result": "matched",
     "score": 1.0,
     "sha256": "5f75a7b2c28883e3f989afc9bd89f0aa8d2c04dbf1ddc10f851978b45cae0fc3",
@@ -2255,10 +2553,12 @@
     "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/BSS/nbsbuildingscience143.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20260105080230id_/https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf",
     "id": "case-knight-capital#1",
     "method": "via",
+    "quote_sha256": "3f8e0dde6093fb81d2a6ca1bb8552a3ca585037dcb320dbc264d01e0d33168fe",
     "result": "matched",
     "score": 1.0,
     "sha256": "40e89727336e4adc3ecbe3800faabe2ca7c9daaed6858a4b3a7dcc518d3ba2b5",
@@ -2266,10 +2566,12 @@
     "url": "https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20260105080230id_/https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf",
     "id": "case-knight-capital#2",
     "method": "via",
+    "quote_sha256": "13b72c0d0285ab4a32f21cec88dc26131683b81906dfa08f02b1eb7f482c40ef",
     "result": "matched",
     "score": 1.0,
     "sha256": "40e89727336e4adc3ecbe3800faabe2ca7c9daaed6858a4b3a7dcc518d3ba2b5",
@@ -2277,10 +2579,12 @@
     "url": "https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20260105080230id_/https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf",
     "id": "case-knight-capital#3",
     "method": "via",
+    "quote_sha256": "043a3d48bdc3e85889e627534167ee8328f7e0cacbe3aed2f7fe033e2b2f3c14",
     "result": "matched",
     "score": 1.0,
     "sha256": "40e89727336e4adc3ecbe3800faabe2ca7c9daaed6858a4b3a7dcc518d3ba2b5",
@@ -2288,10 +2592,12 @@
     "url": "https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20260105080230id_/https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf",
     "id": "case-knight-capital#4",
     "method": "via",
+    "quote_sha256": "0c592bc08528463dcc36ca84aa17e29ea55989b13b94d2b89d88a05721932aff",
     "result": "matched",
     "score": 1.0,
     "sha256": "40e89727336e4adc3ecbe3800faabe2ca7c9daaed6858a4b3a7dcc518d3ba2b5",
@@ -2299,10 +2605,12 @@
     "url": "https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20260105080230id_/https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf",
     "id": "case-knight-capital#5",
     "method": "via",
+    "quote_sha256": "aaea78841612f0a9ed055346bb74d833b22e69d53b43bcdab9ad4dc17f0c4ce2",
     "result": "matched",
     "score": 1.0,
     "sha256": "40e89727336e4adc3ecbe3800faabe2ca7c9daaed6858a4b3a7dcc518d3ba2b5",
@@ -2310,10 +2618,12 @@
     "url": "https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20260105080230id_/https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf",
     "id": "case-knight-capital#6",
     "method": "via",
+    "quote_sha256": "6674421c31bec1f18afe1173cbe3cfdcf097df1a26e2d62d5e3790260b954d89",
     "result": "matched",
     "score": 1.0,
     "sha256": "40e89727336e4adc3ecbe3800faabe2ca7c9daaed6858a4b3a7dcc518d3ba2b5",
@@ -2321,10 +2631,12 @@
     "url": "https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20260105080230id_/https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf",
     "id": "case-knight-capital#7",
     "method": "via",
+    "quote_sha256": "90b13ed8312a2952af07d8efa942ea6f094aa10efc2a232c1137737a8c8b87b0",
     "result": "matched",
     "score": 1.0,
     "sha256": "40e89727336e4adc3ecbe3800faabe2ca7c9daaed6858a4b3a7dcc518d3ba2b5",
@@ -2332,10 +2644,12 @@
     "url": "https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20260105080230id_/https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf",
     "id": "case-knight-capital#8",
     "method": "via",
+    "quote_sha256": "30b53960491c33d72f73898cee8f2c98bbeaf1b6ed63092d6f3b969ff72cbb2f",
     "result": "matched",
     "score": 1.0,
     "sha256": "40e89727336e4adc3ecbe3800faabe2ca7c9daaed6858a4b3a7dcc518d3ba2b5",
@@ -2343,10 +2657,12 @@
     "url": "https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20260105080230id_/https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf",
     "id": "case-knight-capital#9",
     "method": "via",
+    "quote_sha256": "65e039c842cc9d63394b4e956a06b58f989a45829c4b95e5899a853d0bfc2a8f",
     "result": "matched",
     "score": 1.0,
     "sha256": "40e89727336e4adc3ecbe3800faabe2ca7c9daaed6858a4b3a7dcc518d3ba2b5",
@@ -2354,10 +2670,12 @@
     "url": "https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20260105080230id_/https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf",
     "id": "case-knight-capital#10",
     "method": "via",
+    "quote_sha256": "27e3cdf2fb8d5549e63e9f0878bb30dbeb349d7b8d92316283d7e9b7bee204b0",
     "result": "matched",
     "score": 1.0,
     "sha256": "40e89727336e4adc3ecbe3800faabe2ca7c9daaed6858a4b3a7dcc518d3ba2b5",
@@ -2365,10 +2683,12 @@
     "url": "https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20260105080230id_/https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf",
     "id": "case-knight-capital#11",
     "method": "via",
+    "quote_sha256": "450bd775239565d302cfee424eff56454ba538df6bf0364e80a29cc94c202a2e",
     "result": "matched",
     "score": 1.0,
     "sha256": "40e89727336e4adc3ecbe3800faabe2ca7c9daaed6858a4b3a7dcc518d3ba2b5",
@@ -2376,10 +2696,12 @@
     "url": "https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20260105080230id_/https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf",
     "id": "case-knight-capital#12",
     "method": "via",
+    "quote_sha256": "0cc3f1dd934ecdf2837be911fd3a74bd8db51d229bc7e0d3fd4d646101cf6dc2",
     "result": "matched",
     "score": 1.0,
     "sha256": "40e89727336e4adc3ecbe3800faabe2ca7c9daaed6858a4b3a7dcc518d3ba2b5",
@@ -2387,10 +2709,12 @@
     "url": "https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20260105080230id_/https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf",
     "id": "case-knight-capital#13",
     "method": "via",
+    "quote_sha256": "03814cc5f5147cf5292832e10dbd435f3126e667ee091a6996bb4f10be42bd08",
     "result": "matched",
     "score": 1.0,
     "sha256": "40e89727336e4adc3ecbe3800faabe2ca7c9daaed6858a4b3a7dcc518d3ba2b5",
@@ -2398,10 +2722,12 @@
     "url": "https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://discovery.larc.nasa.gov/PDF_FILES/MCO_report_2.pdf",
     "id": "case-mars-climate-orbiter#1",
     "method": "origin",
+    "quote_sha256": "294480d21cc8c26e2051dc095a0ecf57202ed670a3e8218bd5e969cecd276529",
     "result": "matched",
     "score": 1.0,
     "sha256": "ed4c0c5a23e4e30df7279924ad0978cf00984fd4ebe58a1f7297ba157b0cdbc6",
@@ -2409,10 +2735,12 @@
     "url": "https://discovery.larc.nasa.gov/PDF_FILES/MCO_report_2.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://discovery.larc.nasa.gov/PDF_FILES/MCO_report_2.pdf",
     "id": "case-mars-climate-orbiter#2",
     "method": "origin",
+    "quote_sha256": "22c78730e08d27ab802d7c57972fcf4755bf293520864442f639b6b652816db8",
     "result": "matched",
     "score": 1.0,
     "sha256": "ed4c0c5a23e4e30df7279924ad0978cf00984fd4ebe58a1f7297ba157b0cdbc6",
@@ -2420,10 +2748,12 @@
     "url": "https://discovery.larc.nasa.gov/PDF_FILES/MCO_report_2.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://discovery.larc.nasa.gov/PDF_FILES/MCO_report_2.pdf",
     "id": "case-mars-climate-orbiter#3",
     "method": "origin",
+    "quote_sha256": "f16afd161a6660faf197875a76349d89ffa42d8f849d044d312faee6210c3106",
     "result": "matched",
     "score": 1.0,
     "sha256": "ed4c0c5a23e4e30df7279924ad0978cf00984fd4ebe58a1f7297ba157b0cdbc6",
@@ -2431,10 +2761,12 @@
     "url": "https://discovery.larc.nasa.gov/PDF_FILES/MCO_report_2.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://discovery.larc.nasa.gov/PDF_FILES/MCO_report_2.pdf",
     "id": "case-mars-climate-orbiter#4",
     "method": "origin",
+    "quote_sha256": "74beaec3d6a24e09fddd47d4ed22838fc631b6534494c7b6ca4a01fc20b04910",
     "result": "matched",
     "score": 1.0,
     "sha256": "ed4c0c5a23e4e30df7279924ad0978cf00984fd4ebe58a1f7297ba157b0cdbc6",
@@ -2442,10 +2774,12 @@
     "url": "https://discovery.larc.nasa.gov/PDF_FILES/MCO_report_2.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.nas.gov.sg/archivesonline/data/pdfdoc/2004091398-MOM.pdf",
     "id": "case-nicoll-highway-2004-monitoring#1",
     "method": "origin",
+    "quote_sha256": "08edaf8cda8606418420a616c5800c330e9d4e92199ece028e248c4f87444516",
     "result": "matched",
     "score": 1.0,
     "sha256": "2c4b669c8dbe747eb79105235edd172d1c992890fbd6ceac0bc6549d29ae0020",
@@ -2453,10 +2787,12 @@
     "url": "https://www.nas.gov.sg/archivesonline/data/pdfdoc/2004091398-MOM.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.nas.gov.sg/archivesonline/data/pdfdoc/2004091398-MOM.pdf",
     "id": "case-nicoll-highway-2004-monitoring#2",
     "method": "origin",
+    "quote_sha256": "d43ae9c0ba7b1918b4903990a799b20df92de10641126f68f4db22ee4a5507a4",
     "result": "matched",
     "score": 1.0,
     "sha256": "2c4b669c8dbe747eb79105235edd172d1c992890fbd6ceac0bc6549d29ae0020",
@@ -2464,10 +2800,12 @@
     "url": "https://www.nas.gov.sg/archivesonline/data/pdfdoc/2004091398-MOM.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.nas.gov.sg/archivesonline/data/pdfdoc/2004091398-MOM.pdf",
     "id": "case-nicoll-highway-2004-monitoring#3",
     "method": "origin",
+    "quote_sha256": "2fa87fad6aeb8c08e9edb568743f1d1d014243939526ce864c444b51fdfa2e4b",
     "result": "matched",
     "score": 1.0,
     "sha256": "2c4b669c8dbe747eb79105235edd172d1c992890fbd6ceac0bc6549d29ae0020",
@@ -2475,10 +2813,12 @@
     "url": "https://www.nas.gov.sg/archivesonline/data/pdfdoc/2004091398-MOM.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.nas.gov.sg/archivesonline/data/pdfdoc/2004091398-MOM.pdf",
     "id": "case-nicoll-highway-2004-monitoring#4",
     "method": "origin",
+    "quote_sha256": "986946dcc9a07a4a75be2b0196f46e4ea2fe9db7dbaa60006073a4dc2f1c3686",
     "result": "matched",
     "score": 1.0,
     "sha256": "2c4b669c8dbe747eb79105235edd172d1c992890fbd6ceac0bc6549d29ae0020",
@@ -2486,10 +2826,12 @@
     "url": "https://www.nas.gov.sg/archivesonline/data/pdfdoc/2004091398-MOM.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.nas.gov.sg/archivesonline/data/pdfdoc/2004091398-MOM.pdf",
     "id": "case-nicoll-highway-2004-monitoring#5",
     "method": "origin",
+    "quote_sha256": "0cfb0602b40a31f58a1b6a3b4c8ccc39cf6b0a46fbb2f34d87e6dd97ef20dce7",
     "result": "matched",
     "score": 1.0,
     "sha256": "2c4b669c8dbe747eb79105235edd172d1c992890fbd6ceac0bc6549d29ae0020",
@@ -2497,10 +2839,12 @@
     "url": "https://www.nas.gov.sg/archivesonline/data/pdfdoc/2004091398-MOM.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.nas.gov.sg/archivesonline/data/pdfdoc/2004091398-MOM.pdf",
     "id": "case-nicoll-highway-2004-monitoring#6",
     "method": "origin",
+    "quote_sha256": "bca23613c3ecfced7af349a1e7003be81d0b53dc06f40fed0566d9b9e68894bc",
     "result": "matched",
     "score": 1.0,
     "sha256": "2c4b669c8dbe747eb79105235edd172d1c992890fbd6ceac0bc6549d29ae0020",
@@ -2508,10 +2852,12 @@
     "url": "https://www.nas.gov.sg/archivesonline/data/pdfdoc/2004091398-MOM.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20261011215943id_/https://www.gao.gov/assets/imtec-92-26.pdf",
     "id": "case-patriot-dhahran#1",
     "method": "archive",
+    "quote_sha256": "34ecf20eb8d7be9e850417954bcbf90a8a71694e1359274c44bc164dd974c1ab",
     "result": "matched",
     "score": 1.0,
     "sha256": "cc2e98256c134feffb7f6a8fd82a0110419c35b58f3ad9f481124943b6c11dcc",
@@ -2519,10 +2865,12 @@
     "url": "https://www.gao.gov/assets/imtec-92-26.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20261011215943id_/https://www.gao.gov/assets/imtec-92-26.pdf",
     "id": "case-patriot-dhahran#2",
     "method": "archive",
+    "quote_sha256": "1dca06044b9576f1779865660a0a250669336e3121443ed8a256ca8cf0de0aee",
     "result": "matched",
     "score": 1.0,
     "sha256": "cc2e98256c134feffb7f6a8fd82a0110419c35b58f3ad9f481124943b6c11dcc",
@@ -2530,10 +2878,12 @@
     "url": "https://www.gao.gov/assets/imtec-92-26.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20261011215943id_/https://www.gao.gov/assets/imtec-92-26.pdf",
     "id": "case-patriot-dhahran#3",
     "method": "archive",
+    "quote_sha256": "ff871987d84de408b87634879512006fa19cdaf383e75d58a3fffd098abf786d",
     "result": "matched",
     "score": 1.0,
     "sha256": "cc2e98256c134feffb7f6a8fd82a0110419c35b58f3ad9f481124943b6c11dcc",
@@ -2541,10 +2891,12 @@
     "url": "https://www.gao.gov/assets/imtec-92-26.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20261011215943id_/https://www.gao.gov/assets/imtec-92-26.pdf",
     "id": "case-patriot-dhahran#4",
     "method": "archive",
+    "quote_sha256": "cf055392d9b6efc7e0e074229f08c22801285e54bf55c558fb844933739d0fea",
     "result": "matched",
     "score": 1.0,
     "sha256": "cc2e98256c134feffb7f6a8fd82a0110419c35b58f3ad9f481124943b6c11dcc",
@@ -2552,10 +2904,12 @@
     "url": "https://www.gao.gov/assets/imtec-92-26.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20260328024755id_/https://www.commerce.senate.gov/services/files/24d3c229-4f2f-405d-b8db-a3a67f183883",
     "id": "case-target-2013-breach-control-layers#1",
     "method": "archive",
+    "quote_sha256": "4e5f89a4e080990941f687673ea8a329e8ee1cb34bf9779ddda37b0da01be5c4",
     "result": "matched",
     "score": 1.0,
     "sha256": "a54f2d71461f754ae53b6b9f7f9ba89606005933932c8b54973fe12929057e9c",
@@ -2563,10 +2917,12 @@
     "url": "https://www.commerce.senate.gov/services/files/24d3c229-4f2f-405d-b8db-a3a67f183883"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20260328024755id_/https://www.commerce.senate.gov/services/files/24d3c229-4f2f-405d-b8db-a3a67f183883",
     "id": "case-target-2013-breach-control-layers#2",
     "method": "archive",
+    "quote_sha256": "af1ce23f37232addcb70bbc7564c759747fa126c872095b1cb4b85906f7ff5be",
     "result": "matched",
     "score": 1.0,
     "sha256": "a54f2d71461f754ae53b6b9f7f9ba89606005933932c8b54973fe12929057e9c",
@@ -2574,10 +2930,12 @@
     "url": "https://www.commerce.senate.gov/services/files/24d3c229-4f2f-405d-b8db-a3a67f183883"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20260328024755id_/https://www.commerce.senate.gov/services/files/24d3c229-4f2f-405d-b8db-a3a67f183883",
     "id": "case-target-2013-breach-control-layers#3",
     "method": "archive",
+    "quote_sha256": "b911457df6d5d329679bcf8d9cc60689f122f6561691071b81d84ffb84e223a4",
     "result": "matched",
     "score": 1.0,
     "sha256": "a54f2d71461f754ae53b6b9f7f9ba89606005933932c8b54973fe12929057e9c",
@@ -2585,10 +2943,12 @@
     "url": "https://www.commerce.senate.gov/services/files/24d3c229-4f2f-405d-b8db-a3a67f183883"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20260328024755id_/https://www.commerce.senate.gov/services/files/24d3c229-4f2f-405d-b8db-a3a67f183883",
     "id": "case-target-2013-breach-control-layers#4",
     "method": "archive",
+    "quote_sha256": "43ec4fcf2a65de2b88ae04eb6fddc20135f0d1dbe676cad9a845ddfa4db3ab7b",
     "result": "matched",
     "score": 1.0,
     "sha256": "a54f2d71461f754ae53b6b9f7f9ba89606005933932c8b54973fe12929057e9c",
@@ -2596,10 +2956,12 @@
     "url": "https://www.commerce.senate.gov/services/files/24d3c229-4f2f-405d-b8db-a3a67f183883"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.archive.org/web/20260328024755id_/https://www.commerce.senate.gov/services/files/24d3c229-4f2f-405d-b8db-a3a67f183883",
     "id": "case-target-2013-breach-control-layers#5",
     "method": "archive",
+    "quote_sha256": "174684be1954e2c16929fb0ba0f0e5a67deb78f958d1fad9c69740bae2d5e5b1",
     "result": "matched",
     "score": 1.0,
     "sha256": "a54f2d71461f754ae53b6b9f7f9ba89606005933932c8b54973fe12929057e9c",
@@ -2607,10 +2969,12 @@
     "url": "https://www.commerce.senate.gov/services/files/24d3c229-4f2f-405d-b8db-a3a67f183883"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.mit.edu/6.033/2004/wwwdocs/papers/Therac_1.html",
     "id": "case-therac-25#1",
     "method": "origin",
+    "quote_sha256": "64a431718fb1ecab65b202a95c8bbe7a3471d17ca1e37f386376991ea84f6c24",
     "result": "matched",
     "score": 1.0,
     "sha256": "a6ddf911cbb9f854e5edac1cb25aba1abfadeb98e486ea0c26f15426674ea7f3",
@@ -2618,10 +2982,12 @@
     "url": "https://web.mit.edu/6.033/2004/wwwdocs/papers/Therac_1.html"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.mit.edu/6.033/2004/wwwdocs/papers/Therac_1.html",
     "id": "case-therac-25#2",
     "method": "origin",
+    "quote_sha256": "30a9fd2ba4e548add37f9d40de91210d78c345c360b11ab5e3a9bca18a84ce54",
     "result": "matched",
     "score": 1.0,
     "sha256": "a6ddf911cbb9f854e5edac1cb25aba1abfadeb98e486ea0c26f15426674ea7f3",
@@ -2629,10 +2995,12 @@
     "url": "https://web.mit.edu/6.033/2004/wwwdocs/papers/Therac_1.html"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.mit.edu/6.033/2004/wwwdocs/papers/Therac_1.html",
     "id": "case-therac-25#3",
     "method": "origin",
+    "quote_sha256": "232f672f2cfc918a090c09469ab0d22832a12fa8d6d9f8d5de46e77f60cabfed",
     "result": "matched",
     "score": 1.0,
     "sha256": "a6ddf911cbb9f854e5edac1cb25aba1abfadeb98e486ea0c26f15426674ea7f3",
@@ -2640,10 +3008,12 @@
     "url": "https://web.mit.edu/6.033/2004/wwwdocs/papers/Therac_1.html"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.mit.edu/6.033/2004/wwwdocs/papers/Therac_1.html",
     "id": "case-therac-25#4",
     "method": "origin",
+    "quote_sha256": "1d0f22cf7b9155d1667712686e6882c9d358afe8ba692a6b54d612138bfc851f",
     "result": "matched",
     "score": 1.0,
     "sha256": "a6ddf911cbb9f854e5edac1cb25aba1abfadeb98e486ea0c26f15426674ea7f3",
@@ -2651,10 +3021,12 @@
     "url": "https://web.mit.edu/6.033/2004/wwwdocs/papers/Therac_1.html"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.mit.edu/6.033/2004/wwwdocs/papers/Therac_2.html",
     "id": "case-therac-25#5",
     "method": "origin",
+    "quote_sha256": "ac2f519582dad8d7a504ff99c8a4916240559814659bb325cd3651d3f3f9219f",
     "result": "matched",
     "score": 1.0,
     "sha256": "f1a9f776106b90b114bc02a424a044deb43a98d4aeb9785cd45d7dfede30c28b",
@@ -2662,10 +3034,12 @@
     "url": "https://web.mit.edu/6.033/2004/wwwdocs/papers/Therac_2.html"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://web.mit.edu/6.033/2004/wwwdocs/papers/Therac_2.html",
     "id": "case-therac-25#6",
     "method": "origin",
+    "quote_sha256": "6639adc3dd00b5af9979452acee96c16e2e278e4023787083a477634a8bf6bf0",
     "result": "matched",
     "score": 1.0,
     "sha256": "f1a9f776106b90b114bc02a424a044deb43a98d4aeb9785cd45d7dfede30c28b",
@@ -2673,10 +3047,12 @@
     "url": "https://web.mit.edu/6.033/2004/wwwdocs/papers/Therac_2.html"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.titanicinquiry.org/BOTInq/BOTReport/botRepObserv.php",
     "id": "case-titanic-watertight-compartments#1",
     "method": "origin",
+    "quote_sha256": "836cb21248c1d1690b2764eb9a4f5208ffc7416bce36d9bf9cfedaae13c59bee",
     "result": "matched",
     "score": 1.0,
     "sha256": "3d696327d68fe3938b6b2162c40589a38fe24e7c48e19b7eaa6a786125b2d79f",
@@ -2684,10 +3060,12 @@
     "url": "https://www.titanicinquiry.org/BOTInq/BOTReport/botRepObserv.php"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.titanicinquiry.org/BOTInq/BOTReport/botRepObserv.php",
     "id": "case-titanic-watertight-compartments#2",
     "method": "origin",
+    "quote_sha256": "07661363082d5cb5c349fbde340c6b05a2e592d7402ec28ec816775b0cde0f4e",
     "result": "matched",
     "score": 1.0,
     "sha256": "3d696327d68fe3938b6b2162c40589a38fe24e7c48e19b7eaa6a786125b2d79f",
@@ -2695,10 +3073,12 @@
     "url": "https://www.titanicinquiry.org/BOTInq/BOTReport/botRepObserv.php"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.titanicinquiry.org/BOTInq/BOTReport/botRepObserv.php",
     "id": "case-titanic-watertight-compartments#3",
     "method": "origin",
+    "quote_sha256": "4523dd393be5dc0ef61a23755806ef88d33569cd386806d3d2b098d73d6622fb",
     "result": "matched",
     "score": 1.0,
     "sha256": "3d696327d68fe3938b6b2162c40589a38fe24e7c48e19b7eaa6a786125b2d79f",
@@ -2706,10 +3086,12 @@
     "url": "https://www.titanicinquiry.org/BOTInq/BOTReport/botRepObserv.php"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.titanicinquiry.org/BOTInq/BOTReport/botRepObserv.php",
     "id": "case-titanic-watertight-compartments#4",
     "method": "origin",
+    "quote_sha256": "93ea0a10fe1b5fa12434803b578195c47a2cbce28e666086ffa865147a8efb2e",
     "result": "matched",
     "score": 1.0,
     "sha256": "3d696327d68fe3938b6b2162c40589a38fe24e7c48e19b7eaa6a786125b2d79f",
@@ -2717,10 +3099,12 @@
     "url": "https://www.titanicinquiry.org/BOTInq/BOTReport/botRepObserv.php"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://www.titanicinquiry.org/BOTInq/BOTReport/botRepObserv.php",
     "id": "case-titanic-watertight-compartments#5",
     "method": "origin",
+    "quote_sha256": "db826bfa2d582f136bbe44358f848066603b1551b0f9d5ab27eccf8ea793958e",
     "result": "matched",
     "score": 1.0,
     "sha256": "3d696327d68fe3938b6b2162c40589a38fe24e7c48e19b7eaa6a786125b2d79f",
@@ -2728,10 +3112,12 @@
     "url": "https://www.titanicinquiry.org/BOTInq/BOTReport/botRepObserv.php"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://files.consumerfinance.gov/f/documents/092016_cfpb_WFBconsentorder.pdf",
     "id": "case-wells-fargo-sales-goals#1",
     "method": "origin",
+    "quote_sha256": "503674c3d6f318b4ab178da477264c602aafe8b82892625161aa9e520a5a341d",
     "result": "matched",
     "score": 1.0,
     "sha256": "5faaae40ee44613a8e446e23852dc57ccfe1f227199b1e8c90f2a6faf1950d0c",
@@ -2739,10 +3125,12 @@
     "url": "https://files.consumerfinance.gov/f/documents/092016_cfpb_WFBconsentorder.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://files.consumerfinance.gov/f/documents/092016_cfpb_WFBconsentorder.pdf",
     "id": "case-wells-fargo-sales-goals#2",
     "method": "origin",
+    "quote_sha256": "ce47951957338a7dce8c725d0a8d4a6d7c38f9a6ff4167d4334f623baaa016a2",
     "result": "matched",
     "score": 1.0,
     "sha256": "5faaae40ee44613a8e446e23852dc57ccfe1f227199b1e8c90f2a6faf1950d0c",
@@ -2750,10 +3138,12 @@
     "url": "https://files.consumerfinance.gov/f/documents/092016_cfpb_WFBconsentorder.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://files.consumerfinance.gov/f/documents/092016_cfpb_WFBconsentorder.pdf",
     "id": "case-wells-fargo-sales-goals#3",
     "method": "origin",
+    "quote_sha256": "d448d62c463672d788a96b4b3e95b305ba0c0394e79722ee35be9d1a86e83570",
     "result": "matched",
     "score": 1.0,
     "sha256": "5faaae40ee44613a8e446e23852dc57ccfe1f227199b1e8c90f2a6faf1950d0c",
@@ -2761,10 +3151,12 @@
     "url": "https://files.consumerfinance.gov/f/documents/092016_cfpb_WFBconsentorder.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://files.consumerfinance.gov/f/documents/092016_cfpb_WFBconsentorder.pdf",
     "id": "case-wells-fargo-sales-goals#4",
     "method": "origin",
+    "quote_sha256": "18aa63a23129ea07b29f1d202ff7577971d1183f7320ee5f95c6531da8fdfced",
     "result": "matched",
     "score": 1.0,
     "sha256": "5faaae40ee44613a8e446e23852dc57ccfe1f227199b1e8c90f2a6faf1950d0c",
@@ -2772,10 +3164,12 @@
     "url": "https://files.consumerfinance.gov/f/documents/092016_cfpb_WFBconsentorder.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://s3.documentcloud.org/documents/3549312/Board-Report.pdf",
     "id": "case-wells-fargo-sales-goals#5",
     "method": "origin",
+    "quote_sha256": "dc078db674f03e159e2dbf7714d5fee11f642ed6c92691ed6f6a334b39a13cf2",
     "result": "matched",
     "score": 1.0,
     "sha256": "8fad5a63da609d46f6d7cf850ed6899637dde66624406c8832a462372c624b7a",
@@ -2783,10 +3177,12 @@
     "url": "https://assets.documentcloud.org/documents/3549312/Board-Report.pdf"
   },
   {
+    "checked": "2026-10-27",
     "fetched_at": "2026-10-27",
     "final_url": "https://s3.documentcloud.org/documents/3549312/Board-Report.pdf",
     "id": "case-wells-fargo-sales-goals#6",
     "method": "origin",
+    "quote_sha256": "d93b3ae675d2670ebd8f2d888049ef5a4f1ea0318ffe08cc1cb8e1e97b94730e",
     "result": "matched",
     "score": 1.0,
     "sha256": "8fad5a63da609d46f6d7cf850ed6899637dde66624406c8832a462372c624b7a",

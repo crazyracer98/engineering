@@ -18,6 +18,7 @@ import io
 import json
 import logging
 import re
+import sys
 import time
 import unicodedata
 import urllib.error
@@ -42,8 +43,11 @@ logging.getLogger("pypdf").setLevel(logging.ERROR)  # font warnings drown the re
 USER_AGENT = (
     "engineering-taxonomy-verifier/1.0 (+https://github.com/crazyracer98/engineering)"
 )
-#: The date the quotes were checked; the archive snapshot nearest to it is used.
+#: The date the rule quotes were checked; the archive snapshot nearest to it is
+#: used when a page has to be looked up there.
 CHECKED_TIMESTAMP = "20261014"
+#: The same for case quotes (``data/learn/cases/``), which were added later.
+CASE_CHECKED_TIMESTAMP = "20261027"
 WAYBACK_API = "https://archive.org/wayback/available"
 ACCEPT = "text/html,application/xhtml+xml,application/pdf,text/plain;q=0.9,*/*;q=0.5"
 MIN_HOST_INTERVAL = 2.0
@@ -215,14 +219,24 @@ def best_ratio(needle: str, haystack: str) -> float:
     return best_window(needle, haystack)[0]
 
 
+#: The most a segment can score without every part matching in order.
+PARTIAL_MAX = 0.999
+
+
 def score_segment(segment: str, haystack: str) -> float:
-    """1.0 when the segment (all its ellipsis parts, in order) is contained."""
+    """1.0 when the segment (all its ellipsis parts, in order) is contained.
+
+    A segment with no scorable part (every part under :data:`MIN_SEGMENT_CHARS`
+    letters or digits) scores 0.0: there is nothing to verify, which is not a
+    match. Short of a full in-order match the score stays below 1.0, however
+    well each part matches on its own.
+    """
     parts = split_ellipsis(segment)
     if not parts:
-        return 1.0
+        return 0.0
     if find_parts(parts, haystack):
         return 1.0
-    return min(best_ratio(p, haystack) for p in parts)
+    return min(PARTIAL_MAX, min(best_ratio(p, haystack) for p in parts))
 
 
 # --------------------------------------------------------------------------
@@ -656,22 +670,26 @@ class Fetcher:
 
     # -- archive ------------------------------------------------------------
 
-    def archive(self, url: str) -> Fetched:
-        """The Wayback snapshot of ``url`` closest to :data:`CHECKED_TIMESTAMP`."""
+    def archive(self, url: str, timestamp: str = CHECKED_TIMESTAMP) -> Fetched:
+        """The Wayback snapshot of ``url`` closest to ``timestamp``.
+
+        The cache and memo hold one snapshot per URL (snapshots are immutable),
+        so ``timestamp`` only matters for the first lookup of a URL.
+        """
         key = "archive:" + url
         if key in self._memo:
             return self._memo[key]
-        out = self._archive(key, url)
+        out = self._archive(key, url, timestamp)
         self._memo[key] = out
         return out
 
-    def _archive(self, key: str, url: str) -> Fetched:
+    def _archive(self, key: str, url: str, timestamp: str) -> Fetched:
         cached = self.cache.load(key)
         if cached:  # snapshots are immutable
             return self._from_cache(*cached, url, "archive", from_cache=True)
         if self.offline:
             return Fetched("timeout", "archive", url, detail="not in cache (offline)")
-        query = urllib.parse.urlencode({"url": url, "timestamp": CHECKED_TIMESTAMP})
+        query = urllib.parse.urlencode({"url": url, "timestamp": timestamp})
         lookup = self._request(f"{WAYBACK_API}?{query}", {"Accept": "application/json"})
         status, detail = classify(lookup)
         if status != "ok":
@@ -694,30 +712,58 @@ class Fetcher:
 
     # -- one source ---------------------------------------------------------
 
-    def fetch_source(self, src: Source) -> Fetched:
-        """Origin, then ``via.url``, then the archive; the first failure if none."""
+    @staticmethod
+    def copies(src: Source) -> list[tuple[str, str]]:
+        """``(method, url)`` of each copy of a source, in the order tried.
+
+        The one place the order lives: origin, then ``via.url`` (unless it is
+        the origin itself), then the archive snapshot of the origin.
+        """
         url = src["url"]
-        failures: list[Fetched] = []
-        candidates = [("origin", url)]
+        out = [("origin", url)]
         via_url = src.get("via", {}).get("url")
-        if via_url:
-            candidates.append(("via", via_url))
-        for method, candidate in candidates:
-            got = self.get(candidate, method)
+        if via_url and via_url != url:
+            out.append(("via", via_url))
+        out.append(("archive", url))
+        return out
+
+    def _copy(self, method: str, url: str, timestamp: str) -> Fetched:
+        if method == "archive":
+            return self.archive(url, timestamp)
+        return self.get(url, method)
+
+    def fetch_source(self, src: Source, timestamp: str = CHECKED_TIMESTAMP) -> Fetched:
+        """The first copy that fetches; the first failure if none does."""
+        failures: list[Fetched] = []
+        for method, url in self.copies(src):
+            got = self._copy(method, url, timestamp)
             if got.status == "ok":
                 return got
             failures.append(got)
-        got = self.archive(url)
-        if got.status == "ok":
-            return got
-        first = failures[0]
+        first, archived = failures[0], failures[-1]
         return Fetched(
             first.status,
             first.method,
-            url,
+            src["url"],
             first.final_url,
-            detail=f"{first.detail}; archive: {got.detail}",
+            detail=f"{first.detail}; archive: {archived.detail}",
         )
+
+    def alternatives(
+        self, src: Source, primary: Fetched, timestamp: str = CHECKED_TIMESTAMP
+    ) -> Iterator[Fetched]:
+        """The copies after the one that was read, fetched lazily.
+
+        Meant for a content miss: ``via.url`` when it differs from the origin,
+        then the archive snapshot (nothing after an archive primary). Fetch
+        failures are skipped.
+        """
+        order = self.copies(src)
+        seen = [m for m, _ in order].index(primary.method)
+        for method, url in order[seen + 1 :]:
+            alt = self._copy(method, url, timestamp)
+            if alt.status == "ok":
+                yield alt
 
 
 # --------------------------------------------------------------------------
@@ -739,6 +785,10 @@ class QuoteResult:
     detail: str = ""
     from_cache: bool = False
     missing: list[str] = field(default_factory=list)
+    #: SHA-256 of the normalized quote text, to spot a quote edited since.
+    quote_sha256: str | None = None
+    #: The date (``YYYYMMDD``) the quote's check is dated to.
+    checked: str = CHECKED_TIMESTAMP
 
 
 def _forget_fetch(res: QuoteResult) -> None:
@@ -756,6 +806,19 @@ def _id_key(qid: str) -> tuple[int, str, int]:
     if c:
         return (10**9, c.group(1), int(c.group(2)))
     return (10**9 + 1, qid, 0)
+
+
+class UnknownSourceError(ValueError):
+    """A quote names a source slug that is not in the registry."""
+
+
+def quote_hash(text: str) -> str:
+    """SHA-256 of a quote's normalized text (rule cell or case passage)."""
+    return hashlib.sha256(normalize(text).encode()).hexdigest()
+
+
+def _iso_date(stamp: str) -> str:
+    return f"{stamp[:4]}-{stamp[4:6]}-{stamp[6:]}"
 
 
 class Verifier:
@@ -782,11 +845,22 @@ class Verifier:
                 self._text[key] = None
         return self._text[key]
 
+    def _source(self, quote: Mapping[str, Any], slug: str) -> Source:
+        """The registry entry for ``slug``, named in the error when unknown."""
+        try:
+            return self.registry[slug]
+        except KeyError:
+            raise UnknownSourceError(
+                f"quote {quote['id']}: source {slug!r} is not in the registry"
+            ) from None
+
     def verify(self, quote: Mapping[str, Any]) -> QuoteResult:
         qid = str(quote["id"])
         slug = str(quote["source"])
-        src = self.registry[slug]
-        res = QuoteResult(qid, slug, src["url"], "matched")
+        src = self._source(quote, slug)
+        stamp = CASE_CHECKED_TIMESTAMP if quote.get("verbatim") else CHECKED_TIMESTAMP
+        res = QuoteResult(qid, slug, src["url"], "matched", checked=stamp)
+        res.quote_sha256 = quote_hash(str(quote["text"]))
         # A case quote is one verbatim passage; a rule quote cell marks its
         # passages with double quotes.
         segments = (
@@ -794,11 +868,20 @@ class Verifier:
             if quote.get("verbatim")
             else quoted_segments(str(quote["text"]))
         )
-        if not segments or not any(c.isalnum() for c in segments[0]):
+        if not segments:
             res.result = "no-quote"
             res.detail = "no double-quoted passage in the cell"
             return res
-        primary = self.fetcher.fetch_source(src)
+        for seg in segments:
+            if not split_ellipsis(seg):
+                res.result = "no-quote"
+                res.detail = (
+                    "passage too short to verify "
+                    f"(under {MIN_SEGMENT_CHARS} letters or digits per part): "
+                    f"{_snippet(seg)}"
+                )
+                return res
+        primary = self.fetcher.fetch_source(src, stamp)
         res.method, res.final_url = primary.method or None, primary.final_url or None
         res.fetched_at = primary.fetched_at[:10] or None
         res.sha256 = primary.sha256 or None
@@ -817,11 +900,14 @@ class Verifier:
             # Unreadable: another copy may still match in full (extra sources
             # never rescue it). Otherwise the verdict, and its evidence, stay
             # the primary's.
-            for alt in self._alternatives(src, primary):
+            for alt in self._alternatives(src, primary, stamp):
                 alt_text = self._normalized(alt)
                 if alt_text is None:
                     continue
-                if self._judge(quote, segments, alt_text, use_extras=False)[0] >= 1.0:
+                judged = self._judge(
+                    quote, segments, alt_text, use_extras=False, stamp=stamp
+                )
+                if judged[0] >= 1.0:
                     res.score, res.missing, res.result = 1.0, [], "matched"
                     self._adopt(res, alt)
                     return self._paid(res, src)
@@ -829,7 +915,7 @@ class Verifier:
             res.detail = "source text could not be extracted"
             return self._paid(res, src)
 
-        score, missing, pending = self._judge(quote, segments, text)
+        score, missing, pending = self._judge(quote, segments, text, stamp=stamp)
         res.score, res.missing = score, missing
         # Unresolved extra sources are not fixed by another copy of this source,
         # unless the page itself is a challenge page.
@@ -840,11 +926,11 @@ class Verifier:
             # checked date. Only a copy that fully matches wins and replaces
             # the recorded evidence; the verdict otherwise stays the original
             # fetch's (including its challenge status).
-            for alt in self._alternatives(src, primary):
+            for alt in self._alternatives(src, primary, stamp):
                 alt_text = self._normalized(alt)
                 if alt_text is None:
                     continue
-                a_score, _, _ = self._judge(quote, segments, alt_text)
+                a_score, _, _ = self._judge(quote, segments, alt_text, stamp=stamp)
                 if a_score >= 1.0:
                     score, missing, pending = a_score, [], []
                     res.score, res.missing = score, missing
@@ -873,22 +959,11 @@ class Verifier:
         res.sha256 = alt.sha256 or None
         res.from_cache = alt.from_cache
 
-    def _alternatives(self, src: Source, primary: Fetched) -> Iterator[Fetched]:
-        """Other fetched copies of a source, tried lazily after a content miss.
-
-        ``via.url`` when it is a different URL than the one already read, then
-        the archive snapshot (unless the primary already is one). Fetch
-        failures are skipped.
-        """
-        via_url = src.get("via", {}).get("url")
-        if via_url and via_url != primary.url and primary.method != "via":
-            alt = self.fetcher.get(via_url, "via")
-            if alt.status == "ok":
-                yield alt
-        if primary.method != "archive":
-            alt = self.fetcher.archive(src["url"])
-            if alt.status == "ok":
-                yield alt
+    def _alternatives(
+        self, src: Source, primary: Fetched, stamp: str
+    ) -> Iterator[Fetched]:
+        """Other fetched copies of a source (see :meth:`Fetcher.alternatives`)."""
+        return self.fetcher.alternatives(src, primary, stamp)
 
     def _judge(
         self,
@@ -897,6 +972,7 @@ class Verifier:
         text: str,
         *,
         use_extras: bool = True,
+        stamp: str = CHECKED_TIMESTAMP,
     ) -> tuple[float, list[str], list[str]]:
         """``(score, missing passages, failed extra sources)`` against ``text``.
 
@@ -914,7 +990,9 @@ class Verifier:
                 if not extras_loaded:
                     extras_loaded = True
                     for extra in quote.get("extra_sources", []):
-                        got = self.fetcher.fetch_source(self.registry[extra])
+                        got = self.fetcher.fetch_source(
+                            self._source(quote, extra), stamp
+                        )
                         extra_text = (
                             self._normalized(got) if got.status == "ok" else None
                         )
@@ -933,10 +1011,11 @@ class Verifier:
         """Per passage, the best-matching window of each source text (stdout only)."""
         qid = str(quote["id"])
         slugs = [str(quote["source"]), *map(str, quote.get("extra_sources", []))]
+        stamp = CASE_CHECKED_TIMESTAMP if quote.get("verbatim") else CHECKED_TIMESTAMP
         lines = [f"== {qid}"]
         texts: list[tuple[str, str]] = []
         for slug in slugs:
-            got = self.fetcher.fetch_source(self.registry[slug])
+            got = self.fetcher.fetch_source(self._source(quote, slug), stamp)
             text = self._normalized(got) if got.status == "ok" else None
             if text is None:
                 lines.append(
@@ -1005,7 +1084,37 @@ def manifest_entry(r: QuoteResult) -> dict[str, Any]:
         "sha256": r.sha256,
         "result": r.result,
         "score": None if r.score is None else round(r.score, 3),
+        "quote_sha256": r.quote_sha256,
+        "checked": _iso_date(r.checked),
     }
+
+
+@dataclass
+class ManifestDrift:
+    """Manifest entries out of step with the current quotes."""
+
+    #: IDs whose quote text changed since the entry was written (or whose
+    #: entry has no hash): re-verify needed.
+    stale: list[str] = field(default_factory=list)
+    #: IDs of entries whose quote no longer exists (or is now a placeholder).
+    orphaned: list[str] = field(default_factory=list)
+
+
+def manifest_drift(
+    entries: Sequence[Mapping[str, Any]], quotes: Sequence[Mapping[str, Any]]
+) -> ManifestDrift:
+    """Compare a loaded manifest with the current verifiable ``quotes``."""
+    current = {str(q["id"]): quote_hash(str(q["text"])) for q in quotes}
+    drift = ManifestDrift()
+    for e in entries:
+        qid = str(e["id"])
+        if qid not in current:
+            drift.orphaned.append(qid)
+        elif e.get("quote_sha256") != current[qid]:
+            drift.stale.append(qid)
+    drift.stale.sort(key=_id_key)
+    drift.orphaned.sort(key=_id_key)
+    return drift
 
 
 def render_manifest(
@@ -1091,6 +1200,12 @@ def case_quotes(root: Path) -> list[Mapping[str, Any]]:
     out: list[Mapping[str, Any]] = []
     for case in load_learn(root).cases:
         for n, q in enumerate(case.get("quotes", []), start=1):
+            for key in ("source", "text"):
+                if key not in q:
+                    raise ValueError(
+                        f"case {case['id']}: quote {n} has no `{key}` "
+                        "(data/learn/cases/)"
+                    )
             out.append(
                 {
                     "id": f"{case['id']}#{n}",
@@ -1124,8 +1239,13 @@ def run(
     throttle: Throttle | None = None,
     sleep: Callable[[float], None] = time.sleep,
     echo: Callable[[str], None] = print,
+    echo_err: Callable[[str], None] = lambda line: print(line, file=sys.stderr),
 ) -> int:
-    """Verify quotes; 0 when nothing fetched contradicts a quote, else 1."""
+    """Verify quotes; 0 when nothing fetched contradicts a quote, else 1.
+
+    2 when ``only`` or ``explain`` names an ID that is not a verifiable quote
+    (of the selection, with ``cases_only``).
+    """
     registry = load_registry(root)
     fetcher = Fetcher(
         transport or UrllibTransport(),
@@ -1135,28 +1255,47 @@ def run(
         sleep=sleep,
     )
     verifier = Verifier(fetcher, registry)
-    if explain:
-        for q in verifiable_quotes(_load_quotes(root), explain):
-            for line in verifier.explain(q):
-                echo(line)
-        return 0
     all_quotes = _load_quotes(root)
-    quotes = verifiable_quotes(all_quotes, only)
+    pool = verifiable_quotes(all_quotes)
     if cases_only:
-        quotes = [q for q in quotes if q.get("verbatim")]
+        pool = [q for q in pool if q.get("verbatim")]
+    known = {str(q["id"]) for q in pool}
+    for flag, ids in (("--explain", explain), ("--only", only)):
+        unknown = sorted(ids - known, key=_id_key) if ids else []
+        if unknown:
+            echo_err(
+                f"taxonomy verify-sources: {flag}: unknown quote ID(s) "
+                f"(or placeholders): {', '.join(unknown)}"
+            )
+            return 2
+    if explain:
+        for q in pool:
+            if str(q["id"]) in explain:
+                for line in verifier.explain(q):
+                    echo(line)
+        return 0
+    quotes = [q for q in pool if only is None or str(q["id"]) in only]
     results: list[QuoteResult] = []
     for q in quotes:
         results.append(verifier.verify(q))
         echo(f"  {results[-1].id} {results[-1].source}: {results[-1].result}")
+
+    previous: list[Mapping[str, Any]] = []
+    if manifest.is_file():
+        previous = json.loads(manifest.read_text("utf-8"))
+    drift = manifest_drift(previous, verifiable_quotes(all_quotes))
+    if update_manifest:  # re-verified entries are fresh again
+        drift.stale = [i for i in drift.stale if i not in {r.id for r in results}]
+    if drift.stale:
+        echo("  stale manifest entries (re-verify needed): " + ", ".join(drift.stale))
+    if drift.orphaned:
+        echo("  orphaned manifest entries: " + ", ".join(drift.orphaned))
 
     text = render_report(results)
     if report is not None:
         report.parent.mkdir(parents=True, exist_ok=True)
         report.write_text(text, encoding="utf-8")
     if update_manifest:
-        previous: list[Mapping[str, Any]] = []
-        if manifest.is_file():
-            previous = json.loads(manifest.read_text("utf-8"))
         manifest.parent.mkdir(parents=True, exist_ok=True)
         valid = {str(q["id"]) for q in verifiable_quotes(all_quotes)}
         manifest.write_text(render_manifest(results, previous, valid), encoding="utf-8")
