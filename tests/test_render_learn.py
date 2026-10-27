@@ -63,6 +63,10 @@ def test_question_markup_follows_the_contract(ds: Dataset, learn: Learn) -> None
     names = [t for t, _ in found]
     assert names[:3] == ["form", "fieldset", "legend"]
     assert found[0][1] == {"class": "quiz-q", "data-qid": "q-a-01"}
+    # Every question carries the same cue, tied to the fieldset for screen readers.
+    assert found[1][1] == {"aria-describedby": "q-a-01-hint"}
+    assert ("p", {"class": "quiz-hint", "id": "q-a-01-hint"}) in found
+    assert '<p class="quiz-hint" id="q-a-01-hint">Select all that apply.</p>' in out
     boxes = [a for t, a in found if t == "input"]
     assert [b["value"] for b in boxes] == ["0", "1", "2", "3"]
     assert all(b["type"] == "checkbox" and b["name"] == "q-a-01" for b in boxes)
@@ -108,6 +112,42 @@ def test_text_is_escaped(ds: Dataset, learn: Learn) -> None:
     assert "<script>" not in out and "<b>" not in out and "<i>" not in out
     assert html.escape("<script>alert(1)</script>") in out
     assert "P99999</a>" not in out  # unknown IDs stay text
+
+
+def test_longest_option_is_not_systematically_correct() -> None:
+    """The live bank must not teach "pick the longest option".
+
+    ``observed`` counts the questions whose single longest option (by characters;
+    a tie is not a longest) is correct; ``expected`` is what a length-blind
+    bank would give: the sum of correct options over options. The bound is
+    10 percentage points of the bank.
+    """
+    questions = load_learn(REPO).questions
+    assert questions
+    observed = 0
+    expected = 0.0
+    for q in questions:
+        options = q["options"]
+        lengths = [len(o["text"]) for o in options]
+        longest = [i for i, n in enumerate(lengths) if n == max(lengths)]
+        if len(longest) == 1 and options[longest[0]]["correct"]:
+            observed += 1
+        expected += sum(o["correct"] for o in options) / len(options)
+    assert observed <= expected + 0.10 * len(questions), (observed, expected)
+
+
+def test_stems_do_not_hint_at_the_number_of_correct_answers() -> None:
+    """The cue is the same on every question; stems neither repeat nor contradict it."""
+    for q in load_learn(REPO).questions:
+        assert "select all" not in q["stem"].lower(), q["id"]
+        assert not re.search(r"\bWhich (?!of )\w", q["stem"].split(". ")[-1]), q["id"]
+
+
+def test_js_cue_matches_the_static_cue() -> None:
+    """The mixed test renders in JS; its cue and hint id must match the static form."""
+    js = (REPO / "site-assets" / "quiz.js").read_text(encoding="utf-8")
+    assert f'const HINT_TEXT = "{render_learn.SELECT_CUE}";' in js
+    assert "const hintId = `${q.id}-hint`;" in js
 
 
 def test_bank_lists_every_question_with_html_feedback(

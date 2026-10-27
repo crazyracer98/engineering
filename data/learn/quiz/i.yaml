@@ -2,10 +2,10 @@
 - id: q-i-01
   rules: [P80]
   stem: >-
-    A payment service is down for an hour after an engineer runs a command
-    against production instead of staging. The outage is above the team's
-    severity line, and you write the postmortem. Which findings and actions
-    follow the blameless approach?
+    A payment service is down for an hour after an engineer runs a command against
+    production instead of staging. The outage is above the team's severity line, and
+    you write the postmortem. Which of the following findings and actions follow the
+    blameless approach?
   options:
     - text: Ask why one command could reach production with no guard, and add a confirmation step.
       correct: true
@@ -67,8 +67,8 @@
 - id: q-i-03
   rules: [P81, P80]
   stem: >-
-    A team holds a retrospective every sprint. Three sprints in a row, a
-    release slips because of the same flaky deployment step. Which steps
+    A team holds a retrospective every sprint. Three sprints in a row, a release
+    slips because of the same flaky deployment step. Which of the following steps
     apply Plan-Do-Check-Act?
   options:
     - text: Open a ticket with an owner for each retrospective action and review the open ones at the next retrospective.
@@ -105,9 +105,8 @@
 - id: q-i-04
   rules: [P81, P70]
   stem: >-
-    A department asks how it can show that it runs Plan-Do-Check-Act
-    properly. It lists what it has in place. Which items meet the P81
-    check?
+    A department asks how it can show that it runs Plan-Do-Check-Act properly. It
+    lists what it has in place. Which of the following items meet the P81 check?
   options:
     - text: Every retrospective action is a ticket with an owner, and open tickets are visible to the whole team.
       correct: true
@@ -168,8 +167,8 @@
 - id: q-i-06
   rules: [P82, P75]
   stem: >-
-    A team reviews how it closes anomaly tickets. Which closures meet the
-    P82 check, a decision on each anomaly?
+    A team reviews how it closes anomaly tickets. Which of the following closures
+    meet the P82 check, a decision on each anomaly?
   options:
     - text: "Closed: sensor glitch only on firmware 2.1, accepted until the Q3 upgrade, review date set."
       correct: true
@@ -204,9 +203,9 @@
 - id: q-i-07
   rules: [P82, P80]
   stem: >-
-    A nightly job takes three times longer than usual for a week. No user
-    has complained and every run still finishes. Which responses fit the
-    taxonomy?
+    A nightly job takes three times longer than usual for a week. No user has
+    complained and every run still finishes. Which of the following responses fit
+    the taxonomy?
   options:
     - text: Open an anomaly ticket the same day.
       correct: true
@@ -236,9 +235,9 @@
 - id: q-i-08
   rules: [P83, P80]
   stem: >-
-    A service in a production cluster crash-loops. Users see slow pages,
-    and the team estimates it will be hours before real harm. The on-call
-    engineer wants to restart the pods. Which actions apply P83?
+    A service in a production cluster crash-loops. Users see slow pages, and the
+    team estimates it will be hours before real harm. The on-call engineer wants to
+    restart the pods. Which of the following actions apply P83?
   options:
     - text: Capture logs, a heap dump and a disk snapshot before the restart.
       correct: true
@@ -255,7 +254,7 @@
       feedback: >-
         Right. P83 asks for a record of who handled the evidence, the
         chain of custody.
-    - text: Roll back the last deploy at once, then try to reproduce the fault in staging.
+    - text: Roll back the last deploy at once, then try to reproduce the fault in staging later.
       correct: false
       feedback: >-
         Wrong. A rollback is a repair. It removes the as-found state, and
@@ -274,9 +273,9 @@
 - id: q-i-09
   rules: [P83, P73]
   stem: >-
-    A control service fails. The temperature of a process rises, and harm
-    is five minutes away. A full manual snapshot would take twenty
-    minutes. Which actions fit the taxonomy?
+    A control service fails. The temperature of a process rises, and harm is five
+    minutes away. A full manual snapshot would take twenty minutes. Which of the
+    following actions fit the taxonomy?
   options:
     - text: Restart the service without waiting for a manual snapshot.
       correct: true
@@ -307,9 +306,9 @@
 - id: q-i-10
   rules: [P83]
   stem: >-
-    A dismissed employee files a complaint with the company. The chat
-    tool deletes messages after 30 days, and a related channel is 25 days
-    old. Which actions apply the legal-hold form of P83?
+    A dismissed employee files a complaint with the company. The chat tool deletes
+    messages after 30 days, and a related channel is 25 days old. Which of the
+    following actions apply the legal-hold form of P83?
   options:
     - text: Suspend routine deletion for the related mailboxes and channels now.
       correct: true
@@ -340,9 +339,9 @@
 - id: q-i-11
   rules: [P80, P5]
   stem: >-
-    A company reorganizes its support and billing teams. A month later,
-    handoffs fail and customers wait days for refunds. The company plans
-    a review. Which choices apply the after-action review form of P80?
+    A company reorganizes its support and billing teams. A month later, handoffs
+    fail and customers wait days for refunds. The company plans a review. Which of
+    the following choices apply the after-action review form of P80?
   options:
     - text: "Hold the review with everyone affected: what happened, why, and how to improve."
       correct: true
@@ -373,9 +372,9 @@
 - id: q-i-12
   rules: [P82, P81]
   stem: >-
-    Three projects in a row finish about two weeks late, each with a
-    different stated reason. None caused serious harm. Which responses
-    apply the management form of P82?
+    Three projects in a row finish about two weeks late, each with a different
+    stated reason. None caused serious harm. Which of the following responses apply
+    the management form of P82?
   options:
     - text: Judge each project on its own and call it bad luck.
       correct: false

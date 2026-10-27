@@ -1,7 +1,7 @@
 # Quiz questions, category E. Schema: schema/learn-quiz.schema.json.
 - id: q-e-01
   rules: [P44, P46]
-  stem: A team sizes a worker pool for the average load of 500 jobs per second. Peak days reach 900 jobs per second. Which changes follow the margin rule? Select all that apply.
+  stem: A team sizes a worker pool for the average load of 500 jobs per second. Peak days reach 900 jobs per second. Which of the following changes follow the margin rule?
   options:
     - text: State the design load as a probability per period, such as the 1-in-100-day peak, and size above it.
       correct: true
@@ -20,7 +20,7 @@
       feedback: Wrong. The P44 check is a load test that shows capacity at or above the design load times the chosen factor.
 - id: q-e-02
   rules: [P44, P45]
-  stem: A service has 30 % headroom on paper and runs in three availability zones. Which evidence shows that the margin rule is met?
+  stem: A service has 30 % headroom on paper and runs in three availability zones. Which of the following pieces of evidence show that the margin rule is met?
   options:
     - text: Last week's average CPU use was 40 %.
       correct: false
@@ -36,7 +36,7 @@
       feedback: Wrong. A stated figure is not a measurement. P44 requires a load test to confirm it.
 - id: q-e-03
   rules: [P44, P52]
-  stem: A team lead plans each person at 100 % for the sprint, although the team also handles unplanned support requests. Every sprint misses its goal. Which changes follow the rules? Select all that apply.
+  stem: A team lead plans each person at 100 % for the sprint, although the team also handles unplanned support requests. Every sprint misses its goal. Which of the following changes follow the rules?
   options:
     - text: Plan about 70 % of capacity and keep the rest free for unplanned work.
       correct: true
@@ -52,7 +52,7 @@
       feedback: Wrong. A stretch goal adds load. P44 says to keep slack and not to plan near 100 %.
 - id: q-e-04
   rules: [P45, P46]
-  stem: A critical service must survive the loss of any single node. Which designs meet the redundancy rule? Select all that apply.
+  stem: A critical service must survive the loss of any single node. Which of the following designs meet the redundancy rule?
   options:
     - text: Three replicas in three zones behind a tested load balancer with health checks.
       correct: true
@@ -68,7 +68,7 @@
       feedback: Right. Two copies and a tested switch-over keep the function running after one loss (P45). P46 may add further diversity.
 - id: q-e-05
   rules: [P45]
-  stem: A team wants to prove that its service meets the N-1 rule. Which tests do that? Select all that apply.
+  stem: A team wants to prove that its service meets the N-1 rule. Which of the following tests do that?
   options:
     - text: Remove each node in turn in a test and check that requests keep succeeding.
       correct: true
@@ -84,7 +84,7 @@
       feedback: Wrong. That is a margin test (P44). It does not test the loss of a single element.
 - id: q-e-06
   rules: [P46, P45]
-  stem: Three replicas of a login service run in different zones, but all use one TLS certificate that expires next week. What does the diversity rule say? Select all that apply.
+  stem: Three replicas of a login service run in different zones, but all use one TLS certificate that expires next week. What does the diversity rule say?
   options:
     - text: The replicas share a dependency that can hit all copies at once, so the copies should differ there.
       correct: true
@@ -103,7 +103,7 @@
       feedback: Wrong. That adds a shared dependency and removes zone redundancy (P45, P46).
 - id: q-e-07
   rules: [P46]
-  stem: An engineer reviews a design with two DNS providers, two regions and one shared container base image. Which statements fit the diversity rule? Select all that apply.
+  stem: An engineer reviews a design with two DNS providers, two regions and one shared container base image. Which of the following statements fit the diversity rule?
   options:
     - text: The base image is a shared dependency, so it must be listed.
       correct: true
@@ -119,7 +119,7 @@
       feedback: Right. Different providers for the same function are the P46 example for DNS.
 - id: q-e-08
   rules: [P47, P44]
-  stem: A shop expects demand to exceed capacity during a sale. Which plans follow the degradation rule? Select all that apply.
+  stem: A shop expects demand to exceed capacity during a sale. Which of the following plans follow the degradation rule?
   options:
     - text: Switch off recommendations first and keep checkout running for as long as possible.
       correct: true
@@ -135,7 +135,7 @@
       feedback: Wrong. Margin (P44) helps, but P47 applies exactly when demand can exceed capacity.
 - id: q-e-09
   rules: [P47]
-  stem: A team writes a plan for an overload test. Which result shows that the degradation rule is met?
+  stem: A team writes a plan for an overload test. Which of the following results show that the degradation rule is met?
   options:
     - text: Response times grow for all functions evenly, and none fails.
       correct: false
@@ -151,7 +151,7 @@
       feedback: Wrong. A full stop is the cascading failure that P47 is meant to prevent.
 - id: q-e-10
   rules: [P48, P51]
-  stem: An autoscaler scales up above 60 % CPU and down below 60 % CPU. It adds and removes workers every minute. Which fixes follow the damping rule? Select all that apply.
+  stem: An autoscaler scales up above 60 % CPU and down below 60 % CPU. It adds and removes workers every minute. Which of the following fixes follow the damping rule?
   options:
     - text: Add a cooldown of several minutes between scaling actions.
       correct: true
@@ -167,7 +167,7 @@
       feedback: Wrong. That is P51. It reduces amplification along a chain, but this loop's problem is missing damping (P48).
 - id: q-e-11
   rules: [P48]
-  stem: A team reviews the control loops in its platform. Which findings meet the damping check? Select all that apply.
+  stem: A team reviews the control loops in its platform. Which of the following findings meet the damping check?
   options:
     - text: Each automatic loop has a documented deadband, delay or cooldown.
       correct: true
@@ -186,7 +186,7 @@
       feedback: Wrong. This finding shows the P48 violation, so the check is not met. The review is right to flag it.
 - id: q-e-12
   rules: [P49, P44]
-  stem: A CI cluster is congested. The team doubles its size, and it is full again a month later. What should the team have done? Select all that apply.
+  stem: A CI cluster is congested. The team doubles its size, and it is full again a month later. What should the team have done?
   options:
     - text: Forecast that demand grows into the new capacity before the increase.
       correct: true
@@ -197,7 +197,7 @@
     - text: Double the cluster again, because the margin was too small.
       correct: false
       feedback: Wrong. Margin (P44) does not fix induced demand. P49 says more capacity lowers the cost of use and use grows.
-    - text: Conclude that the first doubling was not enough and stop measuring.
+    - text: Conclude that the first doubling was not enough and stop measuring the demand.
       correct: false
       feedback: Wrong. Without a forecast and a demand control, P49 predicts the same result again.
     - text: Charge teams for runner minutes.
@@ -205,7 +205,7 @@
       feedback: Right. Pricing is one of the demand controls named in P49.
 - id: q-e-13
   rules: [P49]
-  stem: A department receives a larger budget for a late project, with the instruction to do more of the same. Which response follows the rule on added capacity?
+  stem: A department receives a larger budget for a late project, with the instruction to do more of the same. Which of the following responses follow the rule on added capacity?
   options:
     - text: Spend the budget as work comes up, and review at the end.
       correct: false
@@ -221,12 +221,12 @@
       feedback: Wrong. P49 does not reject capacity. It says to manage demand along with it.
 - id: q-e-14
   rules: [P50, P52]
-  stem: Changes take three days from first commit to release. Lint takes 2 minutes, tests take 40 minutes, and changes wait two days in the review queue. Which actions follow the bottleneck and work-in-progress rules? Select all that apply.
+  stem: Changes take three days from first commit to release. Lint takes 2 minutes, tests take 40 minutes, and changes wait two days in the review queue. Which of the following actions follow the bottleneck and work-in-progress rules?
   options:
     - text: Measure and name the review queue as the constraint first.
       correct: true
       feedback: Right. The P50 check is that the current constraint is measured and named before an improvement.
-    - text: Halve the lint time, because it is the easiest to change.
+    - text: Halve the lint time, because it is the easiest thing to change.
       correct: false
       feedback: Wrong. Speeding up a step that is not the constraint does not raise output (P50).
     - text: Add review capacity at the review queue.
@@ -240,7 +240,7 @@
       feedback: Wrong. Tests are not the constraint here, so P50 does not support this first.
 - id: q-e-15
   rules: [P50, P49]
-  stem: A company wants faster launches. Every launch needs a review by the one security specialist. Which responses follow the management form of the bottleneck rule? Select all that apply.
+  stem: A company wants faster launches. Every launch needs a review by the one security specialist. Which of the following responses follow the management form of the bottleneck rule?
   options:
     - text: Hire more developers to produce more launch candidates.
       correct: false
@@ -256,7 +256,7 @@
       feedback: Wrong. Dropping a security check to save time puts schedule above safety (P1). P50 improves the constraint step; it does not delete it.
 - id: q-e-16
   rules: [P51, P48]
-  stem: A request passes through a front end, an API and a worker service. Each autoscaler reacts to its own queue, and swings grow along the chain. Which changes follow the rule on shared demand? Select all that apply.
+  stem: A request passes through a front end, an API and a worker service. Each autoscaler reacts to its own queue, and swings grow along the chain. Which of the following changes follow the rule on shared demand?
   options:
     - text: Publish the front-end traffic as an end-demand signal.
       correct: true
@@ -272,7 +272,7 @@
       feedback: Wrong. A cooldown (P48) reduces switching in one loop, but the stages still cannot see the end demand (P51).
 - id: q-e-17
   rules: [P51]
-  stem: A platform team supports several product teams and sees only the tickets that arrive. Its workload swings with every launch. What follows the rule?
+  stem: A platform team supports several product teams and sees only the tickets that arrive. Its workload swings with every launch. Which of the following follow the rule?
   options:
     - text: Hire people for each swing, and release them afterwards.
       correct: false
@@ -288,7 +288,7 @@
       feedback: Wrong. A buffer is margin (P44). It does not give the stage the demand signal (P51).
 - id: q-e-18
   rules: [P52, P50]
-  stem: A team has 23 epics open and six people. Nothing finishes, and every epic waits weeks. Which steps follow the work-in-progress rule? Select all that apply.
+  stem: A team has 23 epics open and six people. Nothing finishes, and every epic waits weeks. Which of the following steps follow the work-in-progress rule?
   options:
     - text: Set a visible limit, such as four epics in progress.
       correct: true
@@ -304,7 +304,7 @@
       feedback: Wrong. Without finding the constraint (P50) this may add only more waiting items. P52 limits work in progress.
 - id: q-e-19
   rules: [P52]
-  stem: A manager asks why a limit on work in progress should shorten waiting times when the team's throughput stays the same. Which explanations are correct? Select all that apply.
+  stem: A manager asks why a limit on work in progress should shorten waiting times when the team's throughput stays the same. Which of the following explanations are correct?
   options:
     - text: At a given throughput, average lead time is proportional to average work in progress.
       correct: true
@@ -320,7 +320,7 @@
       feedback: Wrong. P52 gives the dependency, the proportion in Little's law.
 - id: q-e-20
   rules: [P53, P45]
-  stem: A cluster migration is two weeks late, with a deadline two weeks away. The lead considers adding five engineers. Which actions follow the rule on late work? Select all that apply.
+  stem: A cluster migration is two weeks late, with a deadline two weeks away. The lead considers adding five engineers. Which of the following actions follow the rule on late work?
   options:
     - text: Cut or move scope first.
       correct: true
@@ -336,7 +336,7 @@
       feedback: Wrong. Spare people for redundancy are P45 for a standing function. They do not rescue late coordinated work (P53).
 - id: q-e-21
   rules: [P53]
-  stem: A lead must decide on adding people to late work. Which evidence meets the check of the rule on late work?
+  stem: A lead must decide on adding people to late work. Which of the following pieces of evidence meet the check of the rule on late work?
   options:
     - text: A record of the expected training and coordination cost, made before the people are added.
       correct: true
@@ -352,7 +352,7 @@
       feedback: Wrong. P53 expects the existing team's output to fall at first, not stay the same.
 - id: q-e-22
   rules: [P45, P53]
-  stem: Only one person knows how to restore the billing batch job. A manager wants to remove this single point of failure. Which actions fit the rules? Select all that apply.
+  stem: Only one person knows how to restore the billing batch job. A manager wants to remove this single point of failure. Which of the following actions fit the rules?
   options:
     - text: Name a deputy and train a successor for the function.
       correct: true
