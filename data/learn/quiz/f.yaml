@@ -87,7 +87,7 @@
       feedback: Wrong. Shared assumptions hide shared errors (P56). Co-authors are not independent checkers.
     - text: A second person must also authorize the deploy command.
       correct: false
-      feedback: Wrong. That is the two-person rule at the moment of action (P42). It is not a review of the work (P56).
+      feedback: Wrong. A second person at the moment of action resembles the two-person rule (P42), which is for critical, irreversible actions. It is not a review of the work (P56).
 - id: q-f-06
   rules: [P56]
   stem: A company wants its budgets and accounts checked in proportion to the consequence of an error. Which choices fit P56?
@@ -189,7 +189,7 @@
       feedback: Right. A single definition makes the teams' numbers comparable (P58).
     - text: Set a lead-time target for each team and compare progress.
       correct: false
-      feedback: Wrong. A target does not make the measures comparable. It also invites gaming (P19).
+      feedback: Wrong. A target does not make the measures comparable (P58). It also invites gaming (P19).
     - text: Show how much lead time normally varies before comparing teams or periods.
       correct: true
       feedback: Right. P58 asks to show normal variation before comparing teams or periods.
@@ -332,7 +332,7 @@
       feedback: Right. P62 asks for anchored scales, and its check is that raters score independently before the discussion.
     - text: Rank the candidates against each other during the discussion.
       correct: false
-      feedback: Wrong. P62 rates answers against job requirements, not against other candidates.
+      feedback: Wrong. P62 rates each answer on scales anchored to the job, and raters score independently before any discussion. Ranking during the discussion skips both.
     - text: Add a debugging exercise that every candidate does.
       correct: true
       feedback: Right. P62 adds work samples or job-knowledge tests to the structured interview.
@@ -342,7 +342,7 @@
   options:
     - text: Unstructured interviews predict job performance about as well, and they are more flexible.
       correct: false
-      feedback: Wrong. P62 rests on a meta-analysis with mean validity .42 for structured interviews and .19 for unstructured ones.
+      feedback: Wrong. P62 gives a mean validity of .42 for structured interviews and .19 for unstructured ones.
     - text: Structured interviews predict job performance better than other common methods.
       correct: true
       feedback: Right. This is the reason given for P62.
