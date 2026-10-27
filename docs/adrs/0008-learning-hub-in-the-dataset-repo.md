@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted
+Accepted. Shipped in v1.1.0 (2026-10-27); see "Outcome" below.
 
 ## Context
 
@@ -75,3 +75,35 @@ site is rendered from it.
   accessibility requirement and tests.
 - Cases add sources, so the source registry grows and `taxonomy verify-sources`
   has to cover case quotes.
+
+## Outcome
+
+Shipped as edition 1.1.0 (2026-10-27). Coverage and counts are in
+[FR-0001](../frs/FR-0001-learning-coverage.md), the quiz accessibility rules
+in [NFR-0002](../nfrs/NFR-0002-quiz-accessibility.md). The decisions the user
+made along the way:
+
+- **Same repository, own engine, hybrid rigor, minor edition.** All four
+  were confirmed as written above. The learning content is on the site only;
+  the paper, Markdown and YAML assets only change their edition number and
+  date.
+- **Wave PRs.** The engine (F2, F3) and the content landed as separate PRs,
+  because the content PR's site build needs the real pages. `main` takes
+  squash merges, so each wave branch is built from `origin/main` when it
+  opens.
+- **Mixed quiz stores nothing.** Each load is a fresh random draw, so stored
+  progress would hold stale ids. A category quiz restores only its running
+  score on reload.
+- **Quiz quality fixed before merge.** Every question shows the same
+  "Select all that apply." cue, and the longest option is no more likely to
+  be correct than chance. Both are guarded by tests (see NFR-0002).
+- **Edition-neutral paper.** The two paper sentences that named a version
+  became edition-neutral, so later bumps do not touch the paper text. The
+  README citation moved to 1.1.0 in the same PR as the edition bump, because
+  the release is cut from `main` (ADR 0004).
+- **Case quotes use the existing verifier.** Quotes are taken from raw
+  source text, never from a summarising fetch, and V1 extended
+  `verify_sources` instead of adding a second checker.
+
+Open follow-ups: #29 (F1 test fixtures), #30 (`render_learn` findings), #32
+(deferred quiz review findings) and #34 (deferred W2 review findings).
