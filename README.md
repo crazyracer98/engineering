@@ -46,13 +46,13 @@ edition (see `data/meta.yaml`) and release year you read.
   author       = {crazyracer98 and Claude},
   title        = {Engineering Best Practices --- Cross-Domain Taxonomy},
   year         = {2026},
-  edition      = {1.1.0},
+  edition      = {1.1.1},
   howpublished = {\url{https://github.com/crazyracer98/engineering}},
 }
 ```
 
 > crazyracer98, with Claude, *Engineering Best Practices --- Cross-Domain
-> Taxonomy*, edition 1.1.0, 2026. [Online]. Available:
+> Taxonomy*, edition 1.1.1, 2026. [Online]. Available:
 > https://github.com/crazyracer98/engineering
 
 ## License

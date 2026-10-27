@@ -66,7 +66,7 @@
   },
   {
     "checked": "2026-10-14",
-    "fetched_at": "2026-10-25",
+    "fetched_at": "2026-10-27",
     "final_url": "https://legalinstruments.oecd.org/public/doc/322/322.en.pdf",
     "id": "Q6",
     "method": "origin",
@@ -196,16 +196,16 @@
   },
   {
     "checked": "2026-10-14",
-    "fetched_at": "2026-10-25",
-    "final_url": "https://web.archive.org/web/20260613033027id_/http://www.catb.org/jargon/html/B/Brookss-Law.html",
+    "fetched_at": "2026-10-27",
+    "final_url": "http://www.catb.org/jargon/html/B/Brookss-Law.html",
     "id": "Q16",
-    "method": "archive",
+    "method": "origin",
     "quote_sha256": "9ecf0ffe45ebdb5cb3ffd80e9633553ffd756728f70517f52ca603f4f8999a7d",
     "result": "matched",
     "score": 1.0,
     "sha256": "606c2ef0a5732bcd05474784e494ff98a174a3c066087d842ec64104bb144370",
     "source": "jargon-file-brookss-law",
-    "url": "https://www.catb.org/jargon/html/B/Brookss-Law.html"
+    "url": "http://www.catb.org/jargon/html/B/Brookss-Law.html"
   },
   {
     "checked": "2026-10-14",
@@ -508,16 +508,16 @@
   },
   {
     "checked": "2026-10-14",
-    "fetched_at": null,
-    "final_url": null,
+    "fetched_at": "2026-10-27",
+    "final_url": "https://blog.auditortrainingonline.com/blog/iso-45001-clause-8-1-2",
     "id": "Q40",
-    "method": null,
-    "quote_sha256": "3a96886d48cf5235e802bd904a17cc3613c5a23c1bd6cc84df9db34ce7e1eb90",
-    "result": "gone",
-    "score": null,
-    "sha256": null,
-    "source": "presencis-iso-45001-clause-8",
-    "url": "https://cdn.presencis.com/regulations/iso-45001/article-8.1.2/"
+    "method": "origin",
+    "quote_sha256": "66327be76afa1f0b3269c83c91f324bb912fac715925491eee2e4bfa6e9c87cb",
+    "result": "matched",
+    "score": 1.0,
+    "sha256": "1963c3f71283a7ad4af1ce877aa1467b24cdb0452aadddf0d2c1aa35067770ad",
+    "source": "auditor-training-online-iso-45001-clause-8-1-2",
+    "url": "https://blog.auditortrainingonline.com/blog/iso-45001-clause-8-1-2"
   },
   {
     "checked": "2026-10-14",
@@ -716,16 +716,16 @@
   },
   {
     "checked": "2026-10-14",
-    "fetched_at": null,
-    "final_url": null,
+    "fetched_at": "2026-10-27",
+    "final_url": "https://www.thesedonaconference.org/sites/default/files/publications/Commentary%20on%20Legal%20Holds.pdf",
     "id": "Q56",
-    "method": null,
-    "quote_sha256": "feac68fc29ef6b075411505590b2cbb496cae98c7258a31cd884b4ef858909fa",
-    "result": "gone",
-    "score": null,
-    "sha256": null,
-    "source": "troutman-pepper-sedona-commentary-legal",
-    "url": "https://www.troutman.com/insights/sedona-provides-updated-practical-guidance-for-legal-holds.html"
+    "method": "origin",
+    "quote_sha256": "a5daee8bae23053c9c625d52d10cab15176f78e7890ed53a4d981e6032bf5e79",
+    "result": "matched",
+    "score": 1.0,
+    "sha256": "be4fb0e1f1a7988eb543fb1e49a65ab8f2337263fc790de6b0ae368880104538",
+    "source": "sedona-conference-commentary-legal-holds-2019",
+    "url": "https://www.thesedonaconference.org/sites/default/files/publications/Commentary%20on%20Legal%20Holds.pdf"
   },
   {
     "checked": "2026-10-27",

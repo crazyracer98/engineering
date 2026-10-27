@@ -747,8 +747,8 @@
   publisher: US FDA
   year: null
   paid: false
-  accessed: null
-  notes: Regulator.
+  accessed: '2026-10-27'
+  notes: 'Regulator. URL checked live on 2026-10-27 (HTTP 200, full page). fda.gov answers link checkers with a redirect to an abuse-detection page, which the post-1.1.0 link check reported as dead; the URL is unchanged.'
 - slug: fda-electronic-source-data-guidance
   title: 'FDA: Electronic Source Data guidance (ALCOA)'
   author:
@@ -758,8 +758,8 @@
   publisher: US FDA
   year: null
   paid: false
-  accessed: null
-  notes: Regulator.
+  accessed: '2026-10-27'
+  notes: 'Regulator. URL checked live on 2026-10-27 (HTTP 200, the September 2013 guidance PDF). fda.gov answers link checkers with a redirect to an abuse-detection page, which the post-1.1.0 link check reported as dead; the URL is unchanged.'
 - slug: iso-139-2005-textiles-standard
   title: ISO 139:2005 Textiles - standard atmospheres (sample)
   author:
@@ -1280,20 +1280,20 @@
   paid: false
   accessed: null
   notes: 'Encyclopedia (section 1: kept only as a secondary link).'
-- slug: ucsd-lectures-von-neumanns-probabilistic
-  title: "UCSD: Lectures on von Neumann's Probabilistic Logics"
+- slug: von-neumann-probabilistic-logics-1952
+  title: 'von Neumann: Lectures on Probabilistic Logics and the Synthesis of Reliable Organisms from Unreliable Components (Caltech, 1952)'
   author:
-  - family: Leverentz
-    given: Andrew
-  - family: Thomas
-    given: Anthony
-  url: https://cseweb.ucsd.edu/~dasgupta/254-neural-ul/anthony-andrew.pdf
+  - family: von Neumann
+    given: John
+  url: https://static.ias.edu/pitp/archive/2012files/Probabilistic_Logics.pdf
   kind: primary
-  publisher: UC San Diego
-  year: null
+  publisher: California Institute of Technology
+  year: 1952
+  via:
+    title: Institute for Advanced Study
   paid: false
-  accessed: null
-  notes: "Classification is the importer's judgment against section 1's definition: university lecture notes (treated like the Portland handout)."
+  accessed: '2026-10-27'
+  notes: 'The lectures von Neumann delivered at Caltech, 4-15 January 1952 (notes by R. S. Pierce), re-typeset in TeX from the first Caltech version with figures scanned from it, as hosted by the IAS. Published as pp. 43-98 of Automata Studies (C. E. Shannon and J. McCarthy, eds.), Princeton University Press, 1956. Replaces, since 1.1.1, the UCSD lecture notes on the same work by Leverentz and Thomas (former slug ucsd-lectures-von-neumanns-probabilistic, https://cseweb.ucsd.edu/~dasgupta/254-neural-ul/anthony-andrew.pdf), whose host timed out on 2026-10-27 and which the Internet Archive does not hold.'
 - slug: nspe-ethics-reference-guide
   title: NSPE Ethics Reference Guide
   author:
@@ -1423,7 +1423,7 @@
   year: null
   paid: false
   accessed: null
-  notes: Original report.
+  notes: 'Original report. Authors checked on 2026-10-27 (issue #24) against the front matter (https://www.nationalacademies.org/read/11061/chapter/1): "James R. Phimister, Vicki M. Bier, Howard C. Kunreuther, Editors", National Academy of Engineering, 2004; they are the editors of the volume (the schema has no editor role). NAP''s suggested citation names the National Academy of Engineering.'
 - slug: wikipedia-measurement-uncertainty
   title: 'Wikipedia: Measurement uncertainty'
   author:
@@ -1611,7 +1611,7 @@
   year: 2015
   paid: false
   accessed: '2026-10-14'
-  notes: Original filing.
+  notes: 'Original filing. Author checked on 2026-10-27 (issue #24): the letter is signed "Jeffrey P. Bezos, Founder and Chief Executive Officer" (read through the Internet Archive snapshot of 2026-10-15, as sec.gov refuses undeclared automated tools).'
 - slug: uk-mod-red-teaming-handbook
   title: 'UK MoD: Red Teaming Handbook, 3rd ed. (2021)'
   author:
@@ -1746,13 +1746,13 @@
   author:
   - family: Raymond
     given: Eric S.
-  url: https://www.catb.org/jargon/html/B/Brookss-Law.html
+  url: http://www.catb.org/jargon/html/B/Brookss-Law.html
   kind: secondary
   publisher: The Jargon File
   year: null
   paid: false
-  accessed: '2026-10-14'
-  notes: 'Edition 9 section 12: P53 rests on the Jargon File (secondary only).'
+  accessed: '2026-10-27'
+  notes: 'Edition 9 section 12: P53 rests on the Jargon File (secondary only). catb.org serves no valid certificate for its HTTPS URL (TLS hostname mismatch, 2026-10-27), so the URL is the site''s own http one. Author checked on 2026-10-27 (issue #24): the File''s Revision History (http://www.catb.org/jargon/html/revision-history.html) says Eric S. Raymond maintains it with assistance from Guy L. Steele Jr.; Raymond is its editor and maintainer, not the author of every entry.'
 - slug: kohavi-thomke-surprising-power-online
   title: 'Kohavi & Thomke: The Surprising Power of Online Experiments (HBR 2017)'
   author:
@@ -1831,13 +1831,15 @@
   title: 'OECD Recommendation on Public Procurement: Integrity'
   author:
   - literal: Organisation for Economic Co-operation and Development
-  url: https://search.oecd.org/governance/procurement/toolbox/principlestools/integrity
+  url: https://web.archive.org/web/20240518154901/https://search.oecd.org/governance/procurement/toolbox/principlestools/integrity/
   kind: primary
   publisher: OECD
   year: null
+  via:
+    title: Internet Archive (snapshot of 2024-05-18)
   paid: false
-  accessed: '2026-10-14'
-  notes: Intergovernmental body.
+  accessed: '2026-10-27'
+  notes: 'Intergovernmental body. The Public Procurement Toolbox page on its integrity principle (2015 Recommendation, OECD/LEGAL/0411). The original host search.oecd.org no longer resolves (DNS, 2026-10-27), www.oecd.org answers bots with a challenge page, and the Recommendation page on legalinstruments.oecd.org renders only with JavaScript, so the URL is the archived copy of the page that was read.'
 - slug: iso-20400-2017-sustainable-procurement
   title: ISO 20400:2017 Sustainable procurement (catalogue page)
   author:
@@ -1976,17 +1978,17 @@
   paid: true
   accessed: null
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
-- slug: troutman-pepper-sedona-commentary-legal
-  title: 'Troutman Pepper: Sedona Commentary on Legal Holds, 2nd ed.'
+- slug: sedona-conference-commentary-legal-holds-2019
+  title: 'The Sedona Conference: Commentary on Legal Holds, Second Edition: The Trigger & The Process (2019)'
   author:
-  - literal: Troutman Pepper Locke
-  url: https://www.troutman.com/insights/sedona-provides-updated-practical-guidance-for-legal-holds.html
-  kind: secondary
-  publisher: Troutman Pepper
-  year: null
+  - literal: The Sedona Conference
+  url: https://www.thesedonaconference.org/sites/default/files/publications/Commentary%20on%20Legal%20Holds.pdf
+  kind: primary
+  publisher: The Sedona Conference
+  year: 2019
   paid: false
-  accessed: '2026-10-14'
-  notes: 'Law-firm article; edition 9 section 11: secondary, describes the primary Sedona commentary.'
+  accessed: '2026-10-27'
+  notes: 'The Working Group 1 commentary as published in 20 Sedona Conf. J. 341 (2019), final June 2019 version. The full PDF was fetched without registration on 2026-10-27 (the download button on the publication page asks for a free account; this direct file does not). Its byline reads "Author: The Sedona Conference". Guideline 1 is quoted from section III, p. 370. Replaces, since 1.1.1, the secondary Troutman Pepper article on the commentary (former slug troutman-pepper-sedona-commentary-legal), gone with HTTP 404 and no Internet Archive snapshot (issue #17).'
 - slug: iso-45001-2018
   title: ISO 45001:2018 (catalogue page)
   author:
@@ -1998,17 +2000,18 @@
   paid: true
   accessed: null
   notes: ISO catalogue page; the standard text is paid (edition 9 section 12), the page gives title and summary only.
-- slug: presencis-iso-45001-clause-8
-  title: 'Presencis: ISO 45001 clause 8.1.2'
+- slug: auditor-training-online-iso-45001-clause-8-1-2
+  title: 'Auditor Training Online: ISO 45001 Clause 8.1.2, Eliminating hazards and reducing OH&S risks'
   author:
-  - literal: Presencis
-  url: https://cdn.presencis.com/regulations/iso-45001/article-8.1.2/
+  - family: Stapleton
+    given: Jackie
+  url: https://blog.auditortrainingonline.com/blog/iso-45001-clause-8-1-2
   kind: secondary
-  publisher: Presencis
-  year: null
+  publisher: Auditor Training Online
+  year: 2023
   paid: false
-  accessed: '2026-10-14'
-  notes: 'Edition 9 section 11: secondary; the ISO 45001 text is paid.'
+  accessed: '2026-10-27'
+  notes: 'Auditor-training blog post (byline Jackie Stapleton, 6 November 2023) that reproduces the full text of ISO 45001:2018 clause 8.1.2. Secondary: the ISO text itself is paid (iso-45001-2018), and no free primary copy of the clause was found. Replaces, since 1.1.1, the Presencis page on the clause (former slug presencis-iso-45001-clause-8), gone with HTTP 404 and no Internet Archive snapshot (issue #17).'
 - slug: iso-14001-2015-withdrawn-replaced
   title: ISO 14001:2015, withdrawn, replaced by ISO 14001:2026 (catalogue page)
   author:
@@ -2194,7 +2197,7 @@
     title: UCSF
   paid: false
   accessed: '2026-10-14'
-  notes: "Copy (edition 9 title); Classification is the importer's judgment against section 1's definition: faithful copy."
+  notes: "Copy (edition 9 title); Classification is the importer's judgment against section 1's definition: faithful copy. Author checked on 2026-10-27 (issue #24) against the HBR record (https://hbr.org/1995/03/leading-change-why-transformation-efforts-fail-2): by John P. Kotter, March-April 1995 issue."
 - slug: kim-mauborgne-fair-process
   title: 'Kim & Mauborgne: Fair Process (HBR 1997, copy)'
   author:
@@ -2305,8 +2308,8 @@
   publisher: US FDA
   year: null
   paid: false
-  accessed: null
-  notes: Regulator.
+  accessed: '2026-10-27'
+  notes: 'Regulator. URL checked live on 2026-10-27 (HTTP 200; the page now lists a final guidance dated August 2026, docket FDA-2011-D-0469). fda.gov answers link checkers with a redirect to an abuse-detection page, which the post-1.1.0 link check reported as dead; the URL is unchanged.'
 - slug: google-sre-workbook-canarying-releases
   title: 'Google SRE Workbook: Canarying Releases'
   author:
@@ -2378,14 +2381,14 @@
   title: 'OSTI: A Perspective on Model Validation and Validated Models (keynote)'
   author:
   - family: Romero
-    given: Vicente
+    given: Vicente Jose
   url: https://www.osti.gov/servlets/purl/1109271
   kind: primary
   publisher: US DOE OSTI
   year: null
   paid: false
   accessed: null
-  notes: Original report.
+  notes: 'Original report. Author checked on 2026-10-27 (issue #24) against the OSTI record (https://www.osti.gov/biblio/1109271): Romero, Vicente Jose, Sandia National Laboratories, conference paper, February 2011; given name completed from the record.'
 - slug: imo-solas-chapter-ii-1
   title: IMO SOLAS Chapter II-1, subdivision and stability (text via imorules.com)
   author:
@@ -2418,28 +2421,31 @@
     given: F. Stanley
   - family: Heap
     given: Howard F.
-  url: https://www.omdec.com/wikifiles/nowlanHeap.pdf
+  url: https://web.archive.org/web/20240905171929/https://www.omdec.com/wikifiles/nowlanHeap.pdf
   kind: primary
   publisher: null
   year: 1978
   via:
-    title: OMDEC
+    title: OMDEC, via Internet Archive (snapshot of 2024-09-05)
   paid: false
-  accessed: null
-  notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the original report."
+  accessed: '2026-10-27'
+  notes: "Classification is the importer's judgment against section 1's definition: faithful copy of the original report. The OMDEC host fails TLS (2026-10-27) and the DTIC record (ADA066579) refuses automated fetches, so the URL is the archived OMDEC copy; its title page says OMDEC updated and converted the report to this format in 2004. Authors checked on 2026-10-27 (issue #24) against that title page: F. Stanley Nowlan, Howard F. Heap, work performed by United Airlines for the Office of Assistant Secretary of Defense, December 29, 1978."
 - slug: kelley-origins-cpm-personal-history
   title: 'Kelley: The Origins of CPM, a Personal History (PMI)'
   author:
   - family: Kelley
     given: James E.
-    suffix: Jr.
+  - family: Walker
+    given: Morgan R.
+  - family: Sayer
+    given: John S.
   url: https://www.pmi.org/learning/library/origins-cpm-personal-history-3762
   kind: primary
   publisher: PMI
   year: null
   paid: true
   accessed: null
-  notes: Official PMI page; the PMBOK Guide text is paid (edition 9 section 12).
+  notes: 'Official PMI page; the PMBOK Guide text is paid (edition 9 section 12). Authors corrected on 2026-10-27 (issue #24) from the page''s own record and "How to cite" line (read through the Internet Archive snapshot of 2026-10-04, as pmi.org answers bots with a challenge page): Kelley, J. E., Walker, M. R., & Sayer, J. S. (1989), The origins of CPM: a personal history, PM Network 3(2), 7-22. The former single author with suffix "Jr." was set from memory; the record gives no suffix.'
 - slug: joint-commission-sentinel-event-alert
   title: 'The Joint Commission: Sentinel Event Alert 50, Medical device alarm safety (2013)'
   author:

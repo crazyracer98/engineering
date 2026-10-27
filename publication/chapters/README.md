@@ -1,6 +1,6 @@
 # Engineering Best Practices — Cross-Domain Taxonomy
 
-Version 1.1.0 · 2026-10-27 · 83 rules (58 universal, 9 risk-scaled, 16 conditional) and 8 conflict rules in 9 categories
+Version 1.1.1 · 2026-10-27 · 83 rules (58 universal, 9 risk-scaled, 16 conditional) and 8 conflict rules in 9 categories
 
 ## Contents
 

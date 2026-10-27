@@ -391,13 +391,13 @@
 - id: Q40
   rules:
   - P38
-  source: presencis-iso-45001-clause-8
-  text: "\"Eliminate the hazard — remove the hazard entirely so that it no longer exists\" (first of five levels, in the article's wording)"
-  locator: null
+  source: auditor-training-online-iso-45001-clause-8-1-2
+  text: '"The organization shall establish, implement and maintain a process(es) for the elimination of hazards and reduction of OH&S risks using the following hierarchy of controls: a) eliminate the hazard; b) substitute with less hazardous processes, operations, materials or equipment; c) use engineering controls and reorganization of work; d) use administrative controls, including training; e) use adequate personal protective equipment." (clause 8.1.2 as reproduced in the article)'
+  locator: ISO 45001:2018 clause 8.1.2
   group: management_other
   source_titles:
-    presencis-iso-45001-clause-8: 'Presencis: ISO 45001 8.1.2'
-  sources_text: '[@presencis-iso-45001-clause-8] (secondary; ISO text is paid)'
+    auditor-training-online-iso-45001-clause-8-1-2: 'Auditor Training Online: ISO 45001 clause 8.1.2'
+  sources_text: '[@auditor-training-online-iso-45001-clause-8-1-2] (secondary; ISO text is paid)'
 - id: Q41
   rules:
   - P40
@@ -547,13 +547,12 @@
 - id: Q56
   rules:
   - P83
-  source: troutman-pepper-sedona-commentary-legal
-  text: 'Guideline 1 trigger: "notice of a credible probability that [an organization]" "will become involved in litigation," "seriously contemplates initiating litigation, or when it takes specific actions to commence litigation."'
-  locator: null
+  source: sedona-conference-commentary-legal-holds-2019
+  text: 'Guideline 1: "A reasonable anticipation of litigation arises when an organization is on notice of a credible probability that it will become involved in litigation, seriously contemplates initiating litigation, or when it takes specific actions to commence litigation."'
+  locator: Guideline 1, p. 370
   group: management_other
   source_titles:
-    troutman-pepper-sedona-commentary-legal: Troutman Pepper on the Sedona Commentary on Legal Holds
-  sources_text: '[@troutman-pepper-sedona-commentary-legal] (secondary; describes the primary commentary)'
+    sedona-conference-commentary-legal-holds-2019: Sedona Commentary on Legal Holds, 2nd ed.
 - id: Q57
   rules:
   - P70

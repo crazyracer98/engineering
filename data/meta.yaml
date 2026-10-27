@@ -2,7 +2,7 @@
 # Schema: schema/meta.schema.json. data/ is the single source of truth (ADR 0003);
 # seeded once by sources/import/import_v9.py from edition 9.
 title: Engineering Best Practices — Cross-Domain Taxonomy
-edition: 1.1.0
+edition: 1.1.1
 date: '2026-10-27'
 master_rule:
   scale: Scale the rigor of every rule to (consequence of failure) × (uncertainty).
