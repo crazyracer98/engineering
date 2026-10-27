@@ -9,8 +9,8 @@
     - rule: P55
       how: >-
         Each check runs at the first stage where it can run. A type error is
-        caught by the linter on commit, not in the integration tests days
-        later.
+        caught by the type checker on commit, not in the integration tests
+        days later.
     - rule: P23
       how: >-
         The team picks the simplest design that meets the requirements, and
@@ -42,7 +42,8 @@
   domain: Site reliability engineering
   scenario: >-
     An online shop has an outage after a bad deploy. Users see slow checkout
-    pages for an hour. The team writes up the incident afterwards.
+    pages for an hour, and the team first hears of it from customer
+    complaints. The team writes up the incident afterwards.
   shows:
     - rule: P80
       how: >-
@@ -51,9 +52,10 @@
         system-level actions.
     - rule: P70
       how: >-
-        The service has dashboards and alerts for what users feel, such as
-        checkout latency and error rate. An alert on slow checkout would have
-        fired within minutes of the deploy.
+        Learning about the outage from users is the rule's violation. A
+        postmortem action adds dashboards and alerts for what users feel,
+        checkout latency and error rate, so the next slow deploy pages the
+        on-call engineer within minutes.
 - branch: Computing
   domain: Simulation and computational engineering
   scenario: >-
@@ -82,12 +84,16 @@
 - branch: Computing
   domain: Quantum engineering and computing theory
   scenario: >-
-    A team builds a control system for a quantum computer. A single failed
-    control line would stop a running computation, so the team adds a spare
-    for each critical line.
+    A team builds a quantum processor. A single physical qubit is too
+    error-prone to hold data through a long computation. The team encodes each
+    logical qubit across many physical qubits with an error-correcting code.
+    The code helps only if each physical qubit's error rate is below the
+    code's threshold, so the team measures those rates first.
   shows:
     - rule: P45
       how: >-
-        The team adds redundancy so the function survives the loss of any
-        single control line. In a test it removes each line in turn, and the
-        computation keeps running. It also tests the switch-over to the spare.
+        The function, a logical qubit, survives an error on any single
+        physical qubit. The team makes sure each copy is reliable enough for
+        the redundancy to help: the physical error rates are below the
+        threshold. In a test, an error injected on any single physical qubit
+        is corrected and the logical state survives.

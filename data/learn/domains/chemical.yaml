@@ -14,10 +14,11 @@
         approved change.
     - rule: P38
       how: >-
-        The team looks first at eliminating the hazard or substituting a less
-        volatile solvent. It then considers an engineering control, such as
-        an inert gas blanket, before any procedure or protective equipment.
-        The record states why a higher level was not possible.
+        The team first asks whether the change is needed at all, or whether a
+        less volatile solvent would do. The process needs the new solvent, and
+        the record states why. The team then adds an engineering control at
+        the source, a nitrogen blanket that keeps the headspace too low in
+        oxygen to burn, before any procedure or protective equipment.
 - branch: Chemical
   domain: Oil and gas
   scenario: >-

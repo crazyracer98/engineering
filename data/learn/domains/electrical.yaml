@@ -9,10 +9,10 @@
   shows:
     - rule: P44
       how: >-
-        The team states the design load as a peak current with a probability
-        per year, and sizes the regulator above it. A load test shows the
-        regulator carries at least that current times the chosen factor, so
-        the check is met.
+        The team states the design load, the peak current the controller
+        draws, and sizes the regulator above it with a derating factor for the
+        warm floor. A load test at high temperature shows the regulator
+        carries at least that current times the chosen factor.
     - rule: P45
       how: >-
         The board has two supply paths. In a test the team removes one path at
@@ -35,8 +35,8 @@
       how: >-
         The operator defines in advance which loads switch off first, such as
         large interruptible industrial users, and which keep power, such as
-        hospitals. An overload test shows the low-priority loads stop first
-        and the critical ones keep running.
+        hospitals. A simulated overload shows the low-priority loads stop
+        first and the critical ones keep running.
 - branch: Electrical
   domain: Telecom and network
   scenario: >-
@@ -52,15 +52,16 @@
         performance.
     - rule: P33
       how: >-
-        The two sites exchange data under a written message specification
-        with a machine-checked schema. A message that violates the schema is
-        rejected and logged. Units and time zone are stated in every field.
+        The transfer messages that carry each file's name, size and checksum
+        follow a written specification with a machine-checked schema. A
+        message that violates the schema is rejected and logged. The
+        interface states units and time zone explicitly.
 - branch: Electrical
   domain: Computer engineering
   scenario: >-
     A hardware team designs a new embedded processor board. Each block has a
-    scan chain and debug pins. Before layout, the team measures where the
-    board spends time on a benchmark workload.
+    scan chain and debug pins. Before layout, the team profiles a benchmark
+    workload on the previous-generation board to see where the time goes.
   shows:
     - rule: P26
       how: >-
@@ -92,20 +93,22 @@
   shows:
     - rule: P33
       how: >-
-        The interface specification states the unit of every field. The
-        receiving unit checks each message against a schema, rejects the
-        power value sent in the wrong unit, and logs the rejection, instead
-        of silently accepting it.
+        The interface specification fixes one unit for the power field and
+        puts it in the field name. The receiving unit checks each message
+        against the schema, rejects a message whose power field names the
+        other unit, and logs the rejection, instead of silently accepting it.
 - branch: Electrical
   domain: Optical (laser safety)
   scenario: >-
     A lab builds a setup with a laser. A low-power alignment laser in a
     closed box needs few controls. A high-power laser in an open lab has a
-    far worse worst case.
+    far worse worst case, and its stray reflections are hard to predict.
   shows:
     - rule: Master
       how: >-
         The lab scales the rigor to the consequence of failure times the
-        uncertainty. The closed low-power box gets a simple check. The
-        high-power open setup, where an eye injury is irreversible, gets
-        interlocks, a controlled area, trained staff and a formal review.
+        uncertainty. The closed low-power box scores low on both and gets a
+        simple check. The high-power open setup scores high on both: an eye
+        injury cannot be undone, and stray reflections are hard to predict.
+        It gets interlocks, a controlled area, trained staff and a formal
+        review.

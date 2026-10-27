@@ -15,7 +15,9 @@
       how: >-
         Steel and aluminium touch in a wet environment, so the designers
         verify compatibility in the real environment. They find a galvanic
-        corrosion risk and separate the metals with an insulating washer.
+        corrosion risk and separate the metals: insulating washers and sleeves
+        keep the steel bolts off the aluminium, and a sealant keeps salt water
+        out of the joint.
 - branch: Materials
   domain: Forensic engineering
   scenario: >-
@@ -31,8 +33,9 @@
 - branch: Materials
   domain: Welding
   scenario: >-
-    A fabricator welds pressure vessel seams. A weld's internal quality
-    cannot be fully checked by looking at it afterwards.
+    A fabricator welds pressure vessel seams. Even radiography afterwards
+    cannot fully show a weld's internal quality, and it cannot show the
+    toughness of the weld metal at all.
   shows:
     - rule: P61
       how: >-
@@ -60,7 +63,7 @@
     - rule: P14
       how: >-
         The forge traces each bar to its origin, melt batch and mill
-        certificate. For any deployed part it can show origin, build and
+        certificate. For any finished part it can show origin, build and
         certificate.
 - branch: Materials
   domain: Electronic materials
@@ -91,11 +94,14 @@
   scenario: >-
     A company wants to use a new nanoparticle in a sunscreen. Early tests
     hint that it might harm aquatic life, but the data is incomplete. Harm
-    to a river would be hard to undo.
+    to a river would be hard to undo. The company filters the particles out
+    of its factory wastewater. It also holds back a water-resistant beach
+    product, whose use washes the particles straight into open water, until
+    more tests are done.
   shows:
     - rule: P15
       how: >-
         The possible harm is serious and irreversible, and the evidence is
-        incomplete. The company takes proportionate protective measures
-        without waiting for full proof, such as containing wastewater, and a
-        record states the measure taken.
+        incomplete. The company takes proportionate protective measures on
+        both paths to the water without waiting for full proof, and a record
+        states the measures taken.
