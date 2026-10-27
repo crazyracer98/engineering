@@ -61,7 +61,8 @@ to build a small quiz engine of our own instead of a third-party plugin.
   closing answers, bfcache `pageshow` clearing, the JS-built mixed
   questions matching the static markup, and the mixed quiz storing
   nothing). jsdom is a pinned devDependency in `tests/js/package.json`;
-  run `npm ci --prefix tests/js` once before `node --test`.
+  the `js-deps` prek hook installs it from the lockfile
+  (`npm ci --prefix tests/js --ignore-scripts`) before `js-tests` runs.
 - Manual, at the learning hub's G3 gate and after any change to
   `site-assets/` or the quiz markup: in a real browser, (1) complete a
   quiz with the keyboard only and check the focus order, the focus after
