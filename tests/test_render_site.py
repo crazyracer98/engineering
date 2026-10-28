@@ -184,3 +184,35 @@ def test_fixture_build_strict_renders_quiz_and_learn(tmp_path: Path) -> None:
     learn = (out / "learn" / "a" / "index.html").read_text("utf-8")
     assert 'id="p1"' in learn and "Real case" in learn
     assert (out / "learn" / "branch-civil" / "index.html").is_file()
+
+
+def test_build_rejects_unknown_engine(tmp_path: Path) -> None:
+    with pytest.raises(ValueError, match="unknown engine"):
+        render_site.build(tmp_path / "out", tmp_path, engine="hugo")
+
+
+def test_zensical_config_is_relative_to_the_config_file(tmp_path: Path) -> None:
+    root = tmp_path / "repo"
+    root.mkdir()
+    shutil.copyfile(REPO / "mkdocs.yml", root / "mkdocs.yml")
+    config = render_site._zensical_config(root, tmp_path / "elsewhere" / "site")
+    assert config.parent == root / "build"
+    loaded = load_yaml(config)
+    assert loaded["docs_dir"] == "site-src"
+    assert loaded["site_dir"] == "../../elsewhere/site"
+    assert loaded["strict"] is True
+    assert loaded["nav"] == load_yaml(REPO / "mkdocs.yml")["nav"]
+
+
+def test_zensical_build_matches_the_mkdocs_pages(tmp_path: Path) -> None:
+    """Opt-in spike (issue #9): runs only where the ``zensical`` extra is installed."""
+    pytest.importorskip("zensical")
+    root = _fixture_root(tmp_path, assets=True)
+    render_site.build(tmp_path / "mk", root)
+    render_site.build(tmp_path / "zs", root, engine="zensical")
+
+    def pages(out: Path) -> set[str]:
+        return {str(p.relative_to(out)) for p in out.rglob("*.html")}
+
+    assert pages(tmp_path / "zs") == pages(tmp_path / "mk")
+    assert (tmp_path / "zs" / "search.json").is_file()
