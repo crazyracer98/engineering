@@ -528,7 +528,7 @@ domains:
   - P45
   references:
   - wikipedia-quantum-error-correction
-  - ucsd-lectures-von-neumanns-probabilistic
+  - von-neumann-probabilistic-logics-1952
 - branch: Cross-cutting
   domain: Professional ethics
   rules:
@@ -855,14 +855,14 @@ domains:
   rules:
   - P83
   references:
-  - troutman-pepper-sedona-commentary-legal
+  - sedona-conference-commentary-legal-holds-2019
 - branch: 'Management: Risk, resilience and legal'
   domain: Occupational health and safety
   rules:
   - P38
   references:
   - iso-45001-2018
-  - presencis-iso-45001-clause-8
+  - auditor-training-online-iso-45001-clause-8-1-2
 - branch: 'Management: Risk, resilience and legal'
   domain: Environmental management
   rules:

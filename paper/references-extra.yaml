@@ -79,7 +79,9 @@
     Atul Gawande. ISBN 9780805091748. Publisher page only; the book was not
     read for this paper. Its rule of thumb on checklist length is quoted
     through the book notes the dataset already cites
-    (mann-checklist-manifesto-notes).
+    (mann-checklist-manifesto-notes). Author checked on 2026-10-27
+    (issue #24) against the publisher page: "Author: Atul Gawande",
+    imprint Metropolitan Books.
 - slug: haynes-2009-surgical-checklist
   title: "A Surgical Safety Checklist to Reduce Morbidity and Mortality in a Global Population"
   author:
@@ -126,7 +128,11 @@
     Haynes AB, Weiser TG, Berry WR, et al. N Engl J Med 360(5):491-499.
     Only the abstract was read (Europe PMC API, same record as PubMed); the publisher page refused
     the fetch, so free access to the full text is unconfirmed. Quotes are
-    from the abstract's Results and Conclusions.
+    from the abstract's Results and Conclusions. Authors checked on
+    2026-10-27 (issue #24) against the PubMed record (PMID 19144931): the
+    15 named authors, their order and initials match (Gawande AA last);
+    PubMed also lists the collective "Safe Surgery Saves Lives Study
+    Group", for which the named authors write.
 - slug: urbach-2014-ontario-checklists
   title: "Introduction of Surgical Safety Checklists in Ontario, Canada"
   author:

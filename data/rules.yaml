@@ -1344,9 +1344,9 @@
     form: eliminate the risky activity, then substitute, then use system-enforced controls, then policies and training, and personal care last
     example: instead of a policy "do not share credentials", remove shared accounts
     sources:
-    - presencis-iso-45001-clause-8
+    - auditor-training-online-iso-45001-clause-8-1-2
     source_titles:
-      presencis-iso-45001-clause-8: ISO 45001 clause 8.1.2 (secondary text)
+      auditor-training-online-iso-45001-clause-8-1-2: ISO 45001 clause 8.1.2 (secondary text)
     evidence: strong
     evidence_note: required in ISO 45001
 - id: P39
@@ -1611,7 +1611,7 @@
   notes: null
   sources:
   - uspto-materials-based-failure-analysis
-  - ucsd-lectures-von-neumanns-probabilistic
+  - von-neumann-probabilistic-logics-1952
   - sciencedirect-fail-safe-design
   - sintef-n-1-isnt-always
   - wikipedia-quantum-error-correction
@@ -3013,8 +3013,8 @@
     form: when litigation or an investigation is reasonably anticipated, stop routine deletion and preserve the relevant records
     example: after a complaint about a dismissal, the related emails and chat channels are preserved
     sources:
-    - troutman-pepper-sedona-commentary-legal
+    - sedona-conference-commentary-legal-holds-2019
     source_titles:
-      troutman-pepper-sedona-commentary-legal: Sedona Commentary on Legal Holds, Guideline 1 (via Troutman Pepper)
+      sedona-conference-commentary-legal-holds-2019: Sedona Commentary on Legal Holds, Guideline 1
     evidence: strong
     evidence_note: US litigation duty

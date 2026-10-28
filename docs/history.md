@@ -1,5 +1,41 @@
 # History
 
+## 1.1.1 (source fixes)
+
+Version 1.1.1 fixes sources. It is a patch edition under ADR 0004: no rule,
+rule ID, rule text or field of the dataset changes. It is dated 2026-10-27.
+
+- Two secondary sources had gone (HTTP 404, no archive snapshot) and are
+  replaced. The legal-hold trigger (Q56, management form of P83) is now quoted
+  from the Sedona Conference Commentary on Legal Holds, Second Edition (2019)
+  itself, a primary source, instead of a law-firm article about it. The
+  hierarchy of controls in ISO 45001 clause 8.1.2 (Q40, management form of
+  P38) is quoted from an Auditor Training Online article that reproduces the
+  clause; it stays secondary, because the ISO text is paid. Both quotes were
+  re-taken verbatim from the new sources and verified.
+- The UCSD lecture notes on von Neumann's probabilistic logics (a P45 source)
+  could not be reached and have no archive snapshot. They are replaced by von
+  Neumann's own 1952 Caltech lectures.
+- Authors that had been set from memory were checked against each work's
+  record page and recorded in the source notes. One was wrong: the PMI
+  article on the origins of CPM is by Kelley, Walker and Sayer, not Kelley
+  alone. Romero's given name is completed from the OSTI record (Vicente
+  Jose). The others were confirmed. That PMI article is also no longer
+  marked paid: its page carries the full text without a login.
+- The National Academies report on accident precursors (a P82 source) now
+  links to its committee summary chapter, which describes near misses before
+  major accidents and the normalization of deviance. The old link led to an
+  unrelated chapter of the same volume, on inherently safer design.
+- Dead links are fixed. The Jargon File is linked over http, because its
+  https address has no valid certificate. The OECD procurement toolbox page
+  and the Nowlan & Heap report are linked as Internet Archive copies, because
+  their hosts are gone or fail TLS. The three FDA pages are live; they only
+  turn automated link checkers away, so their links are unchanged.
+
+The three replaced sources are removed from the registry, because every
+registered source must be cited (`taxonomy check`); their slugs are not reused,
+and the notes of the sources that replace them name them.
+
 ## 1.1.0 (learning hub)
 
 Version 1.1.0 adds a way to learn the rules, not only look them up. It is a
