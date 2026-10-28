@@ -15,6 +15,10 @@ dependencies = [
     "pypdf[crypto]>=6.21,<7",
 ]
 
+[project.optional-dependencies]
+# Opt-in spike for issue #9 (docs/zensical-spike.md); MkDocs stays the builder.
+zensical = ["zensical==0.0.73"]
+
 [project.urls]
 Repository = "https://github.com/crazyracer98/engineering"
 
