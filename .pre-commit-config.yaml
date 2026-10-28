@@ -107,6 +107,14 @@ repos:
         always_run: true
         stages: [pre-commit, manual]
 
+      - id: js-deps
+        name: js deps (tests/js lockfile, jsdom)
+        entry: npm ci --prefix tests/js --ignore-scripts --no-audit --no-fund
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-commit, manual]
+
       - id: js-tests
         name: js tests (quiz core, NFR-0002)
         entry: node --test "tests/js/**/*.test.js"

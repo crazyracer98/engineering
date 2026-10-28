@@ -174,7 +174,7 @@ def test_fixture_build_strict_renders_quiz_and_learn(tmp_path: Path) -> None:
     out = tmp_path / "site"
     render_site.build(out, root)
     quiz = (out / "quiz" / "a" / "index.html").read_text("utf-8")
-    assert '<form class="quiz-q" data-qid="q-a-01">' in quiz
+    assert '<form class="quiz-q" data-qid="q-a-01" autocomplete="off">' in quiz
     assert 'src="../../assets/quiz/quiz.js"' in quiz and 'type="module"' in quiz
     assert (out / "assets/quiz/quiz-bank.json").is_file()
     mixed = (out / "quiz" / "mixed" / "index.html").read_text("utf-8")

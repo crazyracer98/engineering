@@ -20,6 +20,7 @@ from taxonomy.ids import expand_ids, id_key, id_pattern, prefix_alt
 from taxonomy.load import (
     DATA_STEMS,
     LEARN_DIR,
+    LEARN_KINDS,
     REGISTRY_FILES,
     branch_slug,
     learn_files,
@@ -29,10 +30,22 @@ from taxonomy.load import (
     load_schema,
     load_yaml,
 )
-from taxonomy.model import Dataset, Learn, Source
+from taxonomy.model import (
+    CHECKER_LEVEL_RULE,
+    CHECKER_LEVEL_RULE_NAME,
+    Dataset,
+    Learn,
+    Source,
+)
+from taxonomy.render_learn import slug as anchor_slug
 from taxonomy.render_markdown import (
     build_sections,
     citation_slugs,
+)
+from taxonomy.verify_sources import (
+    MIN_SEGMENT_CHARS,
+    quoted_segments,
+    split_ellipsis,
 )
 
 #: Data file stem -> schema stem is the identity; these files use ``sources``.
@@ -125,11 +138,9 @@ def cited_texts(ctx: Context) -> list[tuple[str, str]]:
 
 
 #: ``data/learn/<kind>/`` -> the schema stem that validates its files.
+#: The kinds are ``load.LEARN_KINDS``; case sources are a plain registry.
 LEARN_SCHEMAS = {
-    "rules": "learn-rules",
-    "domains": "learn-domains",
-    "quiz": "learn-quiz",
-    "cases": "learn-cases",
+    **{kind: f"learn-{kind}" for kind in LEARN_KINDS},
     "sources": "sources",
 }
 
@@ -427,6 +438,13 @@ def check_source_used(ctx: Context) -> list[str]:
 
 
 _PIPE = re.compile(r"(?<!\\)\|")
+#: An inline code span: a backtick run, text, the same run again.
+_CODE_SPAN = re.compile(r"(?<!`)(`+)(?!`).+?(?<!`)\1(?!`)")
+
+
+def _pipes(row: str) -> int:
+    """Column separators in a table row: not escaped, not inside a code span."""
+    return len(_PIPE.findall(_CODE_SPAN.sub("", row)))
 
 
 def check_table_columns(ctx: Context) -> list[str]:
@@ -438,9 +456,9 @@ def check_table_columns(ctx: Context) -> list[str]:
                 if block.kind != "table":
                     continue
                 rows = block.text.split("\n")
-                width = len(_PIPE.findall(rows[0])) - 1
+                width = _pipes(rows[0]) - 1
                 for row in rows[1:]:
-                    if len(_PIPE.findall(row)) - 1 != width:
+                    if _pipes(row) - 1 != width:
                         msgs.append(
                             f"section {sec.number}: a table row has a different column "
                             "count "
@@ -568,7 +586,11 @@ def check_override_agreement(ctx: Context) -> list[str]:
     for r in ctx.ds.rules:
         if "related_text" not in r:
             continue
-        named = sorted(expand_ids(r["related_text"], prefixes), key=key)
+        try:
+            named = sorted(expand_ids(r["related_text"], prefixes), key=key)
+        except ValueError as exc:
+            msgs.append(f"{r['id']} related_text: {exc}")
+            continue
         structured = sorted(
             (t for targets in r["related"].values() for t in targets), key=key
         )
@@ -687,6 +709,80 @@ def check_citations(ctx: Context) -> list[str]:
         msgs.extend(
             f"{where}: [@{s}] does not resolve" for s in slugs if s not in ctx.registry
         )
+    return msgs
+
+
+def check_checker_level_rule(ctx: Context) -> list[str]:
+    """The rule the rigor matrix names for the checker level is still that rule."""
+    rule = ctx.ds.rule_by_id().get(CHECKER_LEVEL_RULE)
+    if rule is None:
+        return [
+            f"the rigor matrix names {CHECKER_LEVEL_RULE} as the checker-level rule, "
+            "but rules.yaml has no such rule"
+        ]
+    if rule.get("name") != CHECKER_LEVEL_RULE_NAME:
+        return [
+            f"the rigor matrix names {CHECKER_LEVEL_RULE} as the checker-level rule, "
+            f"but its name is {rule.get('name')!r}, not {CHECKER_LEVEL_RULE_NAME!r}"
+        ]
+    return []
+
+
+def check_domain_anchors(ctx: Context) -> list[str]:
+    """Each domain's learn-page anchor is non-empty and unique within its branch."""
+    msgs: list[str] = []
+    seen: dict[tuple[str, str], str] = {}
+    for d in ctx.ds.domains["domains"]:
+        branch, domain = d["branch"], d["domain"]
+        anchor = anchor_slug(domain)
+        if not anchor:
+            msgs.append(f"domain {domain!r} ({branch}) has an empty anchor slug")
+            continue
+        other = seen.setdefault((branch, anchor), domain)
+        if other != domain:
+            msgs.append(
+                f"domains {other!r} and {domain!r} ({branch}) share the anchor "
+                f"{anchor!r}"
+            )
+    return msgs
+
+
+def _scorable(text: str, verbatim: bool) -> bool:
+    """Whether a quote passage has a part that ``verify-sources`` can score."""
+    if verbatim:
+        return sum(c.isalnum() for c in text) >= MIN_SEGMENT_CHARS
+    segments = quoted_segments(text)
+    return bool(segments) and all(split_ellipsis(seg) for seg in segments)
+
+
+def check_quote_passages(ctx: Context) -> list[str]:
+    """Every checkable quote has a scorable passage (>= 4 letters or digits).
+
+    A rule quote cell marks passages in double quotes; each passage needs a part
+    of at least 4 alphanumerics between ellipses. A case quote is one verbatim
+    passage of at least 4 alphanumerics. Placeholders, quotes without a source
+    and cross-reference cells ("see P18", which quote nothing) are not checked.
+    """
+    msgs: list[str] = []
+    cross_ref = re.compile(rf"see\s+{id_pattern(ctx.ds.meta['id_prefixes'])}")
+    for q in ctx.ds.quotes:
+        if q.get("placeholder") or not q.get("source"):
+            continue
+        if cross_ref.fullmatch(str(q.get("text", "")).strip()):
+            continue
+        if not _scorable(str(q.get("text", "")), verbatim=False):
+            msgs.append(
+                f"quote {q['id']} has no scorable quoted passage (a double-quoted "
+                f"passage with at least {MIN_SEGMENT_CHARS} letters or digits "
+                "between ellipses)"
+            )
+    for c in ctx.learn.cases:
+        for n, cq in enumerate(c.get("quotes", []), start=1):
+            if not _scorable(str(cq.get("text", "")), verbatim=True):
+                msgs.append(
+                    f"case quote {c.get('id')}#{n} has fewer than "
+                    f"{MIN_SEGMENT_CHARS} letters or digits"
+                )
     return msgs
 
 
@@ -1076,6 +1172,9 @@ CHECKS: dict[str, Callable[[Context], list[str]]] = {
     "id-map": check_id_map,
     "citations": check_citations,
     "registry-unique": check_registry_unique,
+    "checker-level-rule": check_checker_level_rule,
+    "domain-anchors": check_domain_anchors,
+    "quote-passages": check_quote_passages,
 }
 
 

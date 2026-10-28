@@ -19,6 +19,7 @@ import pytest
 
 from taxonomy import verify_sources as vs
 from taxonomy.cli import main
+from taxonomy.load import load_registry
 from taxonomy.model import Source
 
 FIXTURES = Path(__file__).parent / "fixtures" / "verify"
@@ -1106,3 +1107,274 @@ def test_forget_fetch_clears_from_cache() -> None:
     )
     vs._forget_fetch(res)
     assert not res.from_cache and res.sha256 is None and res.method is None
+
+
+# -- hardening (issues #25, #34, #19) ---------------------------------------
+
+
+def test_segment_without_scorable_part_never_scores_one() -> None:
+    hay = vs.normalize("ab cd and much more text")
+    assert vs.split_ellipsis("ab … cd") == []
+    assert vs.score_segment("ab … cd", hay) == 0.0
+    assert vs.score_segment("ab", hay) == 0.0
+
+
+def test_out_of_order_parts_stay_below_one(monkeypatch: pytest.MonkeyPatch) -> None:
+    hay = vs.normalize("alpha beta gamma delta epsilon zeta")
+    assert vs.score_segment("epsilon zeta ... alpha beta", hay) < 1.0
+    # Even if every part matched perfectly on its own, out of order is not a match.
+    monkeypatch.setattr(vs, "best_ratio", lambda needle, haystack: 1.0)
+    score = vs.score_segment("epsilon zeta ... alpha beta", hay)
+    assert score == vs.PARTIAL_MAX < 1.0
+
+
+def test_too_short_passage_is_no_quote_not_matched(repo: Path) -> None:
+    quotes = QUOTES.replace(
+        "'\"never appears in the page at all\"'", '\'"good words here" "ab … cd"\''
+    )
+    repo_with(repo, quotes)
+    t = FakeTransport({"https://b.example/": [ok(PAGE)]})
+    assert run_cli(repo, t, "--update-manifest", "Q2") == 0
+    entry = manifest_of(repo)["Q2"]
+    assert entry["result"] == "no-quote"
+    report = (repo / "build" / "report.md").read_text("utf-8")
+    assert "passage too short to verify" in report
+    assert not t.calls  # nothing fetched for an unverifiable quote
+
+
+def test_verbatim_no_quote_detail_is_not_about_double_quotes(repo: Path) -> None:
+    repo_with(repo)
+    res = vs.Verifier(
+        fetcher(repo, {})[0], {"alpha": src("https://a.example/")}
+    ).verify({"id": "c#1", "source": "alpha", "text": "!!", "verbatim": True})
+    assert res.result == "no-quote"
+    assert "double-quoted" not in res.detail and "too short" in res.detail
+
+
+def test_case_quote_missing_source_or_text_names_case_and_index(repo: Path) -> None:
+    repo_with(repo)
+    seed_cases(repo)
+    path = repo / "data" / "learn" / "cases" / "1.yaml"
+    no_text = CASES.replace("    text: this sentence", "    txt: this sentence")
+    path.write_text(no_text, encoding="utf-8")
+    with pytest.raises(ValueError, match=r"case case-demo: quote 2 has no `text`"):
+        vs.case_quotes(repo)
+    no_source = CASES.replace("  - source: alpha\n", "  - sourc: alpha\n")
+    path.write_text(no_source, encoding="utf-8")
+    with pytest.raises(ValueError, match=r"case case-demo: quote 1 has no `source`"):
+        vs.case_quotes(repo)
+
+
+def test_unknown_slug_is_a_clear_error(repo: Path) -> None:
+    repo_with(repo)
+    verifier = vs.Verifier(fetcher(repo, {})[0], {})
+    quote = {"id": "Q9", "source": "nope", "text": '"some long enough text"'}
+    with pytest.raises(vs.UnknownSourceError, match="Q9.*'nope'"):
+        verifier.verify(quote)
+    with pytest.raises(vs.UnknownSourceError, match="Q9.*'nope'"):
+        verifier.explain(quote)
+    f, _, _ = fetcher(repo, {"https://a.example/": [ok(PAGE)]})
+    verifier = vs.Verifier(f, {"alpha": src("https://a.example/")})
+    extra = {**quote, "source": "alpha", "extra_sources": ["ghost"]}
+    with pytest.raises(vs.UnknownSourceError, match="'ghost'"):
+        verifier.verify(extra)
+
+
+def _run_ids(repo: Path, **kwargs: object) -> tuple[int, list[str], list[str]]:
+    out: list[str] = []
+    err: list[str] = []
+    code = vs.run(
+        repo,
+        cache_dir=repo / "build" / "cache",
+        manifest=repo / "sources" / "verification.json",
+        transport=FakeTransport({"https://a.example/": [ok(PAGE)]}),
+        throttle=vs.Throttle(0, Clock().now, Clock().sleep),
+        echo=out.append,
+        echo_err=err.append,
+        **kwargs,  # type: ignore[arg-type]
+    )
+    return code, out, err
+
+
+def test_unknown_ids_exit_two_and_are_named(repo: Path) -> None:
+    repo_with(repo)
+    code, out, err = _run_ids(repo, only={"Q1", "Q99"})
+    assert code == 2 and not out and "--only" in err[0] and "Q99" in err[0]
+    assert "Q1," not in err[0]
+    # Q4 is a placeholder: not verifiable, so named too.
+    code, out, err = _run_ids(repo, explain={"Q98", "Q4"})
+    assert code == 2 and not out and "--explain" in err[0]
+    assert "Q4" in err[0] and "Q98" in err[0]
+
+
+def test_cli_unknown_only_exits_two(
+    repo: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    repo_with(repo)
+    monkeypatch.setattr(vs, "UrllibTransport", lambda: FakeTransport({}))
+    code = main(["--root", str(repo), "verify-sources", "--offline", "--only", "Q77"])
+    assert code == 2
+    assert "Q77" in capsys.readouterr().err
+    code = main(["--root", str(repo), "verify-sources", "--explain", "Q77,Q1"])
+    assert code == 2
+
+
+def test_explain_honours_cases_only(repo: Path) -> None:
+    repo_with(repo)
+    seed_cases(repo)
+    code, out, err = _run_ids(repo, explain={"Q1"}, cases_only=True)
+    assert code == 2 and "Q1" in err[0] and not out
+    code, out, _ = _run_ids(repo, explain={"case-demo#1"}, cases_only=True)
+    assert code == 0 and out[0] == "== case-demo#1"
+    assert not any(line.startswith("== Q") for line in out)
+
+
+def test_manifest_stores_quote_hash_and_check_date(repo: Path) -> None:
+    repo_with(repo)
+    seed_cases(repo)
+    t = FakeTransport(
+        {"https://a.example/": [ok(PAGE)], "https://b.example/": [ok(PAGE)]}
+    )
+    run_cli(repo, t, "--update-manifest", "Q1", "case-demo#1")
+    data = manifest_of(repo)
+    assert data["Q1"]["quote_sha256"] == vs.quote_hash(
+        'See "the context of creating, preserving, and realizing value"'
+    )
+    assert data["Q1"]["checked"] == data["Q1"]["fetched_at"]
+    assert data["case-demo#1"]["checked"] == data["case-demo#1"]["fetched_at"]
+    assert len(str(data["case-demo#1"]["quote_sha256"])) == 64
+
+
+def test_checked_is_the_run_date_not_a_constant(repo: Path) -> None:
+    repo_with(repo)
+    quote = {"id": "Q40", "source": "alpha", "text": '"the context of creating"'}
+    registry = {"alpha": src("https://a.example/")}
+    fetched, _, _ = fetcher(
+        repo,
+        {"https://a.example/": [ok(PAGE)]},
+        now=lambda: datetime(2026, 11, 3, 23, 59, tzinfo=UTC),
+    )
+    run_clock = lambda: datetime(2026, 11, 4, 1, 0, tzinfo=UTC)  # noqa: E731
+    res = vs.Verifier(fetched, registry, now=run_clock).verify(quote)
+    assert res.fetched_at == "2026-11-03"
+    assert vs.manifest_entry(res)["checked"] == "2026-11-03"
+    # No fetch date (offline, nothing cached): the run clock's UTC date.
+    (repo / "empty").mkdir()
+    offline, _, _ = fetcher(repo / "empty", {}, offline=True)
+    res = vs.Verifier(offline, registry, now=run_clock).verify(quote)
+    assert res.fetched_at is None
+    assert vs.manifest_entry(res)["checked"] == "2026-11-04"
+    # The archive lookup constants do not leak into the manifest.
+    assert vs.manifest_entry(res)["checked"] not in {"2026-10-14", "2026-10-27"}
+
+
+def test_manifest_drift_stale_and_orphaned() -> None:
+    quotes: list[dict[str, object]] = [
+        {"id": "Q1", "text": '"alpha beta"'},
+        {"id": "case-x#1", "text": "gamma delta", "verbatim": True},
+        {"id": "Q3", "text": '"unchanged text"'},
+    ]
+    entries: list[dict[str, object]] = [
+        {"id": "Q1", "quote_sha256": vs.quote_hash('"alpha beta gamma"')},
+        {"id": "case-x#1", "quote_sha256": vs.quote_hash("GAMMA  delta")},
+        {"id": "Q3"},  # no hash: legacy entry, re-verify
+        {"id": "Q7", "quote_sha256": vs.quote_hash("gone")},
+        {"id": "case-y#2", "quote_sha256": vs.quote_hash("gone")},
+    ]
+    drift = vs.manifest_drift(entries, quotes)
+    assert drift.stale == ["Q1", "Q3"]
+    assert drift.orphaned == ["Q7", "case-y#2"]
+
+
+def test_run_reports_stale_and_orphaned_entries(repo: Path) -> None:
+    repo_with(repo)
+    path = repo / "sources" / "verification.json"
+    path.write_text(
+        json.dumps(
+            [
+                {"id": "Q1", "quote_sha256": "0" * 64},
+                {
+                    "id": "Q2",
+                    "quote_sha256": vs.quote_hash('"never appears in the page at all"'),
+                },
+                {"id": "Q42", "quote_sha256": "0" * 64},
+            ]
+        ),
+        encoding="utf-8",
+    )
+    code, out, _ = _run_ids(repo, only={"Q3"})
+    text = "\n".join(out)
+    assert "stale manifest entries (re-verify needed): Q1" in text
+    assert "Q2" not in text.split("orphaned")[0]
+    assert "orphaned manifest entries: Q42" in text
+    # Re-verifying a stale quote with --update-manifest clears it.
+    code, out, _ = _run_ids(repo, only={"Q1"}, update_manifest=True)
+    assert not any("stale" in line for line in out)
+
+
+def test_case_quotes_use_their_own_archive_timestamp(repo: Path) -> None:
+    repo_with(repo)
+    seed_cases(repo)
+    snap = "http://web.archive.org/web/20261010101010/https://a.example/"
+    avail = json.dumps(
+        {"archived_snapshots": {"closest": {"available": True, "url": snap}}}
+    )
+    raw = "https://web.archive.org/web/20261010101010id_/https://a.example/"
+    wb = f"{vs.WAYBACK_API}?url=https%3A%2F%2Fa.example%2F&timestamp=20261027"
+    t = FakeTransport(
+        {
+            "https://a.example/": [ok("<p>teaser only</p>")],
+            wb: [ok(avail, "application/json")],
+            raw: [ok(PAGE)],
+        }
+    )
+    assert run_cli(repo, t, "--update-manifest", "case-demo#1") == 0
+    entry = manifest_of(repo)["case-demo#1"]
+    assert (entry["result"], entry["method"]) == ("matched", "archive")
+    assert any("timestamp=20261027" in u for u, _ in t.calls)
+
+
+def test_real_case_quotes_resolve_to_registered_sources() -> None:
+    root = Path(__file__).resolve().parent.parent
+    registry = load_registry(root)
+    quotes = vs.case_quotes(root)
+    assert quotes, "the real data/learn/cases/ must carry quotes"
+    unknown = [q["id"] for q in quotes if q["source"] not in registry]
+    assert not unknown, f"case quotes with unregistered sources: {unknown}"
+
+
+def test_source_copy_order_lives_in_one_place(tmp_path: Path) -> None:
+    f, _, _ = fetcher(tmp_path, {})
+    plain = src("https://o.example/")
+    assert f.copies(plain) == [
+        ("origin", "https://o.example/"),
+        ("archive", "https://o.example/"),
+    ]
+    via = src("https://o.example/", via={"title": "V", "url": "https://v.example/"})
+    assert [m for m, _ in f.copies(via)] == ["origin", "via", "archive"]
+    same = src("https://o.example/", via={"title": "V", "url": "https://o.example/"})
+    assert [m for m, _ in f.copies(same)] == ["origin", "archive"]
+
+
+def test_alternatives_are_the_copies_after_the_primary(tmp_path: Path) -> None:
+    snap = "http://web.archive.org/web/20261010101010/https://o.example/"
+    avail = json.dumps(
+        {"archived_snapshots": {"closest": {"available": True, "url": snap}}}
+    )
+    wb = f"{vs.WAYBACK_API}?url=https%3A%2F%2Fo.example%2F&timestamp=20261014"
+    raw = "https://web.archive.org/web/20261010101010id_/https://o.example/"
+    routes = {
+        "https://o.example/": [ok("<p>o</p>")],
+        "https://v.example/": [ok("<p>v</p>")],
+        wb: [ok(avail, "application/json")],
+        raw: [ok("<p>a</p>")],
+    }
+    f, _, _ = fetcher(tmp_path, routes)
+    s = src("https://o.example/", via={"title": "V", "url": "https://v.example/"})
+    primary = f.fetch_source(s)
+    assert primary.method == "origin"
+    assert [a.method for a in f.alternatives(s, primary)] == ["via", "archive"]
+    via_primary = f.get("https://v.example/", "via")
+    assert [a.method for a in f.alternatives(s, via_primary)] == ["archive"]
+    arch = f.archive("https://o.example/")
+    assert list(f.alternatives(s, arch)) == []
